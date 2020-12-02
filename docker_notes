@@ -1,0 +1,43 @@
+docker ps
+docker ps -a
+docker stop 
+docker rm
+docker rmi
+docker run  -p 8383:8080 -d webapp-color:lite  (-d = detached)
+docker images
+docker build -t imagename:tag .
+docker run -p hostport:containerport -e ENVIRONMENT_VAR=value --name beer imagename:tag
+docker inspect imagename
+docker run -d ubuntu sleep 1000
+docker network ls
+docker network create --driver bridge --subnet 182.18.0.0/16 custom-isolated-network
+DNS SERVER ADDRESS = 127.0.0.11
+docker network inspect bridge (or host)
+docker run --name alpine-2 --network=none alpine
+docker network create --driver bridge --subnet 182.18.0.1/24 --gateway 182.18.0.1 wp-mysql-network
+docker run -d --name mysql-db -e MYSQL_ROOT_PASSWORD=db_pass123 --network wp-mysql-network mysql:5.6
+docker run -d --network wp-mysql-network -e DB_Host=mysql-db \
+-p 38080:8080 --name webapp --link mysql-db:mysql-db kodekloud/simple-webapp-mysql 
+/var/lib/docker
+docker run -v date_volume:/var/lib/mysql mysql  <-- volume mount
+docker run -v /data/mysql:/var/lib/mysql mysql  <--bind mount
+docker run --mount type=bind, source=/data/mysql, target=/var/lib/mysql mysql  <-- same as above
+docker run --name mysql-db -e MYSQL_ROOT_PASSWORD=db_pass123 -d mysql
+docker run --name mysql-db -e MYSQL_ROOT_PASSWORD=db_pass123 -d -v /opt/data:/var/lib/mysql mysql
+______________ Compose _________________
+docker run -d -e POSTGRES_PASSWORD=mysecretpassword --name db postgres
+docker run -d --name wordpress --link db:db -p 8085:80 wordpress
+
+version: '3.0'
+services:
+  db:
+    environment:
+      - POSTGRES_PASSWORD=mysecretpassword
+    image: postgres
+  wordpress:
+    image: wordpress
+    links:
+      -db
+    ports:
+      - 8085:80
+docker-compose up
