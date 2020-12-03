@@ -21,13 +21,16 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: CreateDocx(title: 'Flutter Demo Home Page'),
+      home: CreateDocx(
+          title:
+              'MXOTech Account Manager placeholder page - Mike Beran, Will Terrill'),
     );
   }
 }
 
 class CreateDocx extends StatefulWidget {
-  CreateDocx({Key? key, required this.title}) : super(key: key);
+  // required      Key?
+  CreateDocx({Key key, this.title}) : super(key: key);
   final String title;
 
   @override
@@ -133,7 +136,7 @@ class _CreateDocxState extends State<CreateDocx> {
 
     js.context.callMethod("webSaveAs", <dynamic>[
       html.Blob(<List<int>>[d]),
-      "Bares.docx"
+      "Microsoft Word Test.docx"
     ]);
 
     // cleanup
@@ -151,14 +154,13 @@ class _CreateDocxState extends State<CreateDocx> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'You have pushed the button this many times:',
+              'Press the blue action button below to download a .docx file',
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
-        tooltip: 'Increment',
         child: Icon(Icons.add),
       ),
     );
