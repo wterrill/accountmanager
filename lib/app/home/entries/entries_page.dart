@@ -1,3 +1,4 @@
+import 'package:accountmanager/app/home/entries/DocXCreatorButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:accountmanager/app/home/entries/entries_view_model.dart';
@@ -32,9 +33,12 @@ class EntriesPage extends ConsumerWidget {
 
   Widget _buildContents(BuildContext context, ScopedReader watch) {
     final entriesTileModelStream = watch(entriesTileModelStreamProvider);
-    return ListItemsBuilder<EntriesListTileModel>(
-      data: entriesTileModelStream,
-      itemBuilder: (context, model) => EntriesListTile(model: model),
-    );
+    return Column(children: [
+      const DocXCreatorButton(),
+      ListItemsBuilder<EntriesListTileModel>(
+        data: entriesTileModelStream,
+        itemBuilder: (context, model) => EntriesListTile(model: model),
+      ),
+    ]);
   }
 }

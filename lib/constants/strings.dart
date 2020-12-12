@@ -13,7 +13,7 @@ class Strings {
   static const String signIn = 'Sign in';
   static const String signInWithEmailPassword =
       'Sign in with email and password';
-  static const String goAnonymous = 'Go anonymous';
+  static const String goAnonymous = 'Anonymous access';
   static const String or = 'or';
   static const String signInFailed = 'Sign in failed';
 
@@ -21,7 +21,7 @@ class Strings {
   static const String homePage = 'Home Page';
 
   // Jobs page
-  static const String jobs = 'Jobs';
+  static const String jobs = 'TBR Assignment';
 
   // Entries page
   static const String entries = 'Entries';

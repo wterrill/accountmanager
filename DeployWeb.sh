@@ -1,19 +1,19 @@
 
-rm lib/buildTime/flutterVersion.dart
-echo "Building flutterVersion.dart"
-echo "const Map<String,String> version = " >> lib/buildTime/flutterVersion.dart
-flutter --version --machine >> lib/buildTime/flutterVersion.dart
-echo ";" >> lib/buildTime/flutterVersion.dart
-# echo 'const String appVersion = "1.1.2 build 7";' >> lib/buildTime/flutterVersion.dart
-printf 'const String appVersion = "' >> lib/buildTime/flutterVersion.dart
-printf '%s' "$(grep 'version:' pubspec.yaml)" >> lib/buildTime/flutterVersion.dart
-printf '";' >> lib/buildTime/flutterVersion.dart
+rm lib/buildTime/flutter_version.dart
+echo "Building flutter_version.dart"
+echo "const Map<String,String> version = " >> lib/buildTime/flutter_version.dart
+flutter --version --machine >> lib/buildTime/flutter_version.dart
+echo ";" >> lib/buildTime/flutter_version.dart
+# echo 'const String appVersion = "1.1.2 build 7";' >> lib/buildTime/flutter_version.dart
+printf 'const String appVersion = "' >> lib/buildTime/flutter_version.dart
+printf '%s' "$(grep 'version:' pubspec.yaml)" >> lib/buildTime/flutter_version.dart
+printf '";' >> lib/buildTime/flutter_version.dart
 
-rm lib/buildTime/flutterDate.dart
-echo "Building flutterdate.dart"
-printf "const String buildDate  = \"" >> lib/buildTime/flutterDate.dart
-printf '%s' "$(date)" >> lib/buildTime/flutterDate.dart
-printf  "\";" >> lib/buildTime/flutterDate.dart
+rm lib/buildTime/flutter_date.dart
+echo "Building flutter_date.dart"
+printf "const String buildDate  = \"" >> lib/buildTime/flutter_date.dart
+printf '%s' "$(date)" >> lib/buildTime/flutter_date.dart
+printf  "\";" >> lib/buildTime/flutter_date.dart
 echo "Continuing flutter build"
 
 

@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:accountmanager/packages/email_password_sign_in_ui/test/email_password_sign_in_model.dart';
 import 'package:accountmanager/packages/email_password_sign_in_ui/test/email_password_sign_in_page.dart';
-import '../../string_validators/string_validators.dart';
+// import '../../string_validators/string_validators.dart';
 import '../../email_password_sign_in_ui/test/email_password_sign_in_strings.dart';
 
 class MockAuthService extends Mock implements FirebaseAuth {}

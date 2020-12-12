@@ -22,8 +22,7 @@ environment:
   sdk: ">=2.8.0-0.0.dev <3.0.0"
 
 dependencies:
-  flutter:
-    sdk: flutter
+
   cloud_firestore: ^0.14.0+1
   cupertino_icons: ^1.0.1
   docx_template: ^0.2.4
@@ -31,6 +30,8 @@ dependencies:
   firebase: ^7.3.3
   firebase_auth: ^0.18.4+1
   firebase_core: ^0.5.3
+  flutter:
+    sdk: flutter
   flutter_riverpod: ^0.10.1
   flutter_signin_button: ^1.1.0
   flutter_svg: ^0.19.1
@@ -45,8 +46,16 @@ dependencies:
   state_notifier: ^0.6.0
 
 dev_dependencies:
+  flutter_driver:
+    sdk: flutter
   flutter_test:
     sdk: flutter
+  # mockito: ^4.1.1
+  random_string: ^2.0.0
+  test: any
+
+
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -61,6 +70,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/docx/template.docx
+    - assets/time-tracking.svg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see
