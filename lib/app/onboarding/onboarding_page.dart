@@ -27,10 +27,11 @@ class OnboardingPage extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             FractionallySizedBox(
-              widthFactor: 0.5,
-              child: SvgPicture.asset('assets/time-tracking.svg',
-                  semanticsLabel: 'Time tracking logo'),
-            ),
+                widthFactor: 0.5,
+                child: Image.network('assets/time-tracking.svg')
+                // child: SvgPicture.asset('assets/time-tracking.svg',
+                //     semanticsLabel: 'Time tracking logo'),
+                ),
             CustomRaisedButton(
               onPressed: () => onGetStarted(context),
               color: Colors.indigo,
