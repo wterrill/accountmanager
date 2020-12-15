@@ -16,7 +16,7 @@
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+  <meta name="description" content="Manage well, manage quickly.">
 
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -38,7 +38,7 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('flutter-first-frame', function () {
-        navigator.serviceWorker.register('flutter_service_worker.js?v=299573671');
+        navigator.serviceWorker.register('flutter_service_worker.js?v=2881205926');
       });
     }
   </script>
@@ -55,16 +55,12 @@
   <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-firestore.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-analytics.js"></script>
-  <!-- <script src="./firebase-config.js"></script> -->
 
   <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-analytics.js"></script>
 
   <script>
     // Your web app's Firebase configuration
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-    // import {
-    //   firebaseConfig
-    // } from './firebase-config.js';
     var firebaseConfig = {
       apiKey: "AIzaSyCeHOCdG2CjCzxChmeDV1WdonR-KqD6BDY",
       authDomain: "mxotechaccountmanager.firebaseapp.com",
@@ -108,7 +104,7 @@
 <head>
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+  <meta name="description" content="Manage well, manage quickly.">
 
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -142,12 +138,21 @@
   <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-firestore.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-analytics.js"></script>
-  <script src="./firebase-config.js"></script>
+
 
   <!-- https://stackoverflow.com/questions/950087/how-do-i-include-a-javascript-file-in-another-javascript-file -->
   <script type="module">
     // Your web app's Firebase configuration
-    import { firebaseConfig } from './firebase-config.js';
+
+    var firebaseConfig = {
+  apiKey: "AIzaSyCeHOCdG2CjCzxChmeDV1WdonR-KqD6BDY",
+  authDomain: "mxotechaccountmanager.firebaseapp.com",
+  projectId: "mxotechaccountmanager",
+  storageBucket: "mxotechaccountmanager.appspot.com",
+  messagingSenderId: "430578183229",
+  appId: "1:430578183229:web:f810293696b95c42544e54",
+  measurementId: "G-GQD0ZLD62J"
+};
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     firebase.analytics();

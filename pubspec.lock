@@ -537,6 +537,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.0-nullsafety.4"
+  platform_svg:
+    dependency: "direct main"
+    description:
+      name: platform_svg
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.1"
   plugin_platform_interface:
     dependency: transitive
     description:

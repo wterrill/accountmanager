@@ -25,7 +25,7 @@ echo "building web version"
 # flutter build web -t lib/websiteMain.dart --release
 # flutter build web --profile --dart-define=Dart2jsOptimization=O0
 flutter build web --no-sound-null-safety --profile --dart-define=Dart2jsOptimization=O0
-echo "moving built web version to websiteTesting"
+echo "moving built web version to public folder"
 cp -fr ./build/web/* ./public/
 cp -fr ./assets/* ./public/ 
 

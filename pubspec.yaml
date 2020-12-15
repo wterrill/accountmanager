@@ -1,5 +1,5 @@
 name: accountmanager
-description: A new Flutter project.
+description: Manage well, manage quickly.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -22,7 +22,8 @@ environment:
   sdk: ">=2.8.0-0.0.dev <3.0.0"
 
 dependencies:
-
+  flutter:
+    sdk: flutter
   cloud_firestore: ^0.14.0+1
   cupertino_icons: ^1.0.1
   docx_template: ^0.2.4
@@ -30,8 +31,6 @@ dependencies:
   firebase: ^7.3.3
   firebase_auth: ^0.18.4+1
   firebase_core: ^0.5.3
-  flutter:
-    sdk: flutter
   flutter_riverpod: ^0.10.1
   flutter_signin_button: ^1.1.0
   flutter_svg: ^0.19.1
@@ -40,6 +39,7 @@ dependencies:
   js: ^0.6.2
   logger: ^0.9.4
   mockito: ^4.1.3
+  platform_svg: ^0.0.1
   provider: ^4.3.2+3
   rxdart: ^0.24.1
   shared_preferences: ^0.5.12+4
@@ -53,9 +53,6 @@ dev_dependencies:
   # mockito: ^4.1.1
   random_string: ^2.0.0
   test: any
-
-
-
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
