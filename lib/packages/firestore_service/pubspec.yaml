@@ -8,10 +8,9 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
-  cloud_firestore: ^0.14.0+1
   flutter:
     sdk: flutter
-  
+  cloud_firestore: ^0.14.0+1
 
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:accountmanager/app/home/job_entries/job_entries_page.dart';
-import 'package:accountmanager/app/home/models/job.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/job_entries/job_entries_page.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
 
 class CupertinoTabViewRoutes {
   static const jobEntriesPage = '/job-entries-page';

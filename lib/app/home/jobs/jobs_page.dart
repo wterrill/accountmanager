@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:accountmanager/app/home/job_entries/job_entries_page.dart';
-import 'package:accountmanager/app/home/jobs/edit_job_page.dart';
-import 'package:accountmanager/app/home/jobs/job_list_tile.dart';
-import 'package:accountmanager/app/home/jobs/list_items_builder.dart';
-import 'package:accountmanager/app/home/models/job.dart';
-import 'package:accountmanager/app/top_level_providers.dart';
-import 'package:accountmanager/constants/strings.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/job_entries/job_entries_page.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/jobs/edit_job_page.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/jobs/job_list_tile.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/jobs/list_items_builder.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
+import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
+import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 import 'package:pedantic/pedantic.dart';
-import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
+import 'package:starter_architecture_flutter_firebase/packages/alert_dialogs/alert_dialogs.dart';
 
 final jobsStreamProvider = StreamProvider.autoDispose<List<Job>>((ref) {
   final database = ref.watch(databaseProvider);
@@ -48,9 +48,9 @@ class JobsPage extends ConsumerWidget {
   }
 
   Widget _buildContents(BuildContext context, ScopedReader watch) {
-    final jobsStream = watch(jobsStreamProvider);
+    final jobsAsyncValue = watch(jobsStreamProvider);
     return ListItemsBuilder<Job>(
-      data: jobsStream,
+      data: jobsAsyncValue,
       itemBuilder: (context, job) => Dismissible(
         key: Key('job-${job.id}'),
         background: Container(color: Colors.red),

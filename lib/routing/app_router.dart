@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:accountmanager/app/home/job_entries/entry_page.dart';
-import 'package:accountmanager/app/home/jobs/edit_job_page.dart';
-import 'package:accountmanager/app/home/models/entry.dart';
-import 'package:accountmanager/app/home/models/job.dart';
-import 'package:accountmanager/packages/email_password_sign_in_ui/test/email_password_sign_in_page.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/job_entries/entry_page.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/jobs/edit_job_page.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/models/entry.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
+import 'package:starter_architecture_flutter_firebase/packages/email_password_sign_in_ui/test/email_password_sign_in_page.dart';
 
 class AppRoutes {
   static const emailPasswordSignInPage = '/email-password-sign-in-page';

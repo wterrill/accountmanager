@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
-import '../../email_password_sign_in_ui/test/email_password_sign_in_strings.dart';
 import '../../string_validators/string_validators.dart';
+import '../../email_password_sign_in_ui/test/email_password_sign_in_strings.dart';
 
 enum EmailPasswordSignInFormType { signIn, register, forgotPassword }
 

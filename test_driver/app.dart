@@ -1,11 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mockito/mockito.dart';
-import 'package:accountmanager/app/top_level_providers.dart';
-import 'package:accountmanager/main.dart';
+import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
+import 'package:starter_architecture_flutter_firebase/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_driver/driver_extension.dart';
-import 'package:accountmanager/services/firestore_database.dart';
+import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 
 import 'fake_auth_service.dart';
 

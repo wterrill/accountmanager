@@ -1,12 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:accountmanager/app/home/entries/daily_jobs_details.dart';
-import 'package:accountmanager/app/home/entries/entries_list_tile.dart';
-import 'package:accountmanager/app/home/entries/entry_job.dart';
-import 'package:accountmanager/app/home/job_entries/format.dart';
-import 'package:accountmanager/app/home/models/entry.dart';
-import 'package:accountmanager/app/home/models/job.dart';
-import 'package:accountmanager/services/firestore_database.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/entries/daily_jobs_details.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/entries/entries_list_tile.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/entries/entry_job.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/job_entries/format.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/models/entry.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
+import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
 
 class EntriesViewModel {
   EntriesViewModel({@required this.database});

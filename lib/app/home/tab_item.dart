@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:accountmanager/constants/keys.dart';
-import 'package:accountmanager/constants/strings.dart';
+import 'package:starter_architecture_flutter_firebase/constants/keys.dart';
+import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 
 enum TabItem { jobs, entries, account }
 

@@ -3,7 +3,7 @@ library google_sign_in_service;
 import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:firebase_auth_service/firebase_auth_service.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:accountmanager/packages/firebase_auth_service/firebase_auth_service.dart';
+import 'package:starter_architecture_flutter_firebase/packages/firebase_auth_service/firebase_auth_service.dart';
 
 class GoogleSignInService {
   Future<AppUser> signInWithGoogle() async {

@@ -5,12 +5,10 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "accountmanager",
+      "name": "starter_architecture_flutter_firebase",
       "request": "launch",
       "type": "dart",
-      "args": [
-        "--no-sound-null-safety",
-      ],
+      "args": ["--no-sound-null-safety"],
     }
   ]
 }

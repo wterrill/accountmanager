@@ -4,15 +4,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:accountmanager/app/home/job_entries/entry_list_item.dart';
-import 'package:accountmanager/app/home/job_entries/entry_page.dart';
-import 'package:accountmanager/app/home/jobs/edit_job_page.dart';
-import 'package:accountmanager/app/home/jobs/list_items_builder.dart';
-import 'package:accountmanager/app/home/models/entry.dart';
-import 'package:accountmanager/app/home/models/job.dart';
-import 'package:accountmanager/app/top_level_providers.dart';
-import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
-import 'package:accountmanager/routing/cupertino_tab_view_router.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/job_entries/entry_list_item.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/job_entries/entry_page.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/jobs/edit_job_page.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/jobs/list_items_builder.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/models/entry.dart';
+import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
+import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
+import 'package:starter_architecture_flutter_firebase/packages/alert_dialogs/alert_dialogs.dart';
+import 'package:starter_architecture_flutter_firebase/routing/cupertino_tab_view_router.dart';
 import 'package:pedantic/pedantic.dart';
 
 class JobEntriesPage extends StatelessWidget {
@@ -69,8 +69,8 @@ class JobEntriesAppBarTitle extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final jobStream = watch(jobStreamProvider(job.id));
-    return jobStream.when(
+    final jobAsyncValue = watch(jobStreamProvider(job.id));
+    return jobAsyncValue.when(
       data: (job) => Text(job.name),
       loading: () => Container(),
       error: (_, __) => Container(),

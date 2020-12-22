@@ -2,11 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:accountmanager/app/onboarding/onboarding_view_model.dart';
-import 'package:accountmanager/packages/custom_buttons/custom_buttons.dart';
-import 'package:platform_svg/platform_svg.dart';
-
-// import 'package:accountmanager/packages/custom_buttons/lib/custom_buttons.dart';
+import 'package:starter_architecture_flutter_firebase/app/onboarding/onboarding_view_model.dart';
+import 'package:starter_architecture_flutter_firebase/packages/custom_buttons/custom_buttons.dart';
+// import 'package:starter_architecture_flutter_firebase/packages/custom_buttons/lib/custom_buttons.dart';
 
 class OnboardingPage extends StatelessWidget {
   Future<void> onGetStarted(BuildContext context) async {
@@ -29,12 +27,10 @@ class OnboardingPage extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             FractionallySizedBox(
-                widthFactor: 0.2,
-                child: PlatformSvg.asset('assets/time-tracking.svg')
-                // child: Image.network('/assets/time-tracking.svg')
-                // child: SvgPicture.asset('assets/time-tracking.svg',
-                //     semanticsLabel: 'Time tracking logo'),
-                ),
+              widthFactor: 0.5,
+              child: SvgPicture.asset('assets/time-tracking.svg',
+                  semanticsLabel: 'Time tracking logo'),
+            ),
             CustomRaisedButton(
               onPressed: () => onGetStarted(context),
               color: Colors.indigo,

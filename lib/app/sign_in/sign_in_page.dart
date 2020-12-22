@@ -1,15 +1,15 @@
 import 'dart:math';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:accountmanager/app/top_level_providers.dart';
-import 'package:accountmanager/app/sign_in/sign_in_view_model.dart';
-import 'package:accountmanager/app/sign_in/sign_in_button.dart';
-import 'package:accountmanager/constants/keys.dart';
-import 'package:accountmanager/constants/strings.dart';
+import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
+import 'package:starter_architecture_flutter_firebase/app/sign_in/sign_in_view_model.dart';
+import 'package:starter_architecture_flutter_firebase/app/sign_in/sign_in_button.dart';
+import 'package:starter_architecture_flutter_firebase/constants/keys.dart';
+import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
-import 'package:accountmanager/routing/app_router.dart';
+import 'package:starter_architecture_flutter_firebase/packages/alert_dialogs/alert_dialogs.dart';
+import 'package:starter_architecture_flutter_firebase/routing/app_router.dart';
 
 final signInModelProvider = ChangeNotifierProvider<SignInViewModel>(
   (ref) => SignInViewModel(auth: ref.watch(firebaseAuthProvider)),
@@ -32,7 +32,7 @@ class SignInPage extends ConsumerWidget {
       },
       child: SignInPageContents(
         viewModel: signInModel,
-        title: 'MXOTech Account Manager Demo',
+        title: 'Architecture Demo',
       ),
     );
   }
@@ -40,7 +40,7 @@ class SignInPage extends ConsumerWidget {
 
 class SignInPageContents extends StatelessWidget {
   const SignInPageContents(
-      {Key key, this.viewModel, this.title = 'MXOTech Account Manager Demo'})
+      {Key key, this.viewModel, this.title = 'Architecture Demo'})
       : super(key: key);
   final SignInViewModel viewModel;
   final String title;
