@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/tab_item.dart';
-import 'package:starter_architecture_flutter_firebase/constants/keys.dart';
-import 'package:starter_architecture_flutter_firebase/routing/cupertino_tab_view_router.dart';
+import 'package:accountmanager/app/home/tab_item.dart';
+import 'package:accountmanager/constants/keys.dart';
+import 'package:accountmanager/routing/cupertino_tab_view_router.dart';
 
 @immutable
 class CupertinoHomeScaffold extends StatelessWidget {

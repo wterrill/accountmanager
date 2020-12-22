@@ -1,15 +1,15 @@
 import 'dart:math';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
-import 'package:starter_architecture_flutter_firebase/app/sign_in/sign_in_view_model.dart';
-import 'package:starter_architecture_flutter_firebase/app/sign_in/sign_in_button.dart';
-import 'package:starter_architecture_flutter_firebase/constants/keys.dart';
-import 'package:starter_architecture_flutter_firebase/constants/strings.dart';
+import 'package:accountmanager/app/top_level_providers.dart';
+import 'package:accountmanager/app/sign_in/sign_in_view_model.dart';
+import 'package:accountmanager/app/sign_in/sign_in_button.dart';
+import 'package:accountmanager/constants/keys.dart';
+import 'package:accountmanager/constants/strings.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:starter_architecture_flutter_firebase/packages/alert_dialogs/alert_dialogs.dart';
-import 'package:starter_architecture_flutter_firebase/routing/app_router.dart';
+import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
+import 'package:accountmanager/routing/app_router.dart';
 
 final signInModelProvider = ChangeNotifierProvider<SignInViewModel>(
   (ref) => SignInViewModel(auth: ref.watch(firebaseAuthProvider)),

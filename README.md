@@ -224,7 +224,7 @@ This is great because all the logic for setting up the `StreamProvider` lives in
 
 In addition to the top-level providers and the `StreamProvider`s that read data from Firestore, Riverpod is also used to create and configure view models for widgets that require local state.
 
-These view models can hold any app-specific business logic, and if they're based on `ChangeNotifier` or `StateNotifier`, they can be easily hooked up to their widgets with corresponding providers. See the [SignInViewModel](https://github.com/bizz84/starter_architecture_flutter_firebase/blob/master/lib/app/sign_in/sign_in_view_model.dart) and [SignInPage](https://github.com/bizz84/starter_architecture_flutter_firebase/blob/master/lib/app/sign_in/sign_in_page.dart) widget for an example of this.
+These view models can hold any app-specific business logic, and if they're based on `ChangeNotifier` or `StateNotifier`, they can be easily hooked up to their widgets with corresponding providers. See the [SignInViewModel](https://github.com/bizz84/accountmanager/blob/master/lib/app/sign_in/sign_in_view_model.dart) and [SignInPage](https://github.com/bizz84/accountmanager/blob/master/lib/app/sign_in/sign_in_page.dart) widget for an example of this.
 
 ## Project structure
 
@@ -287,7 +287,7 @@ class APIPath {
 Domain-level model classes are defined, along with `fromMap()` and `toMap()` methods for serialization.
 These classes are strongly-typed and immutable.
 
-See the [FirestoreDatabase](https://github.com/bizz84/starter_architecture_flutter_firebase/blob/master/lib/services/firestore_database.dart) and [FirestoreService](https://github.com/bizz84/starter_architecture_flutter_firebase/blob/master/lib/services/firestore_service.dart) classes for a full picture of how everything fits together.
+See the [FirestoreDatabase](https://github.com/bizz84/accountmanager/blob/master/lib/services/firestore_database.dart) and [FirestoreService](https://github.com/bizz84/accountmanager/blob/master/lib/services/firestore_service.dart) classes for a full picture of how everything fits together.
 
 ## Routing
 
@@ -345,7 +345,7 @@ To use this project with Firebase, some configuration steps are required.
 
 - Create a new project with the Firebase console.
 - Add iOS and Android apps in the Firebase project settings.
-- On Android, use `com.example.starter_architecture_flutter_firebase` as the package name.
+- On Android, use `com.example.accountmanager` as the package name.
 - then, [download and copy](https://firebase.google.com/docs/flutter/setup#configure_an_android_app) `google-services.json` into `android/app`.
 - On iOS, use `com.example.starterArchitectureFlutterFirebase` as the bundle ID.
 - then, [download and copy](https://firebase.google.com/docs/flutter/setup#configure_an_ios_app) `GoogleService-Info.plist` into `iOS/Runner`, and add it to the Runner target in Xcode.

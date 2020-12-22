@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:starter_architecture_flutter_firebase/app/home/models/job.dart';
-import 'package:starter_architecture_flutter_firebase/app/top_level_providers.dart';
-import 'package:starter_architecture_flutter_firebase/packages/alert_dialogs/alert_dialogs.dart';
-import 'package:starter_architecture_flutter_firebase/routing/app_router.dart';
-import 'package:starter_architecture_flutter_firebase/services/firestore_database.dart';
+import 'package:accountmanager/app/home/models/job.dart';
+import 'package:accountmanager/app/top_level_providers.dart';
+import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
+import 'package:accountmanager/routing/app_router.dart';
+import 'package:accountmanager/services/firestore_database.dart';
 import 'package:pedantic/pedantic.dart';
 
 class EditJobPage extends StatefulWidget {

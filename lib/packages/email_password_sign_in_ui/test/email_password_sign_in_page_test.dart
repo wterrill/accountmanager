@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:starter_architecture_flutter_firebase/packages/email_password_sign_in_ui/test/email_password_sign_in_model.dart';
-import 'package:starter_architecture_flutter_firebase/packages/email_password_sign_in_ui/test/email_password_sign_in_page.dart';
+import 'package:accountmanager/packages/email_password_sign_in_ui/test/email_password_sign_in_model.dart';
+import 'package:accountmanager/packages/email_password_sign_in_ui/test/email_password_sign_in_page.dart';
 import '../../string_validators/string_validators.dart';
 import '../../email_password_sign_in_ui/test/email_password_sign_in_strings.dart';
 

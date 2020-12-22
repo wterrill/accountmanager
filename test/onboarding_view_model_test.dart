@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:starter_architecture_flutter_firebase/app/onboarding/onboarding_view_model.dart';
+import 'package:accountmanager/app/onboarding/onboarding_view_model.dart';
 import 'mocks.dart';
 
 void main() {

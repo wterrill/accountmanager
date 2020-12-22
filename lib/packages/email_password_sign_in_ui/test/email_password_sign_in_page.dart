@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:starter_architecture_flutter_firebase/packages/email_password_sign_in_ui/test/email_password_sign_in_model.dart';
+import 'package:accountmanager/packages/email_password_sign_in_ui/test/email_password_sign_in_model.dart';
 import '../../alert_dialogs/alert_dialogs.dart';
 import '../../custom_buttons/custom_buttons.dart';
 

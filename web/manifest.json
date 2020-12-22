@@ -1,6 +1,6 @@
 {
-    "name": "starter_architecture_flutter_firebase",
-    "short_name": "starter_architecture_flutter_firebase",
+    "name": "accountmanager",
+    "short_name": "accountmanager",
     "start_url": ".",
     "display": "minimal-ui",
     "background_color": "#0175C2",
