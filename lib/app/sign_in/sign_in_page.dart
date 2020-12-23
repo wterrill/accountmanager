@@ -15,6 +15,8 @@ final signInModelProvider = ChangeNotifierProvider<SignInViewModel>(
   (ref) => SignInViewModel(auth: ref.watch(firebaseAuthProvider)),
 );
 
+String filename = 'sign_in_page.dart: ';
+
 class SignInPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
@@ -53,8 +55,9 @@ class SignInPageContents extends StatelessWidget {
     await navigator.pushNamed(
       AppRoutes.emailPasswordSignInPage,
       arguments: () {
-        print('navigator pop');
         print(navigator.toString());
+        print(navigator.toStringShort());
+        print('$filename navigator.pop()');
         navigator.pop();
       },
     );

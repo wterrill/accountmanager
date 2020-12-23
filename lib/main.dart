@@ -12,12 +12,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:accountmanager/services/shared_preferences_service.dart';
 
+String filename = 'main.dart:';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   final sharedPreferences = await SharedPreferences.getInstance();
   runApp(ProviderScope(
     overrides: [
+      // override the behavior  to provide a fake
+      // implementation for test purposes.
       sharedPreferencesServiceProvider.overrideWithValue(
         SharedPreferencesService(sharedPreferences),
       ),
@@ -29,22 +32,35 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    print('$filename MyApp build method');
     final firebaseAuth = context.read(firebaseAuthProvider);
+    print('$filename  firebaseAuth in MyApp = $firebaseAuth');
     return MaterialApp(
       theme: ThemeData(primarySwatch: Colors.indigo),
       debugShowCheckedModeBanner: false,
       home: AuthWidget(
-        nonSignedInBuilder: (_) => Consumer(
-          builder: (context, watch, _) {
-            final didCompleteOnboarding =
-                watch(onboardingViewModelProvider.state);
-            return didCompleteOnboarding ? SignInPage() : OnboardingPage();
-          },
-        ),
-        signedInBuilder: (_) => HomePage(),
+        nonSignedInBuilder: (_) {
+          print('$filename nonSignedInBuilder');
+          return Consumer(
+            builder: (context, watch, _) {
+              final didCompleteOnboarding =
+                  watch(onboardingViewModelProvider.state);
+              print('$filename didCompleteOnboarding = $didCompleteOnboarding');
+              print(
+                  didCompleteOnboarding ? 'SignInPage()' : 'OnboardingPage()');
+              return didCompleteOnboarding ? SignInPage() : OnboardingPage();
+            },
+          );
+        },
+        signedInBuilder: (_) {
+          print('$filename signedInBuilder returns HomePage()');
+          return HomePage();
+        },
       ),
-      onGenerateRoute: (settings) =>
-          AppRouter.onGenerateRoute(settings, firebaseAuth),
+      onGenerateRoute: (settings) {
+        print('$filename onGenerateRoute $settings');
+        return AppRouter.onGenerateRoute(settings, firebaseAuth);
+      },
     );
   }
 }

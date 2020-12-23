@@ -10,6 +10,8 @@ import '../../custom_buttons/custom_buttons.dart';
 import '../../string_validators/string_validators.dart';
 import '../../email_password_sign_in_ui/test/email_password_sign_in_strings.dart';
 
+String filename = 'email_password_sign_in_page.dart: ';
+
 class EmailPasswordSignInPage extends StatefulWidget {
   const EmailPasswordSignInPage(
       {Key key, @required this.model, this.onSignedIn})
@@ -62,10 +64,13 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
   }
 
   Future<void> _submit() async {
+    print('$filename _submit reached');
     try {
       final bool success = await model.submit();
       print('success=$success');
       if (success) {
+        print(
+            '$filename _submit, success=$success, forgotPassword=${model.formType == EmailPasswordSignInFormType.forgotPassword}');
         if (model.formType == EmailPasswordSignInFormType.forgotPassword) {
           await showAlertDialog(
             context: context,
@@ -74,7 +79,10 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
             defaultActionText: EmailPasswordSignInStrings.ok,
           );
         } else {
+          print(
+              '$filename widget.onSignedIn =null? ${widget.onSignedIn != null}');
           if (widget.onSignedIn != null) {
+            print('$filename ${widget.onSignedIn}');
             widget.onSignedIn();
           }
         }
