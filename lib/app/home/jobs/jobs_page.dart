@@ -33,6 +33,7 @@ class JobsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
+    print('build jobs_page.dart');
     return Scaffold(
       appBar: AppBar(
         title: const Text(Strings.jobs),

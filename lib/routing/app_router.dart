@@ -16,6 +16,7 @@ class AppRouter {
   static Route<dynamic> onGenerateRoute(
       RouteSettings settings, FirebaseAuth firebaseAuth) {
     final args = settings.arguments;
+    print('args=$args');
     switch (settings.name) {
       case AppRoutes.emailPasswordSignInPage:
         return MaterialPageRoute<dynamic>(

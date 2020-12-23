@@ -64,6 +64,7 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
   Future<void> _submit() async {
     try {
       final bool success = await model.submit();
+      print('success=$success');
       if (success) {
         if (model.formType == EmailPasswordSignInFormType.forgotPassword) {
           await showAlertDialog(

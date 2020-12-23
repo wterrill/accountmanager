@@ -13,6 +13,7 @@ class EditJobPage extends StatefulWidget {
   final Job job;
 
   static Future<void> show(BuildContext context, {Job job}) async {
+    print('edit_job_page -> show');
     await Navigator.of(context, rootNavigator: true).pushNamed(
       AppRoutes.editJobPage,
       arguments: job,

@@ -20,14 +20,19 @@ class JobEntriesPage extends StatelessWidget {
   final Job job;
 
   static Future<void> show(BuildContext context, Job job) async {
+    print('JobEntriesPage.show');
+    print(job);
+    print(CupertinoTabViewRoutes.jobEntriesPage);
     await Navigator.of(context).pushNamed(
       CupertinoTabViewRoutes.jobEntriesPage,
       arguments: job,
     );
+    print('after Navigator.of(context).pushNamed()');
   }
 
   @override
   Widget build(BuildContext context) {
+    print('build inside job_entries_page');
     return Scaffold(
       appBar: AppBar(
         elevation: 2.0,
@@ -57,6 +62,7 @@ class JobEntriesPage extends StatelessWidget {
 
 final jobStreamProvider =
     StreamProvider.autoDispose.family<Job, String>((ref, jobId) {
+  print('jobStreamProvider in job_entries_page');
   final database = ref.watch(databaseProvider);
   return database != null && jobId != null
       ? database.jobStream(jobId: jobId)
@@ -80,6 +86,7 @@ class JobEntriesAppBarTitle extends ConsumerWidget {
 
 final jobEntriesStreamProvider =
     StreamProvider.autoDispose.family<List<Entry>, Job>((ref, job) {
+  print('jobEntriesStreamProvider enter');
   final database = ref.watch(databaseProvider);
   return database != null && job != null
       ? database.entriesStream(job: job)
@@ -106,6 +113,8 @@ class JobEntriesContents extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
+    print('build in JobEntriesContents');
+    print('job=$job');
     final entriesStream = watch(jobEntriesStreamProvider(job));
     return ListItemsBuilder<Entry>(
       data: entriesStream,

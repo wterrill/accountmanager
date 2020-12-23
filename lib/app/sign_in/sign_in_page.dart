@@ -52,7 +52,11 @@ class SignInPageContents extends StatelessWidget {
     final navigator = Navigator.of(context);
     await navigator.pushNamed(
       AppRoutes.emailPasswordSignInPage,
-      arguments: () => navigator.pop(),
+      arguments: () {
+        print('navigator pop');
+        print(navigator.toString());
+        navigator.pop();
+      },
     );
   }
 
