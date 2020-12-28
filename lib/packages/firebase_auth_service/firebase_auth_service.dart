@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 
+String filename = 'firebase_auth_service.dart: ';
+
 @immutable
 class AppUser {
   const AppUser({
@@ -19,6 +21,7 @@ class AppUser {
   final String displayName;
 
   factory AppUser.fromFirebaseUser(User user) {
+    print('$filename AppUser.fromFirebaseUser');
     if (user == null) {
       return null;
     }
@@ -35,45 +38,50 @@ class AppUser {
       'uid: $uid, email: $email, photoUrl: $photoURL, displayName: $displayName';
 }
 
-class FirebaseAuthService {
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+// class FirebaseAuthService {
+//   FirebaseAuthService() {
+//     print('$filename FirebaseAuthService constructed');
+//   }
 
-  Stream<AppUser> authStateChanges() {
-    return _firebaseAuth
-        .authStateChanges()
-        .map((user) => AppUser.fromFirebaseUser(user));
-  }
+//   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-  Future<AppUser> signInAnonymously() async {
-    final userCredential = await _firebaseAuth.signInAnonymously();
-    return AppUser.fromFirebaseUser(userCredential.user);
-  }
+//   Stream<AppUser> authStateChanges() {
+//     return _firebaseAuth
+//         .authStateChanges()
+//         .map((user) => AppUser.fromFirebaseUser(user));
+//   }
 
-  Future<AppUser> signInWithEmailAndPassword(
-      String email, String password) async {
-    final userCredential =
-        await _firebaseAuth.signInWithCredential(EmailAuthProvider.credential(
-      email: email,
-      password: password,
-    ));
-    return AppUser.fromFirebaseUser(userCredential.user);
-  }
+//   Future<AppUser> signInAnonymously() async {
+//     final userCredential = await _firebaseAuth.signInAnonymously();
+//     return AppUser.fromFirebaseUser(userCredential.user);
+//   }
 
-  Future<AppUser> createUserWithEmailAndPassword(
-      String email, String password) async {
-    final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
-        email: email, password: password);
-    return AppUser.fromFirebaseUser(userCredential.user);
-  }
+//   Future<AppUser> signInWithEmailAndPassword(
+//       String email, String password) async {
+//     print('$filename entered signInWithEmailAndPassword');
+//     final userCredential =
+//         await _firebaseAuth.signInWithCredential(EmailAuthProvider.credential(
+//       email: email,
+//       password: password,
+//     ));
+//     return AppUser.fromFirebaseUser(userCredential.user);
+//   }
 
-  Future<void> sendPasswordResetEmail(String email) async {
-    await _firebaseAuth.sendPasswordResetEmail(email: email);
-  }
+//   Future<AppUser> createUserWithEmailAndPassword(
+//       String email, String password) async {
+//     final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
+//         email: email, password: password);
+//     return AppUser.fromFirebaseUser(userCredential.user);
+//   }
 
-  AppUser get currentUser =>
-      AppUser.fromFirebaseUser(_firebaseAuth.currentUser);
+//   Future<void> sendPasswordResetEmail(String email) async {
+//     await _firebaseAuth.sendPasswordResetEmail(email: email);
+//   }
 
-  Future<void> signOut() async {
-    return _firebaseAuth.signOut();
-  }
-}
+//   AppUser get currentUser =>
+//       AppUser.fromFirebaseUser(_firebaseAuth.currentUser);
+
+//   Future<void> signOut() async {
+//     return _firebaseAuth.signOut();
+//   }
+// }

@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/app/sign_in/sign_in_view_model.dart';
@@ -10,6 +11,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
 import 'package:accountmanager/routing/app_router.dart';
+// import 'package:pedantic/pedantic.dart';
 
 final signInModelProvider = ChangeNotifierProvider<SignInViewModel>(
   (ref) => SignInViewModel(auth: ref.watch(firebaseAuthProvider)),
@@ -50,11 +52,13 @@ class SignInPageContents extends StatelessWidget {
   static const Key emailPasswordButtonKey = Key(Keys.emailPassword);
   static const Key anonymousButtonKey = Key(Keys.anonymous);
 
-  Future<void> _showEmailPasswordSignInPage(BuildContext context) async {
+  Future<void> _showEmailPasswordSignInPage(
+      BuildContext context, FirebaseAuth firebaseAuth) async {
     final navigator = Navigator.of(context);
+
     await navigator.pushNamed(
       AppRoutes.emailPasswordSignInPage,
-      arguments: () {
+      arguments: () async {
         print(navigator.toString());
         print(navigator.toStringShort());
         print('$filename navigator.pop()');
@@ -109,7 +113,8 @@ class SignInPageContents extends StatelessWidget {
                 text: Strings.signInWithEmailPassword,
                 onPressed: viewModel.isLoading
                     ? null
-                    : () => _showEmailPasswordSignInPage(context),
+                    : () => _showEmailPasswordSignInPage(
+                        context, FirebaseAuth.instance),
                 textColor: Colors.white,
                 color: Theme.of(context).primaryColor,
               ),

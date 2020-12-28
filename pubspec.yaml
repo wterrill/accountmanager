@@ -43,7 +43,7 @@ dependencies:
   firebase_auth: ^0.18.4+1
   firebase_core: ^0.5.3
   flutter_riverpod: ^0.10.1
-  flutter_signin_button: ^1.1.0
+  # flutter_signin_button: ^1.1.0
   flutter_svg: ^0.19.1
   google_sign_in: ^4.5.6
   intl: ^0.16.1

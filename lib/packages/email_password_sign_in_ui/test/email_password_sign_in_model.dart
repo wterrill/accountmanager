@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 import '../../string_validators/string_validators.dart';
 import '../../email_password_sign_in_ui/test/email_password_sign_in_strings.dart';
 
+String filename = 'email_password_sign_in_model.dart';
+
 enum EmailPasswordSignInFormType { signIn, register, forgotPassword }
 
 class EmailAndPasswordValidators {
@@ -35,16 +37,21 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
   bool submitted;
 
   Future<bool> submit() async {
+    print('$filename submit() inside EmailPasswordSignInModel');
     try {
       updateWith(submitted: true);
       if (!canSubmit) {
+        print('$filename submit() will return false');
         return false;
       }
       updateWith(isLoading: true);
       switch (formType) {
         case EmailPasswordSignInFormType.signIn:
+          print('$filename case EmailPasswordSignInFormType.signIn');
           await firebaseAuth.signInWithCredential(
               EmailAuthProvider.credential(email: email, password: password));
+          print('$filename new notifyListeners in switch (formType)');
+          notifyListeners();
           break;
         case EmailPasswordSignInFormType.register:
           await firebaseAuth.createUserWithEmailAndPassword(
@@ -88,6 +95,7 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
     this.formType = formType ?? this.formType;
     this.isLoading = isLoading ?? this.isLoading;
     this.submitted = submitted ?? this.submitted;
+    print('$filename OLD notifyListeners in updateWith()');
     notifyListeners();
   }
 
@@ -161,10 +169,12 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
   }
 
   bool get canSubmit {
+    print('$filename inside canSubmit');
     final bool canSubmitFields =
         formType == EmailPasswordSignInFormType.forgotPassword
             ? canSubmitEmail
             : canSubmitEmail && canSubmitPassword;
+    print('canSubmitFields && !isLoading = ${canSubmitFields && !isLoading}');
     return canSubmitFields && !isLoading;
   }
 

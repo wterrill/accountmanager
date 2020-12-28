@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 
+String filename = 'sign_in_view_model.dart: ';
+
 class SignInViewModel with ChangeNotifier {
   SignInViewModel({@required this.auth});
   final FirebaseAuth auth;
@@ -11,6 +13,7 @@ class SignInViewModel with ChangeNotifier {
   dynamic error;
 
   Future<void> _signIn(Future<UserCredential> Function() signInMethod) async {
+    print('$filename _signIn reached');
     try {
       isLoading = true;
       notifyListeners();

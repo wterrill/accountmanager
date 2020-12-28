@@ -12,8 +12,8 @@ class OnboardingPage extends StatelessWidget {
   Future<void> onGetStarted(BuildContext context) async {
     final onboardingViewModel = context.read(onboardingViewModelProvider);
     await onboardingViewModel.completeOnboarding();
-    await onboardingViewModel
-        .deleteOnboarding(); // This is to always show the onboarding screen
+    // await onboardingViewModel
+    //     .deleteOnboarding(); // This is to always show the onboarding screen
   }
 
   @override
