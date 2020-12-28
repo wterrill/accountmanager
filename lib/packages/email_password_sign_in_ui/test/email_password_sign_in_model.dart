@@ -48,6 +48,9 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
       switch (formType) {
         case EmailPasswordSignInFormType.signIn:
           print('$filename case EmailPasswordSignInFormType.signIn');
+          if (firebaseAuth.currentUser != null) {
+            firebaseAuth.signOut();
+          }
           await firebaseAuth.signInWithCredential(
               EmailAuthProvider.credential(email: email, password: password));
           print('$filename new notifyListeners in switch (formType)');
