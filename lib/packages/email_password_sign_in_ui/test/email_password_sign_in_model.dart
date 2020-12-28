@@ -53,8 +53,8 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
           }
           await firebaseAuth.signInWithCredential(
               EmailAuthProvider.credential(email: email, password: password));
-          print('$filename new notifyListeners in switch (formType)');
-          notifyListeners();
+          // print('$filename new notifyListeners in switch (formType)');
+          // notifyListeners();
           break;
         case EmailPasswordSignInFormType.register:
           await firebaseAuth.createUserWithEmailAndPassword(
@@ -98,7 +98,7 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
     this.formType = formType ?? this.formType;
     this.isLoading = isLoading ?? this.isLoading;
     this.submitted = submitted ?? this.submitted;
-    print('$filename OLD notifyListeners in updateWith()');
+    // print('$filename OLD notifyListeners in updateWith()');
     notifyListeners();
   }
 

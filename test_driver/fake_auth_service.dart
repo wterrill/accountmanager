@@ -234,21 +234,6 @@ class FakeAuthService implements FirebaseAuth {
     throw UnimplementedError();
   }
 
-  // @override
-  // Future<String> signInWithPhoneNumber(String smsCode) async {
-  //   // final AuthCredential credential = PhoneAuthProvider.getCredential(
-  //   //   verificationId: verificationId,
-  //   //   smsCode: smsCode,
-  //   // );
-  //   // final FirebaseUser user = await _auth.signInWithCredential(credential);
-  //   // final FirebaseUser currentUser = await _auth.currentUser();
-  //   // assert(user.uid == currentUser.uid);
-
-  //   // _smsCodeController.text = '';
-  //   // return 'signInWithPhoneNumber succeeded: $user';
-
-  // }
-
   @override
   Future<UserCredential> signInWithPopup(AuthProvider provider) {
     // TODO: implement signInWithPopup
