@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:accountmanager/app/home/models/job.dart';
 
 void main() {
+  print('STARTED job_test.dart');
   group('fromMap', () {
     test('null data', () {
       final job = Job.fromMap(null, 'abc');

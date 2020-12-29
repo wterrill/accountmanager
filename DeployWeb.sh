@@ -8,12 +8,14 @@ echo ";" >> lib/buildTime/flutter_version.dart
 printf 'const String appVersion = "' >> lib/buildTime/flutter_version.dart
 printf '%s' "$(grep 'version:' pubspec.yaml)" >> lib/buildTime/flutter_version.dart
 printf '";' >> lib/buildTime/flutter_version.dart
+sed -i "" "s/\"/'/g" lib/buildTime/flutter_version.dart
 
 rm lib/buildTime/flutter_date.dart
 echo "Building flutter_date.dart"
 printf "const String buildDate  = \"" >> lib/buildTime/flutter_date.dart
 printf '%s' "$(date)" >> lib/buildTime/flutter_date.dart
 printf  "\";" >> lib/buildTime/flutter_date.dart
+sed -i "" "s/\"/'/g" lib/buildTime/flutter_date.dart
 echo "Continuing flutter build"
 
 

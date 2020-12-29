@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/app/sign_in/sign_in_page.dart';
@@ -8,16 +9,19 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:accountmanager/routing/app_router.dart';
 
+import 'auth_mock.dart';
 import 'mocks.dart';
 
 void main() {
+  setupFirebaseAuthMocks();
   group('sign-in page', () {
     MockFirebaseAuth mockFirebaseAuth;
     MockNavigatorObserver mockNavigatorObserver;
 
-    setUp(() {
+    setUp(() async {
       mockFirebaseAuth = MockFirebaseAuth();
       mockNavigatorObserver = MockNavigatorObserver();
+      await Firebase.initializeApp();
     });
 
     Future<void> pumpSignInPage(WidgetTester tester) async {

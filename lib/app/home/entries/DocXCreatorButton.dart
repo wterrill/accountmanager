@@ -14,8 +14,8 @@ void _downloadDocx() async {
   final docx = await DocxTemplate.fromBytes(
       f.buffer.asUint8List(f.offsetInBytes, f.lengthInBytes));
 
-  Content c = Content();
-  String beer = 'beer';
+  final Content c = Content();
+  const String beer = 'beer';
   c
     ..add(TextContent('docname', beer))
     ..add(TextContent('passport', 'Passport NE0323 4456673'))
@@ -90,7 +90,7 @@ void _downloadDocx() async {
   // script.src = 'http://cdn.jsdelivr.net/g/filesaver.js';
   script.src = 'https://github.com/eligrey/FileSaver.js';
 
-  html.document.body?.nodes.add(script);
+  html.document.body.nodes.add(script);
 
 // calls the 'saveAs' method from the FileSaver.js libray
   // js.context.callMethod('saveAs', <dynamic>[
@@ -105,7 +105,7 @@ void _downloadDocx() async {
   ]);
 
   // cleanup
-  html.document.body?.nodes.remove(script);
+  html.document.body.nodes.remove(script);
 }
 
 class DocXCreatorButton extends StatelessWidget {
@@ -113,14 +113,12 @@ class DocXCreatorButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: FlatButton(
-        color: Colors.blue,
-        child: Text('Create Docx file'),
-        onPressed: () {
-          _downloadDocx();
-        },
-      ),
+    return FlatButton(
+      color: Colors.blue,
+      child: const Text('Create Docx file'),
+      onPressed: () {
+        _downloadDocx();
+      },
     );
   }
 }

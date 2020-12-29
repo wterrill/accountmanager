@@ -9,6 +9,8 @@
       "request": "launch",
       "type": "dart",
       "args": ["--no-sound-null-safety"],
+      // "program":"./test"
+      "program":"./lib/main.dart"
     }
   ]
 }

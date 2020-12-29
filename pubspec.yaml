@@ -17,8 +17,7 @@ environment:
   sdk: ">=2.8.4 <3.0.0"
 
 dependencies:
-  flutter:
-    sdk: flutter
+
   # alert_dialogs:
   #   git:
   #     url: https://github.com/bizz84/codewithandrea_flutter_packages
@@ -38,10 +37,13 @@ dependencies:
   cloud_firestore: ^0.14.0+1
   cupertino_icons: ^1.0.1
   docx_template: ^0.2.4
+
   equatable: ^1.2.5
   firebase: ^7.3.3
   firebase_auth: ^0.18.4+1
   firebase_core: ^0.5.3
+  flutter:
+    sdk: flutter
   flutter_riverpod: ^0.10.1
   # flutter_signin_button: ^1.1.0
   flutter_svg: ^0.19.1

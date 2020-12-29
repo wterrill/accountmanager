@@ -1,6 +1,7 @@
-import 'package:accountmanager/app/home/entries/DocXCreatorButton.dart';
+// import 'package:accountmanager/app/home/entries/DocXCreatorButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+// import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:accountmanager/app/home/entries/entries_view_model.dart';
 import 'package:accountmanager/app/home/entries/entries_list_tile.dart';
 import 'package:accountmanager/app/home/jobs/list_items_builder.dart';
@@ -36,9 +37,7 @@ class EntriesPage extends ConsumerWidget {
     return Column(
       children: [
         const Text('hello'),
-        const DocXCreatorButton(),
-        // return
-        // child:
+        // if (kIsWeb) const DocXCreatorButton(),
         Flexible(
           child: ListItemsBuilder<EntriesListTileModel>(
             data: entriesTileModelStream,

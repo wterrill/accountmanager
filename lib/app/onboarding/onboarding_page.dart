@@ -1,7 +1,7 @@
 // import 'package:custom_buttons/custom_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+// import 'package:flutter_svg/flutter_svg.dart';
 import 'package:accountmanager/app/onboarding/onboarding_view_model.dart';
 import 'package:accountmanager/packages/custom_buttons/custom_buttons.dart';
 import 'package:platform_svg/platform_svg.dart';

@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
-import '../../string_validators/string_validators.dart';
 import '../../email_password_sign_in_ui/test/email_password_sign_in_strings.dart';
+import '../../string_validators/string_validators.dart';
 
 String filename = 'email_password_sign_in_model.dart';
 
@@ -49,12 +49,10 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
         case EmailPasswordSignInFormType.signIn:
           print('$filename case EmailPasswordSignInFormType.signIn');
           if (firebaseAuth.currentUser != null) {
-            firebaseAuth.signOut();
+            await firebaseAuth.signOut();
           }
           await firebaseAuth.signInWithCredential(
               EmailAuthProvider.credential(email: email, password: password));
-          // print('$filename new notifyListeners in switch (formType)');
-          // notifyListeners();
           break;
         case EmailPasswordSignInFormType.register:
           await firebaseAuth.createUserWithEmailAndPassword(
