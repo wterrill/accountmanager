@@ -1,4 +1,4 @@
-package com.example.accountmanager
+package com.mxotech.accountmanager
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
