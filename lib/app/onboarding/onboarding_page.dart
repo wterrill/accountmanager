@@ -1,7 +1,7 @@
 // import 'package:custom_buttons/custom_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-// import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:accountmanager/app/onboarding/onboarding_view_model.dart';
 import 'package:accountmanager/packages/custom_buttons/custom_buttons.dart';
 import 'package:platform_svg/platform_svg.dart';
@@ -30,13 +30,16 @@ class OnboardingPage extends StatelessWidget {
               style: Theme.of(context).textTheme.headline4,
               textAlign: TextAlign.center,
             ),
-            FractionallySizedBox(
-                widthFactor: 0.2,
-                child: PlatformSvg.asset('assets/time-tracking.svg')
+            Flexible(
+              child: FractionallySizedBox(
+                widthFactor: 0.4,
+                heightFactor: 0.9,
+                // child: PlatformSvg.asset('assets/time-tracking.svg')
                 // child: Image.network('/assets/time-tracking.svg')
-                // child: SvgPicture.asset('assets/time-tracking.svg',
-                //     semanticsLabel: 'Time tracking logo'),
-                ),
+                child: SvgPicture.asset('assets/time-tracking.svg',
+                    semanticsLabel: 'Time tracking logo'),
+              ),
+            ),
             CustomRaisedButton(
               onPressed: () => onGetStarted(context),
               color: Colors.indigo,
