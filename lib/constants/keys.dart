@@ -10,4 +10,5 @@ class Keys {
   static const String alertCancel = 'alertCancel';
   //
   static const String createTechTab = 'createTechTab';
+  static const String assignTbrTab = 'assignTbrTab';
 }

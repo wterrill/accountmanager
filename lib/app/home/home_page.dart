@@ -1,3 +1,4 @@
+import 'package:accountmanager/app/home/assign_TBR/assign_tbr.dart';
 import 'package:accountmanager/app/home/create_tech/create_tech_page.dart';
 import 'package:flutter/material.dart';
 import 'package:accountmanager/app/home/account/account_page.dart';
@@ -19,6 +20,7 @@ class _HomePageState extends State<HomePage> {
     TabItem.entries: GlobalKey<NavigatorState>(),
     TabItem.account: GlobalKey<NavigatorState>(),
     TabItem.createTech: GlobalKey<NavigatorState>(),
+    TabItem.assignTbr: GlobalKey<NavigatorState>()
   };
 
   Map<TabItem, WidgetBuilder> get widgetBuilders {
@@ -27,6 +29,7 @@ class _HomePageState extends State<HomePage> {
       TabItem.entries: (_) => EntriesPage(),
       TabItem.account: (_) => AccountPage(),
       TabItem.createTech: (_) => CreateTechPage(),
+      TabItem.assignTbr: (_) => AssignTBR(),
     };
   }
 
