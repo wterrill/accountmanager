@@ -25,11 +25,14 @@ class CupertinoHomeScaffold extends StatelessWidget {
       tabBar: CupertinoTabBar(
         key: const Key(Keys.tabBar),
         items: [
-          _buildItem(TabItem.jobs),
-          _buildItem(TabItem.entries),
-          _buildItem(TabItem.account),
+          _buildBottomNavigationBarItem(TabItem.jobs),
+          _buildBottomNavigationBarItem(TabItem.entries),
+          _buildBottomNavigationBarItem(TabItem.account),
+          _buildBottomNavigationBarItem(TabItem.createTech),
         ],
-        onTap: (index) => onSelectTab(TabItem.values[index]),
+        onTap: (index) {
+          return onSelectTab(TabItem.values[index]);
+        },
       ),
       tabBuilder: (context, index) {
         final item = TabItem.values[index];
@@ -42,7 +45,7 @@ class CupertinoHomeScaffold extends StatelessWidget {
     );
   }
 
-  BottomNavigationBarItem _buildItem(TabItem tabItem) {
+  BottomNavigationBarItem _buildBottomNavigationBarItem(TabItem tabItem) {
     final itemData = TabItemData.allTabs[tabItem];
     final color = currentTab == tabItem ? Colors.indigo : Colors.grey;
     return BottomNavigationBarItem(
@@ -51,11 +54,6 @@ class CupertinoHomeScaffold extends StatelessWidget {
         color: color,
       ),
       label: itemData.title,
-      // title: Text(
-      //   itemData.title,
-      //   key: Key(itemData.key),
-      //   style: TextStyle(color: color),
-      // ),
     );
   }
 }

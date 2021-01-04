@@ -1,3 +1,4 @@
+import 'package:accountmanager/app/home/create_tech/create_tech_page.dart';
 import 'package:flutter/material.dart';
 import 'package:accountmanager/app/home/account/account_page.dart';
 import 'package:accountmanager/app/home/cupertino_home_scaffold.dart';
@@ -17,6 +18,7 @@ class _HomePageState extends State<HomePage> {
     TabItem.jobs: GlobalKey<NavigatorState>(),
     TabItem.entries: GlobalKey<NavigatorState>(),
     TabItem.account: GlobalKey<NavigatorState>(),
+    TabItem.createTech: GlobalKey<NavigatorState>(),
   };
 
   Map<TabItem, WidgetBuilder> get widgetBuilders {
@@ -24,6 +26,7 @@ class _HomePageState extends State<HomePage> {
       TabItem.jobs: (_) => JobsPage(),
       TabItem.entries: (_) => EntriesPage(),
       TabItem.account: (_) => AccountPage(),
+      TabItem.createTech: (_) => CreateTechPage(),
     };
   }
 

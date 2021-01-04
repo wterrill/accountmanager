@@ -29,4 +29,7 @@ class Strings {
   // Account page
   static const String account = 'Account';
   static const String accountPage = 'Account Page';
+
+  // Create Tech Account Page
+  static const String createTech = 'Create Tech';
 }
