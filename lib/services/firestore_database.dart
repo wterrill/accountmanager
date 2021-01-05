@@ -1,6 +1,7 @@
 import 'dart:async';
 
 // import 'package:firestore_service/firestore_service.dart';
+import 'package:accountmanager/app/home/models/technician.dart';
 import 'package:meta/meta.dart';
 import 'package:accountmanager/app/home/models/entry.dart';
 import 'package:accountmanager/app/home/models/job.dart';
@@ -11,9 +12,10 @@ import 'package:accountmanager/services/firestore_path.dart';
 String documentIdFromCurrentDate() => DateTime.now().toIso8601String();
 
 class FirestoreDatabase {
-  FirestoreDatabase({@required this.uid})
-      : assert(uid != null, 'Cannot create FirestoreDatabase with null uid');
+  FirestoreDatabase({this.uid, this.id});
+  // : assert(uid != null, 'Cannot create FirestoreDatabase with null uid');
   final String uid;
+  final String id;
 
   final _service = FirestoreService.instance;
 
@@ -34,6 +36,18 @@ class FirestoreDatabase {
     await _service.deleteData(path: FirestorePath.job(uid, job.id));
   }
 
+  // Future<void> deleteTechnician(Technician job) async {
+  //   // delete where entry.jobId == job.jobId
+  //   final allEntries = await entriesStream(job: job).first;
+  //   for (final entry in allEntries) {
+  //     if (entry.jobId == job.id) {
+  //       await deleteEntry(entry);
+  //     }
+  //   }
+  //   // delete job
+  //   await _service.deleteData(path: FirestorePath.job(uid, job.id));
+  // }
+
   Stream<Job> jobStream({@required String jobId}) => _service.documentStream(
         path: FirestorePath.job(uid, jobId),
         builder: (data, documentId) => Job.fromMap(data, documentId),
@@ -42,6 +56,12 @@ class FirestoreDatabase {
   Stream<List<Job>> jobsStream() => _service.collectionStream(
         path: FirestorePath.jobs(uid),
         builder: (data, documentId) => Job.fromMap(data, documentId),
+      );
+
+  Stream<List<Technician>> technicianStream(String id) =>
+      _service.collectionStream(
+        path: FirestorePath.technicians(id),
+        builder: (data, id) => Technician.fromMap(data, id),
       );
 
   Future<void> setEntry(Entry entry) => _service.setData(

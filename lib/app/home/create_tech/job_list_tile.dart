@@ -1,16 +1,16 @@
+import 'package:accountmanager/app/home/models/technician.dart';
 import 'package:flutter/material.dart';
-import 'package:accountmanager/app/home/models/job.dart';
 
-class JobListTile extends StatelessWidget {
-  const JobListTile({Key key, @required this.job, this.onTap})
+class TechnicianListTile extends StatelessWidget {
+  const TechnicianListTile({Key key, @required this.technician, this.onTap})
       : super(key: key);
-  final Job job;
+  final Technician technician;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(job.name),
+      title: Text(technician.name),
       trailing: const Icon(Icons.chevron_right),
       onTap: onTap,
     );

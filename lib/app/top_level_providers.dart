@@ -29,6 +29,16 @@ final databaseProvider = Provider<FirestoreDatabase>((ref) {
   return null;
 });
 
+// final globaldatabaseProvider = Provider<FirestoreDatabase>((ref) {
+//   final auth = ref.watch(authStateChangesProvider);
+//   print('$filename databaseProvider: ${auth.data?.value?.uid}');
+
+//   if (auth.data?.value?.uid != null) {
+//     return FirestoreDatabase(id: "1");
+//   }
+//   return null;
+// });
+
 final loggerProvider = Provider<Logger>((ref) {
   print('$filename loggerProvider PrettyPrinter');
   return Logger(

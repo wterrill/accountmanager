@@ -15,7 +15,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  TabItem _currentTab = TabItem.jobs;
+  TabItem _currentTab = TabItem.account;
 
   final Map<TabItem, GlobalKey<NavigatorState>> navigatorKeys = {
     TabItem.jobs: GlobalKey<NavigatorState>(),
