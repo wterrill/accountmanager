@@ -33,12 +33,12 @@ class Strings {
   // Create Tech Account Page
   static const String createTech = 'Create Tech';
 
-  // Assign Assign TBR Page
+  // Assign TBR Page
   static const String assignTbr = 'Assign TBR';
 
-  // addCompanyTab
+  // Add Company Page
   static const String addCompany = 'Add Company';
 
-  // overviewTab
+  // Add Overview Page
   static const String overview = 'Overview';
 }
