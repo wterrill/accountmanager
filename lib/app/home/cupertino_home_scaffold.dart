@@ -30,6 +30,8 @@ class CupertinoHomeScaffold extends StatelessWidget {
           _buildBottomNavigationBarItem(TabItem.account),
           _buildBottomNavigationBarItem(TabItem.createTech),
           _buildBottomNavigationBarItem(TabItem.assignTbr),
+          _buildBottomNavigationBarItem(TabItem.addCompany),
+          _buildBottomNavigationBarItem(TabItem.overview),
         ],
         onTap: (index) {
           return onSelectTab(TabItem.values[index]);

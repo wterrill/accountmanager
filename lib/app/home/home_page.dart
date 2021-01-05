@@ -1,5 +1,7 @@
-import 'package:accountmanager/app/home/assign_TBR/assign_tbr.dart';
+import 'package:accountmanager/app/home/add_company/add_company_page.dart';
+import 'package:accountmanager/app/home/assign_TBR/assign_tbr_page.dart';
 import 'package:accountmanager/app/home/create_tech/create_tech_page.dart';
+import 'package:accountmanager/app/home/overview/overview_page.dart';
 import 'package:flutter/material.dart';
 import 'package:accountmanager/app/home/account/account_page.dart';
 import 'package:accountmanager/app/home/cupertino_home_scaffold.dart';
@@ -29,7 +31,9 @@ class _HomePageState extends State<HomePage> {
       TabItem.entries: (_) => EntriesPage(),
       TabItem.account: (_) => AccountPage(),
       TabItem.createTech: (_) => CreateTechPage(),
-      TabItem.assignTbr: (_) => AssignTBR(),
+      TabItem.assignTbr: (_) => AssignTBRPage(),
+      TabItem.addCompany: (_) => AddCompanyPage(),
+      TabItem.overview: (_) => OverviewPage(),
     };
   }
 

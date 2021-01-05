@@ -2,7 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:accountmanager/constants/keys.dart';
 import 'package:accountmanager/constants/strings.dart';
 
-enum TabItem { jobs, entries, account, createTech, assignTbr }
+enum TabItem {
+  jobs,
+  entries,
+  account,
+  createTech,
+  assignTbr,
+  addCompany,
+  overview
+}
 
 class TabItemData {
   const TabItemData(
@@ -37,6 +45,15 @@ class TabItemData {
       key: Keys.assignTbrTab,
       title: Strings.assignTbr,
       icon: Icons.airline_seat_flat_angled,
+    ),
+    TabItem.addCompany: TabItemData(
+        key: Keys.addCompanyTab,
+        title: Strings.addCompany,
+        icon: Icons.two_wheeler),
+    TabItem.overview: TabItemData(
+      key: Keys.overviewTab,
+      title: Strings.overview,
+      icon: Icons.whatshot,
     ),
   };
 }

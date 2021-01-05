@@ -35,4 +35,10 @@ class Strings {
 
   // Assign Assign TBR Page
   static const String assignTbr = 'Assign TBR';
+
+  // addCompanyTab
+  static const String addCompany = 'Add Company';
+
+  // overviewTab
+  static const String overview = 'Overview';
 }
