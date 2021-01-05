@@ -9,8 +9,8 @@ import 'package:accountmanager/app/home/create_tech/list_items_builder.dart';
 // import 'package:accountmanager/app/home/models/job.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/constants/strings.dart';
-import 'package:pedantic/pedantic.dart';
-import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
+// import 'package:pedantic/pedantic.dart';
+// import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
 
 // final jobsStreamProvider = StreamProvider.autoDispose<List<Job>>((ref) {
 //   final database = ref.watch(databaseProvider);
@@ -20,7 +20,7 @@ import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
 final technicianStreamProvider =
     StreamProvider.autoDispose<List<Technician>>((ref) {
   final database = ref.watch(databaseProvider);
-  return database?.technicianStream("1") ?? const Stream.empty();
+  return database?.technicianStream('1') ?? const Stream.empty();
 });
 
 // watch database
