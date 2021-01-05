@@ -58,15 +58,19 @@ class FirestoreDatabase {
         builder: (data, documentId) => Job.fromMap(data, documentId),
       );
 
-  Stream<List<Technician>> technicianStream(String id) =>
-      _service.collectionStream(
-        path: FirestorePath.technicians(id),
+  Stream<List<Technician>> technicianStream() => _service.collectionStream(
+        path: FirestorePath.technicians(),
         builder: (data, id) => Technician.fromMap(data, id),
       );
 
   Future<void> setEntry(Entry entry) => _service.setData(
         path: FirestorePath.entry(uid, entry.id),
         data: entry.toMap(),
+      );
+
+  Future<void> setTechnician(Technician technician) => _service.setData(
+        path: FirestorePath.setTechnicians(technician.id),
+        data: technician.toMap(),
       );
 
   Future<void> deleteEntry(Entry entry) =>

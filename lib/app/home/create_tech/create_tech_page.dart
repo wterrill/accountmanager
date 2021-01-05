@@ -20,7 +20,7 @@ import 'package:accountmanager/constants/strings.dart';
 final technicianStreamProvider =
     StreamProvider.autoDispose<List<Technician>>((ref) {
   final database = ref.watch(databaseProvider);
-  return database?.technicianStream('1') ?? const Stream.empty();
+  return database?.technicianStream() ?? const Stream.empty();
 });
 
 // watch database
@@ -46,9 +46,9 @@ class CreateTechPage extends ConsumerWidget {
         title: const Text(Strings.createTech),
         actions: <Widget>[
           IconButton(
-            icon: const Icon(Icons.add, color: Colors.white),
-            onPressed: () => EditJobPage.show(context),
-          ),
+              icon: const Icon(Icons.add, color: Colors.white),
+              onPressed: () {} //=> EditJobPage.show(context),
+              ),
         ],
       ),
       body: _buildContents(context, watch),
