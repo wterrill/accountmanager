@@ -24,6 +24,11 @@ class FirestoreDatabase {
         data: job.toMap(),
       );
 
+  Future<void> setTechnician(Technician technician) => _service.setData(
+        path: FirestorePath.technician(technician.id),
+        data: technician.toMap(),
+      );
+
   Future<void> deleteJob(Job job) async {
     // delete where entry.jobId == job.jobId
     final allEntries = await entriesStream(job: job).first;
@@ -36,16 +41,9 @@ class FirestoreDatabase {
     await _service.deleteData(path: FirestorePath.job(uid, job.id));
   }
 
-  // Future<void> deleteTechnician(Technician job) async {
-  //   // delete where entry.jobId == job.jobId
-  //   final allEntries = await entriesStream(job: job).first;
-  //   for (final entry in allEntries) {
-  //     if (entry.jobId == job.id) {
-  //       await deleteEntry(entry);
-  //     }
-  //   }
-  //   // delete job
-  //   await _service.deleteData(path: FirestorePath.job(uid, job.id));
+  // Future<void> deleteTechnician(Technician technician) async {
+  //   // delete technician
+  //   await _service.deleteData(path: FirestorePath.technician(technician.id));
   // }
 
   Stream<Job> jobStream({@required String jobId}) => _service.documentStream(
@@ -66,11 +64,6 @@ class FirestoreDatabase {
   Future<void> setEntry(Entry entry) => _service.setData(
         path: FirestorePath.entry(uid, entry.id),
         data: entry.toMap(),
-      );
-
-  Future<void> setTechnician(Technician technician) => _service.setData(
-        path: FirestorePath.setTechnicians(technician.id),
-        data: technician.toMap(),
       );
 
   Future<void> deleteEntry(Entry entry) =>
