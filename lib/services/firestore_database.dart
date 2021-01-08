@@ -41,10 +41,12 @@ class FirestoreDatabase {
     await _service.deleteData(path: FirestorePath.job(uid, job.id));
   }
 
-  // Future<void> deleteTechnician(Technician technician) async {
-  //   // delete technician
-  //   await _service.deleteData(path: FirestorePath.technician(technician.id));
-  // }
+  Future<void> deleteTechnician(Technician technician) async {
+    // await Future.delayed(const Duration(seconds: 3), () {
+    //   print('delayed');
+    // });
+    await _service.deleteData(path: FirestorePath.technician(technician.id));
+  }
 
   Stream<Job> jobStream({@required String jobId}) => _service.documentStream(
         path: FirestorePath.job(uid, jobId),

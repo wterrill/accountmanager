@@ -27,19 +27,19 @@ final technicianStreamProvider =
 
 // watch database
 class CreateTechPage extends ConsumerWidget {
-  // Future<void> _deleteTechnician(
-  //     BuildContext context, Technician technician) async {
-  //   try {
-  //     final database = context.read(databaseProvider);
-  //     await database.deleteTechnician(technician);
-  //   } catch (e) {
-  //     unawaited(showExceptionAlertDialog(
-  //       context: context,
-  //       title: 'Operation failed',
-  //       exception: e,
-  //     ));
-  //   }
-  // }
+  Future<void> _deleteTechnician(
+      BuildContext context, Technician technician) async {
+    try {
+      final database = context.read(databaseProvider);
+      await database.deleteTechnician(technician);
+    } catch (e) {
+      unawaited(showExceptionAlertDialog(
+        context: context,
+        title: 'Operation failed',
+        exception: e,
+      ));
+    }
+  }
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
@@ -76,8 +76,8 @@ class CreateTechPage extends ConsumerWidget {
                   technician: technician,
                   onTap: () {} // => JobEntriesPage.show(context, job),
                   ),
-              // onDismissed: (direction) =>
-              //     _deleteTechnician(context, technician),
+              onDismissed: (direction) =>
+                  _deleteTechnician(context, technician),
             ),
           ),
         ),
