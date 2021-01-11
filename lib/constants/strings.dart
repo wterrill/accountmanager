@@ -31,7 +31,7 @@ class Strings {
   static const String accountPage = 'Account Page';
 
   // Create Tech Account Page
-  static const String createTech = 'Create Tech';
+  static const String createTech = 'Create Technician';
 
   // Assign TBR Page
   static const String assignTbr = 'Assign TBR';

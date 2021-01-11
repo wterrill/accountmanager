@@ -14,11 +14,6 @@ import 'package:accountmanager/constants/strings.dart';
 import 'package:pedantic/pedantic.dart';
 // import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
 
-// final jobsStreamProvider = StreamProvider.autoDispose<List<Job>>((ref) {
-//   final database = ref.watch(databaseProvider);
-//   return database?.jobsStream() ?? const Stream.empty();
-// });
-
 final technicianStreamProvider =
     StreamProvider.autoDispose<List<Technician>>((ref) {
   final database = ref.watch(databaseProvider);
@@ -62,7 +57,12 @@ class CreateTechPage extends ConsumerWidget {
     final technicianAsyncValue = watch(technicianStreamProvider);
     return Column(
       children: [
-        Container(height: 300, child: const InputTechnician()),
+        Container(
+            height: 200,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: const InputTechnician(),
+            )),
         Container(
           height: 300,
           child: ListItemsBuilder<Technician>(
