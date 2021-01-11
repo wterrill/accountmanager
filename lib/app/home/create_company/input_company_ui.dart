@@ -7,22 +7,22 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pedantic/pedantic.dart';
 
-import 'package:accountmanager/app/home/models/technician.dart';
+import 'package:accountmanager/app/home/models/company.dart';
 import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
 import 'package:accountmanager/services/firestore_database.dart';
 
-class InputTechnician extends StatefulWidget {
-  const InputTechnician({
+class InputCompany extends StatefulWidget {
+  const InputCompany({
     Key key,
   }) : super(key: key);
 
   @override
-  _InputTechnicianState createState() => _InputTechnicianState();
+  _InputCompanyState createState() => _InputCompanyState();
 }
 
 String _name;
 
-class _InputTechnicianState extends State<InputTechnician> {
+class _InputCompanyState extends State<InputCompany> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -75,11 +75,11 @@ class UploadButton extends StatelessWidget {
     if (_validateAndSaveForm()) {
       try {
         final database = context.read(databaseProvider);
-        final technicianNOTSURE = await database.technicianStream().first;
+        final companyNOTSURE = await database.companyStream().first;
 
         final id = documentIdFromCurrentDate();
-        final technician = Technician(id: id, name: _name);
-        await database.setTechnician(technician);
+        final company = Company(id: id, name: _name);
+        await database.setCompany(company);
       } catch (e) {
         unawaited(showExceptionAlertDialog(
           context: context,

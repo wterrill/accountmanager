@@ -1,6 +1,7 @@
 import 'dart:async';
 
 // import 'package:firestore_service/firestore_service.dart';
+import 'package:accountmanager/app/home/models/company.dart';
 import 'package:accountmanager/app/home/models/technician.dart';
 import 'package:meta/meta.dart';
 import 'package:accountmanager/app/home/models/entry.dart';
@@ -19,6 +20,14 @@ class FirestoreDatabase {
 
   final _service = FirestoreService.instance;
 
+  Future<void> setEntry(Entry entry) => _service.setData(
+        path: FirestorePath.entry(uid, entry.id),
+        data: entry.toMap(),
+      );
+
+  Future<void> deleteEntry(Entry entry) =>
+      _service.deleteData(path: FirestorePath.entry(uid, entry.id));
+
   Future<void> setJob(Job job) => _service.setData(
         path: FirestorePath.job(uid, job.id),
         data: job.toMap(),
@@ -36,11 +45,6 @@ class FirestoreDatabase {
     await _service.deleteData(path: FirestorePath.job(uid, job.id));
   }
 
-  Future<void> setTechnician(Technician technician) => _service.setData(
-        path: FirestorePath.technician(technician.id),
-        data: technician.toMap(),
-      );
-
   Stream<Job> jobStream({@required String jobId}) => _service.documentStream(
         path: FirestorePath.job(uid, jobId),
         builder: (data, documentId) => Job.fromMap(data, documentId),
@@ -51,22 +55,19 @@ class FirestoreDatabase {
         builder: (data, documentId) => Job.fromMap(data, documentId),
       );
 
-  Future<void> setEntry(Entry entry) => _service.setData(
-        path: FirestorePath.entry(uid, entry.id),
-        data: entry.toMap(),
-      );
-
-  Future<void> deleteEntry(Entry entry) =>
-      _service.deleteData(path: FirestorePath.entry(uid, entry.id));
-
   Stream<List<Entry>> entriesStream({Job job}) =>
       _service.collectionStream<Entry>(
         path: FirestorePath.entries(uid),
         queryBuilder: job != null
-            ? (query) => query.where('jobId', isEqualTo: job.id)
+            ? (query) => query.where('CompanyId', isEqualTo: job.id)
             : null,
         builder: (data, documentID) => Entry.fromMap(data, documentID),
         sort: (lhs, rhs) => rhs.start.compareTo(lhs.start),
+      );
+
+  Future<void> setTechnician(Technician technician) => _service.setData(
+        path: FirestorePath.technician(technician.id),
+        data: technician.toMap(),
       );
 
   Future<void> deleteTechnician(Technician technician) async {
@@ -76,5 +77,19 @@ class FirestoreDatabase {
   Stream<List<Technician>> technicianStream() => _service.collectionStream(
         path: FirestorePath.technicians(),
         builder: (data, id) => Technician.fromMap(data, id),
+      );
+
+  Future<void> setCompany(Company company) => _service.setData(
+        path: FirestorePath.company(company.id),
+        data: company.toMap(),
+      );
+
+  Future<void> deleteCompany(Company company) async {
+    await _service.deleteData(path: FirestorePath.company(company.id));
+  }
+
+  Stream<List<Company>> companyStream() => _service.collectionStream(
+        path: FirestorePath.companies(),
+        builder: (data, id) => Company.fromMap(data, id),
       );
 }

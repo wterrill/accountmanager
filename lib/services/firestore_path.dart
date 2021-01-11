@@ -8,4 +8,8 @@ class FirestorePath {
   //__________________________
   static String technicians() => 'technicians';
   static String technician(String technicianID) => 'technicians/$technicianID';
+
+  //__________________________
+  static String companies() => 'companies';
+  static String company(String companyID) => 'companies/$companyID';
 }

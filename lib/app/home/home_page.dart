@@ -1,5 +1,5 @@
-import 'package:accountmanager/app/home/add_company/add_company_page.dart';
 import 'package:accountmanager/app/home/assign_TBR/assign_tbr_page.dart';
+import 'package:accountmanager/app/home/create_company/create_company_page.dart';
 import 'package:accountmanager/app/home/create_technician/create_tech_page.dart';
 import 'package:accountmanager/app/home/overview/overview_page.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
       TabItem.account: (_) => AccountPage(),
       TabItem.createTech: (_) => CreateTechPage(),
       TabItem.assignTbr: (_) => AssignTBRPage(),
-      TabItem.addCompany: (_) => AddCompanyPage(),
+      TabItem.addCompany: (_) => CreateCompanyPage(),
       TabItem.overview: (_) => OverviewPage(),
     };
   }
