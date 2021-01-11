@@ -24,11 +24,6 @@ class FirestoreDatabase {
         data: job.toMap(),
       );
 
-  Future<void> setTechnician(Technician technician) => _service.setData(
-        path: FirestorePath.technician(technician.id),
-        data: technician.toMap(),
-      );
-
   Future<void> deleteJob(Job job) async {
     // delete where entry.jobId == job.jobId
     final allEntries = await entriesStream(job: job).first;
@@ -41,12 +36,10 @@ class FirestoreDatabase {
     await _service.deleteData(path: FirestorePath.job(uid, job.id));
   }
 
-  Future<void> deleteTechnician(Technician technician) async {
-    // await Future.delayed(const Duration(seconds: 3), () {
-    //   print('delayed');
-    // });
-    await _service.deleteData(path: FirestorePath.technician(technician.id));
-  }
+  Future<void> setTechnician(Technician technician) => _service.setData(
+        path: FirestorePath.technician(technician.id),
+        data: technician.toMap(),
+      );
 
   Stream<Job> jobStream({@required String jobId}) => _service.documentStream(
         path: FirestorePath.job(uid, jobId),
@@ -56,11 +49,6 @@ class FirestoreDatabase {
   Stream<List<Job>> jobsStream() => _service.collectionStream(
         path: FirestorePath.jobs(uid),
         builder: (data, documentId) => Job.fromMap(data, documentId),
-      );
-
-  Stream<List<Technician>> technicianStream() => _service.collectionStream(
-        path: FirestorePath.technicians(),
-        builder: (data, id) => Technician.fromMap(data, id),
       );
 
   Future<void> setEntry(Entry entry) => _service.setData(
@@ -79,5 +67,14 @@ class FirestoreDatabase {
             : null,
         builder: (data, documentID) => Entry.fromMap(data, documentID),
         sort: (lhs, rhs) => rhs.start.compareTo(lhs.start),
+      );
+
+  Future<void> deleteTechnician(Technician technician) async {
+    await _service.deleteData(path: FirestorePath.technician(technician.id));
+  }
+
+  Stream<List<Technician>> technicianStream() => _service.collectionStream(
+        path: FirestorePath.technicians(),
+        builder: (data, id) => Technician.fromMap(data, id),
       );
 }
