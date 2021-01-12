@@ -10,3 +10,4 @@ import 'package:flutter/services.dart';
 
 part 'lib/../show_alert_dialog.dart';
 part 'lib/../show_exception_alert_dialog.dart';
+part 'lib/../show_dialog_with_widgets.dart';

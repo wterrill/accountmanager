@@ -1,18 +1,15 @@
 import 'package:accountmanager/app/home/create_company/input_company_ui.dart';
+import 'package:accountmanager/app/home/create_company/show_dialog_button.dart';
 import 'package:accountmanager/app/home/models/company.dart';
 import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-// import 'package:accountmanager/app/home/job_entries/job_entries_page.dart';
-// import 'package:accountmanager/app/home/create_tech/edit_job_page.dartx';
 import 'package:accountmanager/app/home/create_company/company_list_tile.dart';
 import 'package:accountmanager/app/home/create_company/list_items_builder.dart';
-// import 'package:accountmanager/app/home/models/job.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/constants/strings.dart';
 import 'package:pedantic/pedantic.dart';
-// import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
 
 final companyStreamProvider = StreamProvider.autoDispose<List<Company>>((ref) {
   final database = ref.watch(databaseProvider);
@@ -36,10 +33,10 @@ class CreateCompanyPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    print('build create_tech_page.dart');
+    print('build create_company_page.dart');
     return Scaffold(
       appBar: AppBar(
-        title: const Text(Strings.createTech),
+        title: const Text(Strings.addCompany),
         actions: <Widget>[
           IconButton(
               icon: const Icon(Icons.add, color: Colors.white),
@@ -55,6 +52,10 @@ class CreateCompanyPage extends ConsumerWidget {
     final companyAsyncValue = watch(companyStreamProvider);
     return Column(
       children: [
+        Container(
+          height: 200,
+          child: const ShowDialogButton(),
+        ),
         Container(
             height: 200,
             child: Padding(

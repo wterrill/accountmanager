@@ -61,7 +61,7 @@ class UploadButton extends StatelessWidget {
       // style: TextButton.styleFrom(backgroundColor: Colors.red),
       child: const Padding(
         padding: EdgeInsets.all(8.0),
-        child: Text(Strings.createTech),
+        child: Text(Strings.addCompany),
       ),
 
       onPressed: () {
@@ -93,8 +93,4 @@ class UploadButton extends StatelessWidget {
   bool _validateAndSaveForm() {
     return true;
   }
-
-  // String _name() {
-  //   return name;
-  // }
 }

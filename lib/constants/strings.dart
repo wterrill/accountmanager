@@ -21,7 +21,7 @@ class Strings {
   static const String homePage = 'Home Page';
 
   // Jobs page
-  static const String jobs = 'TBR Assignment';
+  static const String jobs = 'Jobs';
 
   // Entries page
   static const String entries = 'Entries';

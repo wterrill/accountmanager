@@ -63,7 +63,44 @@ class AssignTBRPage extends StatelessWidget {
           child: _buildUserInfo(user),
         ),
       ),
+      body: TextButton(
+        style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(Colors.green)),
+        // style: TextButton.styleFrom(backgroundColor: Colors.red),
+        child: const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Text('Show Dialog'),
+        ),
+
+        onPressed: () {
+          print('pressed');
+          _displayDialog(context);
+        },
+      ),
     );
+  }
+
+  Future<void> _displayDialog(BuildContext context) async {
+    try {
+      final Map<String, dynamic> result = await showWidgetDialog(
+        context: context,
+        title: 'Assign TBR',
+        widget: Container(
+            width: 400, color: Colors.pink, child: const Text('hello')),
+        defaultActionText: 'Cancel',
+        cancelActionText: 'Assign',
+      );
+
+      if (result != null && (result['result']) == 'true') {
+        print('result = $result');
+      }
+    } catch (e) {
+      unawaited(showExceptionAlertDialog(
+        context: context,
+        title: 'Operation failed',
+        exception: e,
+      ));
+    }
   }
 
   Widget _buildUserInfo(User user) {
