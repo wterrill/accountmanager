@@ -98,3 +98,8 @@ web/firebase-config.js
 # Firebase configuration files
 ios/Runner/GoogleService-Info.plist
 android/app/google-services.json
+
+# NodeJS  node_modules
+/serviceAccount/node_modules/*
+**/package-lock.json
+**/package.json
