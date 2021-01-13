@@ -75,8 +75,6 @@ class UploadButton extends StatelessWidget {
     if (_validateAndSaveForm()) {
       try {
         final database = context.read(databaseProvider);
-        final companyNOTSURE = await database.companyStream().first;
-
         final id = documentIdFromCurrentDate();
         final company = Company(id: id, name: _name);
         await database.setCompany(company);

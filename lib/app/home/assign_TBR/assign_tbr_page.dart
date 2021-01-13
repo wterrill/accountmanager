@@ -1,5 +1,10 @@
 import 'dart:async';
 
+import 'package:accountmanager/app/home/assign_TBR/dropdown_screen.dart';
+import 'package:accountmanager/app/home/assign_TBR/future_dropdown.dart';
+import 'package:accountmanager/app/home/models/company.dart';
+import 'package:accountmanager/app/home/models/technician.dart';
+import 'package:accountmanager/services/firestore_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
@@ -9,6 +14,17 @@ import 'package:accountmanager/constants/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
+
+final companyStreamProvider = StreamProvider.autoDispose<List<Company>>((ref) {
+  final database = ref.watch(databaseProvider);
+  return database?.companyStream() ?? const Stream.empty();
+});
+
+final technicianStreamProvider =
+    StreamProvider.autoDispose<List<Technician>>((ref) {
+  final database = ref.watch(databaseProvider);
+  return database?.technicianStream() ?? const Stream.empty();
+});
 
 class AssignTBRPage extends StatelessWidget {
   Future<void> _signOut(BuildContext context, FirebaseAuth firebaseAuth) async {
@@ -40,6 +56,8 @@ class AssignTBRPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final FirestoreDatabase database = context.read(databaseProvider);
+    // final technicianNOTSURE = await database.technicianStream().first;
     final firebaseAuth = context.read(firebaseAuthProvider);
     final user = firebaseAuth.currentUser;
     return Scaffold(
@@ -63,19 +81,26 @@ class AssignTBRPage extends StatelessWidget {
           child: _buildUserInfo(user),
         ),
       ),
-      body: TextButton(
-        style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(Colors.green)),
-        // style: TextButton.styleFrom(backgroundColor: Colors.red),
-        child: const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Text('Show Dialog'),
-        ),
+      body: Column(
+        children: [
+          TextButton(
+            style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.green)),
+            // style: TextButton.styleFrom(backgroundColor: Colors.red),
+            child: const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text('Show Dialog'),
+            ),
 
-        onPressed: () {
-          print('pressed');
-          _displayDialog(context);
-        },
+            onPressed: () {
+              print('pressed');
+              _displayDialog(context);
+            },
+          ),
+          DropdownScreen(),
+          FutureDropdown(),
+        ],
       ),
     );
   }
