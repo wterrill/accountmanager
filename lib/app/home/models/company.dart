@@ -21,7 +21,6 @@ class Company extends Equatable {
     if (name == null) {
       return null;
     }
-    // final ratePerHour = data['ratePerHour'] as int;
     return Company(id: documentId, name: name);
   }
 

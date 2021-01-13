@@ -12,4 +12,6 @@ class FirestorePath {
   //__________________________
   static String companies() => 'companies';
   static String company(String companyID) => 'companies/$companyID';
+  //__________________________
+  static String questionnaireType() => 'questionnaireTypes';
 }

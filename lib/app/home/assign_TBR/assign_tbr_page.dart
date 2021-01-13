@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:accountmanager/app/home/assign_TBR/dropdown_screen.dart';
 import 'package:accountmanager/app/home/assign_TBR/future_dropdown.dart';
 import 'package:accountmanager/app/home/models/company.dart';
+import 'package:accountmanager/app/home/models/questionnaire_type.dart';
 import 'package:accountmanager/app/home/models/technician.dart';
 import 'package:accountmanager/services/firestore_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,6 +15,7 @@ import 'package:accountmanager/constants/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
+import 'package:date_time_picker/date_time_picker.dart';
 
 final companyStreamProvider = StreamProvider.autoDispose<List<Company>>((ref) {
   final database = ref.watch(databaseProvider);
@@ -34,6 +36,13 @@ class AssignTBRPage extends StatefulWidget {
 class _AssignTBRPageState extends State<AssignTBRPage> {
   Technician selectedTechnician;
   Company selectedCompany;
+  QuestionnaireType selectedQuestionnaireType;
+  DateTime startdateTBR;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   Future<void> _signOut(BuildContext context, FirebaseAuth firebaseAuth) async {
     try {
@@ -133,6 +142,55 @@ class _AssignTBRPageState extends State<AssignTBRPage> {
             },
           ),
           Text(selectedCompany?.name ?? 'Not selected'),
+          FutureDropdown(
+            future: database.questionnaireTypeStream().first,
+            onSelected: () {
+              print('selected');
+            },
+            onSelectedChange: (dynamic type) {
+              print(type.toString());
+              setState(() {
+                selectedQuestionnaireType = type as QuestionnaireType;
+              });
+            },
+          ),
+          Text(selectedQuestionnaireType?.option ?? 'Not selected'),
+          DateTimePicker(
+            initialValue: '',
+            firstDate: DateTime(2000),
+            lastDate: DateTime(2100),
+            dateLabelText: 'Date',
+            onChanged: (val) {
+              print(val);
+              setState(() {
+                startdateTBR = DateTime.parse(val);
+              });
+            },
+            validator: (val) {
+              print(val);
+              return null;
+            },
+            onSaved: (val) {
+              print(val);
+              setState(() {
+                startdateTBR = DateTime.parse(val);
+              });
+            },
+          ),
+          Text(startdateTBR?.toString() ?? 'Not Selected')
+          // DateTimePicker(
+          //   type: DateTimePickerType.time,
+          //   initialValue: '',
+          //   // firstDate: DateTime(2000),
+          //   // lastDate: DateTime(2100),
+          //   timeLabelText: 'Time',
+          //   onChanged: (val) => print(val),
+          //   validator: (val) {
+          //     print(val);
+          //     return null;
+          //   },
+          //   onSaved: (val) => print(val),
+          // )
         ],
       ),
     );

@@ -2,6 +2,7 @@ import 'dart:async';
 
 // import 'package:firestore_service/firestore_service.dart';
 import 'package:accountmanager/app/home/models/company.dart';
+import 'package:accountmanager/app/home/models/questionnaire_type.dart';
 import 'package:accountmanager/app/home/models/technician.dart';
 import 'package:meta/meta.dart';
 import 'package:accountmanager/app/home/models/entry.dart';
@@ -91,5 +92,11 @@ class FirestoreDatabase {
   Stream<List<Company>> companyStream() => _service.collectionStream(
         path: FirestorePath.companies(),
         builder: (data, id) => Company.fromMap(data, id),
+      );
+
+  Stream<List<QuestionnaireType>> questionnaireTypeStream() =>
+      _service.collectionStream(
+        path: FirestorePath.questionnaireType(),
+        builder: (data, id) => QuestionnaireType.fromMap(data),
       );
 }

@@ -36,8 +36,8 @@ dependencies:
   #     path: packages/firestore_service
   cloud_firestore: ^0.14.0+1
   cupertino_icons: ^1.0.1
+  date_time_picker: ^1.1.1
   docx_template: ^0.2.4
-
   equatable: ^1.2.5
   firebase: ^7.3.3
   firebase_auth: ^0.18.4+1
