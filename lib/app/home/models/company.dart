@@ -30,4 +30,7 @@ class Company extends Equatable {
       'name': name,
     };
   }
+
+  @override
+  String toString() => name;
 }

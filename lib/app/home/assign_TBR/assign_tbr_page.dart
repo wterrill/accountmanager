@@ -99,7 +99,8 @@ class AssignTBRPage extends StatelessWidget {
             },
           ),
           DropdownScreen(),
-          FutureDropdown(),
+          FutureDropdown(future: database.technicianStream().first),
+          FutureDropdown(future: database.companyStream().first),
         ],
       ),
     );

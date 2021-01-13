@@ -1,51 +1,56 @@
-import 'package:accountmanager/app/home/models/technician.dart';
-import 'package:accountmanager/services/firestore_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
 
+import 'package:accountmanager/services/firestore_database.dart';
+
 import '../../top_level_providers.dart';
 
-class FutureDropdown extends StatefulWidget {
-  const FutureDropdown({Key key}) : super(key: key);
+// typedef ItemWidgetBuilder<T> = Widget Function(BuildContext context, T item);
+
+class FutureDropdown<T> extends StatefulWidget {
+  const FutureDropdown({
+    Key key,
+    @required this.future,
+  }) : super(key: key);
+  final Future<List<T>> future;
 
   @override
-  _FutureDropdownState createState() => _FutureDropdownState();
+  _FutureDropdownState<T> createState() => _FutureDropdownState<T>();
 }
 
-class _FutureDropdownState extends State<FutureDropdown> {
-  Technician _selectedItem;
+class _FutureDropdownState<T> extends State<FutureDropdown> {
+  T _selectedItem;
   String selectedItemName = '';
 
   @override
   Widget build(BuildContext context) {
-    final FirestoreDatabase database = context.read(databaseProvider);
     return DropdownButtonHideUnderline(
-      child: FutureBuilder<List<Technician>>(
-        future: database.technicianStream().first,
+      child: FutureBuilder<List<T>>(
+        future: widget.future,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Container();
           } else if (snapshot.hasData) {
             print(snapshot.data);
-            final List<DropdownMenuItem<Technician>> list = [];
+            final List<DropdownMenuItem<T>> list = [];
             final Map<int, dynamic> dropDownItemsMap = {};
 
-            for (final Technician technician in snapshot.data) {
+            for (final T singleData in snapshot.data) {
               //listItemNames.add(branchItem.itemName);
-              final int index = snapshot.data.indexOf(technician);
-              dropDownItemsMap[index] = technician;
+              final int index = snapshot.data.indexOf(singleData);
+              dropDownItemsMap[index] = singleData;
 
-              list.add(DropdownMenuItem<Technician>(
-                  child: Text(technician.name), value: technician));
+              list.add(DropdownMenuItem<T>(
+                  child: Text(singleData.toString()), value: singleData));
             }
 
-            return DropdownButton<Technician>(
+            return DropdownButton<T>(
               items: list,
               value: _selectedItem,
               onChanged: (selected) {
                 _selectedItem = selected;
                 setState(() {
-                  selectedItemName = _selectedItem.name;
+                  selectedItemName = _selectedItem.toString();
                 });
               },
               hint: Text(
