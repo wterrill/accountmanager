@@ -26,7 +26,15 @@ final technicianStreamProvider =
   return database?.technicianStream() ?? const Stream.empty();
 });
 
-class AssignTBRPage extends StatelessWidget {
+class AssignTBRPage extends StatefulWidget {
+  @override
+  _AssignTBRPageState createState() => _AssignTBRPageState();
+}
+
+class _AssignTBRPageState extends State<AssignTBRPage> {
+  Technician selectedTechnician;
+  Company selectedCompany;
+
   Future<void> _signOut(BuildContext context, FirebaseAuth firebaseAuth) async {
     try {
       await firebaseAuth.signOut();
@@ -99,8 +107,32 @@ class AssignTBRPage extends StatelessWidget {
             },
           ),
           DropdownScreen(),
-          FutureDropdown(future: database.technicianStream().first),
-          FutureDropdown(future: database.companyStream().first),
+          FutureDropdown(
+            future: database.technicianStream().first,
+            onSelected: () {
+              print('selected');
+            },
+            onSelectedChange: (dynamic tech) {
+              print(tech.toString());
+              setState(() {
+                selectedTechnician = tech as Technician;
+              });
+            },
+          ),
+          Text(selectedTechnician?.name ?? 'Not selected'),
+          FutureDropdown(
+            future: database.companyStream().first,
+            onSelected: () {
+              print('selected');
+            },
+            onSelectedChange: (dynamic company) {
+              print(company.toString());
+              setState(() {
+                selectedCompany = company as Company;
+              });
+            },
+          ),
+          Text(selectedCompany?.name ?? 'Not selected'),
         ],
       ),
     );

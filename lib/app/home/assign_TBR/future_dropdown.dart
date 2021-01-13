@@ -8,11 +8,15 @@ import '../../top_level_providers.dart';
 // typedef ItemWidgetBuilder<T> = Widget Function(BuildContext context, T item);
 
 class FutureDropdown<T> extends StatefulWidget {
-  const FutureDropdown({
-    Key key,
-    @required this.future,
-  }) : super(key: key);
+  const FutureDropdown(
+      {Key key,
+      @required this.future,
+      @required this.onSelected,
+      @required this.onSelectedChange})
+      : super(key: key);
   final Future<List<T>> future;
+  final VoidCallback onSelected;
+  final Function(T) onSelectedChange;
 
   @override
   _FutureDropdownState<T> createState() => _FutureDropdownState<T>();
@@ -52,6 +56,8 @@ class _FutureDropdownState<T> extends State<FutureDropdown> {
                 setState(() {
                   selectedItemName = _selectedItem.toString();
                 });
+                widget.onSelected();
+                widget.onSelectedChange(_selectedItem);
               },
               hint: Text(
                 selectedItemName,
