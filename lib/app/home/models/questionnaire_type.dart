@@ -3,11 +3,12 @@ import 'package:meta/meta.dart';
 
 @immutable
 class QuestionnaireType extends Equatable {
-  const QuestionnaireType({@required this.option});
-  final String option;
+  const QuestionnaireType({@required this.name, @required this.id});
+  final String name;
+  final String id;
 
   @override
-  List<Object> get props => [option];
+  List<Object> get props => [name, id];
 
   @override
   bool get stringify => true;
@@ -16,19 +17,25 @@ class QuestionnaireType extends Equatable {
     if (data == null) {
       return null;
     }
-    final optionString = data['option'] as String;
-    if (optionString == null) {
+    final optionName = data['name'] as String;
+    if (optionName == null) {
       return null;
     }
-    return QuestionnaireType(option: optionString);
+
+    final optionid = data['id'] as String;
+    if (optionid == null) {
+      return null;
+    }
+    return QuestionnaireType(name: optionName, id: optionid);
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'option': option,
+      'id': id,
+      'name': name,
     };
   }
 
   @override
-  String toString() => option;
+  String toString() => name;
 }

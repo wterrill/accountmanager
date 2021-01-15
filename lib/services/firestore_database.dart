@@ -1,6 +1,8 @@
 import 'dart:async';
 
 // import 'package:firestore_service/firestore_service.dart';
+import 'package:accountmanager/app/home/assign_TBR/widget_assign_tbr.dart';
+import 'package:accountmanager/app/home/models/assignedTbr.dart';
 import 'package:accountmanager/app/home/models/company.dart';
 import 'package:accountmanager/app/home/models/questionnaire_type.dart';
 import 'package:accountmanager/app/home/models/technician.dart';
@@ -89,6 +91,15 @@ class FirestoreDatabase {
     await _service.deleteData(path: FirestorePath.company(company.id));
   }
 
+  Future<void> setTBR(AssignedTBR assignedTbr) => _service.setData(
+        path: FirestorePath.assignedtbr(assignedTbr.id),
+        data: assignedTbr.toMap(),
+      );
+
+  Future<void> deleteTBR(AssignedTBR assignedTbr) async {
+    await _service.deleteData(path: FirestorePath.assignedtbr(assignedTbr.id));
+  }
+
   Stream<List<Company>> companyStream() => _service.collectionStream(
         path: FirestorePath.companies(),
         builder: (data, id) => Company.fromMap(data, id),
@@ -98,5 +109,9 @@ class FirestoreDatabase {
       _service.collectionStream(
         path: FirestorePath.questionnaireType(),
         builder: (data, id) => QuestionnaireType.fromMap(data),
+      );
+  Stream<List<AssignedTBR>> assignedTbrStream() => _service.collectionStream(
+        path: FirestorePath.assignedtbrs(),
+        builder: (data, id) => AssignedTBR.fromMap(data, id),
       );
 }

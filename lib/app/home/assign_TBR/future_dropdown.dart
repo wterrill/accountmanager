@@ -35,7 +35,7 @@ class _FutureDropdownState<T> extends State<FutureDropdown> {
           if (snapshot.hasError) {
             return Container();
           } else if (snapshot.hasData) {
-            print(snapshot.data);
+            // print(snapshot.data);
             final List<DropdownMenuItem<T>> list = [];
             final Map<int, dynamic> dropDownItemsMap = {};
 
@@ -59,10 +59,12 @@ class _FutureDropdownState<T> extends State<FutureDropdown> {
                 widget.onSelected();
                 widget.onSelectedChange(_selectedItem);
               },
-              hint: Text(
-                selectedItemName,
-                style: const TextStyle(color: Colors.blue),
-              ),
+              hint: (_selectedItem == null)
+                  ? const Text('Select Item')
+                  : Text(
+                      selectedItemName,
+                      style: const TextStyle(color: Colors.blue),
+                    ),
             );
           } else {
             return const CircularProgressIndicator();

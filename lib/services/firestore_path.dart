@@ -7,11 +7,16 @@ class FirestorePath {
 
   //__________________________
   static String technicians() => 'technicians';
-  static String technician(String technicianID) => 'technicians/$technicianID';
+  static String technician(String technicianId) => 'technicians/$technicianId';
 
   //__________________________
   static String companies() => 'companies';
-  static String company(String companyID) => 'companies/$companyID';
+  static String company(String companyId) => 'companies/$companyId';
   //__________________________
   static String questionnaireType() => 'questionnaireTypes';
+
+  //__________________________
+  static String assignedtbrs() => 'assignedTbr';
+  static String assignedtbr(String assignedTbrId) =>
+      'assignedTbr/$assignedTbrId';
 }

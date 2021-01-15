@@ -5,7 +5,7 @@ Future<Map<String, dynamic>> showWidgetDialog({
   @required String title,
   @required Widget widget,
   String cancelActionText,
-  @required String defaultActionText,
+  String defaultActionText,
 }) async {
   if (kIsWeb || !Platform.isIOS) {
     return showDialog(
@@ -19,10 +19,11 @@ Future<Map<String, dynamic>> showWidgetDialog({
               child: Text(cancelActionText),
               onPressed: () => Navigator.of(context).pop({'result': 'true'}),
             ),
-          FlatButton(
-            child: Text(defaultActionText),
-            onPressed: () => Navigator.of(context).pop({'result': 'false'}),
-          ),
+          if (cancelActionText != null)
+            FlatButton(
+              child: Text(defaultActionText),
+              onPressed: () => Navigator.of(context).pop({'result': 'false'}),
+            ),
         ],
       ),
     );
