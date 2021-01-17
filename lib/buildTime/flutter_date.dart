@@ -1,1 +1,1 @@
-const String buildDate  = 'Fri Jan 15 20:23:52 -03 2021';
+const String buildDate  = 'Sat Jan 16 22:37:00 -03 2021';

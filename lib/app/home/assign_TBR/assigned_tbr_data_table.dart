@@ -5,12 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../top_level_providers.dart';
 
-final companyStreamProvider =
-    StreamProvider.autoDispose<List<AssignedTBR>>((ref) {
-  final database = ref.watch(databaseProvider);
-  return database?.assignedTbrStream() ?? const Stream.empty();
-});
-
 class IpaginatedTable extends StatefulWidget {
   const IpaginatedTable({Key key}) : super(key: key);
 

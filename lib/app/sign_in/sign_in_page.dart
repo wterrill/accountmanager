@@ -63,7 +63,6 @@ class SignInPageContents extends StatelessWidget {
       arguments: () async {
         print(navigator.toString());
         print(navigator.toStringShort());
-        print('$filename navigator.pop()');
         navigator.pop();
       },
     );

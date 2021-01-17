@@ -21,7 +21,6 @@ class EmailPasswordSignInPage extends StatefulWidget {
 
   factory EmailPasswordSignInPage.withFirebaseAuth(FirebaseAuth firebaseAuth,
       {@required VoidCallback onSignedIn}) {
-    print('$filename EmailPasswordSignInPage.withFirebaseAuth');
     return EmailPasswordSignInPage(
       model: EmailPasswordSignInModel(firebaseAuth: firebaseAuth),
       onSignedIn: onSignedIn,
@@ -65,13 +64,10 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
   }
 
   Future<void> _submit() async {
-    print('$filename _submit reached');
     try {
       final bool success = await model.submit();
       print('success=$success');
       if (success) {
-        print(
-            '$filename _submit, success=$success, forgotPassword=${model.formType == EmailPasswordSignInFormType.forgotPassword}');
         if (model.formType == EmailPasswordSignInFormType.forgotPassword) {
           await showAlertDialog(
             context: context,
@@ -80,10 +76,7 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
             defaultActionText: EmailPasswordSignInStrings.ok,
           );
         } else {
-          print(
-              '$filename widget.onSignedIn =null? ${widget.onSignedIn != null}');
           if (widget.onSignedIn != null) {
-            print('$filename ${widget.onSignedIn}');
             widget.onSignedIn();
           }
         }

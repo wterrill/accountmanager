@@ -22,7 +22,6 @@ class AuthWidgetBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('$filename AuthWidgetBuilder build method');
     final firebaseAuth = Provider.of<FirebaseAuth>(context, listen: false);
     return StreamBuilder<User>(
       stream: firebaseAuth.authStateChanges(),

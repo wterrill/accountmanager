@@ -21,7 +21,6 @@ class AppUser {
   final String displayName;
 
   factory AppUser.fromFirebaseUser(User user) {
-    print('$filename AppUser.fromFirebaseUser');
     if (user == null) {
       return null;
     }
@@ -37,51 +36,3 @@ class AppUser {
   String toString() =>
       'uid: $uid, email: $email, photoUrl: $photoURL, displayName: $displayName';
 }
-
-// class FirebaseAuthService {
-//   FirebaseAuthService() {
-//     print('$filename FirebaseAuthService constructed');
-//   }
-
-//   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-
-//   Stream<AppUser> authStateChanges() {
-//     return _firebaseAuth
-//         .authStateChanges()
-//         .map((user) => AppUser.fromFirebaseUser(user));
-//   }
-
-//   Future<AppUser> signInAnonymously() async {
-//     final userCredential = await _firebaseAuth.signInAnonymously();
-//     return AppUser.fromFirebaseUser(userCredential.user);
-//   }
-
-//   Future<AppUser> signInWithEmailAndPassword(
-//       String email, String password) async {
-//     print('$filename entered signInWithEmailAndPassword');
-//     final userCredential =
-//         await _firebaseAuth.signInWithCredential(EmailAuthProvider.credential(
-//       email: email,
-//       password: password,
-//     ));
-//     return AppUser.fromFirebaseUser(userCredential.user);
-//   }
-
-//   Future<AppUser> createUserWithEmailAndPassword(
-//       String email, String password) async {
-//     final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
-//         email: email, password: password);
-//     return AppUser.fromFirebaseUser(userCredential.user);
-//   }
-
-//   Future<void> sendPasswordResetEmail(String email) async {
-//     await _firebaseAuth.sendPasswordResetEmail(email: email);
-//   }
-
-//   AppUser get currentUser =>
-//       AppUser.fromFirebaseUser(_firebaseAuth.currentUser);
-
-//   Future<void> signOut() async {
-//     return _firebaseAuth.signOut();
-//   }
-// }

@@ -2,6 +2,7 @@ import 'package:accountmanager/app/home/models/assignedTbr.dart';
 import 'package:accountmanager/common_widgets/empty_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
+import 'package:intl/intl.dart';
 
 import '../../top_level_providers.dart';
 
@@ -82,15 +83,16 @@ class DTS extends DataTableSource {
 
   @override
   DataRow getRow(int index) {
-    print(data);
+    // print(data);
     // print(data[index]);
-    print(index);
+    // print(index);
     if (index < data.length) {
       return DataRow(cells: [
         DataCell(Text('${data[index].company}')),
         DataCell(Text('${data[index].technician}')),
-        DataCell(Text('${data[index].dueDate}')),
-        DataCell(Text('${data[index].clientMeetingDate}')),
+        DataCell(Text(DateFormat.yMMMEd().format(data[index].dueDate))),
+        DataCell(
+            Text(DateFormat.yMMMEd().format(data[index].clientMeetingDate))),
       ]);
     } else {
       return const DataRow(cells: [

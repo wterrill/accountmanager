@@ -37,17 +37,14 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
   bool submitted;
 
   Future<bool> submit() async {
-    print('$filename submit() inside EmailPasswordSignInModel');
     try {
       updateWith(submitted: true);
       if (!canSubmit) {
-        print('$filename submit() will return false');
         return false;
       }
       updateWith(isLoading: true);
       switch (formType) {
         case EmailPasswordSignInFormType.signIn:
-          print('$filename case EmailPasswordSignInFormType.signIn');
           if (firebaseAuth.currentUser != null) {
             await firebaseAuth.signOut();
           }
@@ -96,7 +93,6 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
     this.formType = formType ?? this.formType;
     this.isLoading = isLoading ?? this.isLoading;
     this.submitted = submitted ?? this.submitted;
-    // print('$filename OLD notifyListeners in updateWith()');
     notifyListeners();
   }
 
@@ -170,12 +166,10 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
   }
 
   bool get canSubmit {
-    print('$filename inside canSubmit');
     final bool canSubmitFields =
         formType == EmailPasswordSignInFormType.forgotPassword
             ? canSubmitEmail
             : canSubmitEmail && canSubmitPassword;
-    print('canSubmitFields && !isLoading = ${canSubmitFields && !isLoading}');
     return canSubmitFields && !isLoading;
   }
 

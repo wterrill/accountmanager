@@ -13,7 +13,6 @@ class SignInViewModel with ChangeNotifier {
   dynamic error;
 
   Future<void> _signIn(Future<UserCredential> Function() signInMethod) async {
-    print('$filename _signIn reached');
     try {
       isLoading = true;
       notifyListeners();
