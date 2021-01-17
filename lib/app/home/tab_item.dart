@@ -5,8 +5,7 @@ import 'package:accountmanager/constants/strings.dart';
 enum TabItem {
   account,
   createTech,
-  assignTbr_OLD,
-  assignTbr_NEW,
+  assignTbr,
   addCompany,
   overview,
   jobs,
@@ -32,14 +31,9 @@ class TabItemData {
       title: Strings.createTech,
       icon: Icons.access_alarms,
     ),
-    TabItem.assignTbr_OLD: TabItemData(
+    TabItem.assignTbr: TabItemData(
       key: Keys.assignTbrTab,
-      title: Strings.assignTbr_OLD,
-      icon: Icons.airline_seat_flat_angled,
-    ),
-    TabItem.assignTbr_NEW: TabItemData(
-      key: Keys.assignTbrTab,
-      title: Strings.assignTbr_NEW,
+      title: Strings.assignTbr,
       icon: Icons.airline_seat_flat_angled,
     ),
     TabItem.addCompany: TabItemData(

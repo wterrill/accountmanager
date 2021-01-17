@@ -1,4 +1,4 @@
-import 'package:accountmanager/app/home/assign_TBR_OLD/future_dropdown.dart';
+import 'package:accountmanager/app/home/assign_TBR/future_dropdown.dart';
 import 'package:accountmanager/app/home/models/assignedTbr.dart';
 import 'package:accountmanager/app/home/models/company.dart';
 import 'package:accountmanager/app/home/models/questionnaire_type.dart';
@@ -124,14 +124,15 @@ class _AssignTBRState extends State<AssignTBR> {
                   color: Colors.blue,
                 ),
               ),
-              onPressed: () => {
-                    (_sendAssignedTbr(
-                        selectedTechnician: selectedTechnician,
-                        selectedCompany: selectedCompany,
-                        selectedQuestionnaireType: selectedQuestionnaireType,
-                        evaluationDueDate: evaluationDueDate,
-                        clientMeetingDate: clientMeetingDate))
-                  }),
+              onPressed: () {
+                _sendAssignedTbr(
+                    selectedTechnician: selectedTechnician,
+                    selectedCompany: selectedCompany,
+                    selectedQuestionnaireType: selectedQuestionnaireType,
+                    evaluationDueDate: evaluationDueDate,
+                    clientMeetingDate: clientMeetingDate);
+                Navigator.of(context).pop();
+              }),
           const Spacer(),
           FlatButton(
               child: Text(

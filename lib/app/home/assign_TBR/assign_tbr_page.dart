@@ -1,10 +1,12 @@
 import 'dart:async';
 
-import 'package:accountmanager/app/home/assign_TBR_OLD/dropdown_screen.dart';
-import 'package:accountmanager/app/home/assign_TBR_OLD/future_dropdown.dart';
-import 'package:accountmanager/app/home/assign_TBR_OLD/test1.dart';
-import 'package:accountmanager/app/home/assign_TBR_OLD/test2.dart';
-import 'package:accountmanager/app/home/assign_TBR_OLD/widget_assign_tbr.dart';
+import 'package:accountmanager/app/home/assign_TBR/create_datatable_widget.dart';
+import 'package:accountmanager/app/home/assign_TBR/dropdown_screen.dart';
+import 'package:accountmanager/app/home/assign_TBR/future_dropdown.dart';
+import 'package:accountmanager/app/home/assign_TBR/test1.dart';
+import 'package:accountmanager/app/home/assign_TBR/test2.dart';
+import 'package:accountmanager/app/home/assign_TBR/test2_datatable.dart';
+import 'package:accountmanager/app/home/assign_TBR/widget_assign_tbr.dart';
 import 'package:accountmanager/app/home/models/assignedTbr.dart';
 import 'package:accountmanager/app/home/models/company.dart';
 import 'package:accountmanager/app/home/models/questionnaire_type.dart';
@@ -23,29 +25,18 @@ import 'assigned_tbr_data_table.dart';
 import 'package:flutter_riverpod/all.dart';
 import '../../top_level_providers.dart';
 
-// final companyStreamProvider = StreamProvider.autoDispose<List<Company>>((ref) {
+// final assignedTbrStreamProvider =
+//     StreamProvider.autoDispose<List<AssignedTBR>>((ref) {
 //   final database = ref.watch(databaseProvider);
-//   return database?.companyStream() ?? const Stream.empty();
+//   return database?.assignedTbrStream() ?? const Stream.empty();
 // });
 
-// final technicianStreamProvider =
-//     StreamProvider.autoDispose<List<Technician>>((ref) {
-//   final database = ref.watch(databaseProvider);
-//   return database?.technicianStream() ?? const Stream.empty();
-// });
-
-final assignedTbrStreamProvider =
-    StreamProvider.autoDispose<List<AssignedTBR>>((ref) {
-  final database = ref.watch(databaseProvider);
-  return database?.assignedTbrStream() ?? const Stream.empty();
-});
-
-class AssignTBRPage_OLD extends StatefulWidget {
+class AssignTBRPage extends StatefulWidget {
   @override
-  _AssignTBRPage_OLDState createState() => _AssignTBRPage_OLDState();
+  _AssignTBRPageState createState() => _AssignTBRPageState();
 }
 
-class _AssignTBRPage_OLDState extends State<AssignTBRPage_OLD> {
+class _AssignTBRPageState extends State<AssignTBRPage> {
   Technician selectedTechnician;
   Company selectedCompany;
   QuestionnaireType selectedQuestionnaireType;
@@ -62,7 +53,7 @@ class _AssignTBRPage_OLDState extends State<AssignTBRPage_OLD> {
     final user = firebaseAuth.currentUser;
     return Scaffold(
       appBar: AppBar(
-        title: const Text(Strings.assignTbr_OLD),
+        title: const Text(Strings.assignTbr),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(130.0),
           child: _buildUserInfo(user),
@@ -82,11 +73,12 @@ class _AssignTBRPage_OLDState extends State<AssignTBRPage_OLD> {
               _displayDialog(context);
             },
           ),
-          const IpaginatedTable()
+          // const IpaginatedTable()
           // Test1()
           // Test2()
           // DataTableBuilderConsumer<AssignedTBR>(
           //     inputStreamProvider: assignedTbrStreamProvider)
+          CreateDataTableWidget()
         ],
       ),
     );
