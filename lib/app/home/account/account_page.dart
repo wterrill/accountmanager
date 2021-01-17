@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:accountmanager/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
@@ -43,26 +44,46 @@ class AccountPage extends StatelessWidget {
     final firebaseAuth = context.read(firebaseAuthProvider);
     final user = firebaseAuth.currentUser;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(Strings.accountPage),
-        actions: <Widget>[
-          FlatButton(
-            key: const Key(Keys.logout),
-            child: const Text(
-              Strings.logout,
-              style: TextStyle(
-                fontSize: 18.0,
-                color: Colors.white,
+        appBar: AppBar(
+          title: const Text(Strings.accountPage),
+          actions: <Widget>[
+            FlatButton(
+              key: const Key(Keys.logout),
+              child: const Text(
+                Strings.logout,
+                style: TextStyle(
+                  fontSize: 18.0,
+                  color: Colors.white,
+                ),
               ),
+              onPressed: () => _confirmSignOut(context, firebaseAuth),
             ),
-            onPressed: () => _confirmSignOut(context, firebaseAuth),
+          ],
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(130.0),
+            child: _buildUserInfo(user),
           ),
-        ],
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(130.0),
-          child: _buildUserInfo(user),
         ),
-      ),
+        body: _buildBody(context));
+  }
+
+  Widget _buildBody(BuildContext context) {
+    return Column(
+      children: [
+        Consumer(builder: (context, watch, child) {
+          final greeting = watch(greetingProvider);
+          return Text(greeting);
+        }),
+        Consumer(builder: (context, watch, child) {
+          final incrementNotifier = watch(incrementProvider);
+          return Text(incrementNotifier._value.toString());
+        }),
+        RawMaterialButton(
+            child: const Text('increment'),
+            onPressed: () {
+              context.read(incrementProvider).increment();
+            })
+      ],
     );
   }
 
@@ -84,5 +105,15 @@ class AccountPage extends StatelessWidget {
         const SizedBox(height: 8),
       ],
     );
+  }
+}
+
+class IncrementNotifier extends ChangeNotifier {
+  int _value = 0;
+  int get value => _value;
+
+  void increment() {
+    _value++;
+    notifyListeners();
   }
 }

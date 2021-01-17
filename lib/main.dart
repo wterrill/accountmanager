@@ -12,7 +12,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:accountmanager/services/shared_preferences_service.dart';
 
+import 'app/home/account/account_page.dart';
+
 String filename = 'main.dart:';
+
+///////////
+
+final greetingProvider = Provider((ref) => 'Hello');
+final incrementProvider = ChangeNotifierProvider((ref) => IncrementNotifier());
+//////////
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
