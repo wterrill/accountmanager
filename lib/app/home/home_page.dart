@@ -1,4 +1,5 @@
-import 'package:accountmanager/app/home/assign_TBR/assign_tbr_page.dart';
+import 'package:accountmanager/app/home/assign_TBR_OLD/assign_tbr_page.dart';
+import 'package:accountmanager/app/home/assign_TBR_NEW/assign_tbr_page.dart';
 import 'package:accountmanager/app/home/create_company/create_company_page.dart';
 import 'package:accountmanager/app/home/create_technician/create_tech_page.dart';
 import 'package:accountmanager/app/home/overview/overview_page.dart';
@@ -22,7 +23,8 @@ class _HomePageState extends State<HomePage> {
     TabItem.entries: GlobalKey<NavigatorState>(),
     TabItem.account: GlobalKey<NavigatorState>(),
     TabItem.createTech: GlobalKey<NavigatorState>(),
-    TabItem.assignTbr: GlobalKey<NavigatorState>()
+    TabItem.assignTbr_OLD: GlobalKey<NavigatorState>(),
+    TabItem.assignTbr_NEW: GlobalKey<NavigatorState>()
   };
 
   Map<TabItem, WidgetBuilder> get widgetBuilders {
@@ -31,7 +33,8 @@ class _HomePageState extends State<HomePage> {
       TabItem.entries: (_) => EntriesPage(),
       TabItem.account: (_) => AccountPage(),
       TabItem.createTech: (_) => CreateTechPage(),
-      TabItem.assignTbr: (_) => AssignTBRPage(),
+      TabItem.assignTbr_OLD: (_) => AssignTBRPage_OLD(),
+      TabItem.assignTbr_NEW: (_) => AssignTBRPage_NEW(),
       TabItem.addCompany: (_) => CreateCompanyPage(),
       TabItem.overview: (_) => OverviewPage(),
     };

@@ -33,8 +33,11 @@ class Strings {
   // Create Tech Account Page
   static const String createTech = 'Create Technician';
 
-  // Assign TBR Page
-  static const String assignTbr = 'Assign TBR';
+  // Assign TBR Page OLD
+  static const String assignTbr_OLD = 'Assign TBR OLD';
+
+  // Assign TBR Page NEW
+  static const String assignTbr_NEW = 'Assign TBR NEW';
 
   // Add Company Page
   static const String addCompany = 'Add Company';

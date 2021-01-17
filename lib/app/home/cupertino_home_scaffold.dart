@@ -27,7 +27,8 @@ class CupertinoHomeScaffold extends StatelessWidget {
         items: [
           _buildBottomNavigationBarItem(TabItem.account),
           _buildBottomNavigationBarItem(TabItem.createTech),
-          _buildBottomNavigationBarItem(TabItem.assignTbr),
+          _buildBottomNavigationBarItem(TabItem.assignTbr_OLD),
+          _buildBottomNavigationBarItem(TabItem.assignTbr_NEW),
           _buildBottomNavigationBarItem(TabItem.addCompany),
           _buildBottomNavigationBarItem(TabItem.overview),
           _buildBottomNavigationBarItem(TabItem.jobs),
