@@ -11,6 +11,9 @@ import 'package:pedantic/pedantic.dart';
 import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
 
 class OverviewPage extends StatelessWidget {
+  final String data;
+
+  const OverviewPage({Key key, this.data}) : super(key: key);
   Future<void> _signOut(BuildContext context, FirebaseAuth firebaseAuth) async {
     try {
       await firebaseAuth.signOut();
@@ -43,27 +46,27 @@ class OverviewPage extends StatelessWidget {
     final firebaseAuth = context.read(firebaseAuthProvider);
     final user = firebaseAuth.currentUser;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(Strings.overview),
-        actions: <Widget>[
-          FlatButton(
-            key: const Key(Keys.logout),
-            child: const Text(
-              Strings.logout,
-              style: TextStyle(
-                fontSize: 18.0,
-                color: Colors.white,
+        appBar: AppBar(
+          title: const Text(Strings.overview),
+          actions: <Widget>[
+            FlatButton(
+              key: const Key(Keys.logout),
+              child: const Text(
+                Strings.logout,
+                style: TextStyle(
+                  fontSize: 18.0,
+                  color: Colors.white,
+                ),
               ),
+              onPressed: () => _confirmSignOut(context, firebaseAuth),
             ),
-            onPressed: () => _confirmSignOut(context, firebaseAuth),
+          ],
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(130.0),
+            child: _buildUserInfo(user),
           ),
-        ],
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(130.0),
-          child: _buildUserInfo(user),
         ),
-      ),
-    );
+        body: (data != null) ? Text(data) : const Text('none'));
   }
 
   Widget _buildUserInfo(User user) {

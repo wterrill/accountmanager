@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:accountmanager/app/home/assign_TBR/assign_tbr_page.dart';
+import 'package:accountmanager/app/home/overview/overview_page.dart';
 import 'package:accountmanager/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -90,7 +92,30 @@ class AccountPage extends StatelessWidget {
               loading: (_) => const CircularProgressIndicator(),
               error: (_) => Text(_.error.toString(),
                   style: const TextStyle(color: Colors.red)));
-        })
+        }),
+        const SizedBox(height: 100),
+        RawMaterialButton(
+          child: const Text('New Page'),
+          fillColor: Colors.blue,
+          onPressed: () {
+            // Navigator.of(context).push<OverviewPage>(MaterialPageRoute(
+            //     builder: (context) =>
+            //         const OverviewPage(data: 'hello there')));
+
+            // Navigator.of(context).pushAndRemoveUntil<OverviewPage>(
+            //   MaterialPageRoute(
+            //       builder: (context) => const OverviewPage(data: 'weird')),
+            //   ModalRoute.withName('/'),
+            // );
+
+            // Navigator.of(context).pushAndRemoveUntil<OverviewPage>(
+            //     MaterialPageRoute(
+            //         builder: (context) => const OverviewPage(data: 'weird')),
+            //     (Route<dynamic> route) => false);
+
+            // Navigator.of(context).pushNamed('/second');
+          },
+        ),
       ],
     );
   }
