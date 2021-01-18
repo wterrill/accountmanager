@@ -1,4 +1,5 @@
 import 'package:accountmanager/app/home/assign_TBR/future_dropdown.dart';
+import 'package:accountmanager/app/home/models/Status.dart';
 import 'package:accountmanager/app/home/models/assignedTbr.dart';
 import 'package:accountmanager/app/home/models/company.dart';
 import 'package:accountmanager/app/home/models/questionnaire_type.dart';
@@ -171,7 +172,7 @@ class _AssignTBRState extends State<AssignTBR> {
             questionnaireType: selectedQuestionnaireType,
             clientMeetingDate: clientMeetingDate,
             dueDate: evaluationDueDate,
-            status: 0);
+            status: Status(statusIndex: 0));
         await database.setTBR(assignedTbr);
       } catch (e) {
         unawaited(showExceptionAlertDialog(

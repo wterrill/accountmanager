@@ -65,7 +65,8 @@ class _DataTableBuilderState<AssignedTBR> extends State<DataTableBuilder> {
                 DataColumn(label: Text('Company Name')),
                 DataColumn(label: Text('Technician')),
                 DataColumn(label: Text('Due Date')),
-                DataColumn(label: Text('Meeting Date'))
+                DataColumn(label: Text('Meeting Date')),
+                DataColumn(label: Text('Status'))
               ],
             ),
             Container(height: 150),
@@ -93,9 +94,11 @@ class DTS extends DataTableSource {
         DataCell(Text(DateFormat.yMMMEd().format(data[index].dueDate))),
         DataCell(
             Text(DateFormat.yMMMEd().format(data[index].clientMeetingDate))),
+        DataCell(Text(data[index].status.getStatusName()))
       ]);
     } else {
       return const DataRow(cells: [
+        DataCell(Text('')),
         DataCell(Text('')),
         DataCell(Text('')),
         DataCell(Text('')),

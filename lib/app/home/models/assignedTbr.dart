@@ -8,8 +8,11 @@ import 'package:accountmanager/app/home/models/company.dart';
 import 'package:accountmanager/app/home/models/questionnaire_type.dart';
 import 'package:accountmanager/app/home/models/technician.dart';
 
-@immutable
-class AssignedTBR extends Equatable {
+import 'Status.dart';
+
+// @immutable
+class AssignedTBR {
+  //extends Equatable {
   AssignedTBR({
     @required this.id,
     @required this.technician,
@@ -25,22 +28,22 @@ class AssignedTBR extends Equatable {
   final QuestionnaireType questionnaireType;
   final DateTime dueDate;
   final DateTime clientMeetingDate;
-  final int status;
+  final Status status;
   bool selected;
 
-  @override
-  List<Object> get props => [
-        id,
-        technician,
-        company,
-        questionnaireType,
-        dueDate,
-        clientMeetingDate,
-        status
-      ];
+  // @override
+  // List<Object> get props => [
+  //       id,
+  //       technician,
+  //       company,
+  //       questionnaireType,
+  //       dueDate,
+  //       clientMeetingDate,
+  //       status
+  //     ];
 
-  @override
-  bool get stringify => true;
+  // @override
+  // bool get stringify => true;
 
   factory AssignedTBR.fromMap(Map<String, dynamic> data, String documentId) {
     if (data == null) {
@@ -78,6 +81,7 @@ class AssignedTBR extends Equatable {
     final DateTime clientMeetingDateDatetime =
         DateTime.fromMicrosecondsSinceEpoch(
             clientMeetingDate.microsecondsSinceEpoch);
+    final Status statusObj = Status(statusIndex: status);
 
     return AssignedTBR(
         id: documentId,
@@ -86,7 +90,7 @@ class AssignedTBR extends Equatable {
         questionnaireType: question,
         dueDate: dueDateDatetime,
         clientMeetingDate: clientMeetingDateDatetime,
-        status: status);
+        status: statusObj);
   }
 
   Map<String, dynamic> toMap() {
@@ -99,7 +103,7 @@ class AssignedTBR extends Equatable {
       'questionnaireType_name': questionnaireType.name,
       'dueDate': dueDate,
       'clientMeetingDate': clientMeetingDate,
-      'status': status,
+      'status': status.statusIndex,
     };
   }
 
