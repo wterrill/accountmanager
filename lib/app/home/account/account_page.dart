@@ -82,7 +82,15 @@ class AccountPage extends StatelessWidget {
             child: const Text('increment'),
             onPressed: () {
               context.read(incrementProvider).increment();
-            })
+            }),
+        Consumer(builder: (context, watch, client) {
+          final responseAsyncValue = watch(responseProvider('swimming.com'));
+          return responseAsyncValue.map(
+              data: (_) => Text(_.value),
+              loading: (_) => const CircularProgressIndicator(),
+              error: (_) => Text(_.error.toString(),
+                  style: const TextStyle(color: Colors.red)));
+        })
       ],
     );
   }
@@ -107,6 +115,20 @@ class AccountPage extends StatelessWidget {
     );
   }
 }
+
+class FakeHttpClient {
+  Future<String> get(String url) async {
+    await Future.delayed(const Duration(seconds: 5));
+    return 'Response from $url';
+  }
+}
+
+final fakeHttpClientProvider = Provider((ref) => FakeHttpClient());
+final responseProvider =
+    FutureProvider.autoDispose.family<String, String>((ref, url) async {
+  final httpClient = ref.watch(fakeHttpClientProvider);
+  return httpClient.get(url);
+});
 
 class IncrementNotifier extends ChangeNotifier {
   int _value = 0;
