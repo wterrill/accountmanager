@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:accountmanager/buildTime/flutter_date.dart';
+import 'package:accountmanager/buildTime/flutter_version.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
@@ -57,6 +59,16 @@ class AccountPage extends StatelessWidget {
             ),
             onPressed: () => _confirmSignOut(context, firebaseAuth),
           ),
+          FlatButton(
+            child: const Text(
+              "Version",
+              style: TextStyle(
+                fontSize: 18.0,
+                color: Colors.white,
+              ),
+            ),
+            onPressed: () => _showVersion(context),
+          ),
         ],
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(130.0),
@@ -84,5 +96,35 @@ class AccountPage extends StatelessWidget {
         const SizedBox(height: 8),
       ],
     );
+  }
+}
+
+Future<void> _showVersion(BuildContext context) async {
+  try {
+    final Map<String, dynamic> result = await showWidgetDialog(
+      context: context,
+      title: 'Version',
+      widget: FractionallySizedBox(
+        heightFactor: 0.1,
+        child: Column(
+          children: const <Widget>[
+            Text('Build date: $buildDate'),
+            Text('App Version: $appVersion')
+          ],
+        ),
+      ),
+      // defaultActionText: '',
+      // cancelActionText: '',
+    );
+
+    if (result != null && (result['result']) == 'true') {
+      // print('result = $result');
+    }
+  } catch (e) {
+    unawaited(showExceptionAlertDialog(
+      context: context,
+      title: 'Operation failed',
+      exception: e,
+    ));
   }
 }

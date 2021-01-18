@@ -130,7 +130,7 @@ class DTS extends DataTableSource {
   bool get isRowCountApproximate => true;
 
   @override
-  int get rowCount => 100;
+  int get rowCount => data.length;
 
   @override
   int get selectedRowCount => 0;
