@@ -39,13 +39,13 @@ class Status {
   @override
   String toString() => 'Status(statusIndex: $statusIndex)';
 
-  @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
+  // @override
+  // bool operator ==(Object o) {
+  //   if (identical(this, o)) return true;
 
-    return o is Status && o.statusIndex == statusIndex;
-  }
+  //   return o is Status && o.statusIndex == statusIndex;
+  // }
 
-  @override
-  int get hashCode => statusIndex.hashCode;
+  // @override
+  // int get hashCode => statusIndex.hashCode;
 }

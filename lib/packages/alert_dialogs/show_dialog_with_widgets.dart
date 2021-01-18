@@ -7,6 +7,7 @@ Future<Map<String, dynamic>> showWidgetDialog({
   String cancelActionText,
   String defaultActionText,
 }) async {
+  print(widget);
   if (kIsWeb || !Platform.isIOS) {
     return showDialog(
       context: context,

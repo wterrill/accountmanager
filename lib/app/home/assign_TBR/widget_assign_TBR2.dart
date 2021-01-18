@@ -1,3 +1,8 @@
+import 'package:date_time_picker/date_time_picker.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pedantic/pedantic.dart';
+
 import 'package:accountmanager/app/home/assign_TBR/future_dropdown.dart';
 import 'package:accountmanager/app/home/models/Status.dart';
 import 'package:accountmanager/app/home/models/assignedTbr.dart';
@@ -7,13 +12,13 @@ import 'package:accountmanager/app/home/models/technician.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
 import 'package:accountmanager/services/firestore_database.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:date_time_picker/date_time_picker.dart';
-import 'package:pedantic/pedantic.dart';
 
 class AssignTBR extends StatefulWidget {
-  const AssignTBR({Key key}) : super(key: key);
+  const AssignTBR({
+    Key key,
+    this.data,
+  }) : super(key: key);
+  final AssignedTBR data;
 
   @override
   _AssignTBRState createState() => _AssignTBRState();
@@ -25,6 +30,22 @@ class _AssignTBRState extends State<AssignTBR> {
   QuestionnaireType selectedQuestionnaireType;
   DateTime evaluationDueDate;
   DateTime clientMeetingDate;
+  String id;
+  bool editAssignTBR = false;
+  @override
+  void initState() {
+    super.initState();
+    if (widget.data != null) {
+      selectedTechnician = widget.data.technician;
+      selectedCompany = widget.data.company;
+      selectedQuestionnaireType = widget.data.questionnaireType;
+      evaluationDueDate = widget.data.dueDate;
+      clientMeetingDate = widget.data.clientMeetingDate;
+      id = widget.data.id;
+      editAssignTBR = true;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final FirestoreDatabase database = context.read(databaseProvider);
@@ -34,6 +55,7 @@ class _AssignTBRState extends State<AssignTBR> {
         children: [
           // DropdownScreen(),
           FutureDropdown(
+            selectedData: selectedTechnician,
             future: database.technicianStream().first,
             onSelected: () {
               print('selected');
@@ -47,6 +69,7 @@ class _AssignTBRState extends State<AssignTBR> {
           ),
           // Text(selectedTechnician?.name ?? 'Not selected'),
           FutureDropdown(
+            selectedData: selectedCompany,
             future: database.companyStream().first,
             onSelected: () {
               print('selected');
@@ -60,6 +83,7 @@ class _AssignTBRState extends State<AssignTBR> {
           ),
           // Text(selectedCompany?.name ?? 'Not selected'),
           FutureDropdown(
+            selectedData: selectedQuestionnaireType,
             future: database.questionnaireTypeStream().first,
             onSelected: () {
               print('selected');
@@ -73,7 +97,7 @@ class _AssignTBRState extends State<AssignTBR> {
           ),
           // Text(selectedQuestionnaireType?.option ?? 'Not selected'),
           DateTimePicker(
-            initialValue: '',
+            initialValue: evaluationDueDate.toString(),
             firstDate: DateTime(2000),
             lastDate: DateTime(2100),
             dateLabelText: 'Evaluation Due Date',
@@ -96,7 +120,7 @@ class _AssignTBRState extends State<AssignTBR> {
           ),
           // Text(evaluationDueDate?.toString() ?? 'Not Selected'),
           DateTimePicker(
-            initialValue: '',
+            initialValue: clientMeetingDate.toString(),
             firstDate: DateTime(2000),
             lastDate: DateTime(2100),
             dateLabelText: 'Client Meeting Date',
@@ -131,7 +155,8 @@ class _AssignTBRState extends State<AssignTBR> {
                     selectedCompany: selectedCompany,
                     selectedQuestionnaireType: selectedQuestionnaireType,
                     evaluationDueDate: evaluationDueDate,
-                    clientMeetingDate: clientMeetingDate);
+                    clientMeetingDate: clientMeetingDate,
+                    id: id);
                 Navigator.of(context).pop();
               }),
           const Spacer(),
@@ -155,16 +180,20 @@ class _AssignTBRState extends State<AssignTBR> {
       Company selectedCompany,
       QuestionnaireType selectedQuestionnaireType,
       DateTime evaluationDueDate,
-      DateTime clientMeetingDate}) async {
+      DateTime clientMeetingDate,
+      String id}) async {
     print(selectedTechnician);
     print(selectedCompany);
     print(selectedQuestionnaireType);
     print(evaluationDueDate);
     print(clientMeetingDate);
+    print(id);
     if (_validateAndSaveForm()) {
       try {
+        if (id == null) {
+          id = documentIdFromCurrentDate();
+        }
         final database = context.read(databaseProvider);
-        final id = documentIdFromCurrentDate();
         final assignedTbr = AssignedTBR(
             id: id,
             technician: selectedTechnician,

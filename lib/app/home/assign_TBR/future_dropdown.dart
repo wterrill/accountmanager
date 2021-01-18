@@ -12,11 +12,13 @@ class FutureDropdown<T> extends StatefulWidget {
       {Key key,
       @required this.future,
       @required this.onSelected,
-      @required this.onSelectedChange})
+      @required this.onSelectedChange,
+      this.selectedData})
       : super(key: key);
   final Future<List<T>> future;
   final VoidCallback onSelected;
   final Function(T) onSelectedChange;
+  final T selectedData;
 
   @override
   _FutureDropdownState<T> createState() => _FutureDropdownState<T>();
@@ -25,6 +27,14 @@ class FutureDropdown<T> extends StatefulWidget {
 class _FutureDropdownState<T> extends State<FutureDropdown> {
   T _selectedItem;
   String selectedItemName = '';
+
+  @override
+  void initState() {
+    if (widget.selectedData != null) {
+      _selectedItem = widget.selectedData as T;
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
