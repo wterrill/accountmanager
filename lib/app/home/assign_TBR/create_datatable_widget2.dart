@@ -31,11 +31,26 @@ class DataTableBuilder extends StatefulWidget {
   final AsyncValue<List<AssignedTBR>> data;
 
   @override
-  _DataTableBuilderState<AssignedTBR> createState() =>
-      _DataTableBuilderState<AssignedTBR>();
+  _DataTableBuilderState createState() => _DataTableBuilderState();
 }
 
-class _DataTableBuilderState<AssignedTBR> extends State<DataTableBuilder> {
+// class name extends StatefulWidget {
+//   name({Key key}) : super(key: key);
+
+//   @override
+//   _nameState createState() => _nameState();
+// }
+
+// class _nameState extends State<name> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//        child: child,
+//     );
+//   }
+// }
+
+class _DataTableBuilderState extends State<DataTableBuilder> {
   int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
 
   @override

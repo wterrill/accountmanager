@@ -31,13 +31,22 @@ class DataTableBuilder extends StatefulWidget {
   final AsyncValue<List<Question>> data; //**//**//**//**/
 
   @override
-  _DataTableBuilderState<Question> createState() => //**//**//**//**/
-      _DataTableBuilderState<Question>(); //**//**//**//**/
+  _DataTableBuilderState createState() => //**//**//**//**/
+      _DataTableBuilderState(); //**//**//**//**/
 }
 
-class _DataTableBuilderState<Question> extends State<DataTableBuilder> {
+class _DataTableBuilderState extends State<DataTableBuilder> {
   //**//**//**//**/
   int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
+
+  //  DTS _calendarResultsDataSource = DTS([]);
+
+  // bool isLoaded = false;
+  // String lastFilterText = "";
+  // bool filterTimeToggle;
+  // // int _rowsPerPage = CustomPaginatedDataTable.defaultRowsPerPage;
+  // int _sortColumnIndex = 0;
+  // bool _sortAscending = false;
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +62,17 @@ class _DataTableBuilderState<Question> extends State<DataTableBuilder> {
     );
   }
 
+  // void _sort<T>(
+  //     Comparable<T> getField(Question d), int columnIndex, bool ascending) {
+  //   print('columnIndex: $columnIndex');
+  //   print('ascending: $ascending');
+  //   // _calendarResultsDataSource.sort<T>(getField, ascending);
+  //   setState(() {
+  //     _sortColumnIndex = columnIndex;
+  //     _sortAscending = ascending;
+  //   });
+  // }
+
   Widget _datatable(DTS dtsSource) {
     return Flexible(
       child: SingleChildScrollView(
@@ -60,7 +80,7 @@ class _DataTableBuilderState<Question> extends State<DataTableBuilder> {
           children: [
             PaginatedDataTable(
               showCheckboxColumn: false,
-              header: const Text('header'),
+              header: const Text('questions'),
               source: dtsSource,
               rowsPerPage: _rowsPerPage,
               onRowsPerPageChanged: (rows) {
@@ -68,13 +88,17 @@ class _DataTableBuilderState<Question> extends State<DataTableBuilder> {
                   _rowsPerPage = rows;
                 });
               },
-              columns: const [
-                DataColumn(label: Text('Category')),
-                DataColumn(label: Text('Benefits Business Value')),
-                DataColumn(label: Text('Question Text')),
-                DataColumn(label: Text('Question Priority')),
-                DataColumn(label: Text('Type')),
-                DataColumn(label: Text('Why are we asking?'))
+              columns: [
+                const DataColumn(
+                  label: const Text('Category'),
+                  // onSort: (columnIndex, ascending) => _sort<String>(
+                  //     (Question d) => d.category, columnIndex, ascending),
+                ),
+                const DataColumn(label: Text('Benefits Business Value')),
+                const DataColumn(label: Text('Question Text')),
+                const DataColumn(label: Text('Question Priority')),
+                const DataColumn(label: Text('Type')),
+                const DataColumn(label: Text('Why are we asking?'))
               ],
             ),
             Container(height: 150),
