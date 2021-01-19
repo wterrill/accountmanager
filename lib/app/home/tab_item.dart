@@ -10,6 +10,7 @@ enum TabItem {
   overview,
   jobs,
   entries,
+  questionEdit
 }
 
 class TabItemData {
@@ -54,6 +55,11 @@ class TabItemData {
       key: Keys.entriesTab,
       title: Strings.entries,
       icon: Icons.view_headline,
+    ),
+    TabItem.questionEdit: TabItemData(
+      key: Keys.questionTab,
+      title: Strings.questionEdit,
+      icon: Icons.question_answer_rounded,
     ),
   };
 }

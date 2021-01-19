@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:accountmanager/app/home/models/assignedTbr.dart';
 import 'package:accountmanager/app/home/models/company.dart';
+import 'package:accountmanager/app/home/models/question.dart';
 import 'package:accountmanager/app/home/models/questionnaire_type.dart';
 import 'package:accountmanager/app/home/models/technician.dart';
 import 'package:meta/meta.dart';
@@ -110,5 +111,9 @@ class FirestoreDatabase {
   Stream<List<AssignedTBR>> assignedTbrStream() => _service.collectionStream(
         path: FirestorePath.assignedtbrs(),
         builder: (data, id) => AssignedTBR.fromMap(data, id),
+      );
+  Stream<List<Question>> questionStream() => _service.collectionStream(
+        path: FirestorePath.questions(), //**//**//**//**/
+        builder: (data, id) => Question.fromMap(data),
       );
 }

@@ -19,4 +19,8 @@ class FirestorePath {
   static String assignedtbrs() => 'assignedTbr';
   static String assignedtbr(String assignedTbrId) =>
       'assignedTbr/$assignedTbrId';
+
+  // _________________________
+  static String questions() => 'questionnaire';
+  static String question(String questionId) => 'questionnaire/$questionId';
 }

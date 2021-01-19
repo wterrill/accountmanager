@@ -2,6 +2,7 @@ import 'package:accountmanager/app/home/assign_TBR/assign_tbr_page.dart';
 import 'package:accountmanager/app/home/create_company/create_company_page.dart';
 import 'package:accountmanager/app/home/create_technician/create_tech_page.dart';
 import 'package:accountmanager/app/home/overview/overview_page.dart';
+import 'package:accountmanager/app/home/question/question_edit_page.dart';
 import 'package:flutter/material.dart';
 import 'package:accountmanager/app/home/account/account_page.dart';
 import 'package:accountmanager/app/home/cupertino_home_scaffold.dart';
@@ -22,7 +23,8 @@ class _HomePageState extends State<HomePage> {
     TabItem.entries: GlobalKey<NavigatorState>(),
     TabItem.account: GlobalKey<NavigatorState>(),
     TabItem.createTech: GlobalKey<NavigatorState>(),
-    TabItem.assignTbr: GlobalKey<NavigatorState>()
+    TabItem.assignTbr: GlobalKey<NavigatorState>(),
+    TabItem.questionEdit: GlobalKey<NavigatorState>()
   };
 
   Map<TabItem, WidgetBuilder> get widgetBuilders {
@@ -34,6 +36,7 @@ class _HomePageState extends State<HomePage> {
       TabItem.assignTbr: (_) => AssignTBRPage(),
       TabItem.addCompany: (_) => CreateCompanyPage(),
       TabItem.overview: (_) => OverviewPage(),
+      TabItem.questionEdit: (_) => QuestionPage(),
     };
   }
 

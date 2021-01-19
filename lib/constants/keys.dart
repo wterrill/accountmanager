@@ -13,4 +13,5 @@ class Keys {
   static const String assignTbrTab = 'assignTbrTab';
   static const String addCompanyTab = 'addCompanyTab';
   static const String overviewTab = 'overviewTab';
+  static const String questionTab = 'questionTab';
 }

@@ -45,10 +45,10 @@ class _AssignTBRPageState extends State<AssignTBRPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(Strings.assignTbr),
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(130.0),
-          child: _buildUserInfo(user),
-        ),
+        // bottom: PreferredSize(
+        //   preferredSize: const Size.fromHeight(130.0),
+        //   child: _buildUserInfo(user),
+        // ),
       ),
       body: Column(
         children: [
@@ -90,25 +90,5 @@ class _AssignTBRPageState extends State<AssignTBRPage> {
         exception: e,
       ));
     }
-  }
-
-  Widget _buildUserInfo(User user) {
-    return Column(
-      children: [
-        Avatar(
-          photoUrl: user.photoURL,
-          radius: 50,
-          borderColor: Colors.black54,
-          borderWidth: 2.0,
-        ),
-        const SizedBox(height: 8),
-        if (user.displayName != null)
-          Text(
-            user.displayName,
-            style: const TextStyle(color: Colors.white),
-          ),
-        const SizedBox(height: 8),
-      ],
-    );
   }
 }

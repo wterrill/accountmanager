@@ -10,7 +10,7 @@ class Question {
   final String howTo;
   final String projectType;
   final String questionName;
-  final String questionPrioirity;
+  final String questionPriority;
   final String questionText;
   final String roadMap; //mm/yyyy
   final String section;
@@ -33,7 +33,7 @@ class Question {
     this.howTo,
     this.projectType,
     this.questionName,
-    this.questionPrioirity,
+    this.questionPriority,
     this.questionText,
     this.roadMap,
     this.section,
@@ -57,7 +57,7 @@ class Question {
     String howTo,
     String projectType,
     String questionName,
-    String questionPrioirity,
+    String questionPriority,
     String questionText,
     String roadMap,
     String section,
@@ -70,6 +70,7 @@ class Question {
     String whyAreWeAsking,
     String id,
   }) {
+    id.runtimeType;
     return Question(
       benefitsBusinessValue:
           benefitsBusinessValue ?? this.benefitsBusinessValue,
@@ -83,7 +84,7 @@ class Question {
       howTo: howTo ?? this.howTo,
       projectType: projectType ?? this.projectType,
       questionName: questionName ?? this.questionName,
-      questionPrioirity: questionPrioirity ?? this.questionPrioirity,
+      questionPriority: questionPriority ?? this.questionPriority,
       questionText: questionText ?? this.questionText,
       roadMap: roadMap ?? this.roadMap,
       section: section ?? this.section,
@@ -110,7 +111,7 @@ class Question {
       'howTo': howTo,
       'projectType': projectType,
       'questionName': questionName,
-      'questionPrioirity': questionPrioirity,
+      'questionPriority': questionPriority,
       'questionText': questionText,
       'roadMap': roadMap,
       'section': section,
@@ -129,26 +130,26 @@ class Question {
     if (map == null) return null;
 
     return Question(
-      benefitsBusinessValue: map['benefitsBusinessValue'],
-      category: map['category'],
-      customerApprovedProject: map['customerApprovedProject'],
-      estimatedLaborPrice: map['estimatedLaborPrice'],
-      estimatedMRRIncrease: map['estimatedMRRIncrease'],
-      estimatedProductPrice: map['estimatedProductPrice'],
-      howTo: map['howTo'],
-      projectType: map['projectType'],
-      questionName: map['questionName'],
-      questionPrioirity: map['questionPrioirity'],
-      questionText: map['questionText'],
-      roadMap: map['roadMap'],
-      section: map['section'],
-      sysAdminNotes: map['sysAdminNotes'],
-      sysAdminReviewAligned: map['sysAdminReviewAligned'],
-      tamRecommendations: map['tamRecommendations'],
-      tamReview: map['tamReview'],
-      totalProjectEstimate: map['totalProjectEstimate'],
-      type: map['type'],
-      whyAreWeAsking: map['whyAreWeAsking'],
+      benefitsBusinessValue: map['Benefits / Business Value added Dec 2020'],
+      category: map['Category'],
+      customerApprovedProject: map['Customer Approved Project'],
+      estimatedLaborPrice: map['Estimated Labor Price'],
+      estimatedMRRIncrease: map['Estimated MRR Increase'],
+      estimatedProductPrice: map['Estimated Product Price'],
+      howTo: map['How to?:'],
+      projectType: map['Project Type'],
+      questionName: map['Question Name'],
+      questionPriority: map['Question Priority'],
+      questionText: map['Question Text'],
+      roadMap: map['ROAD MAP = Month / Year [mm/yyyy]'],
+      section: map['Section'],
+      sysAdminNotes: map['Sys Admin Notes'],
+      sysAdminReviewAligned: map['Sys Admin Review Aligned (Y/N)'],
+      tamRecommendations: map['TAM Recommendations'],
+      tamReview: map['TAM Review'],
+      totalProjectEstimate: map['Total Project Estimate'],
+      type: map['Type'],
+      whyAreWeAsking: map['Why Are We Asking?'],
       id: map['id'],
     );
   }
@@ -160,7 +161,7 @@ class Question {
 
   @override
   String toString() {
-    return 'Question(benefitsBusinessValue: $benefitsBusinessValue, category: $category, customerApprovedProject: $customerApprovedProject, estimatedLaborPrice: $estimatedLaborPrice, estimatedMRRIncrease: $estimatedMRRIncrease, estimatedProductPrice: $estimatedProductPrice, howTo: $howTo, projectType: $projectType, questionName: $questionName, questionPrioirity: $questionPrioirity, questionText: $questionText, roadMap: $roadMap, section: $section, sysAdminNotes: $sysAdminNotes, sysAdminReviewAligned: $sysAdminReviewAligned, tamRecommendations: $tamRecommendations, tamReview: $tamReview, totalProjectEstimate: $totalProjectEstimate, type: $type, whyAreWeAsking: $whyAreWeAsking, id: $id)';
+    return 'Question(benefitsBusinessValue: $benefitsBusinessValue, category: $category, customerApprovedProject: $customerApprovedProject, estimatedLaborPrice: $estimatedLaborPrice, estimatedMRRIncrease: $estimatedMRRIncrease, estimatedProductPrice: $estimatedProductPrice, howTo: $howTo, projectType: $projectType, questionName: $questionName, questionPriority: $questionPriority, questionText: $questionText, roadMap: $roadMap, section: $section, sysAdminNotes: $sysAdminNotes, sysAdminReviewAligned: $sysAdminReviewAligned, tamRecommendations: $tamRecommendations, tamReview: $tamReview, totalProjectEstimate: $totalProjectEstimate, type: $type, whyAreWeAsking: $whyAreWeAsking, id: $id)';
   }
 
   @override
@@ -177,7 +178,7 @@ class Question {
         o.howTo == howTo &&
         o.projectType == projectType &&
         o.questionName == questionName &&
-        o.questionPrioirity == questionPrioirity &&
+        o.questionPriority == questionPriority &&
         o.questionText == questionText &&
         o.roadMap == roadMap &&
         o.section == section &&
@@ -202,7 +203,7 @@ class Question {
         howTo.hashCode ^
         projectType.hashCode ^
         questionName.hashCode ^
-        questionPrioirity.hashCode ^
+        questionPriority.hashCode ^
         questionText.hashCode ^
         roadMap.hashCode ^
         section.hashCode ^

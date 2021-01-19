@@ -1,3 +1,4 @@
+import 'package:accountmanager/common_utilities/utilities.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
 
@@ -38,6 +39,8 @@ class _FutureDropdownState<T> extends State<FutureDropdown> {
 
   @override
   Widget build(BuildContext context) {
+    // Type type = typeOf<T>();
+    print('********************************** T type()= ${typeOf<T>()}');
     return DropdownButtonHideUnderline(
       child: FutureBuilder<List<T>>(
         future: widget.future,

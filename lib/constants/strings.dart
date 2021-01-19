@@ -41,4 +41,7 @@ class Strings {
 
   // Add Overview Page
   static const String overview = 'Overview';
+
+  // Question Edit Page
+  static const String questionEdit = 'Questions';
 }
