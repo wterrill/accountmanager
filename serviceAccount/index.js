@@ -26,6 +26,7 @@ if (data && (typeof data === "object")) {
     if (docKey.length == 3) {
       stringDocKey = "0" + stringDocKey
     }
+    data[docKey]['id'] = stringDocKey;
     firestore.collection(collectionKey).doc(stringDocKey).set(data[docKey]).then((res) => {
       console.log("Document " + docKey + " successfully written.");
     }).catch((error) => {
