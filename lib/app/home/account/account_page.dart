@@ -61,7 +61,7 @@ class AccountPage extends StatelessWidget {
           ),
           FlatButton(
             child: const Text(
-              "Version",
+              'Version',
               style: TextStyle(
                 fontSize: 18.0,
                 color: Colors.white,

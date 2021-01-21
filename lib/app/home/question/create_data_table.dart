@@ -44,9 +44,8 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
     _sortAscending = false;
+    super.initState();
   }
 
   @override
@@ -63,17 +62,17 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
     );
   }
 
-  void _sort<T>(Comparable<T> getField(Question d), int columnIndex,
-      bool ascending, DTS dtsSource) {
-    print('columnIndex: $columnIndex');
-    print('ascending: $ascending');
-    dtsSource.sort<T>(getField, ascending);
-    setState(() {
-      _sortColumnIndex = columnIndex;
-      _sortAscending = !_sortAscending;
-    });
-    print(_sortAscending);
-  }
+  // void _sort<T>(Comparable<T> getField(Question d), int columnIndex,
+  //     bool ascending, DTS dtsSource) {
+  // print('columnIndex: $columnIndex');
+  // print('ascending: $ascending');
+  // dtsSource.sort<T>(getField, ascending);
+  // setState(() {
+  //   _sortColumnIndex = columnIndex;
+  //   _sortAscending = !_sortAscending;
+  // });
+  // print(_sortAscending);
+  // }
 
   Widget _datatable(DTS dtsSource) {
     // void onSortColum({int columnIndex, bool ascending}) {
@@ -95,6 +94,8 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
               header: const Text('questions'),
               source: dtsSource,
               rowsPerPage: _rowsPerPage,
+              sortColumnIndex: _sortColumnIndex,
+              sortAscending: _sortAscending,
               onRowsPerPageChanged: (rows) {
                 setState(() {
                   _rowsPerPage = rows;
@@ -112,14 +113,34 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                   //   });
                   //   onSortColum(columnIndex: columnIndex, ascending: sort);
                   // },
-                  onSort: (int columnIndex, bool ascending) {
-                    print("sorting");
-                    _sort<String>((Question d) => d.category, columnIndex,
-                        ascending, dtsSource);
+                  // onSort: (int columnIndex, bool ascending) {
+                  //   print("sorting");
+                  //   _sort<String>((Question d) => d.category, columnIndex,
+                  //       ascending, dtsSource);
+                  // },
+                  onSort: (columnIndex, ascending) {
+                    // _sort<String>((Question d) => d.category, columnIndex,
+                    //     ascending, dtsSource);
+                    dtsSource.sort<String>((d) => d.category, _sortAscending);
+                    setState(() {
+                      _sortColumnIndex = columnIndex;
+                      _sortAscending = !_sortAscending;
+                    });
                   },
                 ),
                 const DataColumn(label: Text('Benefits Business Value')),
-                const DataColumn(label: Text('Question Text')),
+                DataColumn(
+                  label: const Text('Question Text'),
+                  onSort: (columnIndex, ascending) {
+                    // _sort<String>((Question d) => d.category, columnIndex,
+                    //     ascending, dtsSource);
+                    dtsSource.sort<String>((d) => d.category, _sortAscending);
+                    setState(() {
+                      _sortColumnIndex = columnIndex;
+                      _sortAscending = !_sortAscending;
+                    });
+                  },
+                ),
                 const DataColumn(label: Text('Question Priority')),
                 const DataColumn(label: Text('Type')),
                 const DataColumn(label: Text('Why are we asking?'))
@@ -141,20 +162,6 @@ class DTS extends DataTableSource {
     this.data,
     this.context,
   );
-
-  void sort<T>(Comparable<T> getField(Question d), bool ascending) {
-    data.sort((Question a, Question b) {
-      if (!ascending) {
-        final Question c = a;
-        a = b;
-        b = c;
-      }
-      final Comparable<T> aValue = getField(a);
-      final Comparable<T> bValue = getField(b);
-      return Comparable.compare(aValue, bValue);
-    });
-    notifyListeners();
-  }
 
   @override
   DataRow getRow(int index) {
@@ -186,6 +193,21 @@ class DTS extends DataTableSource {
         DataCell(Text('')),
       ]);
     }
+  }
+
+  @override
+  void sort<T>(Comparable<T> getField(Question d), bool ascending) {
+    data.sort((a, b) {
+      if (!ascending) {
+        final Question c = a;
+        a = b;
+        b = c;
+      }
+      final Comparable<T> aValue = getField(a);
+      final Comparable<T> bValue = getField(b);
+      return Comparable.compare(aValue, bValue);
+    });
+    // notifyListeners();
   }
 
   @override
