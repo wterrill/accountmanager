@@ -10,8 +10,6 @@ import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
 
 import '../../top_level_providers.dart';
 
-// typedef ItemWidgetBuilder<T> = Widget Function(BuildContext context, T item);
-
 final questionStreamProvider =
     StreamProvider.autoDispose<List<Question>>((ref) {
   final database = ref.watch(databaseProvider);
@@ -109,21 +107,22 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
               },
               columns: [
                 DataColumn(
-                    label: const Text('Category'),
-                    // onSort: (columnIndex, ascending) => _sort<String>(
-                    //     (Question d) => d.category, columnIndex, ascending),
-                    // onSort: (columnIndex, ascending) {
-                    //   setState(() {
-                    //     sort = !sort;
-                    //     print(sort);
-                    //   });
-                    //   onSortColum(columnIndex: columnIndex, ascending: sort);
-                    // },
-                    onSort: (int columnIndex, bool ascending) {
-                      print("sorting");
-                      _sort<String>((Question d) => d.category, columnIndex,
-                          ascending, dtsSource);
-                    }),
+                  label: const Text('Category'),
+                  // onSort: (columnIndex, ascending) => _sort<String>(
+                  //     (Question d) => d.category, columnIndex, ascending),
+                  // onSort: (columnIndex, ascending) {
+                  //   setState(() {
+                  //     sort = !sort;
+                  //     print(sort);
+                  //   });
+                  //   onSortColum(columnIndex: columnIndex, ascending: sort);
+                  // },
+                  onSort: (int columnIndex, bool ascending) {
+                    print("sorting");
+                    _sort<String>((Question d) => d.category, columnIndex,
+                        ascending, dtsSource);
+                  },
+                ),
                 DataColumn(
                   label: Text('Benefits Business Value'),
                 ),
