@@ -121,7 +121,8 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                   onSort: (columnIndex, ascending) {
                     // _sort<String>((Question d) => d.category, columnIndex,
                     //     ascending, dtsSource);
-                    dtsSource.sort<String>((d) => d.category, _sortAscending);
+                    dtsSource.sort<String>(
+                        getField: (d) => d.category, ascending: _sortAscending);
                     setState(() {
                       _sortColumnIndex = columnIndex;
                       _sortAscending = !_sortAscending;
@@ -132,7 +133,8 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                 DataColumn(
                   label: const Text('Question Text'),
                   onSort: (columnIndex, ascending) {
-                    dtsSource.sort<String>((d) => d.category, _sortAscending);
+                    dtsSource.sort<String>(
+                        getField: (d) => d.category, ascending: _sortAscending);
                     setState(() {
                       _sortColumnIndex = columnIndex;
                       _sortAscending = !_sortAscending;
@@ -143,7 +145,8 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                   label: const Text('Question Priority'),
                   onSort: (columnIndex, ascending) {
                     dtsSource.sort<String>(
-                        (d) => d.questionPriority, _sortAscending);
+                        getField: (d) => d.questionPriority,
+                        ascending: _sortAscending);
                     setState(() {
                       _sortColumnIndex = columnIndex;
                       _sortAscending = !_sortAscending;
@@ -153,7 +156,8 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                 DataColumn(
                   label: const Text('Type'),
                   onSort: (columnIndex, ascending) {
-                    dtsSource.sort<String>((d) => d.type, _sortAscending);
+                    dtsSource.sort<String>(
+                        getField: (d) => d.type, ascending: _sortAscending);
                     setState(() {
                       _sortColumnIndex = columnIndex;
                       _sortAscending = !_sortAscending;
@@ -207,8 +211,7 @@ class DTS extends DataTableSource {
     }
   }
 
-  @override
-  void sort<T>(Comparable<T> getField(Question d), bool ascending) {
+  void sort<T>({Comparable<T> Function(Question d) getField, bool ascending}) {
     data.sort((a, b) {
       if (!ascending) {
         final Question c = a;
@@ -219,7 +222,6 @@ class DTS extends DataTableSource {
       final Comparable<T> bValue = getField(b);
       return Comparable.compare(aValue, bValue);
     });
-    // notifyListeners();
   }
 
   @override
@@ -240,7 +242,7 @@ Future<void> _displayDialog(BuildContext context, Question data) async {
     final Map<String, dynamic> result = await showWidgetDialog(
         context: context,
         title: 'Assign TBR',
-        widget: Text('beer') //AssignTBR(data: data),  //**//**//**//**/
+        widget: const Text('beer') //AssignTBR(data: data),  //**//**//**//**/
         // defaultActionText: '',
         // cancelActionText: '',
         );

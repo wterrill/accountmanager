@@ -15,6 +15,14 @@ class IpaginatedTable extends StatefulWidget {
 class _IpaginatedTableState extends State<IpaginatedTable> {
   // final dts = DTS();
   int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
+  int _sortColumnIndex = 0;
+  bool _sortAscending = false;
+
+  @override
+  void initState() {
+    _sortAscending = false;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,16 +55,62 @@ class _IpaginatedTableState extends State<IpaginatedTable> {
               header: const Text('header'),
               source: dtsSource,
               rowsPerPage: _rowsPerPage,
+              sortColumnIndex: _sortColumnIndex,
+              sortAscending: _sortAscending,
               onRowsPerPageChanged: (rows) {
                 setState(() {
                   _rowsPerPage = rows;
                 });
               },
-              columns: const [
-                DataColumn(label: Text('Company Name')),
-                DataColumn(label: Text('Technician')),
-                DataColumn(label: Text('Due Date')),
-                DataColumn(label: Text('Meeting Date'))
+              columns: [
+                DataColumn(
+                  label: const Text('Company Name'),
+                  onSort: (columnIndex, ascending) {
+                    dtsSource.sort<String>(
+                        getField: (d) => d.company.name,
+                        ascending: _sortAscending);
+                    setState(() {
+                      _sortColumnIndex = columnIndex;
+                      _sortAscending = !_sortAscending;
+                    });
+                  },
+                ),
+                DataColumn(
+                  label: Text('Technician'),
+                  onSort: (columnIndex, ascending) {
+                    dtsSource.sort<String>(
+                        getField: (d) => d.technician.name,
+                        ascending: _sortAscending);
+                    setState(() {
+                      _sortColumnIndex = columnIndex;
+                      _sortAscending = !_sortAscending;
+                    });
+                  },
+                ),
+                DataColumn(
+                  label: const Text('Due Date'),
+                  onSort: (columnIndex, ascending) {
+                    dtsSource.sort<String>(
+                        getField: (d) => d.dueDate.toString(),
+                        ascending: _sortAscending);
+                    setState(() {
+                      _sortColumnIndex = columnIndex;
+                      _sortAscending = !_sortAscending;
+                    });
+                  },
+                ),
+                DataColumn(
+                  label: const Text('Meeting Date'),
+                  onSort: (columnIndex, ascending) {
+                    dtsSource.sort<String>(
+                        getField: (d) => d.clientMeetingDate.toString(),
+                        ascending: _sortAscending);
+                    setState(() {
+                      _sortColumnIndex = columnIndex;
+                      _sortAscending = !_sortAscending;
+                    });
+                  },
+                )
               ],
             ),
             Container(height: 150),
@@ -94,11 +148,26 @@ class DTS extends DataTableSource {
     }
   }
 
-  @override
-  bool get isRowCountApproximate => true;
+  void sort<T>(
+      {Comparable<T> Function(AssignedTBR d) getField, bool ascending}) {
+    data.sort((a, b) {
+      if (!ascending) {
+        final AssignedTBR c = a;
+        a = b;
+        b = c;
+      }
+      final Comparable<T> aValue = getField(a);
+      final Comparable<T> bValue = getField(b);
+      return Comparable.compare(aValue, bValue);
+    });
+    // notifyListeners();
+  }
 
   @override
-  int get rowCount => 100;
+  bool get isRowCountApproximate => false;
+
+  @override
+  int get rowCount => data.length;
 
   @override
   int get selectedRowCount => 0;
