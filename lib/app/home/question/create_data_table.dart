@@ -132,8 +132,6 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                 DataColumn(
                   label: const Text('Question Text'),
                   onSort: (columnIndex, ascending) {
-                    // _sort<String>((Question d) => d.category, columnIndex,
-                    //     ascending, dtsSource);
                     dtsSource.sort<String>((d) => d.category, _sortAscending);
                     setState(() {
                       _sortColumnIndex = columnIndex;
@@ -141,8 +139,27 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                     });
                   },
                 ),
-                const DataColumn(label: Text('Question Priority')),
-                const DataColumn(label: Text('Type')),
+                DataColumn(
+                  label: const Text('Question Priority'),
+                  onSort: (columnIndex, ascending) {
+                    dtsSource.sort<String>(
+                        (d) => d.questionPriority, _sortAscending);
+                    setState(() {
+                      _sortColumnIndex = columnIndex;
+                      _sortAscending = !_sortAscending;
+                    });
+                  },
+                ),
+                DataColumn(
+                  label: const Text('Type'),
+                  onSort: (columnIndex, ascending) {
+                    dtsSource.sort<String>((d) => d.type, _sortAscending);
+                    setState(() {
+                      _sortColumnIndex = columnIndex;
+                      _sortAscending = !_sortAscending;
+                    });
+                  },
+                ),
                 const DataColumn(label: Text('Why are we asking?'))
               ],
             ),
@@ -165,14 +182,9 @@ class DTS extends DataTableSource {
 
   @override
   DataRow getRow(int index) {
-    // print(data);
-    // print(data[index]);
-    // print(index);
     if (index < data.length) {
       return DataRow(
           onSelectChanged: (beer) {
-            print(beer);
-            print("working");
             _displayDialog(context, data[index]);
           },
           cells: [
