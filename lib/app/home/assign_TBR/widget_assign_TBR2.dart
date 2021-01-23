@@ -167,6 +167,7 @@ class _AssignTBRState extends State<AssignTBR> {
             ),
             onPressed: () async {
               bool answer = false;
+              answer = await _validateAndSaveForm();
               if (widget.data == null) {
                 answer = true;
               } else {
@@ -213,22 +214,48 @@ class _AssignTBRState extends State<AssignTBR> {
   }
 
   Future<void> _sendAssignedTbr({@required AssignedTBR assignedTbr}) async {
-    if (_validateAndSaveForm()) {
-      try {
-        id ??= documentIdFromCurrentDate();
-        final database = context.read(databaseProvider);
-        await database.setTBR(assignedTbr);
-      } catch (e) {
-        unawaited(showExceptionAlertDialog(
-          context: context,
-          title: 'Operation failed',
-          exception: e,
-        ));
-      }
+    try {
+      id ??= documentIdFromCurrentDate();
+      final database = context.read(databaseProvider);
+      await database.setTBR(assignedTbr);
+    } catch (e) {
+      unawaited(showExceptionAlertDialog(
+        context: context,
+        title: 'Operation failed',
+        exception: e,
+      ));
     }
   }
 
-  bool _validateAndSaveForm() {
-    return true;
+  Future<bool> _validateAndSaveForm() async {
+    bool answer = true;
+    if (evaluationDueDate.isBefore(DateTime.now())) {
+      answer = await showAlertDialog(
+          context: context,
+          title: 'Are you sure?',
+          content:
+              'The due date is in the past, are you sure you want to proceed?',
+          defaultActionText: 'Yes',
+          cancelActionText: 'No');
+    }
+    if (clientMeetingDate.isBefore(DateTime.now())) {
+      answer = await showAlertDialog(
+          context: context,
+          title: 'Are you sure?',
+          content:
+              'The client meeting date is in the past, are you sure you want to proceed?',
+          defaultActionText: 'Yes',
+          cancelActionText: 'No');
+    }
+    if (evaluationDueDate.isBefore(clientMeetingDate)) {
+      answer = await showAlertDialog(
+          context: context,
+          title: 'Are you sure?',
+          content:
+              'The due date is in before the client meeting date, are you sure you want to proceed?',
+          defaultActionText: 'Yes',
+          cancelActionText: 'No');
+    }
+    return answer;
   }
 }
