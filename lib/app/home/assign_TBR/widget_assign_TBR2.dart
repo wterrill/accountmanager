@@ -272,10 +272,11 @@ class _AssignTBRState extends State<AssignTBR> {
             context: context,
             title: 'Are you sure?',
             content:
-                'The due date is in before the client meeting date, are you sure you want to proceed?',
+                'The due date is before the client meeting date, are you sure you want to proceed?',
             defaultActionText: 'Yes',
             cancelActionText: 'No');
       }
+      if (answer == true) break;
     }
     return answer;
   }
