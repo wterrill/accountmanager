@@ -94,17 +94,26 @@ class AssignedTBR {
   }
 
   Map<String, dynamic> toMap() {
-    return {
-      'company_name': company.name,
-      'company_id': company.id,
-      'technician_id': technician.id,
-      'technician_name': technician.name,
-      'questionnaireType_id': questionnaireType.id,
-      'questionnaireType_name': questionnaireType.name,
-      'dueDate': dueDate,
-      'clientMeetingDate': clientMeetingDate,
-      'status': status.statusIndex,
-    };
+    if (company == null ||
+        technician == null ||
+        questionnaireType == null ||
+        dueDate == null ||
+        clientMeetingDate == null ||
+        status == null) {
+      return null;
+    } else {
+      return {
+        'company_name': company.name,
+        'company_id': company.id,
+        'technician_id': technician.id,
+        'technician_name': technician.name,
+        'questionnaireType_id': questionnaireType.id,
+        'questionnaireType_name': questionnaireType.name,
+        'dueDate': dueDate,
+        'clientMeetingDate': clientMeetingDate,
+        'status': status.statusIndex,
+      };
+    }
   }
 
   String getMeetingDateFormatted() {

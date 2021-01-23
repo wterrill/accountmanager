@@ -166,9 +166,9 @@ class _AssignTBRState extends State<AssignTBR> {
               ),
             ),
             onPressed: () async {
-              bool answer = true;
+              bool answer = false;
               if (widget.data == null) {
-                answer = false;
+                answer = true;
               } else {
                 answer = await showAlertDialog(
                   context: context,
@@ -181,14 +181,15 @@ class _AssignTBRState extends State<AssignTBR> {
               }
               final AssignedTBR assignedTbr = createCurrentTBR();
 
-              final bool notEditedOREditedAndChanged = !editAssignTBR ||
-                  (editAssignTBR &&
-                      !mapEquals<String, dynamic>(
-                          originalMap, assignedTbr.toMap()));
-              // // const bool notEditedOREditedAndChanged = false;
+              final bool notNullnotEditedOREditedAndChanged =
+                  (!editAssignTBR && (assignedTbr.toMap() != null)) ||
+                      (editAssignTBR &&
+                          (assignedTbr != null) &&
+                          !mapEquals<String, dynamic>(
+                              originalMap, assignedTbr.toMap()));
               if (answer //) {
                   &&
-                  notEditedOREditedAndChanged) {
+                  notNullnotEditedOREditedAndChanged) {
                 unawaited(_sendAssignedTbr(assignedTbr: assignedTbr));
               }
 
