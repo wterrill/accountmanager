@@ -275,6 +275,7 @@ class _AssignTBRState extends State<AssignTBR> {
                 'The due date is before the client meeting date, are you sure you want to proceed?',
             defaultActionText: 'Yes',
             cancelActionText: 'No');
+        if (answer == false) break;
       }
       if (answer == true) break;
     }
