@@ -14,6 +14,8 @@ import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
 import 'package:accountmanager/services/firestore_database.dart';
 
+import '../models/assignedTbr.dart';
+
 class AssignTBR extends StatefulWidget {
   const AssignTBR({
     Key key,
@@ -166,33 +168,42 @@ class _AssignTBRState extends State<AssignTBR> {
               ),
             ),
             onPressed: () async {
-              bool answer = false;
-              answer = await _validateAndSaveForm();
-              if (widget.data == null) {
-                answer = true;
-              } else {
-                answer = await showAlertDialog(
-                  context: context,
-                  title: 'Warning...',
-                  content:
-                      'This action will permanently overwrite data in the database.  Are you sure you want to proceed?',
-                  cancelActionText: 'No',
-                  defaultActionText: 'Yes',
-                );
-              }
-              final AssignedTBR assignedTbr = createCurrentTBR();
+              bool valid = true;
+              while (valid) {
+                bool validated;
+                validated = await _validateAndSaveForm(createCurrentTBR());
+                if (validated == false) {
+                  valid = false;
+                  break;
+                }
+                bool answer = false;
+                if (validated && widget.data == null) {
+                  answer = true;
+                } else {
+                  answer = await showAlertDialog(
+                    context: context,
+                    title: 'Warning...',
+                    content:
+                        'This action will permanently overwrite data in the database.  Are you sure you want to proceed?',
+                    cancelActionText: 'No',
+                    defaultActionText: 'Yes',
+                  );
+                }
+                final AssignedTBR assignedTbr = createCurrentTBR();
 
-              final bool notNullnotEditedOREditedAndChanged =
-                  (!editAssignTBR && (assignedTbr.toMap() != null)) ||
-                      (editAssignTBR &&
-                          (assignedTbr != null) &&
-                          !mapEquals<String, dynamic>(
-                              originalMap, assignedTbr.toMap()));
-              if (answer //) {
-                  &&
-                  notNullnotEditedOREditedAndChanged) {
-                unawaited(_sendAssignedTbr(assignedTbr: assignedTbr));
+                final bool notNullnotEditedOREditedAndChanged =
+                    (!editAssignTBR && (assignedTbr.toMap() != null)) ||
+                        (editAssignTBR &&
+                            (assignedTbr != null) &&
+                            !mapEquals<String, dynamic>(
+                                originalMap, assignedTbr.toMap()));
+                if (answer //) {
+                    &&
+                    notNullnotEditedOREditedAndChanged) {
+                  unawaited(_sendAssignedTbr(assignedTbr: assignedTbr));
+                }
               }
+              print('valid = $valid');
 
               Navigator.of(context).pop();
             },
@@ -227,34 +238,44 @@ class _AssignTBRState extends State<AssignTBR> {
     }
   }
 
-  Future<bool> _validateAndSaveForm() async {
+  Future<bool> _validateAndSaveForm(AssignedTBR assignedTbr) async {
+    if (assignedTbr.toMap() == null) {
+      return false;
+    }
     bool answer = true;
-    if (evaluationDueDate.isBefore(DateTime.now())) {
-      answer = await showAlertDialog(
-          context: context,
-          title: 'Are you sure?',
-          content:
-              'The due date is in the past, are you sure you want to proceed?',
-          defaultActionText: 'Yes',
-          cancelActionText: 'No');
-    }
-    if (clientMeetingDate.isBefore(DateTime.now())) {
-      answer = await showAlertDialog(
-          context: context,
-          title: 'Are you sure?',
-          content:
-              'The client meeting date is in the past, are you sure you want to proceed?',
-          defaultActionText: 'Yes',
-          cancelActionText: 'No');
-    }
-    if (evaluationDueDate.isBefore(clientMeetingDate)) {
-      answer = await showAlertDialog(
-          context: context,
-          title: 'Are you sure?',
-          content:
-              'The due date is in before the client meeting date, are you sure you want to proceed?',
-          defaultActionText: 'Yes',
-          cancelActionText: 'No');
+    while (answer == true) {
+      if (assignedTbr.dueDate.isBefore(DateTime.now())) {
+        answer = await showAlertDialog(
+            context: context,
+            title: 'Are you sure?',
+            content:
+                'The due date is in the past, are you sure you want to proceed?',
+            defaultActionText: 'Yes',
+            cancelActionText: 'No');
+        if (answer == false) break;
+      }
+
+      if (assignedTbr.clientMeetingDate.isBefore(DateTime.now())) {
+        answer = await showAlertDialog(
+            context: context,
+            title: 'Are you sure?',
+            content:
+                'The client meeting date is in the past, are you sure you want to proceed?',
+            defaultActionText: 'Yes',
+            cancelActionText: 'No');
+        if (answer == false) break;
+        //Condition should not unconditionally evalute to 'true' or to 'false'. verify:
+      }
+
+      if (assignedTbr.dueDate.isBefore(assignedTbr.clientMeetingDate)) {
+        answer = await showAlertDialog(
+            context: context,
+            title: 'Are you sure?',
+            content:
+                'The due date is in before the client meeting date, are you sure you want to proceed?',
+            defaultActionText: 'Yes',
+            cancelActionText: 'No');
+      }
     }
     return answer;
   }
