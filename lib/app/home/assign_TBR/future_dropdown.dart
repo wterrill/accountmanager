@@ -14,11 +14,13 @@ class FutureDropdown<T> extends StatefulWidget {
       @required this.future,
       @required this.onSelected,
       @required this.onSelectedChange,
+      @required this.hint,
       this.selectedData})
       : super(key: key);
   final Future<List<T>> future;
   final VoidCallback onSelected;
   final Function(T) onSelectedChange;
+  final String hint;
   final T selectedData;
 
   @override
@@ -28,12 +30,13 @@ class FutureDropdown<T> extends StatefulWidget {
 class _FutureDropdownState<T> extends State<FutureDropdown> {
   T _selectedItem;
   String selectedItemName = '';
-
+  String hint;
   @override
   void initState() {
     if (widget.selectedData != null) {
       _selectedItem = widget.selectedData as T;
     }
+    hint = widget.hint ?? 'Select Item';
     super.initState();
   }
 
@@ -73,7 +76,7 @@ class _FutureDropdownState<T> extends State<FutureDropdown> {
                 widget.onSelectedChange(_selectedItem);
               },
               hint: (_selectedItem == null)
-                  ? const Text('Select Item')
+                  ? Text(hint)
                   : Text(
                       selectedItemName,
                       style: const TextStyle(color: Colors.blue),

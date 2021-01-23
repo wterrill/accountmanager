@@ -73,6 +73,7 @@ class _AssignTBRState extends State<AssignTBR> {
         children: [
           // DropdownScreen(),
           FutureDropdown(
+            hint: 'Choose a Technician:',
             selectedData: selectedTechnician,
             future: database.technicianStream().first,
             onSelected: () {
@@ -87,6 +88,7 @@ class _AssignTBRState extends State<AssignTBR> {
           ),
           // Text(selectedTechnician?.name ?? 'Not selected'),
           FutureDropdown(
+            hint: 'Choose a Company:',
             selectedData: selectedCompany,
             future: database.companyStream().first,
             onSelected: () {
@@ -101,6 +103,7 @@ class _AssignTBRState extends State<AssignTBR> {
           ),
           // Text(selectedCompany?.name ?? 'Not selected'),
           FutureDropdown(
+            hint: 'Choose a TBR type:',
             selectedData: selectedQuestionnaireType,
             future: database.questionnaireTypeStream().first,
             onSelected: () {
