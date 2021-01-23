@@ -1,4 +1,5 @@
 import 'package:date_time_picker/date_time_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pedantic/pedantic.dart';
@@ -32,6 +33,8 @@ class _AssignTBRState extends State<AssignTBR> {
   DateTime clientMeetingDate;
   String id;
   bool editAssignTBR = false;
+  Status status;
+  Map<String, dynamic> originalMap;
   @override
   void initState() {
     super.initState();
@@ -42,8 +45,21 @@ class _AssignTBRState extends State<AssignTBR> {
       evaluationDueDate = widget.data.dueDate;
       clientMeetingDate = widget.data.clientMeetingDate;
       id = widget.data.id;
+      status = widget.data.status;
       editAssignTBR = true;
+      originalMap = createCurrentTBR().toMap();
     }
+  }
+
+  AssignedTBR createCurrentTBR() {
+    return AssignedTBR(
+        id: id,
+        technician: selectedTechnician,
+        company: selectedCompany,
+        questionnaireType: selectedQuestionnaireType,
+        clientMeetingDate: clientMeetingDate,
+        dueDate: evaluationDueDate,
+        status: status ??= Status(statusIndex: 0));
   }
 
   @override
@@ -142,28 +158,48 @@ class _AssignTBRState extends State<AssignTBR> {
             },
           ),
           FlatButton(
-              child: const Text(
-                'Assign',
-                style: TextStyle(
-                  fontSize: 18.0,
-                  color: Colors.blue,
-                ),
+            child: const Text(
+              'Assign',
+              style: TextStyle(
+                fontSize: 18.0,
+                color: Colors.blue,
               ),
-              onPressed: () {
-                _sendAssignedTbr(
-                    selectedTechnician: selectedTechnician,
-                    selectedCompany: selectedCompany,
-                    selectedQuestionnaireType: selectedQuestionnaireType,
-                    evaluationDueDate: evaluationDueDate,
-                    clientMeetingDate: clientMeetingDate,
-                    id: id);
-                Navigator.of(context).pop();
-              }),
+            ),
+            onPressed: () async {
+              bool answer = true;
+              if (widget.data == null) {
+                answer = false;
+              } else {
+                answer = await showAlertDialog(
+                  context: context,
+                  title: 'Warning...',
+                  content:
+                      'This action will permanently overwrite data in the database.  Are you sure you want to proceed?',
+                  cancelActionText: 'No',
+                  defaultActionText: 'Yes',
+                );
+              }
+              final AssignedTBR assignedTbr = createCurrentTBR();
+
+              final bool notEditedOREditedAndChanged = !editAssignTBR ||
+                  (editAssignTBR &&
+                      !mapEquals<String, dynamic>(
+                          originalMap, assignedTbr.toMap()));
+              // // const bool notEditedOREditedAndChanged = false;
+              if (answer //) {
+                  &&
+                  notEditedOREditedAndChanged) {
+                unawaited(_sendAssignedTbr(assignedTbr: assignedTbr));
+              }
+
+              Navigator.of(context).pop();
+            },
+          ),
           const Spacer(),
           FlatButton(
-              child: Text(
+              child: const Text(
                 'Cancel',
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 18.0,
                   color: Colors.blue,
                 ),
@@ -175,33 +211,11 @@ class _AssignTBRState extends State<AssignTBR> {
     );
   }
 
-  Future<void> _sendAssignedTbr(
-      {Technician selectedTechnician,
-      Company selectedCompany,
-      QuestionnaireType selectedQuestionnaireType,
-      DateTime evaluationDueDate,
-      DateTime clientMeetingDate,
-      String id}) async {
-    print(selectedTechnician);
-    print(selectedCompany);
-    print(selectedQuestionnaireType);
-    print(evaluationDueDate);
-    print(clientMeetingDate);
-    print(id);
+  Future<void> _sendAssignedTbr({@required AssignedTBR assignedTbr}) async {
     if (_validateAndSaveForm()) {
       try {
-        if (id == null) {
-          id = documentIdFromCurrentDate();
-        }
+        id ??= documentIdFromCurrentDate();
         final database = context.read(databaseProvider);
-        final assignedTbr = AssignedTBR(
-            id: id,
-            technician: selectedTechnician,
-            company: selectedCompany,
-            questionnaireType: selectedQuestionnaireType,
-            clientMeetingDate: clientMeetingDate,
-            dueDate: evaluationDueDate,
-            status: Status(statusIndex: 0));
         await database.setTBR(assignedTbr);
       } catch (e) {
         unawaited(showExceptionAlertDialog(
