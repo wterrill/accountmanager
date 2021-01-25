@@ -1,3 +1,4 @@
+import 'package:accountmanager/constants/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:intl/intl.dart';
@@ -82,7 +83,7 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
           children: [
             PaginatedDataTable(
               showCheckboxColumn: false,
-              header: const Text('header'),
+              header: Text(Strings.tbrStrings.header),
               source: dtsSource,
               rowsPerPage: _rowsPerPage,
               sortColumnIndex: _sortColumnIndex,
@@ -94,7 +95,7 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
               },
               columns: [
                 DataColumn(
-                  label: Text('Company Name'),
+                  label: Text(Strings.companyStrings.company),
                   onSort: (columnIndex, ascending) {
                     dtsSource.sort<String>(
                         getField: (d) => d.company.name,
@@ -106,7 +107,7 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                   },
                 ),
                 DataColumn(
-                  label: const Text('Technician'),
+                  label: Text(Strings.technicianStrings.technician),
                   onSort: (columnIndex, ascending) {
                     dtsSource.sort<String>(
                         getField: (d) => d.technician.name,
@@ -118,7 +119,7 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                   },
                 ),
                 DataColumn(
-                  label: const Text('Due Date'),
+                  label: Text(Strings.tbrStrings.dueDate),
                   onSort: (columnIndex, ascending) {
                     dtsSource.sort<String>(
                         getField: (d) => d.dueDate.toString(),
@@ -130,7 +131,7 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                   },
                 ),
                 DataColumn(
-                  label: const Text('Meeting Date'),
+                  label: Text(Strings.tbrStrings.meetingDate),
                   onSort: (columnIndex, ascending) {
                     dtsSource.sort<String>(
                         getField: (d) => d.clientMeetingDate.toString(),
@@ -142,7 +143,7 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                   },
                 ),
                 DataColumn(
-                  label: const Text('Status'),
+                  label: Text(Strings.tbrStrings.status),
                   onSort: (columnIndex, ascending) {
                     dtsSource.sort<String>(
                         getField: (d) => d.status.statusIndex.toString(),
@@ -154,7 +155,7 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                   },
                 ),
                 DataColumn(
-                  label: Text('Type'),
+                  label: Text(Strings.tbrStrings.type),
                   onSort: (columnIndex, ascending) {
                     dtsSource.sort<String>(
                         getField: (d) => d.questionnaireType.name,
@@ -207,12 +208,12 @@ class DTS extends DataTableSource {
           ]);
     } else {
       return const DataRow(cells: [
-        DataCell(Text('')),
-        DataCell(Text('')),
-        DataCell(Text('')),
-        DataCell(Text('')),
-        DataCell(Text('')),
-        DataCell(Text('')),
+        DataCell(Text(Strings.placeHolder)),
+        DataCell(Text(Strings.placeHolder)),
+        DataCell(Text(Strings.placeHolder)),
+        DataCell(Text(Strings.placeHolder)),
+        DataCell(Text(Strings.placeHolder)),
+        DataCell(Text(Strings.placeHolder)),
       ]);
     }
   }

@@ -37,7 +37,7 @@ class CreateTechPage extends ConsumerWidget {
     print('build create_tech_page.dart');
     return Scaffold(
       appBar: AppBar(
-        title: const Text(Strings.createTech),
+        title: Text(Strings.technicianStrings.createTech),
         actions: <Widget>[
           IconButton(
               icon: const Icon(Icons.add, color: Colors.white),

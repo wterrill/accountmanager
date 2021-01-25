@@ -36,7 +36,7 @@ class CreateCompanyPage extends ConsumerWidget {
     print('build create_company_page.dart');
     return Scaffold(
       appBar: AppBar(
-        title: const Text(Strings.addCompany),
+        title: Text(Strings.companyStrings.addCompany),
         actions: <Widget>[
           IconButton(
               icon: const Icon(Icons.add, color: Colors.white),

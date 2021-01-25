@@ -8,6 +8,7 @@ import 'package:accountmanager/app/home/assign_TBR/widget_assign_TBR2.dart';
 import 'package:accountmanager/app/home/models/company.dart';
 import 'package:accountmanager/app/home/models/questionnaire_type.dart';
 import 'package:accountmanager/app/home/models/technician.dart';
+import 'package:accountmanager/common_widgets/display_widget_dialog_with_error.dart';
 // import 'package:accountmanager/services/firestore_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,7 +17,7 @@ import 'package:accountmanager/common_widgets/avatar.dart';
 import 'package:accountmanager/constants/keys.dart';
 import 'package:accountmanager/constants/strings.dart';
 import 'package:flutter/material.dart';
-import 'package:pedantic/pedantic.dart';
+
 import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
 import 'assigned_tbr_data_table.dart';
 import 'package:flutter_riverpod/all.dart';
@@ -44,7 +45,7 @@ class _AssignTBRPageState extends State<AssignTBRPage> {
     final user = firebaseAuth.currentUser;
     return Scaffold(
       appBar: AppBar(
-        title: const Text(Strings.assignTbr),
+        title: Text(Strings.tbrStrings.assignTbr),
         // bottom: PreferredSize(
         //   preferredSize: const Size.fromHeight(130.0),
         //   child: _buildUserInfo(user),
@@ -56,39 +57,18 @@ class _AssignTBRPageState extends State<AssignTBRPage> {
             style: ButtonStyle(
                 backgroundColor:
                     MaterialStateProperty.all<Color>(Colors.green)),
-            child: const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text('Assign TBR'),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(Strings.tbrStrings.assignTbr),
             ),
             onPressed: () {
-              _displayDialog(context);
+              displayWidgetDialogWithError(
+                  context, Strings.tbrStrings.assignTbr, const AssignTBR());
             },
           ),
           CreateDataTableWidget()
         ],
       ),
     );
-  }
-
-  Future<void> _displayDialog(BuildContext context) async {
-    try {
-      final Map<String, dynamic> result = await showWidgetDialog(
-        context: context,
-        title: 'Assign TBR',
-        widget: const AssignTBR(),
-        // defaultActionText: '',
-        // cancelActionText: '',
-      );
-
-      if (result != null && (result['result']) == 'true') {
-        // print('result = $result');
-      }
-    } catch (e) {
-      unawaited(showExceptionAlertDialog(
-        context: context,
-        title: 'Operation failed',
-        exception: e,
-      ));
-    }
   }
 }

@@ -21,44 +21,44 @@ class TabItemData {
   final String title;
   final IconData icon;
 
-  static const Map<TabItem, TabItemData> allTabs = {
-    TabItem.account: TabItemData(
+  static Map<TabItem, TabItemData> allTabs = {
+    TabItem.account: const TabItemData(
       key: Keys.accountTab,
       title: Strings.account,
       icon: Icons.person,
     ),
     TabItem.createTech: TabItemData(
       key: Keys.createTechTab,
-      title: Strings.createTech,
+      title: Strings.technicianStrings.createTech,
       icon: Icons.access_alarms,
     ),
     TabItem.assignTbr: TabItemData(
       key: Keys.assignTbrTab,
-      title: Strings.assignTbr,
+      title: Strings.tbrStrings.assignTbr,
       icon: Icons.airline_seat_flat_angled,
     ),
     TabItem.addCompany: TabItemData(
         key: Keys.addCompanyTab,
-        title: Strings.addCompany,
+        title: Strings.companyStrings.addCompany,
         icon: Icons.two_wheeler),
-    TabItem.overview: TabItemData(
+    TabItem.overview: const TabItemData(
       key: Keys.overviewTab,
       title: Strings.overview,
       icon: Icons.whatshot,
     ),
-    TabItem.jobs: TabItemData(
+    TabItem.jobs: const TabItemData(
       key: Keys.jobsTab,
       title: Strings.jobs,
       icon: Icons.work,
     ),
-    TabItem.entries: TabItemData(
+    TabItem.entries: const TabItemData(
       key: Keys.entriesTab,
       title: Strings.entries,
       icon: Icons.view_headline,
     ),
     TabItem.questionEdit: TabItemData(
       key: Keys.questionTab,
-      title: Strings.questionEdit,
+      title: Strings.tbrStrings.questionEdit,
       icon: Icons.question_answer_rounded,
     ),
   };

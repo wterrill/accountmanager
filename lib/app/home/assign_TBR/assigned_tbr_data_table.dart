@@ -1,4 +1,5 @@
 import 'package:accountmanager/app/home/models/assignedTbr.dart';
+import 'package:accountmanager/constants/strings.dart';
 import 'package:accountmanager/services/firestore_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -36,7 +37,7 @@ class _IpaginatedTableState extends State<IpaginatedTable> {
             print(snapshot);
             print(snapshot.data);
             if (snapshot.hasError) {
-              return const Text('oh crap');
+              return const Text(Strings.error);
             } else {
               return _datatable(DTS(snapshot.data));
             }
@@ -52,7 +53,7 @@ class _IpaginatedTableState extends State<IpaginatedTable> {
         child: Column(
           children: [
             PaginatedDataTable(
-              header: const Text('header'),
+              header: Text(Strings.tbrStrings.assignTbr),
               source: dtsSource,
               rowsPerPage: _rowsPerPage,
               sortColumnIndex: _sortColumnIndex,
@@ -64,7 +65,7 @@ class _IpaginatedTableState extends State<IpaginatedTable> {
               },
               columns: [
                 DataColumn(
-                  label: const Text('Company Name'),
+                  label: Text(Strings.companyStrings.company),
                   onSort: (columnIndex, ascending) {
                     dtsSource.sort<String>(
                         getField: (d) => d.company.name,
@@ -76,7 +77,7 @@ class _IpaginatedTableState extends State<IpaginatedTable> {
                   },
                 ),
                 DataColumn(
-                  label: Text('Technician'),
+                  label: Text(Strings.technicianStrings.technician),
                   onSort: (columnIndex, ascending) {
                     dtsSource.sort<String>(
                         getField: (d) => d.technician.name,
@@ -88,7 +89,7 @@ class _IpaginatedTableState extends State<IpaginatedTable> {
                   },
                 ),
                 DataColumn(
-                  label: const Text('Due Date'),
+                  label: Text(Strings.tbrStrings.dueDate),
                   onSort: (columnIndex, ascending) {
                     dtsSource.sort<String>(
                         getField: (d) => d.dueDate.toString(),
@@ -100,7 +101,7 @@ class _IpaginatedTableState extends State<IpaginatedTable> {
                   },
                 ),
                 DataColumn(
-                  label: const Text('Meeting Date'),
+                  label: Text(Strings.tbrStrings.meetingDate),
                   onSort: (columnIndex, ascending) {
                     dtsSource.sort<String>(
                         getField: (d) => d.clientMeetingDate.toString(),
@@ -140,10 +141,10 @@ class DTS extends DataTableSource {
       ]);
     } else {
       return const DataRow(cells: [
-        DataCell(Text('')),
-        DataCell(Text('')),
-        DataCell(Text('')),
-        DataCell(Text('')),
+        DataCell(Text(Strings.placeHolder)),
+        DataCell(Text(Strings.placeHolder)),
+        DataCell(Text(Strings.placeHolder)),
+        DataCell(Text(Strings.placeHolder)),
       ]);
     }
   }

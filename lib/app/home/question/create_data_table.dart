@@ -1,4 +1,5 @@
 import 'package:accountmanager/app/home/models/question.dart';
+import 'package:accountmanager/constants/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:intl/intl.dart';
@@ -91,7 +92,7 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
           children: [
             PaginatedDataTable(
               showCheckboxColumn: false,
-              header: const Text('questions'),
+              header: Text(Strings.questionStrings.header),
               source: dtsSource,
               rowsPerPage: _rowsPerPage,
               sortColumnIndex: _sortColumnIndex,
@@ -103,7 +104,7 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
               },
               columns: [
                 DataColumn(
-                  label: const Text('Category'),
+                  label: Text(Strings.questionStrings.category),
                   // onSort: (columnIndex, ascending) => _sort<String>(
                   //     (Question d) => d.category, columnIndex, ascending),
                   // onSort: (columnIndex, ascending) {
@@ -129,9 +130,9 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                     });
                   },
                 ),
-                const DataColumn(label: Text('Benefits Business Value')),
+                DataColumn(label: Text(Strings.questionStrings.benefits)),
                 DataColumn(
-                  label: const Text('Question Text'),
+                  label: Text(Strings.questionStrings.questionText),
                   onSort: (columnIndex, ascending) {
                     dtsSource.sort<String>(
                         getField: (d) => d.category, ascending: _sortAscending);
@@ -142,7 +143,7 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                   },
                 ),
                 DataColumn(
-                  label: const Text('Question Priority'),
+                  label: Text(Strings.questionStrings.questionPriority),
                   onSort: (columnIndex, ascending) {
                     dtsSource.sort<String>(
                         getField: (d) => d.questionPriority,
@@ -154,7 +155,7 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                   },
                 ),
                 DataColumn(
-                  label: const Text('Type'),
+                  label: Text(Strings.questionStrings.type),
                   onSort: (columnIndex, ascending) {
                     dtsSource.sort<String>(
                         getField: (d) => d.type, ascending: _sortAscending);
@@ -164,7 +165,7 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                     });
                   },
                 ),
-                const DataColumn(label: Text('Why are we asking?'))
+                DataColumn(label: Text(Strings.questionStrings.whyAreWeAsking))
               ],
             ),
             Container(height: 150),
@@ -201,12 +202,12 @@ class DTS extends DataTableSource {
           ]);
     } else {
       return const DataRow(cells: [
-        DataCell(Text('')),
-        DataCell(Text('')),
-        DataCell(Text('')),
-        DataCell(Text('')),
-        DataCell(Text('')),
-        DataCell(Text('')),
+        DataCell(Text(Strings.placeHolder)),
+        DataCell(Text(Strings.placeHolder)),
+        DataCell(Text(Strings.placeHolder)),
+        DataCell(Text(Strings.placeHolder)),
+        DataCell(Text(Strings.placeHolder)),
+        DataCell(Text(Strings.placeHolder)),
       ]);
     }
   }
