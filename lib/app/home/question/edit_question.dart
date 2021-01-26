@@ -1,3 +1,4 @@
+import 'package:accountmanager/app/home/models/question.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -21,47 +22,89 @@ class EditQuestion extends StatefulWidget {
     Key key,
     this.data,
   }) : super(key: key);
-  final AssignedTBR data;
+  final Question data;
 
   @override
   _EditQuestionState createState() => _EditQuestionState();
 }
 
 class _EditQuestionState extends State<EditQuestion> {
-  Technician selectedTechnician;
-  Company selectedCompany;
-  QuestionnaireType selectedQuestionnaireType;
-  DateTime evaluationDueDate;
-  DateTime clientMeetingDate;
+  String benefitsBusinessValue;
+  String category;
+  String customerApprovedProject;
+  String estimatedLaborPrice;
+  String estimatedMRRIncrease;
+  String estimatedProductPrice;
+  String howTo;
+  String projectType;
+  String questionName;
+  String questionPriority;
+  String questionText;
+  String roadMap; //mm/yyyy
+  String section;
+  String sysAdminNotes;
+  bool sysAdminReviewAligned;
+  String tamRecommendations;
+  String tamReview;
+  String totalProjectEstimate;
+  String type;
+  String whyAreWeAsking;
   String id;
-  bool editAssignTBR = false;
-  Status status;
+  bool editQuestion = false;
   Map<String, dynamic> originalMap;
   @override
   void initState() {
     super.initState();
     if (widget.data != null) {
-      selectedTechnician = widget.data.technician;
-      selectedCompany = widget.data.company;
-      selectedQuestionnaireType = widget.data.questionnaireType;
-      evaluationDueDate = widget.data.dueDate;
-      clientMeetingDate = widget.data.clientMeetingDate;
+      benefitsBusinessValue = widget.data.benefitsBusinessValue;
+      category = widget.data.category;
+      customerApprovedProject = widget.data.customerApprovedProject;
+      estimatedLaborPrice = widget.data.estimatedLaborPrice;
+      estimatedMRRIncrease = widget.data.estimatedMRRIncrease;
+      estimatedProductPrice = widget.data.estimatedProductPrice;
+      howTo = widget.data.howTo;
+      projectType = widget.data.projectType;
+      questionName = widget.data.questionName;
+      questionPriority = widget.data.questionPriority;
+      questionText = widget.data.questionText;
+      roadMap = widget.data.roadMap; //mm/yyyy
+      section = widget.data.section;
+      sysAdminNotes = widget.data.sysAdminNotes;
+      sysAdminReviewAligned = widget.data.sysAdminReviewAligned;
+      tamRecommendations = widget.data.tamRecommendations;
+      tamReview = widget.data.tamReview;
+      totalProjectEstimate = widget.data.totalProjectEstimate;
+      type = widget.data.type;
+      whyAreWeAsking = widget.data.whyAreWeAsking;
       id = widget.data.id;
-      status = widget.data.status;
-      editAssignTBR = true;
-      originalMap = createCurrentTBR().toMap();
+      editQuestion = true;
+      originalMap = createCurrentQuestion().toMap();
     }
   }
 
-  AssignedTBR createCurrentTBR() {
-    return AssignedTBR(
+  Question createCurrentQuestion() {
+    return Question(
         id: id,
-        technician: selectedTechnician,
-        company: selectedCompany,
-        questionnaireType: selectedQuestionnaireType,
-        clientMeetingDate: clientMeetingDate,
-        dueDate: evaluationDueDate,
-        status: status ??= Status(statusIndex: 0));
+        benefitsBusinessValue: benefitsBusinessValue,
+        category: category,
+        customerApprovedProject: customerApprovedProject,
+        estimatedLaborPrice: estimatedLaborPrice,
+        estimatedMRRIncrease: estimatedMRRIncrease,
+        estimatedProductPrice: estimatedProductPrice,
+        howTo: howTo,
+        projectType: projectType,
+        questionName: questionName,
+        questionPriority: questionPriority,
+        questionText: questionText,
+        roadMap: roadMap, //mm/yyyy
+        section: section,
+        sysAdminNotes: sysAdminNotes,
+        sysAdminReviewAligned: sysAdminReviewAligned,
+        tamRecommendations: tamRecommendations,
+        tamReview: tamReview,
+        totalProjectEstimate: totalProjectEstimate,
+        type: type,
+        whyAreWeAsking: whyAreWeAsking);
   }
 
   @override
@@ -71,156 +114,157 @@ class _EditQuestionState extends State<EditQuestion> {
       heightFactor: 0.6,
       child: Column(
         children: [
+          Text("test")
           // DropdownScreen(),
-          FutureDropdown(
-            hint: 'Choose a Technician:',
-            selectedData: selectedTechnician,
-            future: database.technicianStream().first,
-            onSelected: () {
-              print('selected');
-            },
-            onSelectedChange: (dynamic tech) {
-              print(tech.toString());
-              setState(() {
-                selectedTechnician = tech as Technician;
-              });
-            },
-          ),
-          // Text(selectedTechnician?.name ?? 'Not selected'),
-          FutureDropdown(
-            hint: 'Choose a Company:',
-            selectedData: selectedCompany,
-            future: database.companyStream().first,
-            onSelected: () {
-              print('selected');
-            },
-            onSelectedChange: (dynamic company) {
-              print(company.toString());
-              setState(() {
-                selectedCompany = company as Company;
-              });
-            },
-          ),
-          // Text(selectedCompany?.name ?? 'Not selected'),
-          FutureDropdown(
-            hint: 'Choose a TBR type:',
-            selectedData: selectedQuestionnaireType,
-            future: database.questionnaireTypeStream().first,
-            onSelected: () {
-              print('selected');
-            },
-            onSelectedChange: (dynamic type) {
-              print(type.toString());
-              setState(() {
-                selectedQuestionnaireType = type as QuestionnaireType;
-              });
-            },
-          ),
-          // Text(selectedQuestionnaireType?.option ?? 'Not selected'),
-          DateTimePicker(
-            initialValue: evaluationDueDate.toString(),
-            firstDate: DateTime(2000),
-            lastDate: DateTime(2100),
-            dateLabelText: 'Evaluation Due Date',
-            onChanged: (val) {
-              print(val);
-              setState(() {
-                evaluationDueDate = DateTime.parse(val);
-              });
-            },
-            validator: (val) {
-              print(val);
-              return null;
-            },
-            onSaved: (val) {
-              print(val);
-              setState(() {
-                evaluationDueDate = DateTime.parse(val);
-              });
-            },
-          ),
-          // Text(evaluationDueDate?.toString() ?? 'Not Selected'),
-          DateTimePicker(
-            initialValue: clientMeetingDate.toString(),
-            firstDate: DateTime(2000),
-            lastDate: DateTime(2100),
-            dateLabelText: 'Client Meeting Date',
-            onChanged: (val) {
-              print(val);
-              setState(() {
-                clientMeetingDate = DateTime.parse(val);
-              });
-            },
-            validator: (val) {
-              print(val);
-              return null;
-            },
-            onSaved: (val) {
-              print(val);
-              setState(() {
-                clientMeetingDate = DateTime.parse(val);
-              });
-            },
-          ),
-          FlatButton(
-            child: const Text(
-              'Assign',
-              style: TextStyle(
-                fontSize: 18.0,
-                color: Colors.blue,
-              ),
-            ),
-            onPressed: () async {
-              bool valid = true;
-              while (valid) {
-                bool validated;
-                validated = await _validateAndSaveForm(createCurrentTBR());
-                if (validated == false) {
-                  valid = false;
-                  break;
-                }
-                bool answer = false;
-                if (validated && widget.data == null) {
-                  answer = true;
-                } else {
-                  answer = await showAlertDialog(
-                    context: context,
-                    title: 'Warning...',
-                    content:
-                        'This action will permanently overwrite data in the database.  Are you sure you want to proceed?',
-                    cancelActionText: 'No',
-                    defaultActionText: 'Yes',
-                  );
-                }
-                final AssignedTBR assignedTbr = createCurrentTBR();
+          // FutureDropdown(
+          //   hint: 'Choose a Technician:',
+          //   selectedData: selectedTechnician,
+          //   future: database.technicianStream().first,
+          //   onSelected: () {
+          //     print('selected');
+          //   },
+          //   onSelectedChange: (dynamic tech) {
+          //     print(tech.toString());
+          //     setState(() {
+          //       selectedTechnician = tech as Technician;
+          //     });
+          //   },
+          // ),
+          // // Text(selectedTechnician?.name ?? 'Not selected'),
+          // FutureDropdown(
+          //   hint: 'Choose a Company:',
+          //   selectedData: selectedCompany,
+          //   future: database.companyStream().first,
+          //   onSelected: () {
+          //     print('selected');
+          //   },
+          //   onSelectedChange: (dynamic company) {
+          //     print(company.toString());
+          //     setState(() {
+          //       selectedCompany = company as Company;
+          //     });
+          //   },
+          // ),
+          // // Text(selectedCompany?.name ?? 'Not selected'),
+          // FutureDropdown(
+          //   hint: 'Choose a TBR type:',
+          //   selectedData: selectedQuestionnaireType,
+          //   future: database.questionnaireTypeStream().first,
+          //   onSelected: () {
+          //     print('selected');
+          //   },
+          //   onSelectedChange: (dynamic type) {
+          //     print(type.toString());
+          //     setState(() {
+          //       selectedQuestionnaireType = type as QuestionnaireType;
+          //     });
+          //   },
+          // ),
+          // // Text(selectedQuestionnaireType?.option ?? 'Not selected'),
+          // DateTimePicker(
+          //   initialValue: evaluationDueDate.toString(),
+          //   firstDate: DateTime(2000),
+          //   lastDate: DateTime(2100),
+          //   dateLabelText: 'Evaluation Due Date',
+          //   onChanged: (val) {
+          //     print(val);
+          //     setState(() {
+          //       evaluationDueDate = DateTime.parse(val);
+          //     });
+          //   },
+          //   validator: (val) {
+          //     print(val);
+          //     return null;
+          //   },
+          //   onSaved: (val) {
+          //     print(val);
+          //     setState(() {
+          //       evaluationDueDate = DateTime.parse(val);
+          //     });
+          //   },
+          // ),
+          // // Text(evaluationDueDate?.toString() ?? 'Not Selected'),
+          // DateTimePicker(
+          //   initialValue: clientMeetingDate.toString(),
+          //   firstDate: DateTime(2000),
+          //   lastDate: DateTime(2100),
+          //   dateLabelText: 'Client Meeting Date',
+          //   onChanged: (val) {
+          //     print(val);
+          //     setState(() {
+          //       clientMeetingDate = DateTime.parse(val);
+          //     });
+          //   },
+          //   validator: (val) {
+          //     print(val);
+          //     return null;
+          //   },
+          //   onSaved: (val) {
+          //     print(val);
+          //     setState(() {
+          //       clientMeetingDate = DateTime.parse(val);
+          //     });
+          //   },
+          // ),
+          // FlatButton(
+          //   child: const Text(
+          //     'Assign',
+          //     style: TextStyle(
+          //       fontSize: 18.0,
+          //       color: Colors.blue,
+          //     ),
+          //   ),
+          //   onPressed: () async {
+          //     bool valid = true;
+          //     while (valid) {
+          //       bool validated;
+          //       validated = await _validateAndSaveForm(createCurrentQuestion());
+          //       if (validated == false) {
+          //         valid = false;
+          //         break;
+          //       }
+          //       bool answer = false;
+          //       if (validated && widget.data == null) {
+          //         answer = true;
+          //       } else {
+          //         answer = await showAlertDialog(
+          //           context: context,
+          //           title: 'Warning...',
+          //           content:
+          //               'This action will permanently overwrite data in the database.  Are you sure you want to proceed?',
+          //           cancelActionText: 'No',
+          //           defaultActionText: 'Yes',
+          //         );
+          //       }
+          //       final AssignedTBR assignedTbr = createCurrentQuestion();
 
-                final bool notNullnotEditedOREditedAndChanged =
-                    (!editAssignTBR && (assignedTbr.toMap() != null)) ||
-                        (editAssignTBR &&
-                            (assignedTbr != null) &&
-                            !mapEquals<String, dynamic>(
-                                originalMap, assignedTbr.toMap()));
-                if (answer //) {
-                    &&
-                    notNullnotEditedOREditedAndChanged) {
-                  unawaited(_sendAssignedTbr(assignedTbr: assignedTbr));
-                }
-              }
-              print('valid = $valid');
+          //       final bool notNullnotEditedOREditedAndChanged =
+          //           (!editAssignTBR && (assignedTbr.toMap() != null)) ||
+          //               (editAssignTBR &&
+          //                   (assignedTbr != null) &&
+          //                   !mapEquals<String, dynamic>(
+          //                       originalMap, assignedTbr.toMap()));
+          //       if (answer //) {
+          //           &&
+          //           notNullnotEditedOREditedAndChanged) {
+          //         unawaited(_sendAssignedTbr(assignedTbr: assignedTbr));
+          //       }
+          //     }
+          //     print('valid = $valid');
 
-              Navigator.of(context).pop();
-            },
-          ),
-          const Spacer(),
-          FlatButton(
-              child: const Text(
-                'Cancel',
-                style: TextStyle(
-                  fontSize: 18.0,
-                  color: Colors.blue,
-                ),
-              ),
-              onPressed: () => Navigator.of(context).pop()),
+          //     Navigator.of(context).pop();
+          //   },
+          // ),
+          // const Spacer(),
+          // FlatButton(
+          //     child: const Text(
+          //       'Cancel',
+          //       style: TextStyle(
+          //         fontSize: 18.0,
+          //         color: Colors.blue,
+          //       ),
+          //     ),
+          //     onPressed: () => Navigator.of(context).pop()),
           // Text(clientMeetingDate?.toString() ?? 'Not Selected')
         ],
       ),

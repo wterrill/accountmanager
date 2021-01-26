@@ -26,11 +26,11 @@ class QuestionPage extends StatelessWidget {
               backgroundColor: MaterialStateProperty.all<Color>(Colors.green)),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(Strings.tbrStrings.assignTbr),
+            child: Text(Strings.questionStrings.createQuestion),
           ),
           onPressed: () {
-            displayWidgetDialogWithError(
-                context, Strings.tbrStrings.assignTbr, const EditQuestion());
+            displayWidgetDialogWithError(context,
+                Strings.questionStrings.createQuestion, const EditQuestion());
           },
         ),
         CreateDataTableWidget()

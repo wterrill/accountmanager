@@ -83,4 +83,5 @@ class QuestionStrings {
   final String questionPriority = 'Question Priority';
   final String type = 'Type';
   final String whyAreWeAsking = 'Why are we asking?';
+  final String createQuestion = 'Make new Question';
 }
