@@ -1,4 +1,5 @@
 import 'package:accountmanager/app/home/models/question.dart';
+import 'package:accountmanager/app/home/question/dropdown_screen.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -52,6 +53,7 @@ class _EditQuestionState extends State<EditQuestion> {
   String id;
   bool editQuestion = false;
   Map<String, dynamic> originalMap;
+  String _name;
   @override
   void initState() {
     super.initState();
@@ -114,7 +116,24 @@ class _EditQuestionState extends State<EditQuestion> {
       heightFactor: 0.6,
       child: Column(
         children: [
-          Text("test")
+          Text("test"),
+          DropdownScreen(),
+          TextField(
+            autocorrect: true,
+            enableSuggestions: true,
+            keyboardType: TextInputType.text,
+            maxLength: 50,
+            controller: TextEditingController(text: _name),
+            decoration: const InputDecoration(
+              labelText: 'Name',
+              labelStyle:
+                  TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
+            ),
+            keyboardAppearance: Brightness.light,
+            style: const TextStyle(fontSize: 20.0, color: Colors.black),
+            onChanged: (inputName) => _name = inputName,
+          ),
+
           // DropdownScreen(),
           // FutureDropdown(
           //   hint: 'Choose a Technician:',

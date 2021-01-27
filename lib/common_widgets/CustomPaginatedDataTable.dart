@@ -64,7 +64,15 @@ class CustomPaginatedDataTable extends StatefulWidget {
     this.onSelectAll,
     this.dataRowHeight = kMinInteractiveDimension,
     this.headingRowHeight = 56.0,
-    this.headingRowColor: Colors.red,
+    this.headingRowColor = Colors.red,
+    this.dropdownTextStyle =
+        const TextStyle(color: Colors.black, fontSize: 10.0),
+    this.pageRowInfoTextStyle =
+        const TextStyle(color: Colors.black, fontSize: 10.0),
+    this.cardBackgroundColor = Colors.transparent,
+    this.mainBackgroundColor = Colors.transparent,
+    this.footerBackgroundColor = Colors.transparent,
+    this.cardElevation = 0,
     this.horizontalMargin = 24.0,
     this.columnSpacing = 56.0,
     this.showCheckboxColumn = true,
@@ -156,7 +164,14 @@ class CustomPaginatedDataTable extends StatefulWidget {
   ///
   /// This value is optional and defaults to 56.0 if not specified.
   final double headingRowHeight;
+
   final Color headingRowColor;
+  final TextStyle dropdownTextStyle;
+  final TextStyle pageRowInfoTextStyle;
+  final Color cardBackgroundColor;
+  final Color mainBackgroundColor;
+  final Color footerBackgroundColor;
+  final double cardElevation;
 
   /// The horizontal margin between the edges of the table and the content
   /// in the first and last cells of each row.
@@ -232,6 +247,12 @@ class CustomPaginatedDataTableState extends State<CustomPaginatedDataTable> {
   int _firstRowIndex;
   int _rowCount;
   bool _rowCountApproximate;
+  TextStyle _dropdownTextStyle;
+  TextStyle _pageRowInfoTextStyle;
+  Color _cardBackgroundColor;
+  Color _mainBackgroundColor;
+  Color _footerBackgroundColor;
+  double _cardElevation;
   // int _selectedRowCount;
   final Map<int, CustomDataRow> _rows = <int, CustomDataRow>{};
 
@@ -243,6 +264,12 @@ class CustomPaginatedDataTableState extends State<CustomPaginatedDataTable> {
         0;
     widget.source.addListener(_handleDataSourceChanged);
     _handleDataSourceChanged();
+    _dropdownTextStyle = widget.dropdownTextStyle;
+    _pageRowInfoTextStyle = widget.pageRowInfoTextStyle;
+    _cardBackgroundColor = widget.cardBackgroundColor;
+    _mainBackgroundColor = widget.mainBackgroundColor;
+    _footerBackgroundColor = widget.footerBackgroundColor;
+    _cardElevation = widget.cardElevation;
   }
 
   @override
@@ -372,14 +399,14 @@ class CustomPaginatedDataTableState extends State<CustomPaginatedDataTable> {
           .map<DropdownMenuItem<int>>((int value) {
         return DropdownMenuItem<int>(
           value: value,
-          child: Text('$value', style: ColorDefs.textBodyBlue10),
+          child: Text('$value', style: _dropdownTextStyle),
         );
       }).toList();
       footerWidgets.addAll(<Widget>[
         Container(
             width:
                 14.0), // to match trailing padding in case we overflow and end up scrolling
-        Text(localizations.rowsPerPageTitle, style: ColorDefs.textBodyBlue10),
+        Text(localizations.rowsPerPageTitle, style: _dropdownTextStyle),
         ConstrainedBox(
           constraints: const BoxConstraints(
               minWidth: 64.0), // 40.0 for the text, 24.0 for the icon
@@ -409,7 +436,7 @@ class CustomPaginatedDataTableState extends State<CustomPaginatedDataTable> {
             _rowCount,
             _rowCountApproximate,
           ),
-          style: ColorDefs.textBodyBronze20),
+          style: _pageRowInfoTextStyle),
       Container(width: 32.0),
       IconButton(
         icon: const Icon(Icons.chevron_left),
@@ -434,54 +461,58 @@ class CustomPaginatedDataTableState extends State<CustomPaginatedDataTable> {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         return Card(
+          elevation: _cardElevation,
           semanticContainer: false,
-          color: ColorDefs.colorDarkest,
+          color: _cardBackgroundColor,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                dragStartBehavior: widget.dragStartBehavior,
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(minWidth: constraints.minWidth),
-                  child: Container(
-                    color: ColorDefs.colorDarkest,
-                    child: CustomDataTable(
-                      showCheckboxColumn: widget.showCheckboxColumn,
-                      key: _tableKey,
-                      columns: widget.columns,
-                      sortColumnIndex: widget.sortColumnIndex,
-                      sortAscending: widget.sortAscending,
-                      onSelectAll: widget.onSelectAll,
-                      dataRowHeight: widget.dataRowHeight,
-                      headingRowHeight: widget.headingRowHeight,
-                      headingRowColor: widget.headingRowColor,
-                      horizontalMargin: widget.horizontalMargin,
-                      columnSpacing: widget.columnSpacing,
-                      rows: _getRows(_firstRowIndex, widget.rowsPerPage),
-                    ),
+              // SingleChildScrollView(
+              //   scrollDirection: Axis.horizontal,
+              //   dragStartBehavior: widget.dragStartBehavior,
+              // child:
+              ConstrainedBox(
+                constraints: BoxConstraints(minWidth: constraints.minWidth),
+                child: Container(
+                  color: _mainBackgroundColor, //ColorDefs.colorDarkest,
+                  child: CustomDataTable(
+                    showCheckboxColumn: widget.showCheckboxColumn,
+                    key: _tableKey,
+                    columns: widget.columns,
+                    sortColumnIndex: widget.sortColumnIndex,
+                    sortAscending: widget.sortAscending,
+                    onSelectAll: widget.onSelectAll,
+                    dataRowHeight: widget.dataRowHeight,
+                    headingRowHeight: widget.headingRowHeight,
+                    headingRowColor: widget.headingRowColor,
+                    horizontalMargin: widget.horizontalMargin,
+                    columnSpacing: widget.columnSpacing,
+                    rows: _getRows(_firstRowIndex, widget.rowsPerPage),
                   ),
                 ),
               ),
+              // ),
               DefaultTextStyle(
                 style: footerTextStyle,
                 child: IconTheme.merge(
                   data: const IconThemeData(opacity: 0.54),
                   child: Container(
-                    color: Colors.blue,
+                    color: _footerBackgroundColor,
                     // (bkonyi): this won't handle text zoom correctly, https://github.com/flutter/flutter/issues/48522
                     height: 56.0,
-                    child: SingleChildScrollView(
-                      dragStartBehavior: widget.dragStartBehavior,
-                      scrollDirection: Axis.horizontal,
-                      reverse: true,
-                      child: Container(
-                        color: ColorDefs.colorDarkest,
-                        child: Row(
-                          children: footerWidgets,
-                        ),
+                    child:
+                        // SingleChildScrollView(
+                        //   dragStartBehavior: widget.dragStartBehavior,
+                        //   scrollDirection: Axis.horizontal,
+                        //   reverse: true,
+                        //   child:
+                        Container(
+                      color: _footerBackgroundColor, //ColorDefs.colorDarkest,
+                      child: Row(
+                        children: footerWidgets,
                       ),
                     ),
+                    // ),
                   ),
                 ),
               ),

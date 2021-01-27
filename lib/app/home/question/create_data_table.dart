@@ -1,4 +1,9 @@
 import 'package:accountmanager/app/home/models/question.dart';
+import 'package:accountmanager/app/home/question/dropdown_screen.dart';
+import 'package:accountmanager/common_widgets/CustomDataTable.dart';
+import 'package:accountmanager/common_widgets/CustomDataTableSource.dart';
+import 'package:accountmanager/common_widgets/CustomPaginatedDataTable.dart';
+import 'package:accountmanager/constants/color_defs.dart';
 import 'package:accountmanager/constants/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
@@ -36,7 +41,7 @@ class DataTableBuilder extends StatefulWidget {
 
 class _DataTableBuilderState extends State<DataTableBuilder> {
   //**//**//**//**/
-  int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
+  int _rowsPerPage = CustomPaginatedDataTable.defaultRowsPerPage;
   // bool sort = true;
 
   // // int _rowsPerPage = CustomPaginatedDataTable.defaultRowsPerPage;
@@ -86,97 +91,104 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
     //   }
     // }
 
-    return Flexible(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            PaginatedDataTable(
-              showCheckboxColumn: false,
-              header: Text(Strings.questionStrings.header),
-              source: dtsSource,
-              rowsPerPage: _rowsPerPage,
-              sortColumnIndex: _sortColumnIndex,
-              sortAscending: _sortAscending,
-              onRowsPerPageChanged: (rows) {
-                setState(() {
-                  _rowsPerPage = rows;
-                });
-              },
-              columns: [
-                DataColumn(
-                  label: Text(Strings.questionStrings.category),
-                  // onSort: (columnIndex, ascending) => _sort<String>(
-                  //     (Question d) => d.category, columnIndex, ascending),
-                  // onSort: (columnIndex, ascending) {
-                  //   setState(() {
-                  //     sort = !sort;
-                  //     print(sort);
-                  //   });
-                  //   onSortColum(columnIndex: columnIndex, ascending: sort);
-                  // },
-                  // onSort: (int columnIndex, bool ascending) {
-                  //   print("sorting");
-                  //   _sort<String>((Question d) => d.category, columnIndex,
-                  //       ascending, dtsSource);
-                  // },
-                  onSort: (columnIndex, ascending) {
-                    // _sort<String>((Question d) => d.category, columnIndex,
-                    //     ascending, dtsSource);
-                    dtsSource.sort<String>(
-                        getField: (d) => d.category, ascending: _sortAscending);
-                    setState(() {
-                      _sortColumnIndex = columnIndex;
-                      _sortAscending = !_sortAscending;
-                    });
-                  },
-                ),
-                DataColumn(label: Text(Strings.questionStrings.benefits)),
-                DataColumn(
-                  label: Text(Strings.questionStrings.questionText),
-                  onSort: (columnIndex, ascending) {
-                    dtsSource.sort<String>(
-                        getField: (d) => d.category, ascending: _sortAscending);
-                    setState(() {
-                      _sortColumnIndex = columnIndex;
-                      _sortAscending = !_sortAscending;
-                    });
-                  },
-                ),
-                DataColumn(
-                  label: Text(Strings.questionStrings.questionPriority),
-                  onSort: (columnIndex, ascending) {
-                    dtsSource.sort<String>(
-                        getField: (d) => d.questionPriority,
-                        ascending: _sortAscending);
-                    setState(() {
-                      _sortColumnIndex = columnIndex;
-                      _sortAscending = !_sortAscending;
-                    });
-                  },
-                ),
-                DataColumn(
-                  label: Text(Strings.questionStrings.type),
-                  onSort: (columnIndex, ascending) {
-                    dtsSource.sort<String>(
-                        getField: (d) => d.type, ascending: _sortAscending);
-                    setState(() {
-                      _sortColumnIndex = columnIndex;
-                      _sortAscending = !_sortAscending;
-                    });
-                  },
-                ),
-                DataColumn(label: Text(Strings.questionStrings.whyAreWeAsking))
-              ],
-            ),
-            Container(height: 150),
-          ],
+    return
+        // Column(
+        //   children: [
+        CustomPaginatedDataTable(
+      showCheckboxColumn: false,
+      header: Text(Strings.questionStrings.header),
+      source: dtsSource,
+      rowsPerPage: _rowsPerPage,
+      sortColumnIndex: _sortColumnIndex,
+      sortAscending: _sortAscending,
+      headingRowColor: Colors.transparent,
+      cardBackgroundColor: Colors.transparent,
+      mainBackgroundColor: Colors.transparent,
+      footerBackgroundColor: Colors.transparent,
+      cardElevation: 0,
+      dropdownTextStyle: const TextStyle(color: Colors.blue, fontSize: 15.0),
+      pageRowInfoTextStyle: ColorDefs.textBodyBronze20,
+      onRowsPerPageChanged: (rows) {
+        setState(() {
+          _rowsPerPage = rows;
+        });
+      },
+      columns: [
+        CustomDataColumn(
+          label: Text(Strings.questionStrings.category),
+          // onSort: (columnIndex, ascending) => _sort<String>(
+          //     (Question d) => d.category, columnIndex, ascending),
+          // onSort: (columnIndex, ascending) {
+          //   setState(() {
+          //     sort = !sort;
+          //     print(sort);
+          //   });
+          //   onSortColum(columnIndex: columnIndex, ascending: sort);
+          // },
+          // onSort: (int columnIndex, bool ascending) {
+          //   print("sorting");
+          //   _sort<String>((Question d) => d.category, columnIndex,
+          //       ascending, dtsSource);
+          // },
+          onSort: (columnIndex, ascending) {
+            // _sort<String>((Question d) => d.category, columnIndex,
+            //     ascending, dtsSource);
+            dtsSource.sort<String>(
+                getField: (d) => d.category, ascending: _sortAscending);
+            setState(() {
+              _sortColumnIndex = columnIndex;
+              _sortAscending = !_sortAscending;
+            });
+          },
         ),
-      ),
+        // CustomDataColumn(label: Text(Strings.questionStrings.benefits)),
+        CustomDataColumn(
+          // label: Text(Strings.questionStrings.questionText),
+          label: Text('Question'),
+          onSort: (columnIndex, ascending) {
+            dtsSource.sort<String>(
+                getField: (d) => d.category, ascending: _sortAscending);
+            setState(() {
+              _sortColumnIndex = columnIndex;
+              _sortAscending = !_sortAscending;
+            });
+          },
+        ),
+        CustomDataColumn(
+          // label: Text(Strings.questionStrings.questionPriority),
+          label: Text('Priority'),
+          onSort: (columnIndex, ascending) {
+            dtsSource.sort<String>(
+                getField: (d) => d.questionPriority, ascending: _sortAscending);
+            setState(() {
+              _sortColumnIndex = columnIndex;
+              _sortAscending = !_sortAscending;
+            });
+          },
+        ),
+        // CustomDataColumn(
+        //   label: Text(Strings.questionStrings.type),
+        //   onSort: (columnIndex, ascending) {
+        //     dtsSource.sort<String>(
+        //         getField: (d) => d.type, ascending: _sortAscending);
+        //     setState(() {
+        //       _sortColumnIndex = columnIndex;
+        //       _sortAscending = !_sortAscending;
+        //     });
+        //   },
+        // ),
+        CustomDataColumn(label: Text(Strings.questionStrings.whyAreWeAsking))
+      ],
     );
+    // Container(height: 150),
+    //   ],
+    // );
+    //   ),
+    // );
   }
 }
 
-class DTS extends DataTableSource {
+class DTS extends CustomDataTableSource {
   final List<Question> data; //**//**//**//**/
   final BuildContext context;
 
@@ -186,28 +198,28 @@ class DTS extends DataTableSource {
   );
 
   @override
-  DataRow getRow(int index) {
+  CustomDataRow getRow(int index) {
     if (index < data.length) {
-      return DataRow(
+      return CustomDataRow(
           onSelectChanged: (beer) {
             _displayDialog(context, data[index]);
           },
           cells: [
-            DataCell(Text(data[index]?.category ?? '')),
-            DataCell(Text(data[index]?.benefitsBusinessValue ?? '')),
-            DataCell(Text(data[index]?.questionText ?? '')),
-            DataCell(Text(data[index]?.questionPriority ?? '')),
-            DataCell(Text(data[index]?.type ?? '')),
-            DataCell(Text(data[index]?.whyAreWeAsking ?? ''))
+            CustomDataCell(Text(data[index]?.category ?? '')),
+            // CustomDataCell(Text(data[index]?.benefitsBusinessValue ?? '')),
+            CustomDataCell(Text(data[index]?.questionText ?? '')),
+            CustomDataCell(Text(data[index]?.questionPriority ?? '')),
+            // CustomDataCell(Text(data[index]?.type ?? '')),
+            CustomDataCell(Text(data[index]?.whyAreWeAsking ?? ''))
           ]);
     } else {
-      return const DataRow(cells: [
-        DataCell(Text(Strings.placeHolder)),
-        DataCell(Text(Strings.placeHolder)),
-        DataCell(Text(Strings.placeHolder)),
-        DataCell(Text(Strings.placeHolder)),
-        DataCell(Text(Strings.placeHolder)),
-        DataCell(Text(Strings.placeHolder)),
+      return const CustomDataRow(cells: [
+        CustomDataCell(Text(Strings.placeHolder)),
+        // CustomDataCell(Text(Strings.placeHolder)),
+        CustomDataCell(Text(Strings.placeHolder)),
+        CustomDataCell(Text(Strings.placeHolder)),
+        // CustomDataCell(Text(Strings.placeHolder)),
+        CustomDataCell(Text(Strings.placeHolder)),
       ]);
     }
   }
@@ -242,8 +254,9 @@ Future<void> _displayDialog(BuildContext context, Question data) async {
   try {
     final Map<String, dynamic> result = await showWidgetDialog(
         context: context,
-        title: 'Assign TBR',
-        widget: const Text('beer') //AssignTBR(data: data),  //**//**//**//**/
+        title: 'TBR Questions',
+        widget: Text(
+            'bob') //DropdownScreen() //AssignTBR(data: data),  //**//**//**//**/
         // defaultActionText: '',
         // cancelActionText: '',
         );

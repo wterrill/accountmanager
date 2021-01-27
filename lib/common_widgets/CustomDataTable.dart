@@ -622,6 +622,7 @@ class CustomDataTable extends StatelessWidget {
       padding: padding,
       height: headingRowHeight,
       color: headingRowColor,
+      width: 234,
       alignment:
           numeric ? Alignment.centerRight : AlignmentDirectional.centerStart,
       child: AnimatedDefaultTextStyle(

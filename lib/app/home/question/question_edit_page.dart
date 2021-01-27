@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:accountmanager/app/home/question/create_data_table.dart';
 import 'package:accountmanager/app/home/question/edit_question.dart';
+import 'package:accountmanager/app/home/question/testTable.dart';
 import 'package:accountmanager/common_widgets/display_widget_dialog_with_error.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -20,7 +21,9 @@ class QuestionPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text(Strings.overview),
       ),
-      body: Column(children: [
+      body:
+          // Testing()
+          Column(children: [
         TextButton(
           style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all<Color>(Colors.green)),
@@ -33,6 +36,11 @@ class QuestionPage extends StatelessWidget {
                 Strings.questionStrings.createQuestion, const EditQuestion());
           },
         ),
+        //   //   Flexible(
+        //   // child: SingleChildScrollView(
+        //   //   child:
+        //   // CreateDataTableWidget()
+        //   Testing()
         CreateDataTableWidget()
       ]),
     );

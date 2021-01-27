@@ -165,7 +165,6 @@ class _EntryPageState extends State<EntryPage> {
       ),
       keyboardAppearance: Brightness.light,
       style: const TextStyle(fontSize: 20.0, color: Colors.black),
-      maxLines: null,
       onChanged: (comment) => _comment = comment,
     );
   }

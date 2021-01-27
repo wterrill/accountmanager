@@ -37,7 +37,6 @@ class _InputTechnicianState extends State<InputTechnician> {
           ),
           keyboardAppearance: Brightness.light,
           style: const TextStyle(fontSize: 20.0, color: Colors.black),
-          maxLines: null,
           onChanged: (name) => _name = name,
         ),
         const UploadButton(),
