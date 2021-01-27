@@ -1,4 +1,5 @@
 import 'package:date_time_picker/date_time_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -34,6 +35,7 @@ class _AssignTBRState extends State<AssignTBR> {
   DateTime evaluationDueDate;
   DateTime clientMeetingDate;
   String id;
+  String assignedBy;
   bool editAssignTBR = false;
   Status status;
   Map<String, dynamic> originalMap;
@@ -48,12 +50,13 @@ class _AssignTBRState extends State<AssignTBR> {
       clientMeetingDate = widget.data.clientMeetingDate;
       id = widget.data.id;
       status = widget.data.status;
+      assignedBy = widget.data.assignedBy;
       editAssignTBR = true;
-      originalMap = createCurrentTBR().toMap();
+      originalMap = createCurrentTBR(assignedBy).toMap();
     }
   }
 
-  AssignedTBR createCurrentTBR() {
+  AssignedTBR createCurrentTBR(String assignedBy) {
     return AssignedTBR(
         id: id,
         technician: selectedTechnician,
@@ -61,11 +64,15 @@ class _AssignTBRState extends State<AssignTBR> {
         questionnaireType: selectedQuestionnaireType,
         clientMeetingDate: clientMeetingDate,
         dueDate: evaluationDueDate,
-        status: status ??= Status(statusIndex: 0));
+        status: status ??= Status(statusIndex: 0),
+        assignedBy: assignedBy);
   }
 
   @override
   Widget build(BuildContext context) {
+    final firebaseAuth = context.read(firebaseAuthProvider);
+    final user = firebaseAuth.currentUser;
+    assignedBy ??= user.email;
     final FirestoreDatabase database = context.read(databaseProvider);
     return FractionallySizedBox(
       heightFactor: 0.6,
@@ -174,7 +181,8 @@ class _AssignTBRState extends State<AssignTBR> {
               bool valid = true;
               while (valid) {
                 bool validated;
-                validated = await _validateAndSaveForm(createCurrentTBR());
+                validated =
+                    await _validateAndSaveForm(createCurrentTBR(assignedBy));
                 if (validated == false) {
                   valid = false;
                   break;
@@ -192,7 +200,7 @@ class _AssignTBRState extends State<AssignTBR> {
                     defaultActionText: 'Yes',
                   );
                 }
-                final AssignedTBR assignedTbr = createCurrentTBR();
+                final AssignedTBR assignedTbr = createCurrentTBR(assignedBy);
 
                 final bool notNullnotEditedOREditedAndChanged =
                     (!editAssignTBR && (assignedTbr.toMap() != null)) ||
@@ -204,6 +212,7 @@ class _AssignTBRState extends State<AssignTBR> {
                     &&
                     notNullnotEditedOREditedAndChanged) {
                   unawaited(_sendAssignedTbr(assignedTbr: assignedTbr));
+                  valid = false;
                 }
               }
               print('valid = $valid');

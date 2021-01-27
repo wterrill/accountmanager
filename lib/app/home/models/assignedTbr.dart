@@ -1,3 +1,5 @@
+// import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase/firebase.dart';
@@ -13,15 +15,15 @@ import 'Status.dart';
 // @immutable
 class AssignedTBR {
   //extends Equatable {
-  AssignedTBR({
-    @required this.id,
-    @required this.technician,
-    @required this.company,
-    @required this.questionnaireType,
-    @required this.dueDate,
-    @required this.clientMeetingDate,
-    @required this.status,
-  });
+  AssignedTBR(
+      {@required this.id,
+      @required this.technician,
+      @required this.company,
+      @required this.questionnaireType,
+      @required this.dueDate,
+      @required this.clientMeetingDate,
+      @required this.status,
+      @required this.assignedBy});
   final String id;
   final Technician technician;
   final Company company;
@@ -29,6 +31,7 @@ class AssignedTBR {
   final DateTime dueDate;
   final DateTime clientMeetingDate;
   final Status status;
+  final String assignedBy;
   bool selected;
 
   // @override
@@ -60,6 +63,7 @@ class AssignedTBR {
     final Timestamp dueDate = data['dueDate'] as Timestamp;
     final Timestamp clientMeetingDate = data['clientMeetingDate'] as Timestamp;
     final int status = data['status'] as int;
+    final String assignedBy = data['assignedBy'] as String;
 
     if (companyName == null ||
         companyId == null ||
@@ -69,7 +73,8 @@ class AssignedTBR {
         questionnaireTypeName == null ||
         dueDate == null ||
         clientMeetingDate == null ||
-        status == null) {
+        status == null ||
+        assignedBy == null) {
       return null;
     }
     final Technician tech = Technician(id: technicianId, name: technicianName);
@@ -82,6 +87,7 @@ class AssignedTBR {
         DateTime.fromMicrosecondsSinceEpoch(
             clientMeetingDate.microsecondsSinceEpoch);
     final Status statusObj = Status(statusIndex: status);
+    final String assignedByObj = assignedBy;
 
     return AssignedTBR(
         id: documentId,
@@ -90,7 +96,8 @@ class AssignedTBR {
         questionnaireType: question,
         dueDate: dueDateDatetime,
         clientMeetingDate: clientMeetingDateDatetime,
-        status: statusObj);
+        status: statusObj,
+        assignedBy: assignedByObj);
   }
 
   Map<String, dynamic> toMap() {
@@ -99,7 +106,8 @@ class AssignedTBR {
         questionnaireType == null ||
         dueDate == null ||
         clientMeetingDate == null ||
-        status == null) {
+        status == null ||
+        assignedBy == null) {
       return null;
     } else {
       return {
@@ -112,6 +120,7 @@ class AssignedTBR {
         'dueDate': dueDate,
         'clientMeetingDate': clientMeetingDate,
         'status': status.statusIndex,
+        'assignedBy': assignedBy
       };
     }
   }
@@ -123,7 +132,4 @@ class AssignedTBR {
   String getDueDateFormatted() {
     return DateFormat('MM-dd-yyyy').format(dueDate).toString();
   }
-
-  // @override
-  // String toString() => name;
 }

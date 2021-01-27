@@ -19,8 +19,8 @@ class _HomePageState extends State<HomePage> {
   TabItem _currentTab = TabItem.account;
 
   final Map<TabItem, GlobalKey<NavigatorState>> navigatorKeys = {
-    TabItem.jobs: GlobalKey<NavigatorState>(),
-    TabItem.entries: GlobalKey<NavigatorState>(),
+    // TabItem.jobs: GlobalKey<NavigatorState>(),
+    // TabItem.entries: GlobalKey<NavigatorState>(),
     TabItem.account: GlobalKey<NavigatorState>(),
     TabItem.createTech: GlobalKey<NavigatorState>(),
     TabItem.assignTbr: GlobalKey<NavigatorState>(),
@@ -29,8 +29,8 @@ class _HomePageState extends State<HomePage> {
 
   Map<TabItem, WidgetBuilder> get widgetBuilders {
     return {
-      TabItem.jobs: (_) => JobsPage(),
-      TabItem.entries: (_) => EntriesPage(),
+      // TabItem.jobs: (_) => JobsPage(),
+      // TabItem.entries: (_) => EntriesPage(),
       TabItem.account: (_) => AccountPage(),
       TabItem.createTech: (_) => CreateTechPage(),
       TabItem.assignTbr: (_) => AssignTBRPage(),

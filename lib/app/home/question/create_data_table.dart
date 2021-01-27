@@ -1,5 +1,6 @@
 import 'package:accountmanager/app/home/models/question.dart';
 import 'package:accountmanager/app/home/question/dropdown_screen.dart';
+import 'package:accountmanager/app/home/question/edit_question.dart';
 import 'package:accountmanager/common_widgets/CustomDataTable.dart';
 import 'package:accountmanager/common_widgets/CustomDataTableSource.dart';
 import 'package:accountmanager/common_widgets/CustomPaginatedDataTable.dart';
@@ -255,8 +256,9 @@ Future<void> _displayDialog(BuildContext context, Question data) async {
     final Map<String, dynamic> result = await showWidgetDialog(
         context: context,
         title: 'TBR Questions',
-        widget: Text(
-            'bob') //DropdownScreen() //AssignTBR(data: data),  //**//**//**//**/
+        widget: EditQuestion(
+            data:
+                data) //DropdownScreen() //AssignTBR(data: data),  //**//**//**//**/
         // defaultActionText: '',
         // cancelActionText: '',
         );

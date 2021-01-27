@@ -23,26 +23,32 @@ class QuestionPage extends StatelessWidget {
       ),
       body:
           // Testing()
-          Column(children: [
-        TextButton(
-          style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(Colors.green)),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(Strings.questionStrings.createQuestion),
+          SingleChildScrollView(
+        child: Column(children: [
+          TextButton(
+            style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.green)),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(Strings.questionStrings.createQuestion),
+            ),
+            onPressed: () {
+              displayWidgetDialogWithError(context,
+                  Strings.questionStrings.createQuestion, const EditQuestion());
+            },
           ),
-          onPressed: () {
-            displayWidgetDialogWithError(context,
-                Strings.questionStrings.createQuestion, const EditQuestion());
-          },
-        ),
-        //   //   Flexible(
-        //   // child: SingleChildScrollView(
-        //   //   child:
-        //   // CreateDataTableWidget()
-        //   Testing()
-        CreateDataTableWidget()
-      ]),
+          //   //   Flexible(
+          //   // child: SingleChildScrollView(
+          //   //   child:
+          //   // CreateDataTableWidget()
+          //   Testing()
+          CreateDataTableWidget(),
+          Container(
+            height: 100,
+          )
+        ]),
+      ),
     );
   }
 }
