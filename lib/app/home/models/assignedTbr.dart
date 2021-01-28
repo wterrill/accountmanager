@@ -2,7 +2,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase/firebase.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 

@@ -32,6 +32,7 @@ cp -fr ./build/web/* ./public/
 cp -fr ./assets/* ./public/ 
 
 firebase deploy --only hosting
+flutter test
 # cd websiteTesting
 # echo "pushing new version to github"
 # git add .
