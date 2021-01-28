@@ -58,14 +58,14 @@ class _AssignTBRState extends State<AssignTBR> {
 
   AssignedTBR createCurrentTBR(String assignedBy) {
     return AssignedTBR(
-        id: id,
         technician: selectedTechnician,
         company: selectedCompany,
         questionnaireType: selectedQuestionnaireType,
         clientMeetingDate: clientMeetingDate,
         dueDate: evaluationDueDate,
         status: status ??= Status(statusIndex: 0),
-        assignedBy: assignedBy);
+        assignedBy: assignedBy,
+        id: id ??= documentIdFromCurrentDate());
   }
 
   @override
@@ -238,7 +238,6 @@ class _AssignTBRState extends State<AssignTBR> {
 
   Future<void> _sendAssignedTbr({@required AssignedTBR assignedTbr}) async {
     try {
-      id ??= documentIdFromCurrentDate();
       final database = context.read(databaseProvider);
       await database.setTBR(assignedTbr);
     } catch (e) {

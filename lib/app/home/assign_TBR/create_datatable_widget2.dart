@@ -165,6 +165,18 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                       _sortAscending = !_sortAscending;
                     });
                   },
+                ),
+                DataColumn(
+                  label: Text('Assigned By'),
+                  onSort: (columnIndex, ascending) {
+                    dtsSource.sort<String>(
+                        getField: (d) => d.assignedBy,
+                        ascending: _sortAscending);
+                    setState(() {
+                      _sortColumnIndex = columnIndex;
+                      _sortAscending = !_sortAscending;
+                    });
+                  },
                 )
               ],
             ),
@@ -204,10 +216,12 @@ class DTS extends DataTableSource {
             DataCell(Text(
                 DateFormat.yMMMEd().format(data[index].clientMeetingDate))),
             DataCell(Text(data[index].status.getStatusName())),
-            DataCell(Text(data[index].questionnaireType.name))
+            DataCell(Text(data[index].questionnaireType.name)),
+            DataCell(Text(data[index].assignedBy))
           ]);
     } else {
       return const DataRow(cells: [
+        DataCell(Text(Strings.placeHolder)),
         DataCell(Text(Strings.placeHolder)),
         DataCell(Text(Strings.placeHolder)),
         DataCell(Text(Strings.placeHolder)),
