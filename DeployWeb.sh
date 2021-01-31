@@ -1,4 +1,5 @@
 
+flutter test
 rm lib/buildTime/flutter_version.dart
 echo "Building flutter_version.dart"
 echo "const Map<String,String> version = " >> lib/buildTime/flutter_version.dart
@@ -32,7 +33,7 @@ cp -fr ./build/web/* ./public/
 cp -fr ./assets/* ./public/ 
 
 firebase deploy --only hosting
-flutter test
+
 # cd websiteTesting
 # echo "pushing new version to github"
 # git add .
