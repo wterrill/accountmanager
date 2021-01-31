@@ -87,7 +87,7 @@ class _AssignTBRState extends State<AssignTBR> {
               print('selected');
             },
             onSelectedChange: (dynamic tech) {
-              print(tech.toString());
+              print(tech.toDropDownString());
               setState(() {
                 selectedTechnician = tech as Technician;
               });
@@ -102,7 +102,7 @@ class _AssignTBRState extends State<AssignTBR> {
               print('selected');
             },
             onSelectedChange: (dynamic company) {
-              print(company.toString());
+              print(company.toDropDownString());
               setState(() {
                 selectedCompany = company as Company;
               });

@@ -1,8 +1,9 @@
+import 'package:accountmanager/app/home/models/model_interface.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 @immutable
-class QuestionnaireType extends Equatable {
+class QuestionnaireType extends Equatable implements DropdownModel {
   const QuestionnaireType({@required this.name, @required this.id});
   final String name;
   final String id;
@@ -38,5 +39,8 @@ class QuestionnaireType extends Equatable {
   }
 
   @override
-  String toString() => name;
+  String toString() => toMap().toString();
+
+  @override
+  String toDropDownString() => name;
 }

@@ -1,3 +1,4 @@
+import 'package:accountmanager/app/home/models/model_interface.dart';
 import 'package:accountmanager/common_utilities/utilities.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
@@ -8,7 +9,7 @@ import '../../top_level_providers.dart';
 
 // typedef ItemWidgetBuilder<T> = Widget Function(BuildContext context, T item);
 
-class FutureDropdown<T> extends StatefulWidget {
+class FutureDropdown<T extends DropdownModel> extends StatefulWidget {
   const FutureDropdown(
       {Key key,
       @required this.future,
@@ -27,7 +28,8 @@ class FutureDropdown<T> extends StatefulWidget {
   _FutureDropdownState<T> createState() => _FutureDropdownState<T>();
 }
 
-class _FutureDropdownState<T> extends State<FutureDropdown> {
+class _FutureDropdownState<T extends DropdownModel>
+    extends State<FutureDropdown> {
   T _selectedItem;
   String selectedItemName = '';
   String hint;
@@ -61,7 +63,8 @@ class _FutureDropdownState<T> extends State<FutureDropdown> {
               dropDownItemsMap[index] = singleData;
 
               list.add(DropdownMenuItem<T>(
-                  child: Text(singleData.toString()), value: singleData));
+                  child: Text(singleData.toDropDownString()),
+                  value: singleData));
             }
 
             return DropdownButton<T>(

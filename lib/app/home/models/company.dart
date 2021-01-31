@@ -1,8 +1,9 @@
+import 'package:accountmanager/app/home/models/model_interface.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 @immutable
-class Company extends Equatable {
+class Company extends Equatable implements DropdownModel {
   const Company({@required this.id, @required this.name});
   final String id;
   final String name;
@@ -30,4 +31,7 @@ class Company extends Equatable {
 
   @override
   String toString() => toMap().toString();
+
+  @override
+  String toDropDownString() => name;
 }
