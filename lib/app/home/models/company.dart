@@ -17,7 +17,7 @@ class Company extends Equatable {
     if (data == null) {
       return null;
     }
-    final name = data['name'] as String;
+    final name = data['company_name'] as String;
     if (name == null) {
       return null;
     }
@@ -25,11 +25,9 @@ class Company extends Equatable {
   }
 
   Map<String, dynamic> toMap() {
-    return {
-      'name': name,
-    };
+    return {'company_name': name, 'company_id': id};
   }
 
   @override
-  String toString() => name;
+  String toString() => toMap().toString();
 }

@@ -11,7 +11,7 @@ void main() {
     });
     test('with all properties', () {
       final company1 = Company.fromMap(const {
-        'name': 'a company',
+        'company_name': 'a company',
       }, 'abc');
       const company2 = Company(id: 'abc', name: 'a company');
       expect(
@@ -29,9 +29,8 @@ void main() {
   group('toMap', () {
     test('valid company creation', () {
       const company1 = Company(name: 'Blogging', id: 'abc');
-      expect(company1.toMap(), {
-        'name': 'Blogging',
-      });
+      expect(
+          company1.toMap(), {'company_name': 'Blogging', 'company_id': 'abc'});
     });
   });
 

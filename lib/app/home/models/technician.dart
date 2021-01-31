@@ -17,7 +17,7 @@ class Technician extends Equatable {
     if (data == null) {
       return null;
     }
-    final name = data['name'] as String;
+    final name = data['technician_name'] as String;
     if (name == null) {
       return null;
     }
@@ -26,11 +26,9 @@ class Technician extends Equatable {
   }
 
   Map<String, dynamic> toMap() {
-    return {
-      'name': name,
-    };
+    return {'technician_name': name, 'technician_id': id};
   }
 
   @override
-  String toString() => name;
+  String toString() => toMap().toString();
 }

@@ -106,7 +106,7 @@ class FirestoreDatabase {
   Stream<List<QuestionnaireType>> questionnaireTypeStream() =>
       _service.collectionStream(
         path: FirestorePath.questionnaireType(),
-        builder: (data, id) => QuestionnaireType.fromMap(data),
+        builder: (data, id) => QuestionnaireType.fromMap(data, id),
       );
   Stream<List<AssignedTBR>> assignedTbrStream() => _service.collectionStream(
         path: FirestorePath.assignedtbrs(),
@@ -114,6 +114,6 @@ class FirestoreDatabase {
       );
   Stream<List<Question>> questionStream() => _service.collectionStream(
         path: FirestorePath.questions(), //**//**//**//**/
-        builder: (data, id) => Question.fromMap(data),
+        builder: (data, id) => Question.fromMap(data, id),
       );
 }

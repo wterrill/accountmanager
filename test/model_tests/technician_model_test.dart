@@ -11,7 +11,8 @@ void main() {
     });
     test('technician with all properties', () {
       final technician = Technician.fromMap(
-          const {'name': 'This Is A Name', 'id': 'abc'}, 'abc');
+          const {'technician_name': 'This Is A Name', 'technician_id': 'abc'},
+          'abc');
       expect(technician, const Technician(name: 'This Is A Name', id: 'abc'));
     });
 
@@ -24,9 +25,8 @@ void main() {
   group('toMap', () {
     test('valid name, ratePerHour', () {
       const technican = Technician(name: 'Blogging', id: 'abc');
-      expect(technican.toMap(), {
-        'name': 'Blogging',
-      });
+      expect(technican.toMap(),
+          {'technician_name': 'Blogging', 'technician_id': 'abc'});
     });
   });
 
