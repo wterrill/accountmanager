@@ -1,8 +1,5 @@
-// import 'dart:ffi';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase/firebase.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 
@@ -13,9 +10,8 @@ import 'package:accountmanager/app/home/models/technician.dart';
 import 'Status.dart';
 
 // @immutable
-class AssignedTBR {
-  //extends Equatable {
-  AssignedTBR(
+class AssignedTBR extends Equatable {
+  const AssignedTBR(
       {@required this.id,
       @required this.technician,
       @required this.company,
@@ -32,21 +28,21 @@ class AssignedTBR {
   final DateTime clientMeetingDate;
   final Status status;
   final String assignedBy;
-  bool selected;
 
-  // @override
-  // List<Object> get props => [
-  //       id,
-  //       technician,
-  //       company,
-  //       questionnaireType,
-  //       dueDate,
-  //       clientMeetingDate,
-  //       status
-  //     ];
+  @override
+  List<Object> get props => [
+        id,
+        technician,
+        company,
+        questionnaireType,
+        dueDate,
+        clientMeetingDate,
+        status,
+        assignedBy
+      ];
 
-  // @override
-  // bool get stringify => true;
+  @override
+  bool get stringify => true;
 
   factory AssignedTBR.fromMap(Map<String, dynamic> data, String documentId) {
     if (data == null) {

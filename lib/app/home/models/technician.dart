@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_riverpod/all.dart';
 import 'package:meta/meta.dart';
 
 @immutable

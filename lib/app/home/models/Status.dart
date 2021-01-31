@@ -1,12 +1,21 @@
 import 'dart:convert';
+// import 'package:equatable/equatable.dart';
+import 'package:equatable/equatable.dart';
+import 'package:meta/meta.dart';
 
-class Status {
+@immutable
+class Status extends Equatable {
   final int statusIndex;
   Status({
     this.statusIndex,
   });
 
-  List<String> statusName = ['Assigned', 'In Progress', 'Completed'];
+  @override
+  List<Object> get props => [
+        statusIndex,
+      ];
+
+  final List<String> statusName = ['Assigned', 'In Progress', 'Completed'];
 
   String getStatusName() => statusName[statusIndex];
 
