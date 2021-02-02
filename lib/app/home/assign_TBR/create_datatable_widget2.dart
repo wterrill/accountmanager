@@ -210,8 +210,8 @@ class DTS extends DataTableSource {
             _displayDialog(context, data[index]);
           },
           cells: [
-            DataCell(Text('${data[index].company}')),
-            DataCell(Text('${data[index].technician}')),
+            DataCell(Text('${data[index].company.toDropDownString()}')),
+            DataCell(Text('${data[index].technician.toDropDownString()}')),
             DataCell(Text(DateFormat.yMMMEd().format(data[index].dueDate))),
             DataCell(Text(
                 DateFormat.yMMMEd().format(data[index].clientMeetingDate))),

@@ -112,9 +112,6 @@ void main() {
       whyAreWeAsking: 'placeholder20',
       id: 'placeholder21',
     );
-    print(question.toMap());
-    print(questionGoodMap);
-    print(mapEquals<String, dynamic>(question.toMap(), questionGoodMap));
     test('valid map', () {
       expect(question.toMap(), questionGoodMap);
     });

@@ -87,13 +87,12 @@ class _AssignTBRState extends State<AssignTBR> {
               print('selected');
             },
             onSelectedChange: (dynamic tech) {
-              print(tech.toDropDownString());
               setState(() {
                 selectedTechnician = tech as Technician;
               });
             },
           ),
-          // Text(selectedTechnician?.name ?? 'Not selected'),
+          // // Text(selectedTechnician?.name ?? 'Not selected'),
           FutureDropdown(
             hint: 'Choose a Company:',
             selectedData: selectedCompany,
@@ -102,7 +101,6 @@ class _AssignTBRState extends State<AssignTBR> {
               print('selected');
             },
             onSelectedChange: (dynamic company) {
-              print(company.toDropDownString());
               setState(() {
                 selectedCompany = company as Company;
               });
@@ -117,7 +115,6 @@ class _AssignTBRState extends State<AssignTBR> {
               print('selected');
             },
             onSelectedChange: (dynamic type) {
-              print(type.toString());
               setState(() {
                 selectedQuestionnaireType = type as QuestionnaireType;
               });

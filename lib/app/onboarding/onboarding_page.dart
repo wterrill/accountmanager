@@ -1,3 +1,4 @@
+import 'package:accountmanager/constants/keys.dart';
 import 'package:accountmanager/provider_defs/provider_defs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -35,6 +36,7 @@ class OnboardingPage extends StatelessWidget {
               ),
             ),
             CustomRaisedButton(
+              key: const Key(Keys.getStarted),
               onPressed: () => onGetStarted(context),
               color: Colors.indigo,
               borderRadius: 30,

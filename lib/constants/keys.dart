@@ -14,4 +14,6 @@ class Keys {
   static const String addCompanyTab = 'addCompanyTab';
   static const String overviewTab = 'overviewTab';
   static const String questionTab = 'questionTab';
+  // onboarding Page
+  static const String getStarted = 'getStarted';
 }
