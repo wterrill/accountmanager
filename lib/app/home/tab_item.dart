@@ -7,6 +7,7 @@ enum TabItem {
   questionEdit,
   createTech,
   addCompany,
+  app,
   overview,
   account,
   // jobs,
@@ -42,6 +43,11 @@ class TabItemData {
         key: Keys.addCompanyTab,
         title: Strings.companyStrings.addCompany,
         icon: Icons.two_wheeler),
+    TabItem.app: const TabItemData(
+      key: Keys.appTab,
+      title: Strings.app,
+      icon: Icons.phone_android,
+    ),
     TabItem.overview: const TabItemData(
       key: Keys.overviewTab,
       title: Strings.overview,

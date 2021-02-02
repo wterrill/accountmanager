@@ -12,6 +12,7 @@ class Keys {
   static const String createTechTab = 'createTechTab';
   static const String assignTbrTab = 'assignTbrTab';
   static const String addCompanyTab = 'addCompanyTab';
+  static const String appTab = 'appTab';
   static const String overviewTab = 'overviewTab';
   static const String questionTab = 'questionTab';
   // onboarding Page

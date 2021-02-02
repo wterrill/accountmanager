@@ -39,6 +39,9 @@ class Strings {
   // Add Overview Page
   static const String overview = 'Overview';
 
+  // Add app page
+  static const String app = 'App';
+
   // Question Edit Page
   static QuestionStrings questionStrings = QuestionStrings();
 

@@ -1,3 +1,4 @@
+import 'package:accountmanager/app/home/app_page/app_page.dart';
 import 'package:accountmanager/app/home/assign_TBR/assign_tbr_page.dart';
 import 'package:accountmanager/app/home/create_company/create_company_page.dart';
 import 'package:accountmanager/app/home/create_technician/create_tech_page.dart';
@@ -35,6 +36,7 @@ class _HomePageState extends State<HomePage> {
       TabItem.createTech: (_) => CreateTechPage(),
       TabItem.assignTbr: (_) => AssignTBRPage(),
       TabItem.addCompany: (_) => CreateCompanyPage(),
+      TabItem.app: (_) => AppPage(),
       TabItem.overview: (_) => OverviewPage(),
       TabItem.questionEdit: (_) => QuestionPage(),
     };

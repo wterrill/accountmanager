@@ -16,14 +16,14 @@ void main() {
     expect(messageFinder, findsOneWidget);
   });
 
-  testWidgets('MyWidget has a title and message', (WidgetTester tester) async {
-    await tester.pumpWidget(AccountPage());
+  // testWidgets('MyWidget has a title and message', (WidgetTester tester) async {
+  //   await tester.pumpWidget(AccountPage());
 
-    // when(mockAuth.signInWithCredential(any))
-    //     .thenAnswer((_) => Future<UserCredential>.value(MockUserCredential()));
+  // when(mockAuth.signInWithCredential(any))
+  //     .thenAnswer((_) => Future<UserCredential>.value(MockUserCredential()));
 
-    // final buttonFinder = find.byKey(const Key(Keys.logout));
-    // buttonFinder.
+  // final buttonFinder = find.byKey(const Key(Keys.logout));
+  // buttonFinder.
 //     await tester.tap(buttonFinder);
 // // Rebuild the Widget after the state has changed
 //     await tester.pump();
@@ -31,5 +31,5 @@ void main() {
 //     final titleFinder = find.text('Are you that you want to logout?');
 
 //     expect(titleFinder, findsOneWidget);
-  });
+  // });
 }
