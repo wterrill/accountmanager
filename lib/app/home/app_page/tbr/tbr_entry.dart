@@ -62,13 +62,79 @@ class _TBRConverterBuilderState extends State<TBRConverter> {
   }
 }
 
-class TBRbuilder extends StatelessWidget {
+class TBRbuilder extends StatefulWidget {
   const TBRbuilder({Key key, this.questionList}) : super(key: key);
   final List<Question> questionList;
 
   @override
+  _TBRbuilderState createState() => _TBRbuilderState();
+}
+
+class _TBRbuilderState extends State<TBRbuilder> {
+  String selectedSection;
+  String selectedCategory;
+  @override
+  void initState() {
+    tbrInProgress = TBRinProgress(allQuestions: widget.questionList);
+    selectedSection = tbrInProgress.sections[1];
+    selectedCategory = tbrInProgress.categories[selectedSection][0];
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    tbrInProgress = TBRinProgress(allQuestions: questionList);
-    return Text('category: ${questionList[0].category}'); //
+    return Column(
+      children: [
+        Text('category: ${tbrInProgress.categories}'),
+        DropdownButton(
+          hint: Text(selectedSection),
+          items: tbrInProgress.sections.map((value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+          // ignore: avoid_types_on_closure_parameters
+          onChanged: (String value) {
+            print(value);
+            setState(() {
+              selectedSection = value;
+            });
+          },
+        ),
+        DropdownButton(
+          hint: Text(selectedSection),
+          items: tbrInProgress.sections.map((value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+          // ignore: avoid_types_on_closure_parameters
+          onChanged: (String value) {
+            print(value);
+            setState(() {
+              selectedSection = value;
+            });
+          },
+        ),
+        DropdownButton(
+          hint: Text(selectedCategory),
+          items: tbrInProgress.categories[selectedSection].map((value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+          // ignore: avoid_types_on_closure_parameters
+          onChanged: (String value) {
+            print(value);
+            setState(() {
+              selectedCategory = value;
+            });
+          },
+        ),
+      ],
+    ); //
   }
 }
