@@ -1,3 +1,5 @@
+import 'package:accountmanager/app/home/app_page/tbr/tbr_entry.dart';
+import 'package:accountmanager/app/home/models/assignedTbr.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:accountmanager/app/home/job_entries/entry_page.dart';
@@ -10,6 +12,7 @@ class AppRoutes {
   static const emailPasswordSignInPage = '/email-password-sign-in-page';
   static const editJobPage = '/edit-job-page';
   static const entryPage = '/entry-page';
+  static const tbrPage = '/tbr-page';
 }
 
 class AppRouter {
@@ -40,6 +43,16 @@ class AppRouter {
           settings: settings,
           fullscreenDialog: true,
         );
+      case AppRoutes.tbrPage:
+        final mapArgs = args as Map<String, dynamic>;
+        final data = mapArgs['data'] as AssignedTBR;
+        final entry = mapArgs['entry'] as Entry;
+        return MaterialPageRoute<dynamic>(
+          builder: (_) => TBREntry(data: data),
+          settings: settings,
+          fullscreenDialog: true,
+        );
+
       default:
         // TODO: Throw
         return null;
