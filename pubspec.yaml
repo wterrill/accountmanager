@@ -40,6 +40,7 @@ dependencies:
   shared_preferences: ^0.5.12+4
   state_notifier: ^0.6.0
   integration_test: ^1.0.0
+  animations: ^1.1.2
 
 dev_dependencies:
   flutter_driver:

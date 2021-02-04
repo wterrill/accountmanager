@@ -1,4 +1,3 @@
-import 'package:accountmanager/app/home/app_page/app_page.dart';
 import 'package:accountmanager/app/home/assign_TBR/assign_tbr_page.dart';
 import 'package:accountmanager/app/home/create_company/create_company_page.dart';
 import 'package:accountmanager/app/home/create_technician/create_tech_page.dart';
@@ -10,6 +9,8 @@ import 'package:accountmanager/app/home/cupertino_home_scaffold.dart';
 import 'package:accountmanager/app/home/entries/entries_page.dart';
 import 'package:accountmanager/app/home/jobs/jobs_page.dart';
 import 'package:accountmanager/app/home/tab_item.dart';
+
+import 'app_page/tbr_selection/start_tbr.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -25,7 +26,8 @@ class _HomePageState extends State<HomePage> {
     TabItem.account: GlobalKey<NavigatorState>(),
     TabItem.createTech: GlobalKey<NavigatorState>(),
     TabItem.assignTbr: GlobalKey<NavigatorState>(),
-    TabItem.questionEdit: GlobalKey<NavigatorState>()
+    TabItem.questionEdit: GlobalKey<NavigatorState>(),
+    TabItem.app: GlobalKey<NavigatorState>(),
   };
 
   Map<TabItem, WidgetBuilder> get widgetBuilders {
@@ -36,7 +38,7 @@ class _HomePageState extends State<HomePage> {
       TabItem.createTech: (_) => CreateTechPage(),
       TabItem.assignTbr: (_) => AssignTBRPage(),
       TabItem.addCompany: (_) => CreateCompanyPage(),
-      TabItem.app: (_) => AppPage(),
+      TabItem.app: (_) => SelectTBRPage(),
       TabItem.overview: (_) => OverviewPage(),
       TabItem.questionEdit: (_) => QuestionPage(),
     };

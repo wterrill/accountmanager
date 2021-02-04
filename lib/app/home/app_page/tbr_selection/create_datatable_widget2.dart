@@ -246,14 +246,30 @@ class DTS extends DataTableSource {
 
 Future<void> _displayDialog(BuildContext context, AssignedTBR data) async {
   print('_displayDialog => $data');
-  // await Navigator.of(context).push(TBREntry(data: data));
 
-  await Navigator.of(context, rootNavigator: true).pushNamed(
-    AppRoutes.tbrPage,
-    arguments: {
-      'data': data,
-    },
-  );
+// This gets rid of tabs
+  // await Navigator.of(context, rootNavigator: true).pushNamed(
+  //   AppRoutes.tbrPage,
+  //   arguments: {
+  //     'data': data,
+  //   },
+  // );
+
+  // this keeps the tab bar
+  await Navigator.of(context).push<TBREntry>(
+      MaterialPageRoute(builder: (context) => TBREntry(data: data)));
+
+// this keeps the tab bar
+  // await Navigator.of(context).pushAndRemoveUntil<TBREntry>(
+  //   MaterialPageRoute(builder: (context) => TBREntry(data: data)),
+  //   ModalRoute.withName('/'),
+  // );
+
+  // await Navigator.of(context).pushAndRemoveUntil<TBREntry>(
+  //     MaterialPageRoute(builder: (context) => TBREntry(data: data)),
+  //     (Route<dynamic> route) => false);
+
+  // Navigator.of(context).pushNamed('/tbrPage');
 
   // try {
   //   final Map<String, dynamic> result = await showWidgetDialog(

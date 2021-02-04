@@ -1,5 +1,6 @@
 //import 'package:auth_widget_builder/auth_widget_builder.dart';
 import 'package:accountmanager/provider_defs/provider_defs.dart';
+import 'package:animations/animations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:accountmanager/app/auth_widget.dart';
@@ -35,7 +36,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final firebaseAuth = context.read(firebaseAuthProvider);
     return MaterialApp(
-      theme: ThemeData(primarySwatch: Colors.indigo),
+      theme: ThemeData(
+        primarySwatch: Colors.indigo,
+        pageTransitionsTheme: const PageTransitionsTheme(
+          builders: {
+            TargetPlatform.android:
+                FadeThroughPageTransitionsBuilder(fillColor: Colors.red),
+            TargetPlatform.iOS:
+                FadeThroughPageTransitionsBuilder(fillColor: Colors.red),
+          },
+        ),
+      ),
       debugShowCheckedModeBanner: false,
       home: AuthWidget(
         nonSignedInBuilder: (_) {
