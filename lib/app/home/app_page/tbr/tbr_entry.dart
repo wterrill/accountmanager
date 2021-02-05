@@ -77,7 +77,8 @@ class _TBRbuilderState extends State<TBRbuilder> {
   void initState() {
     tbrInProgress = TBRinProgress(allQuestions: widget.questionList);
     selectedSection = tbrInProgress.sections[1];
-    selectedCategory = tbrInProgress.categories[selectedSection][0];
+    selectedCategory =
+        tbrInProgress.categories[selectedSection.toLowerCase()][0];
     super.initState();
   }
 
@@ -99,28 +100,31 @@ class _TBRbuilderState extends State<TBRbuilder> {
             print(value);
             setState(() {
               selectedSection = value;
+              selectedCategory =
+                  tbrInProgress.categories[selectedSection.toLowerCase()][0];
             });
           },
         ),
-        DropdownButton(
-          hint: Text(selectedSection),
-          items: tbrInProgress.sections.map((value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            );
-          }).toList(),
-          // ignore: avoid_types_on_closure_parameters
-          onChanged: (String value) {
-            print(value);
-            setState(() {
-              selectedSection = value;
-            });
-          },
-        ),
+        // DropdownButton(
+        //   hint: Text(selectedSection),
+        //   items: tbrInProgress.sections.map((value) {
+        //     return DropdownMenuItem<String>(
+        //       value: value,
+        //       child: Text(value),
+        //     );
+        //   }).toList(),
+        //   // ignore: avoid_types_on_closure_parameters
+        //   onChanged: (String value) {
+        //     print(value);
+        //     setState(() {
+        //       selectedSection = value;
+        //     });
+        //   },
+        // ),
         DropdownButton(
           hint: Text(selectedCategory),
-          items: tbrInProgress.categories[selectedSection].map((value) {
+          items: tbrInProgress.categories[selectedSection.toLowerCase()]
+              .map((value) {
             return DropdownMenuItem<String>(
               value: value,
               child: Text(value),

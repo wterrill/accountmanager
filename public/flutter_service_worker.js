@@ -4,41 +4,38 @@ const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
   "version.json": "6a0efda2f847da7d4065d1d04d53434b",
-  "index.html": "0d711a93ae0a9ff2f90e66db27b766f9",
-  "/": "0d711a93ae0a9ff2f90e66db27b766f9",
-  "main.dart.js": "9fe665e1ca837351c9b994d56824f9f2",
-  "favicon.png": "99733c2381f7c6d7ba95874b3cfb63ba",
-  "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
-  "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
-  "manifest.json": "1e6b01631d3dfd21795fadc73e4d3d64",
-  "assets/AssetManifest.json": "ced7937ee91c84a6dcee149d1b117189",
-  "assets/NOTICES": "05006623b18f6da2c9ceee95eeb426ff",
-  "assets/FontManifest.json": "dc3d03800ccca4601324923c0b1d6d57",
-  "assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "6d342eb68f170c97609e9da345464e5e",
-  "assets/fonts/MaterialIcons-Regular.otf": "1288c9e28052e028aba623321f7826ac",
-  "assets/assets/time-tracking.svg": "bb613fe94e5e61266a5015fbb725557e",
-  "assets/assets/docx/template.docx": "1ef36c8eb5ae78c4752b92bbbcd883d3"
+"index.html": "5a20c431dd1232fb44054992fb5aa83e",
+"/": "5a20c431dd1232fb44054992fb5aa83e",
+"main.dart.js": "85b13d62932e53265a422899a4a6d5e9",
+"favicon.png": "99733c2381f7c6d7ba95874b3cfb63ba",
+"icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
+"icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
+"manifest.json": "1e6b01631d3dfd21795fadc73e4d3d64",
+"assets/AssetManifest.json": "ced7937ee91c84a6dcee149d1b117189",
+"assets/NOTICES": "015df7bb250a0cd17dcdfa490f95a4d6",
+"assets/FontManifest.json": "dc3d03800ccca4601324923c0b1d6d57",
+"assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "6d342eb68f170c97609e9da345464e5e",
+"assets/fonts/MaterialIcons-Regular.otf": "1288c9e28052e028aba623321f7826ac",
+"assets/assets/time-tracking.svg": "bb613fe94e5e61266a5015fbb725557e",
+"assets/assets/docx/template.docx": "1ef36c8eb5ae78c4752b92bbbcd883d3"
 };
 
 // The application shell files that are downloaded before a service worker can
 // start.
 const CORE = [
   "/",
-  "main.dart.js",
-  "index.html",
-  "assets/NOTICES",
-  "assets/AssetManifest.json",
-  "assets/FontManifest.json"
-];
+"main.dart.js",
+"index.html",
+"assets/NOTICES",
+"assets/AssetManifest.json",
+"assets/FontManifest.json"];
 // During install, the TEMP cache is populated with the application shell files.
 self.addEventListener("install", (event) => {
   self.skipWaiting();
   return event.waitUntil(
     caches.open(TEMP).then((cache) => {
       return cache.addAll(
-        CORE.map((value) => new Request(value + '?revision=' + RESOURCES[value], {
-          'cache': 'reload'
-        })));
+        CORE.map((value) => new Request(value + '?revision=' + RESOURCES[value], {'cache': 'reload'})));
     })
   );
 });
@@ -46,8 +43,8 @@ self.addEventListener("install", (event) => {
 // During activate, the cache is populated with the temp files downloaded in
 // install. If this service worker is upgrading from one with a saved
 // MANIFEST, then use this to retain unchanged resource files.
-self.addEventListener("activate", function (event) {
-  return event.waitUntil(async function () {
+self.addEventListener("activate", function(event) {
+  return event.waitUntil(async function() {
     try {
       var contentCache = await caches.open(CACHE_NAME);
       var tempCache = await caches.open(TEMP);
@@ -125,7 +122,7 @@ self.addEventListener("fetch", (event) => {
     return onlineFirst(event);
   }
   event.respondWith(caches.open(CACHE_NAME)
-    .then((cache) => {
+    .then((cache) =>  {
       return cache.match(event.request).then((response) => {
         // Either respond with the cached resource, or perform a fetch and
         // lazily populate the cache.
@@ -164,7 +161,7 @@ async function downloadOffline() {
     }
     currentContent[key] = true;
   }
-  for (var resourceKey in Object.keys(RESOURCES)) {
+  for (var resourceKey of Object.keys(RESOURCES)) {
     if (!currentContent[resourceKey]) {
       resources.push(resourceKey);
     }
