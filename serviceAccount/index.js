@@ -27,10 +27,31 @@ if (data && (typeof data === "object")) {
       stringDocKey = "0" + stringDocKey
     }
     data[docKey]['id'] = stringDocKey;
-    firestore.collection(collectionKey).doc(stringDocKey).set(data[docKey]).then((res) => {
+
+
+    // firestore.collection(collectionKey).doc(stringDocKey).set(data[docKey]).then((res) => {
+    //   console.log("Document " + docKey + " successfully written.");
+    // }).catch((error) => {
+    //   console.error("Error writing document: ", error);
+    // });
+
+
+    // This part is for the businessReason
+    temp = {}
+    for (var i = 0; i < data[docKey].length; i++) {
+      temp[i.toString()] = data[docKey][i];
+
+    }
+    stringDocKey = stringDocKey.replace("\/", "_");
+    stringDocKey = stringDocKey.replace("\/", "_");
+    console.log(stringDocKey);
+    stringDocKey = stringDocKey.toLowerCase()
+
+    firestore.collection(collectionKey).doc(stringDocKey).set(temp).then((res) => {
       console.log("Document " + docKey + " successfully written.");
     }).catch((error) => {
       console.error("Error writing document: ", error);
     });
+    // End businessReason///
   });
 }

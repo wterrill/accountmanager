@@ -136,13 +136,119 @@ class _TBRbuilderState extends State<TBRbuilder> {
             // Convert each item into a widget based on the type of item it is.
             itemBuilder: (context, index) {
               final Question question = filteredQuestions[index];
+              Color buttonColor(String priority) {
+                Color returnedColor;
+                switch (priority) {
+                  case 'low':
+                    {
+                      returnedColor = Colors.green;
+                    }
+                    break;
+                  case 'medium':
+                    {
+                      returnedColor = Colors.yellow;
+                    }
+                    break;
+                  case 'high':
+                    {
+                      returnedColor = Colors.red;
+                    }
+                    break;
+                  default:
+                    returnedColor = Colors.grey;
+                }
+                return returnedColor;
+              }
 
               return ListTile(
-                title: Text(question.questionName),
-                subtitle: Text(question.questionText),
+                leading: Container(
+                  width: 100,
+                  child: Row(children: [
+                    const Icon(Icons.help_outline),
+                    Icon(
+                      Icons.brightness_1,
+                      color: buttonColor(filteredQuestions[index]
+                          .questionPriority
+                          .toLowerCase()),
+                      size: 25,
+                    )
+                  ]),
+                ),
+                title: Text(question.questionText),
+                subtitle: Text(question.questionName),
+                trailing: Container(
+                  width: 200,
+                  child: Row(
+                    children: [
+                      // TextButton(
+                      //   child: Text('Yes'),
+                      //   style: TextButton.styleFrom(
+                      //     primary: Colors.white,
+                      //     backgroundColor: Colors.teal,
+                      //     onSurface: Colors.grey,
+                      //   ),
+                      //   onPressed: () {
+                      //     print('Pressed');
+                      //   },
+                      // ),
+                      // TextButton(
+                      //   child: Text('No'),
+                      //   style: TextButton.styleFrom(
+                      //     primary: Colors.white,
+                      //     backgroundColor: Colors.teal,
+                      //     onSurface: Colors.grey,
+                      //   ),
+                      //   onPressed: () {
+                      //     print('Pressed');
+                      //   },
+                      // ),
+                      const Icon(Icons.edit),
+                      ToggleButtons(
+                        children: [Text('Yes'), Text('No'), Text('N/A')],
+                        isSelected: [false, false, false],
+                        onPressed: (index) {
+                          print(index);
+                        },
+                        borderRadius: BorderRadius.circular(30),
+                        borderWidth: 2,
+                        borderColor: Colors.deepPurple,
+                        selectedBorderColor: Colors.deepOrange,
+                        splashColor: Colors.blue,
+                        highlightColor: Colors.yellow,
+                        color: Colors.red,
+                        selectedColor: Colors.orange,
+                        fillColor: Colors.amber,
+                        renderBorder: true,
+                        disabledColor: Colors.grey,
+                        disabledBorderColor: Colors.grey,
+                        hoverColor: Colors.pink,
+                      )
+                    ],
+                  ),
+                ),
               );
             },
           ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () {
+                print('pressed back');
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.arrow_forward),
+              onPressed: () {
+                print('pressed forward');
+              },
+            )
+          ],
+        ),
+        Container(
+          height: 150,
         )
       ],
     ); //
