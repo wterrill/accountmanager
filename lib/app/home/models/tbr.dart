@@ -41,4 +41,13 @@ class TBRinProgress {
     print(mapSectionsWithCategories);
     return mapSectionsWithCategories;
   }
+
+  List<Question> getQuestions({String sectionIn, String categoryIn}) {
+    final List<Question> sectionFiltered =
+        allQuestions.where((element) => element.section == sectionIn).toList();
+    final List<Question> categoryFiltered = sectionFiltered
+        .where((element) => element.category == categoryIn)
+        .toList();
+    return categoryFiltered;
+  }
 }

@@ -73,12 +73,15 @@ class TBRbuilder extends StatefulWidget {
 class _TBRbuilderState extends State<TBRbuilder> {
   String selectedSection;
   String selectedCategory;
+  List<Question> filteredQuestions;
   @override
   void initState() {
     tbrInProgress = TBRinProgress(allQuestions: widget.questionList);
     selectedSection = tbrInProgress.sections[1];
     selectedCategory =
         tbrInProgress.categories[selectedSection.toLowerCase()][0];
+    filteredQuestions = tbrInProgress.getQuestions(
+        sectionIn: selectedSection, categoryIn: selectedCategory);
     super.initState();
   }
 
@@ -86,7 +89,6 @@ class _TBRbuilderState extends State<TBRbuilder> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text('category: ${tbrInProgress.categories}'),
         DropdownButton(
           hint: Text(selectedSection),
           items: tbrInProgress.sections.map((value) {
@@ -102,25 +104,11 @@ class _TBRbuilderState extends State<TBRbuilder> {
               selectedSection = value;
               selectedCategory =
                   tbrInProgress.categories[selectedSection.toLowerCase()][0];
+              filteredQuestions = tbrInProgress.getQuestions(
+                  sectionIn: selectedSection, categoryIn: selectedCategory);
             });
           },
         ),
-        // DropdownButton(
-        //   hint: Text(selectedSection),
-        //   items: tbrInProgress.sections.map((value) {
-        //     return DropdownMenuItem<String>(
-        //       value: value,
-        //       child: Text(value),
-        //     );
-        //   }).toList(),
-        //   // ignore: avoid_types_on_closure_parameters
-        //   onChanged: (String value) {
-        //     print(value);
-        //     setState(() {
-        //       selectedSection = value;
-        //     });
-        //   },
-        // ),
         DropdownButton(
           hint: Text(selectedCategory),
           items: tbrInProgress.categories[selectedSection.toLowerCase()]
@@ -135,9 +123,27 @@ class _TBRbuilderState extends State<TBRbuilder> {
             print(value);
             setState(() {
               selectedCategory = value;
+              filteredQuestions = tbrInProgress.getQuestions(
+                  sectionIn: selectedSection, categoryIn: selectedCategory);
             });
           },
         ),
+        Expanded(
+          child: ListView.builder(
+            // Let the ListView know how many items it needs to build.
+            itemCount: filteredQuestions.length,
+            // Provide a builder function. This is where the magic happens.
+            // Convert each item into a widget based on the type of item it is.
+            itemBuilder: (context, index) {
+              final Question question = filteredQuestions[index];
+
+              return ListTile(
+                title: Text(question.questionName),
+                subtitle: Text(question.questionText),
+              );
+            },
+          ),
+        )
       ],
     ); //
   }

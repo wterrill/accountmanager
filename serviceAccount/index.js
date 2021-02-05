@@ -2,8 +2,8 @@
 
 const admin = require('./node_modules/firebase-admin');
 const serviceAccount = require("./serviceAccountKey.json");
-const data = require("./data.json");
-const collectionKey = "questionnaire"; //name of the collection ***********************
+const data = require("./BusinessReasons.json");
+const collectionKey = "businessReasons"; //name of the collection ***********************
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://mxotechaccountmanager.firebaseio.com"

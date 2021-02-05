@@ -1,0 +1,140 @@
+{
+   "Active Directory Implementation": [
+      "Address regulatory requirements and audit readiness.", "Create compliance readiness with reports for attesting to authenticated user logins", "Elevate security posture", "Full transparency and control of business applications", "Help automate on- and off-boarding access", "Increase system stability and security.", "Mitigate risk of data breaches", "Mitigate risks from cyber threat vectors", "Network accessibility", "Protect against simple passwords", "Reduce vulnerabilities", "Secure network accessibility"
+   ],
+   "Alert & Monitoring": [
+      "Address regulatory requirements and audit readiness.", "Elevate security posture", "Full transparency and control of business applications", "Increase system stability and security.", "Mitigate risks from cyber threat vectors", "Protect digital assets.", "Protect hardware", "Reduce vulnerabilities", "Secure network accessibility"
+   ],
+   "Anti-Malware -Virus": [
+      "Address regulatory requirements and audit readiness.", "Elevate security posture", "Mitigate risk of data breaches", "Mitigate risks from cyber threat vectors", "Protect against simple passwords", "Protect digital assets.", "Protect hardware", "Secure network accessibility"
+   ],
+   "Cable Management": [
+      "Ensure business continuity", "Mitigate risk of hardware repairs and replacement", "Network accessibility", "Reduce vulnerabilities"
+   ],
+   "Cloud Migration": [
+      "Mitigate risk of hardware repairs and replacement", "Network accessibility", "Scalable infrastructure for growth"
+   ],
+   "Dark Web Scan Subscription": [
+      "Address regulatory requirements and audit readiness.", "Elevate security posture", "Mitigate risk of data breaches", "Mitigate risks from cyber threat vectors", "Protect against simple passwords", "Protect digital assets.", "Reduce vulnerabilities"
+   ],
+   "Data Center Best Practice": [
+      "Elevate security posture", "Reduce vulnerabilities"
+   ],
+   "Datto Onsite for Workstations": [
+      "Address regulatory requirements and audit readiness.", "Elevate security posture", "Ensure business continuity", "Mitigate risks from cyber threat vectors", "Protect digital assets.", "Reduce vulnerabilities"
+   ],
+   "Datto SaaS": [
+      "Address regulatory requirements and audit readiness.", "Elevate security posture", "Ensure business continuity", "Mitigate risks from cyber threat vectors", "Protect digital assets.", "Reduce Recovery Time Objectives (RTO) & Recovery Point Objectives (RPO)", "Reduce vulnerabilities"
+   ],
+   "Datto Server Backup": [
+      "Address regulatory requirements and audit readiness.", "Elevate security posture", "Ensure business continuity", "Mitigate risks from cyber threat vectors", "Protect digital assets.", "Reduce Recovery Time Objectives (RTO) & Recovery Point Objectives (RPO)", "Reduce vulnerabilities"
+   ],
+   "Datto Upgrade": [
+      "Address regulatory requirements and audit readiness.", "Ensure business continuity", "Increase backup storage capacity", "Protect digital assets.", "Reduce Recovery Time Objectives (RTO) & Recovery Point Objectives (RPO)", "Reduce vulnerabilities", "Scalable infrastructure for growth"
+   ],
+   "DR Best Practice": [
+      "Address regulatory requirements and audit readiness.", "Elevate security posture", "Ensure business continuity", "Mitigate risks from cyber threat vectors", "Protect digital assets.", "Reduce Recovery Time Objectives (RTO) & Recovery Point Objectives (RPO)", "Reduce vulnerabilities", "Secure network accessibility"
+   ],
+   "DUO for VPN": [
+      "Address regulatory requirements and audit readiness.", "Create compliance readiness with reports for attesting to authenticated user logins", "Elevate security posture", "Mitigate risk of data breaches", "Mitigate risks from cyber threat vectors", "Network accessibility", "Protect against simple passwords", "Protect digital assets.", "Reduce vulnerabilities", "Secure network accessibility", "Secure remote access"
+   ],
+   "Email Encryption - Proof Point": [
+      "Address regulatory requirements and audit readiness.", "Elevate security posture", "Mitigate risk of data breaches", "Mitigate risks from cyber threat vectors", "Protect against simple passwords", "Protect digital assets.", "Reduce vulnerabilities"
+   ],
+   "Email Spam Filtering - ProofPoint": [
+      "Address regulatory requirements and audit readiness.", "Elevate security posture", "Mitigate risk of data breaches", "Mitigate risks from cyber threat vectors", "Protect against simple passwords", "Protect digital assets.", "Reduce vulnerabilities"
+   ],
+   "Internet Connectivity - Fiber": [
+      "Network accessibility", "Preparation for installation of new phone system", "Reduce vulnerabilities", "Scalable infrastructure for growth"
+   ],
+   "Firewall Refresh/Renewal": [
+      "Access to current security patches", "Address regulatory requirements and audit readiness.", "Elevate security posture", "Mitigate risk of data breaches", "Mitigate risk of hardware repairs and replacement", "Mitigate risks from cyber threat vectors", "Network accessibility", "Preparation for installation of new phone system", "Reduce vulnerabilities", "Scalable infrastructure for growth", "Secure network accessibility"
+   ],
+   "Hypervisor Upgrade": [
+      "Access to current security patches", "Mitigate risks from cyber threat vectors", "Reduce vulnerabilities", "Scalable infrastructure for growth"
+   ],
+   "Internet ConnectIvity - Upgrade": [
+      "Enterprise Voice Systems", "Network accessibility", "Preparation for installation of new phone system", "Reduce vulnerabilities", "Scalable infrastructure for growth"
+   ],
+   "Internet Connectivity - Redundant": [
+      "Address regulatory requirements and audit readiness.", "Ensure business continuity", "Enterprise Voice Systems", "Network accessibility", "Preparation for installation of new phone system", "Reduce vulnerabilities", "Scalable infrastructure for growth"
+   ],
+   "IT Management Best Practice": [
+      "Address regulatory requirements and audit readiness.", "Enterprise Voice Systems", "Protect digital assets.", "Reduce vulnerabilities", "Scalable infrastructure for growth"
+   ],
+   "IT Security Best Practice": [
+      "Address regulatory requirements and audit readiness.", "Elevate security posture", "Network accessibility", "Protect digital assets.", "Reduce vulnerabilities", "Secure network accessibility", "Secure remote access"
+   ],
+   "Location Management": [
+      "Address regulatory requirements and audit readiness.", "Elevate security posture", "Mitigate risk of data breaches", "Protect digital assets.", "Protect hardware", "Reduce vulnerabilities", "Secure remote access"
+   ],
+   "MS SharePoint": [
+      "Accelerates decision-making"
+   ],
+   "MS Teams": [
+      "Accelerates decision-making"
+   ],
+   "MS365 2FA": [
+      "Address regulatory requirements and audit readiness.", "Mitigate risk of data breaches", "Mitigate risks from cyber threat vectors", "Protect against simple passwords", "Protect digital assets.", "Reduce vulnerabilities", "Secure network accessibility", "Secure remote access"
+   ],
+   "MS365 Migration": [
+      "Help automate on- and off-boarding access"
+   ],
+   "Network Reconfiguration": [
+      "Mitigate risks from cyber threat vectors", "Network accessibility", "Preparation for installation of new phone system", "Protect digital assets.", "Reduce vulnerabilities", "Secure remote access"
+   ],
+   "Network Refresh": [
+      "Mitigate risk of hardware repairs and replacement", "Network accessibility", "Preparation for installation of new phone system", "Protect digital assets.", "Reduce vulnerabilities", "Scalable infrastructure for growth", "Secure network accessibility", "Secure remote access"
+   ],
+   "PDU Install / Refresh": [
+      "Address regulatory requirements and audit readiness.", "Mitigate risk of hardware repairs and replacement", "Protect hardware", "Reduce vulnerabilities", "Secure network accessibility"
+   ],
+   "Security Awareness Training - PII Protect": [
+      "Address regulatory requirements and audit readiness.", "Elevate security posture", "Mitigate risk of data breaches", "Mitigate risks from cyber threat vectors", "Protect against simple passwords", "Protect digital assets.", "Reduce vulnerabilities"
+   ],
+   "Server Management": [
+      "Access to current security patches", "Address regulatory requirements and audit readiness.", "Elevate security posture", "Network accessibility", "Protect digital assets.", "Protect hardware", "Reduce vulnerabilities"
+   ],
+   "Server Refresh / Cloud Migration": [
+      "Access to current security patches", "Increase system performance", "Mitigate risk of hardware repairs and replacement", "Network accessibility", "Protect digital assets.", "Reduce vulnerabilities", "Scalable infrastructure for growth"
+   ],
+   "Server Renewal": [
+      "Access to current security patches", "Address regulatory requirements and audit readiness.", "Elevate security posture", "Increase system performance", "Mitigate risk of hardware repairs and replacement", "Network accessibility", "Protect digital assets.", "Reduce vulnerabilities"
+   ],
+   "Server Virtualization": [
+      "Reduce vulnerabilities", "Scalable infrastructure for growth"
+   ],
+   "Switch Refresh / Renewal": [
+      "Address regulatory requirements and audit readiness.", "Mitigate risk of hardware repairs and replacement", "Network accessibility", "Preparation for installation of new phone system", "Protect digital assets.", "Reduce vulnerabilities", "Secure remote access"
+   ],
+   "UPS Installation /Renewal / Upgrade": [
+      "Address regulatory requirements and audit readiness.", "Mitigate risk of hardware repairs and replacement", "Protect hardware", "Reduce vulnerabilities"
+   ],
+   "VMware Renewal / Upgrade / Migration": [
+      "Access to current security patches", "Reduce vulnerabilities", "Scalable infrastructure for growth"
+   ],
+   "VoIP": [
+      "Enterprise Voice Systems"
+   ],
+   "Webroot": [
+      "Address regulatory requirements and audit readiness.", "Elevate security posture", "Mitigate risk of data breaches", "Protect against simple passwords", "Protect digital assets.", "Reduce vulnerabilities"
+   ],
+   "WiFi Hardware Refresh/Renewal": [
+      "Mitigate risk of hardware repairs and replacement", "Network accessibility", "Protect digital assets.", "Reduce vulnerabilities", "Scalable infrastructure for growth", "Secure network accessibility"
+   ],
+   "WiFi New Configuration": [
+      "Address regulatory requirements and audit readiness.", "Network accessibility", "Protect digital assets.", "Reduce vulnerabilities", "Secure network accessibility"
+   ],
+   "WiFi Reconfiguration": [
+      "Address regulatory requirements and audit readiness.", "Mitigate risk of data breaches", "Network accessibility", "Protect digital assets.", "Reduce vulnerabilities", "Secure network accessibility"
+   ],
+   "Workstation Management": [
+      "Address regulatory requirements and audit readiness.", "Protect digital assets.", "Reduce vulnerabilities", "Scalable infrastructure for growth"
+   ],
+   "Workstation OS Upgrade": [
+      "Access to current security patches", "Address regulatory requirements and audit readiness.", "Elevate security posture", "Protect digital assets.", "Reduce vulnerabilities"
+   ],
+   "Workstation Refresh": [
+      "Access to current security patches", "Mitigate risk of hardware repairs and replacement", "Protect digital assets.", "Reduce vulnerabilities"
+   ]
+}
