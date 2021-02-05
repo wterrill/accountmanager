@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:accountmanager/app/home/assign_TBR/widget_assign_TBR2.dart';
 import 'package:accountmanager/app/home/models/assignedTbr.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:super_tooltip/super_tooltip.dart';
 
 class TBREntry extends StatelessWidget {
   const TBREntry({
@@ -164,7 +165,8 @@ class _TBRbuilderState extends State<TBRbuilder> {
                 leading: Container(
                   width: 100,
                   child: Row(children: [
-                    const Icon(Icons.help_outline),
+                    // const Icon(Icons.help_outline),
+                    const TargetWidget(),
                     Icon(
                       Icons.brightness_1,
                       color: buttonColor(filteredQuestions[index]
@@ -204,8 +206,8 @@ class _TBRbuilderState extends State<TBRbuilder> {
                       // ),
                       const Icon(Icons.edit),
                       ToggleButtons(
-                        children: [Text('Yes'), Text('No'), Text('N/A')],
-                        isSelected: [false, false, false],
+                        children: const [Text('Yes'), Text('No'), Text('N/A')],
+                        isSelected: const [false, false, false],
                         onPressed: (index) {
                           print(index);
                         },
@@ -234,13 +236,13 @@ class _TBRbuilderState extends State<TBRbuilder> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             IconButton(
-              icon: Icon(Icons.arrow_back),
+              icon: const Icon(Icons.arrow_back),
               onPressed: () {
                 print('pressed back');
               },
             ),
             IconButton(
-              icon: Icon(Icons.arrow_forward),
+              icon: const Icon(Icons.arrow_forward),
               onPressed: () {
                 print('pressed forward');
               },
@@ -252,5 +254,76 @@ class _TBRbuilderState extends State<TBRbuilder> {
         )
       ],
     ); //
+  }
+}
+
+class TargetWidget extends StatefulWidget {
+  const TargetWidget({Key key}) : super(key: key);
+
+  @override
+  _TargetWidgetState createState() => _TargetWidgetState();
+}
+
+class _TargetWidgetState extends State<TargetWidget> {
+  SuperTooltip tooltip;
+
+  Future<bool> _willPopCallback() async {
+    // If the tooltip is open we don't pop the page on a backbutton press
+    // but close the ToolTip
+    if (tooltip.isOpen) {
+      tooltip.close();
+      return false;
+    }
+    return true;
+  }
+
+  void onTap() {
+    if (tooltip != null && tooltip.isOpen) {
+      tooltip.close();
+      return;
+    }
+
+    final RenderBox renderBox = context.findRenderObject() as RenderBox;
+    final overlay = Overlay.of(context).context.findRenderObject() as RenderBox;
+
+    final Offset targetGlobalCenter = renderBox
+        .localToGlobal(renderBox.size.center(Offset.zero), ancestor: overlay);
+
+    // We create the tooltip on the first use
+    tooltip = SuperTooltip(
+      popupDirection: TooltipDirection.right,
+      maxWidth: 600.0,
+      showCloseButton: ShowCloseButton.inside,
+      closeButtonColor: Colors.red,
+      content: Material(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, '
+            'sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, '
+            'sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. ',
+            softWrap: true,
+          ),
+        ),
+      ),
+    );
+
+    tooltip.show(context);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: _willPopCallback,
+      child: GestureDetector(onTap: onTap, child: const Icon(Icons.help_outline)
+          // Container(
+          //     width: 20.0,
+          //     height: 20.0,
+          //     decoration: const BoxDecoration(
+          //       shape: BoxShape.circle,
+          //       color: Colors.blue,
+          //     )),
+          ),
+    );
   }
 }
