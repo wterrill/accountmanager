@@ -1,13 +1,13 @@
+import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:super_tooltip/super_tooltip.dart';
+
+import 'package:accountmanager/app/home/assign_TBR/widget_assign_TBR2.dart';
 import 'package:accountmanager/app/home/models/TBR.dart';
+import 'package:accountmanager/app/home/models/assignedTbr.dart';
 import 'package:accountmanager/app/home/models/question.dart';
 import 'package:accountmanager/app/home/question/create_data_table.dart';
 import 'package:accountmanager/common_widgets/empty_content.dart';
-import 'package:flutter/material.dart';
-
-import 'package:accountmanager/app/home/assign_TBR/widget_assign_TBR2.dart';
-import 'package:accountmanager/app/home/models/assignedTbr.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:super_tooltip/super_tooltip.dart';
 
 class TBREntry extends StatelessWidget {
   const TBREntry({
@@ -166,7 +166,10 @@ class _TBRbuilderState extends State<TBRbuilder> {
                   width: 100,
                   child: Row(children: [
                     // const Icon(Icons.help_outline),
-                    const TargetWidget(),
+                    SuperToolTipWidget(
+                      howString: question.howTo,
+                      whyString: question.benefitsBusinessValue,
+                    ),
                     Icon(
                       Icons.brightness_1,
                       color: buttonColor(filteredQuestions[index]
@@ -257,14 +260,20 @@ class _TBRbuilderState extends State<TBRbuilder> {
   }
 }
 
-class TargetWidget extends StatefulWidget {
-  const TargetWidget({Key key}) : super(key: key);
+class SuperToolTipWidget extends StatefulWidget {
+  const SuperToolTipWidget({
+    Key key,
+    @required this.howString,
+    @required this.whyString,
+  }) : super(key: key);
+  final String howString;
+  final String whyString;
 
   @override
-  _TargetWidgetState createState() => _TargetWidgetState();
+  _SuperToolTipWidgetState createState() => _SuperToolTipWidgetState();
 }
 
-class _TargetWidgetState extends State<TargetWidget> {
+class _SuperToolTipWidgetState extends State<SuperToolTipWidget> {
   SuperTooltip tooltip;
 
   Future<bool> _willPopCallback() async {
@@ -298,12 +307,22 @@ class _TargetWidgetState extends State<TargetWidget> {
       content: Material(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text(
-            'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, '
-            'sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, '
-            'sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. ',
-            softWrap: true,
-          ),
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text('Why:', style: TextStyle(color: Colors.blue)),
+                Text(
+                  widget.whyString,
+                  softWrap: true,
+                ),
+                const Text(''),
+                const Text('How:', style: TextStyle(color: Colors.blue)),
+                Text(
+                  widget.howString,
+                  softWrap: true,
+                ),
+              ]),
         ),
       ),
     );
