@@ -62,8 +62,8 @@ class TBRinProgress {
   }
 
   Map<String, String> advancePage({String section, String category}) {
-    Map<String, String> newSectionCategory;
-    final List<String> currentCategories = categories[section];
+    final Map<String, String> newSectionCategory = {};
+    final List<String> currentCategories = categories[section.toLowerCase()];
     // case, end of categories
     if (currentCategories.indexOf(category) == currentCategories.length - 1) {
       // case, end of categories, and end of sections
@@ -75,21 +75,22 @@ class TBRinProgress {
       else {
         final String newSection = sections[sections.indexOf(section) + 1];
         newSectionCategory['section'] = newSection;
-        newSectionCategory['category'] = categories[newSection][0];
+        newSectionCategory['category'] =
+            categories[newSection.toLowerCase()][0];
       }
     }
     // keep section, advance category
     else {
       newSectionCategory['section'] = section;
-      newSectionCategory['category'] =
-          categories[section][categories[section].indexOf(category) + 1];
+      newSectionCategory['category'] = categories[section.toLowerCase()]
+          [categories[section.toLowerCase()].indexOf(category) + 1];
     }
     return newSectionCategory;
   }
 
   Map<String, String> recedePage({String section, String category}) {
-    Map<String, String> newSectionCategory;
-    final List<String> currentCategories = categories[section];
+    Map<String, String> newSectionCategory = {};
+    final List<String> currentCategories = categories[section.toLowerCase()];
     // case, beginning of categories
     if (currentCategories.indexOf(category) == 0) {
       // case, beginning of categories, beginning of sections
@@ -101,15 +102,15 @@ class TBRinProgress {
       else {
         final String newSection = sections[sections.indexOf(section) - 1];
         newSectionCategory['section'] = newSection;
-        newSectionCategory['category'] =
-            categories[newSection][categories[newSection].length - 1];
+        newSectionCategory['category'] = categories[newSection.toLowerCase()]
+            [categories[newSection.toLowerCase()].length - 1];
       }
     }
     // keep section, and recede a category
     else {
       newSectionCategory['section'] = section;
-      newSectionCategory['category'] =
-          categories[section][categories[section].indexOf(category) - 1];
+      newSectionCategory['category'] = categories[section.toLowerCase()]
+          [categories[section.toLowerCase()].indexOf(category) - 1];
     }
     return newSectionCategory;
   }

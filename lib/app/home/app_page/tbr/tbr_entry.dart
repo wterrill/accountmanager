@@ -251,8 +251,12 @@ class _TBRbuilderState extends State<TBRbuilder> {
                 final Map<String, String> newSectionCategory =
                     tbrInProgress.recedePage(
                         section: selectedSection, category: selectedCategory);
-                selectedSection = newSectionCategory['section'];
-                selectedCategory = newSectionCategory['category'];
+                setState(() {
+                  selectedSection = newSectionCategory['section'];
+                  selectedCategory = newSectionCategory['category'];
+                  filteredQuestions = tbrInProgress.getQuestions(
+                      sectionIn: selectedSection, categoryIn: selectedCategory);
+                });
               },
             ),
             IconButton(
@@ -261,8 +265,12 @@ class _TBRbuilderState extends State<TBRbuilder> {
                 final Map<String, String> newSectionCategory =
                     tbrInProgress.advancePage(
                         section: selectedSection, category: selectedCategory);
-                selectedSection = newSectionCategory['section'];
-                selectedCategory = newSectionCategory['category'];
+                setState(() {
+                  selectedSection = newSectionCategory['section'];
+                  selectedCategory = newSectionCategory['category'];
+                  filteredQuestions = tbrInProgress.getQuestions(
+                      sectionIn: selectedSection, categoryIn: selectedCategory);
+                });
               },
             )
           ],
