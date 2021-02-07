@@ -162,7 +162,14 @@ class _TBRbuilderState extends State<TBRbuilder> {
                 return returnedColor;
               }
 
-              return ListTile(
+              return ExpansionTile(
+                children: [
+                  Text("The users comments"),
+                  Text("Will go here"),
+                  Text("TAM recommendations as well?"),
+                  TextField()
+                ],
+                initiallyExpanded: false,
                 leading: Container(
                   width: 100,
                   child: Row(children: [
