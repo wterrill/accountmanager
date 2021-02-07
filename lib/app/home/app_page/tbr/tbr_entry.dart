@@ -210,9 +210,16 @@ class _TBRbuilderState extends State<TBRbuilder> {
                       const Icon(Icons.edit),
                       ToggleButtons(
                         children: const [Text('Yes'), Text('No'), Text('N/A')],
-                        isSelected: const [false, false, false],
+                        isSelected: tbrInProgress.answers[question.id],
                         onPressed: (index) {
                           print(index);
+                          List<bool> presentValue =
+                              tbrInProgress.answers[question.id];
+                          List<bool> tempValue = [false, false, false];
+                          setState(() {
+                            tempValue[index] = !presentValue[index];
+                            tbrInProgress.answers[question.id] = tempValue;
+                          });
                         },
                         borderRadius: BorderRadius.circular(30),
                         borderWidth: 2,
@@ -241,13 +248,21 @@ class _TBRbuilderState extends State<TBRbuilder> {
             IconButton(
               icon: const Icon(Icons.arrow_back),
               onPressed: () {
-                print('pressed back');
+                final Map<String, String> newSectionCategory =
+                    tbrInProgress.recedePage(
+                        section: selectedSection, category: selectedCategory);
+                selectedSection = newSectionCategory['section'];
+                selectedCategory = newSectionCategory['category'];
               },
             ),
             IconButton(
               icon: const Icon(Icons.arrow_forward),
               onPressed: () {
-                print('pressed forward');
+                final Map<String, String> newSectionCategory =
+                    tbrInProgress.advancePage(
+                        section: selectedSection, category: selectedCategory);
+                selectedSection = newSectionCategory['section'];
+                selectedCategory = newSectionCategory['category'];
               },
             )
           ],

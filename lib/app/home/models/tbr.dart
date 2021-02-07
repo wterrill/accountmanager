@@ -4,9 +4,11 @@ class TBRinProgress {
   final List<Question> allQuestions;
   List<String> sections;
   Map<String, List<String>> categories;
+  Map<String, List<bool>> answers;
   TBRinProgress({this.allQuestions}) {
     sections = createSectionList(allQuestions);
     categories = createCategoryMap(sections, allQuestions);
+    answers = createAnswerMap(allQuestions);
   }
 
   List<String> createSectionList(List<Question> questionList) {
@@ -49,5 +51,66 @@ class TBRinProgress {
         .where((element) => element.category == categoryIn)
         .toList();
     return categoryFiltered;
+  }
+
+  Map<String, List<bool>> createAnswerMap(List<Question> questionList) {
+    final Map<String, List<bool>> returnedAnswers = {};
+    for (final Question question in questionList) {
+      returnedAnswers[question.id] = [false, false, false];
+    }
+    return returnedAnswers;
+  }
+
+  Map<String, String> advancePage({String section, String category}) {
+    Map<String, String> newSectionCategory;
+    final List<String> currentCategories = categories[section];
+    // case, end of categories
+    if (currentCategories.indexOf(category) == currentCategories.length - 1) {
+      // case, end of categories, and end of sections
+      if (sections.indexOf(section) == sections.length - 1) {
+        newSectionCategory['section'] = section;
+        newSectionCategory['category'] = category;
+      }
+      // advance section, category to first
+      else {
+        final String newSection = sections[sections.indexOf(section) + 1];
+        newSectionCategory['section'] = newSection;
+        newSectionCategory['category'] = categories[newSection][0];
+      }
+    }
+    // keep section, advance category
+    else {
+      newSectionCategory['section'] = section;
+      newSectionCategory['category'] =
+          categories[section][categories[section].indexOf(category) + 1];
+    }
+    return newSectionCategory;
+  }
+
+  Map<String, String> recedePage({String section, String category}) {
+    Map<String, String> newSectionCategory;
+    final List<String> currentCategories = categories[section];
+    // case, beginning of categories
+    if (currentCategories.indexOf(category) == 0) {
+      // case, beginning of categories, beginning of sections
+      if (sections.indexOf(section) == 0) {
+        newSectionCategory['section'] = section;
+        newSectionCategory['category'] = category;
+      }
+      // recede a section and set category to end of list
+      else {
+        final String newSection = sections[sections.indexOf(section) - 1];
+        newSectionCategory['section'] = newSection;
+        newSectionCategory['category'] =
+            categories[newSection][categories[newSection].length - 1];
+      }
+    }
+    // keep section, and recede a category
+    else {
+      newSectionCategory['section'] = section;
+      newSectionCategory['category'] =
+          categories[section][categories[section].indexOf(category) - 1];
+    }
+    return newSectionCategory;
   }
 }
