@@ -1,3 +1,4 @@
+import 'package:accountmanager/common_widgets/custom_toggle_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:super_tooltip/super_tooltip.dart';
@@ -208,33 +209,48 @@ class _TBRbuilderState extends State<TBRbuilder> {
                       //   },
                       // ),
                       const Icon(Icons.edit),
-                      ToggleButtons(
-                        children: const [Text('Yes'), Text('No'), Text('N/A')],
-                        isSelected: tbrInProgress.answers[question.id],
-                        onPressed: (index) {
-                          print(index);
-                          List<bool> presentValue =
-                              tbrInProgress.answers[question.id];
-                          List<bool> tempValue = [false, false, false];
-                          setState(() {
-                            tempValue[index] = !presentValue[index];
-                            tbrInProgress.answers[question.id] = tempValue;
-                          });
-                        },
-                        borderRadius: BorderRadius.circular(30),
-                        borderWidth: 2,
-                        borderColor: Colors.deepPurple,
-                        selectedBorderColor: Colors.deepOrange,
-                        splashColor: Colors.blue,
-                        highlightColor: Colors.yellow,
-                        color: Colors.red,
-                        selectedColor: Colors.orange,
-                        fillColor: Colors.amber,
-                        renderBorder: true,
-                        disabledColor: Colors.grey,
-                        disabledBorderColor: Colors.grey,
-                        hoverColor: Colors.pink,
-                      )
+                      CustomToggleButtons(
+                          children: const [
+                            Text('Yes'),
+                            Text('No'),
+                            Text('N/A')
+                          ],
+                          isSelected: tbrInProgress.answers[question.id],
+                          onPressed: (index) {
+                            print(index);
+                            final List<bool> presentValue =
+                                tbrInProgress.answers[question.id];
+                            final List<bool> tempValue = [false, false, false];
+                            setState(() {
+                              tempValue[index] = !presentValue[index];
+                              tbrInProgress.answers[question.id] = tempValue;
+                            });
+                          },
+                          borderRadius: BorderRadius.circular(30),
+                          borderWidth: 2,
+                          borderColor: Colors.deepPurple,
+                          // selectedBorderColor: Colors.deepOrange,
+                          splashColor: Colors.blue,
+                          // highlightColor: Colors.,
+                          color: Colors.red,
+                          selectedColorList: [
+                            Colors.black,
+                            Colors.white,
+                            Colors.black
+                          ],
+                          fillColorList: [
+                            Colors.green,
+                            Colors.red,
+                            Colors.grey
+                          ],
+                          renderBorder: true,
+                          disabledColor: Colors.grey,
+                          disabledBorderColor: Colors.grey,
+                          hoverColorList: [
+                            Colors.green[100],
+                            Colors.red[100],
+                            Colors.grey[300]
+                          ])
                     ],
                   ),
                 ),
