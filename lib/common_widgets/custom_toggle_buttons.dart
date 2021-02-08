@@ -182,7 +182,7 @@ class CustomToggleButtons extends StatelessWidget {
     this.splashColor,
     this.focusNodes,
     this.renderBorder = true,
-    this.borderColor,
+    @required this.borderColorList,
     this.selectedBorderColor,
     this.disabledBorderColor,
     this.borderRadius,
@@ -344,7 +344,7 @@ class CustomToggleButtons extends StatelessWidget {
   /// ToggleButtonTheme.of(context).borderColor is used. If
   /// [CustomToggleButtonsThemeData.borderColor] is also null, then
   /// Theme.of(context).colorScheme.onSurface is used.
-  final Color borderColor;
+  final List<Color> borderColorList;
 
   /// The border color to display when the toggle button is selected.
   ///
@@ -542,7 +542,7 @@ class CustomToggleButtons extends StatelessWidget {
       );
     } else if (onPressed != null && !isSelected[index]) {
       return BorderSide(
-        color: borderColor ??
+        color: borderColorList[index] ??
             toggleButtonsTheme.borderColor ??
             theme.colorScheme.onSurface.withOpacity(0.12),
         width: resultingBorderWidth,
@@ -575,7 +575,7 @@ class CustomToggleButtons extends StatelessWidget {
       );
     } else if (onPressed != null && !isSelected[index]) {
       return BorderSide(
-        color: borderColor ??
+        color: borderColorList[index] ??
             toggleButtonsTheme.borderColor ??
             theme.colorScheme.onSurface.withOpacity(0.12),
         width: resultingBorderWidth,
@@ -610,7 +610,7 @@ class CustomToggleButtons extends StatelessWidget {
       );
     } else if (onPressed != null && !isSelected[index]) {
       return BorderSide(
-        color: borderColor ??
+        color: borderColorList[index] ??
             toggleButtonsTheme.borderColor ??
             theme.colorScheme.onSurface.withOpacity(0.12),
         width: resultingBorderWidth,

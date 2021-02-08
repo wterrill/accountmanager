@@ -1,14 +1,17 @@
 import 'package:accountmanager/app/home/models/question.dart';
+import 'package:flutter/material.dart';
 
 class TBRinProgress {
   final List<Question> allQuestions;
   List<String> sections;
   Map<String, List<String>> categories;
   Map<String, List<bool>> answers;
+  Map<String, Map<String, List<Color>>> colorScheme;
   TBRinProgress({this.allQuestions}) {
     sections = createSectionList(allQuestions);
     categories = createCategoryMap(sections, allQuestions);
     answers = createAnswerMap(allQuestions);
+    colorScheme = generateColors(allQuestions);
   }
 
   List<String> createSectionList(List<Question> questionList) {
@@ -18,7 +21,6 @@ class TBRinProgress {
       temp.add(question.section);
     }
     final Set sectionSet = temp.toSet();
-    print(sectionSet);
     return sectionSet.toList() as List<String>;
   }
 
@@ -38,9 +40,7 @@ class TBRinProgress {
       uniqueSectionCategories.sort((a, b) => a.compareTo(b));
       mapSectionsWithCategories[section.toLowerCase()] =
           uniqueSectionCategories;
-      print(mapSectionsWithCategories);
     }
-    print(mapSectionsWithCategories);
     return mapSectionsWithCategories;
   }
 
@@ -113,5 +113,56 @@ class TBRinProgress {
           [categories[section.toLowerCase()].indexOf(category) - 1];
     }
     return newSectionCategory;
+  }
+
+  Map<String, Map<String, List<Color>>> generateColors(
+      List<Question> questions) {
+    final Map<String, Map<String, List<Color>>> wholeColorScheme = {};
+    for (final Question question in questions) {
+      final Map<String, List<Color>> returnedMap = {};
+      if (question.goodBadAnswer == 'N = Bad') {
+        returnedMap['borderColorList'] = [
+          Colors.blue,
+          Colors.blue,
+          Colors.blue
+        ];
+        returnedMap['selectedColorList'] = [
+          Colors.black,
+          Colors.white,
+          Colors.black
+        ];
+        returnedMap['fillColorList'] = [Colors.green, Colors.red, Colors.grey];
+
+        returnedMap['hoverColorList'] = [
+          Colors.green[100],
+          Colors.red[100],
+          Colors.grey[300]
+        ];
+      } else {
+        returnedMap['borderColorList'] = [
+          Colors.blue,
+          Colors.blue,
+          Colors.blue
+        ];
+        returnedMap['selectedColorList'] = [
+          Colors.black,
+          Colors.black,
+          Colors.black
+        ];
+        returnedMap['fillColorList'] = [
+          Colors.green,
+          Colors.green,
+          Colors.grey
+        ];
+
+        returnedMap['hoverColorList'] = [
+          Colors.green[100],
+          Colors.green[100],
+          Colors.grey[300]
+        ];
+      }
+      wholeColorScheme[question.id] = returnedMap;
+    }
+    return wholeColorScheme;
   }
 }

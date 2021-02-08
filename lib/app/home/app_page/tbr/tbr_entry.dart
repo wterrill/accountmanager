@@ -138,6 +138,14 @@ class _TBRbuilderState extends State<TBRbuilder> {
             // Convert each item into a widget based on the type of item it is.
             itemBuilder: (context, index) {
               final Question question = filteredQuestions[index];
+              // print('tbrInProgress.colorScheme: ${tbrInProgress.colorScheme}');
+              final Map<String, List<Color>> colorScheme =
+                  tbrInProgress.colorScheme[question.id];
+
+              // print('colorScheme: $colorScheme');
+              // print('index: $index');
+              // print('tbrInProgress.id ${tbrInProgress.allQuestions[index].id}');
+
               Color buttonColor(String priority) {
                 Color returnedColor;
                 switch (priority) {
@@ -178,12 +186,16 @@ class _TBRbuilderState extends State<TBRbuilder> {
                       howString: question.howTo,
                       whyString: question.benefitsBusinessValue,
                     ),
-                    Icon(
-                      Icons.brightness_1,
-                      color: buttonColor(filteredQuestions[index]
-                          .questionPriority
-                          .toLowerCase()),
-                      size: 25,
+                    Tooltip(
+                      message:
+                          'Priority: ${filteredQuestions[index].questionPriority}',
+                      child: Icon(
+                        Icons.brightness_1,
+                        color: buttonColor(filteredQuestions[index]
+                            .questionPriority
+                            .toLowerCase()),
+                        size: 25,
+                      ),
                     )
                   ]),
                 ),
@@ -217,47 +229,32 @@ class _TBRbuilderState extends State<TBRbuilder> {
                       // ),
                       const Icon(Icons.edit),
                       CustomToggleButtons(
-                          children: const [
-                            Text('Yes'),
-                            Text('No'),
-                            Text('N/A')
-                          ],
-                          isSelected: tbrInProgress.answers[question.id],
-                          onPressed: (index) {
-                            print(index);
-                            final List<bool> presentValue =
-                                tbrInProgress.answers[question.id];
-                            final List<bool> tempValue = [false, false, false];
-                            setState(() {
-                              tempValue[index] = !presentValue[index];
-                              tbrInProgress.answers[question.id] = tempValue;
-                            });
-                          },
-                          borderRadius: BorderRadius.circular(30),
-                          borderWidth: 2,
-                          borderColor: Colors.deepPurple,
-                          // selectedBorderColor: Colors.deepOrange,
-                          splashColor: Colors.blue,
-                          // highlightColor: Colors.,
-                          color: Colors.red,
-                          selectedColorList: [
-                            Colors.black,
-                            Colors.white,
-                            Colors.black
-                          ],
-                          fillColorList: [
-                            Colors.green,
-                            Colors.red,
-                            Colors.grey
-                          ],
-                          renderBorder: true,
-                          disabledColor: Colors.grey,
-                          disabledBorderColor: Colors.grey,
-                          hoverColorList: [
-                            Colors.green[100],
-                            Colors.red[100],
-                            Colors.grey[300]
-                          ])
+                        children: const [Text('Yes'), Text('No'), Text('N/A')],
+                        isSelected: tbrInProgress.answers[question.id],
+                        onPressed: (index) {
+                          print(index);
+                          final List<bool> presentValue =
+                              tbrInProgress.answers[question.id];
+                          final List<bool> tempValue = [false, false, false];
+                          setState(() {
+                            tempValue[index] = !presentValue[index];
+                            tbrInProgress.answers[question.id] = tempValue;
+                          });
+                        },
+                        borderRadius: BorderRadius.circular(30),
+                        borderWidth: 2,
+                        borderColorList: colorScheme['borderColorList'],
+                        selectedBorderColor: Colors.blue,
+                        splashColor: Colors.blue,
+                        // highlightColor: Colors.,
+                        color: Colors.red,
+                        selectedColorList: colorScheme['selectedColorList'],
+                        fillColorList: colorScheme['fillColorList'],
+                        renderBorder: true,
+                        disabledColor: Colors.grey,
+                        disabledBorderColor: Colors.grey,
+                        hoverColorList: colorScheme['hoverColorList'],
+                      )
                     ],
                   ),
                 ),

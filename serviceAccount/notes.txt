@@ -1,0 +1,6 @@
+node serviceAccount (on same level as folder)
+
+new install:
+npm init  // <-- I'm not sure about this one
+npm install firebase-admin --save
+

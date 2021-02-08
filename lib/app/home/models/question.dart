@@ -20,6 +20,7 @@ class Question extends Equatable {
   final String section;
   final String sysAdminNotes;
   final bool sysAdminReviewAligned;
+  final String goodBadAnswer;
   final String tamRecommendations;
   final String tamReview;
   final String totalProjectEstimate;
@@ -43,6 +44,7 @@ class Question extends Equatable {
     this.section,
     this.sysAdminNotes,
     this.sysAdminReviewAligned,
+    this.goodBadAnswer,
     this.tamRecommendations,
     this.tamReview,
     this.totalProjectEstimate,
@@ -67,6 +69,7 @@ class Question extends Equatable {
     String section,
     String sysAdminNotes,
     bool sysAdminReviewAligned,
+    String goodBadAnswer,
     String tamRecommendations,
     String tamReview,
     String totalProjectEstimate,
@@ -94,6 +97,7 @@ class Question extends Equatable {
       sysAdminNotes: sysAdminNotes ?? this.sysAdminNotes,
       sysAdminReviewAligned:
           sysAdminReviewAligned ?? this.sysAdminReviewAligned,
+      goodBadAnswer: goodBadAnswer ?? this.goodBadAnswer,
       tamRecommendations: tamRecommendations ?? this.tamRecommendations,
       tamReview: tamReview ?? this.tamReview,
       totalProjectEstimate: totalProjectEstimate ?? this.totalProjectEstimate,
@@ -121,6 +125,7 @@ class Question extends Equatable {
         section,
         sysAdminNotes,
         sysAdminReviewAligned,
+        goodBadAnswer,
         tamRecommendations,
         tamReview,
         totalProjectEstimate,
@@ -145,6 +150,7 @@ class Question extends Equatable {
       'Section': section,
       'Sys Admin Notes': sysAdminNotes,
       'Sys Admin Review Aligned (Y/N)': sysAdminReviewAligned,
+      'Good / Bad Answer': goodBadAnswer,
       'TAM Recommendations': tamRecommendations,
       'TAM Review': tamReview,
       'Total Project Estimate': totalProjectEstimate,
@@ -177,6 +183,7 @@ class Question extends Equatable {
       section: map['Section'],
       sysAdminNotes: map['Sys Admin Notes'],
       sysAdminReviewAligned: map['Sys Admin Review Aligned (Y/N)'],
+      goodBadAnswer: map['Good / Bad Answer'],
       tamRecommendations: map['TAM Recommendations'],
       tamReview: map['TAM Review'],
       totalProjectEstimate: map['Total Project Estimate'],
@@ -193,7 +200,7 @@ class Question extends Equatable {
 
   @override
   String toString() {
-    return 'Question(benefitsBusinessValue: $benefitsBusinessValue, category: $category, customerApprovedProject: $customerApprovedProject, estimatedLaborPrice: $estimatedLaborPrice, estimatedMRRIncrease: $estimatedMRRIncrease, estimatedProductPrice: $estimatedProductPrice, howTo: $howTo, projectType: $projectType, questionName: $questionName, questionPriority: $questionPriority, questionText: $questionText, roadMap: $roadMap, section: $section, sysAdminNotes: $sysAdminNotes, sysAdminReviewAligned: $sysAdminReviewAligned, tamRecommendations: $tamRecommendations, tamReview: $tamReview, totalProjectEstimate: $totalProjectEstimate, type: $type, whyAreWeAsking: $whyAreWeAsking, id: $id)';
+    return 'Question(benefitsBusinessValue: $benefitsBusinessValue, category: $category, customerApprovedProject: $customerApprovedProject, estimatedLaborPrice: $estimatedLaborPrice, estimatedMRRIncrease: $estimatedMRRIncrease, estimatedProductPrice: $estimatedProductPrice, howTo: $howTo, projectType: $projectType, questionName: $questionName, questionPriority: $questionPriority, questionText: $questionText, roadMap: $roadMap, section: $section, sysAdminNotes: $sysAdminNotes, sysAdminReviewAligned: $sysAdminReviewAligned, goodBadAnswer: $goodBadAnswer, tamRecommendations: $tamRecommendations, tamReview: $tamReview, totalProjectEstimate: $totalProjectEstimate, type: $type, whyAreWeAsking: $whyAreWeAsking, id: $id)';
   }
 
   // @override

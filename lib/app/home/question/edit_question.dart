@@ -47,6 +47,7 @@ class _EditQuestionState extends State<EditQuestion> {
   String section;
   String sysAdminNotes;
   bool sysAdminReviewAligned;
+  String goodBadAnswer;
   String tamRecommendations;
   String tamReview;
   String totalProjectEstimate;
@@ -74,6 +75,7 @@ class _EditQuestionState extends State<EditQuestion> {
   final TextEditingController _sectionC = TextEditingController();
   final TextEditingController _sysAdminNotesC = TextEditingController();
   final TextEditingController _sysAdminReviewAlignedC = TextEditingController();
+  final TextEditingController _goodBadAnswerC = TextEditingController();
   final TextEditingController _tamRecommendationsC = TextEditingController();
   final TextEditingController _tamReviewC = TextEditingController();
   final TextEditingController _totalProjectEstimateC = TextEditingController();
@@ -118,6 +120,8 @@ class _EditQuestionState extends State<EditQuestion> {
 
       sysAdminReviewAligned = widget.data.sysAdminReviewAligned;
 
+      goodBadAnswer = widget.data.goodBadAnswer;
+
       tamRecommendations = widget.data.tamRecommendations;
 
       tamReview = widget.data.tamReview;
@@ -147,6 +151,7 @@ class _EditQuestionState extends State<EditQuestion> {
       _sectionC.text = section;
       _sysAdminNotesC.text = sysAdminNotes;
       _sysAdminReviewAlignedC.text = sysAdminReviewAligned.toString();
+      _goodBadAnswerC.text = goodBadAnswer;
       _tamRecommendationsC.text = tamRecommendations;
       _tamReviewC.text = tamReview;
       _totalProjectEstimateC.text = totalProjectEstimate;
@@ -168,6 +173,7 @@ class _EditQuestionState extends State<EditQuestion> {
       _sectionC.text = 'in progress';
       _sysAdminNotesC.text = 'in progress';
       _sysAdminReviewAlignedC.text = 'in progress';
+      _goodBadAnswerC.text = 'in progress';
       _tamRecommendationsC.text = 'in progress';
       _tamReviewC.text = 'in progress';
       _totalProjectEstimateC.text = 'in progress';
@@ -202,6 +208,7 @@ class _EditQuestionState extends State<EditQuestion> {
         section: section,
         sysAdminNotes: sysAdminNotes,
         sysAdminReviewAligned: sysAdminReviewAligned,
+        goodBadAnswer: goodBadAnswer,
         tamRecommendations: tamRecommendations,
         tamReview: tamReview,
         totalProjectEstimate: totalProjectEstimate,
@@ -268,6 +275,7 @@ class _EditQuestionState extends State<EditQuestion> {
             generateTextInput(_sysAdminNotesC, 'Sys Admin Notes'),
             generateTextInput(
                 _sysAdminReviewAlignedC, 'Sys Admin Review Aligned'),
+            generateTextInput(_goodBadAnswerC, 'Good / Bad Answer'),
             generateTextInput(_tamRecommendationsC, 'TAM Recommendations'),
             generateTextInput(_tamReviewC, 'TAM Review'),
             generateTextInput(_totalProjectEstimateC, 'Total Project Estimate'),
