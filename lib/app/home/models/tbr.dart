@@ -7,11 +7,23 @@ class TBRinProgress {
   Map<String, List<String>> categories;
   Map<String, List<bool>> answers;
   Map<String, Map<String, List<Color>>> colorScheme;
+  Map<String, String> adminComment;
+  Map<String, String> tamNotes;
   TBRinProgress({this.allQuestions}) {
     sections = createSectionList(allQuestions);
     categories = createCategoryMap(sections, allQuestions);
     answers = createAnswerMap(allQuestions);
     colorScheme = generateColors(allQuestions);
+    adminComment = initializeComments(allQuestions);
+    tamNotes = initializeComments(allQuestions);
+  }
+
+  Map<String, String> initializeComments(List<Question> allQuestions) {
+    Map<String, String> returnedMap = {};
+    for (final Question question in allQuestions) {
+      returnedMap[question.id] = '';
+    }
+    return returnedMap;
   }
 
   List<String> createSectionList(List<Question> questionList) {

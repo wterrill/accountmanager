@@ -84,11 +84,14 @@ class _TBRbuilderState extends State<TBRbuilder> {
         tbrInProgress.categories[selectedSection.toLowerCase()][0];
     filteredQuestions = tbrInProgress.getQuestions(
         sectionIn: selectedSection, categoryIn: selectedCategory);
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    print('TBRBuilder rebuilt ************************');
+    // List<TextEditingController>.generate(3, (TextEditingController index) => index * index);
     return Column(
       children: [
         DropdownButton(
@@ -171,11 +174,52 @@ class _TBRbuilderState extends State<TBRbuilder> {
               }
 
               return ExpansionTile(
+                key: ValueKey(question.id.toString()),
                 children: [
-                  Text("The users comments"),
-                  Text("Will go here"),
-                  Text("TAM recommendations as well?"),
-                  TextField()
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    color: Colors.grey[100],
+                    child: Column(children: [
+                      const Text('System Administrator Notes'),
+                      TextField(
+                        controller: TextEditingController(
+                            text: tbrInProgress.adminComment[question.id]),
+                        onChanged: (value) {
+                          tbrInProgress.adminComment[question.id] = value;
+                        },
+                        minLines: 2,
+                        maxLines: 5,
+                        keyboardType: TextInputType.multiline,
+                        decoration: const InputDecoration(
+                          hintText: 'Put system administrator notes here...',
+                          hintStyle: TextStyle(color: Colors.grey),
+                          border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20.0)),
+                          ),
+                        ),
+                      ),
+                      const Text('TAM Notes'),
+                      TextField(
+                        controller: TextEditingController(
+                            text: tbrInProgress.tamNotes[question.id]),
+                        onChanged: (value) {
+                          tbrInProgress.tamNotes[question.id] = value;
+                        },
+                        minLines: 2,
+                        maxLines: 5,
+                        keyboardType: TextInputType.multiline,
+                        decoration: const InputDecoration(
+                          hintText: 'Put TAM Notes here...',
+                          hintStyle: TextStyle(color: Colors.grey),
+                          border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20.0)),
+                          ),
+                        ),
+                      ),
+                    ]),
+                  )
                 ],
                 initiallyExpanded: false,
                 leading: Container(
@@ -184,7 +228,7 @@ class _TBRbuilderState extends State<TBRbuilder> {
                     // const Icon(Icons.help_outline),
                     SuperToolTipWidget(
                       howString: question.howTo,
-                      whyString: question.benefitsBusinessValue,
+                      whyString: question.whyAreWeAsking,
                     ),
                     Tooltip(
                       message:
