@@ -14,7 +14,7 @@ import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
 class OverviewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Flexible(
+    return const Flexible(
       child: SingleChildScrollView(
         child: OverviewPaginatedTable(),
       ),

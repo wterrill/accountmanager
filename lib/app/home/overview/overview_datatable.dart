@@ -3,7 +3,8 @@ import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/constants/strings.dart';
 import 'package:accountmanager/services/firestore_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:accountmanager/app/home/app_page/tbr/tbr_entry.dart';
 
 class OverviewPaginatedTable extends StatefulWidget {
   const OverviewPaginatedTable({Key key}) : super(key: key);
@@ -27,6 +28,7 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
   @override
   Widget build(BuildContext context) {
     final FirestoreDatabase database = context.read(databaseProvider);
+
     return FutureBuilder(
         future: database.assignedTbrStream().first,
         builder: (context, snapshot) {

@@ -26,6 +26,9 @@ class TBREntry extends StatelessWidget {
 }
 
 TBRinProgress tbrInProgress;
+final tbrInProgressProvider = Provider<TBRinProgress>((ref) {
+  return TBRinProgress();
+});
 
 class TBRdata extends ConsumerWidget {
   @override
