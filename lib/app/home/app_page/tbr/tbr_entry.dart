@@ -90,7 +90,6 @@ class _TBRbuilderState extends State<TBRbuilder> {
 
   @override
   Widget build(BuildContext context) {
-    print('TBRBuilder rebuilt ************************');
     // List<TextEditingController>.generate(3, (TextEditingController index) => index * index);
     return Column(
       children: [
@@ -174,7 +173,7 @@ class _TBRbuilderState extends State<TBRbuilder> {
               }
 
               return ExpansionTile(
-                key: ValueKey(question.id.toString()),
+                key: ObjectKey(question.id.toString()),
                 children: [
                   Container(
                     padding: const EdgeInsets.all(10),
