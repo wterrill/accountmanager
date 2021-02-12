@@ -4,10 +4,21 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 import 'package:accountmanager/services/firestore_database.dart';
 
-// There are three top-level providers:
+// There are four top-level providers:
 // firebase auth -> This becomes a streamProvider
 // database provider
 // logger provider
+// tbrInProgress provider. This is used to pass values during development.
+
+// final tbrInProgressProvider = Provider<TBRinProgress>((ref) {
+//   return TBRinProgress();
+// });
+
+final tbrInProgressProvider = Provider<TBRinProgress>((ref) {
+  print('beer');
+  TBRinProgress tbRinProgress = TBRinProgress();
+  return tbRinProgress;
+});
 
 final firebaseAuthProvider = Provider<FirebaseAuth>((ref) {
   return FirebaseAuth.instance;

@@ -1,4 +1,5 @@
 import 'package:accountmanager/app/home/models/assignedTbr.dart';
+import 'package:accountmanager/app/home/models/tbr.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/constants/strings.dart';
 import 'package:accountmanager/services/firestore_database.dart';
@@ -18,10 +19,12 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
   int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
   int _sortColumnIndex = 0;
   bool _sortAscending = false;
+  TBRinProgress tbrInProgress;
 
   @override
   void initState() {
     _sortAscending = false;
+
     super.initState();
   }
 

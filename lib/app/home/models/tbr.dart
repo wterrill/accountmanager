@@ -2,14 +2,17 @@ import 'package:accountmanager/app/home/models/question.dart';
 import 'package:flutter/material.dart';
 
 class TBRinProgress {
-  final List<Question> allQuestions;
+  List<Question> allQuestions;
   List<String> sections;
   Map<String, List<String>> categories;
   Map<String, List<bool>> answers;
   Map<String, Map<String, List<Color>>> colorScheme;
   Map<String, String> adminComment;
   Map<String, String> tamNotes;
-  TBRinProgress({this.allQuestions}) {
+  TBRinProgress();
+
+  void initialize(List<Question> allQuestionsIn) {
+    allQuestions = allQuestionsIn;
     sections = createSectionList(allQuestions);
     categories = createCategoryMap(sections, allQuestions);
     answers = createAnswerMap(allQuestions);

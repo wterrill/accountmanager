@@ -34,7 +34,7 @@ class _SelectTBRPageState extends State<SelectTBRPage> {
     final user = firebaseAuth.currentUser;
     return Scaffold(
       appBar: AppBar(
-        title: Text(Strings.tbrStrings.assignTbr),
+        title: Text("Application TBR Selection"),
         // bottom: PreferredSize(
         //   preferredSize: const Size.fromHeight(130.0),
         //   child: _buildUserInfo(user),

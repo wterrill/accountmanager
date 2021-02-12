@@ -1,10 +1,11 @@
+import 'package:accountmanager/app/home/models/tbr.dart';
+import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/common_widgets/custom_toggle_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:super_tooltip/super_tooltip.dart';
 
 import 'package:accountmanager/app/home/assign_TBR/widget_assign_TBR2.dart';
-import 'package:accountmanager/app/home/models/TBR.dart';
 import 'package:accountmanager/app/home/models/assignedTbr.dart';
 import 'package:accountmanager/app/home/models/question.dart';
 import 'package:accountmanager/app/home/question/create_data_table.dart';
@@ -25,10 +26,7 @@ class TBREntry extends StatelessWidget {
   }
 }
 
-TBRinProgress tbrInProgress;
-final tbrInProgressProvider = Provider<TBRinProgress>((ref) {
-  return TBRinProgress();
-});
+// TBRinProgress tbrInProgress;
 
 class TBRdata extends ConsumerWidget {
   @override
@@ -79,9 +77,12 @@ class _TBRbuilderState extends State<TBRbuilder> {
   String selectedSection;
   String selectedCategory;
   List<Question> filteredQuestions;
+  TBRinProgress tbrInProgress;
+
   @override
   void initState() {
-    tbrInProgress = TBRinProgress(allQuestions: widget.questionList);
+    tbrInProgress = context.read(tbrInProgressProvider);
+    tbrInProgress.initialize(widget.questionList);
     selectedSection = tbrInProgress.sections[1];
     selectedCategory =
         tbrInProgress.categories[selectedSection.toLowerCase()][0];

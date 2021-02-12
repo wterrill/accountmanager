@@ -68,7 +68,7 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
           children: [
             PaginatedDataTable(
               showCheckboxColumn: false,
-              header: Text(Strings.tbrStrings.header),
+              header: Text("Select TBR to be completed"),
               source: dtsSource,
               rowsPerPage: _rowsPerPage,
               sortColumnIndex: _sortColumnIndex,

@@ -1,4 +1,4 @@
-
+set -e # this exits when there is an error
 flutter test
 rm lib/buildTime/flutter_version.dart
 echo "Building flutter_version.dart"
