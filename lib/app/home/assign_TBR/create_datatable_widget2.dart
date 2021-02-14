@@ -204,9 +204,7 @@ class DTS extends DataTableSource {
     // print(index);
     if (index < data.length) {
       return DataRow(
-          onSelectChanged: (beer) {
-            print(beer);
-            print('working');
+          onSelectChanged: (_) {
             _displayDialog(context, data[index]);
           },
           cells: [

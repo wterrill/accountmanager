@@ -667,6 +667,19 @@ class CustomDataTable extends StatelessWidget {
     VoidCallback onSelectChanged,
     MaterialStateProperty<Color> overlayColor,
   }) {
+    Color colorCell = Colors.transparent;
+    print(label);
+    if (label.toString() == "Text(\"Y\"") {
+      colorCell = Colors.blue;
+      print(colorCell);
+    }
+    if (label.toString() == "Text(\"y\"") {
+      colorCell = Colors.green;
+      print(colorCell);
+    }
+    print(label.toStringShort());
+    print(label.toStringDeep());
+
     final bool isLightTheme = Theme.of(context).brightness == Brightness.light;
     if (showEditIcon) {
       const Widget icon = Icon(Icons.edit, size: 18.0);
@@ -677,6 +690,7 @@ class CustomDataTable extends StatelessWidget {
       );
     }
     label = Container(
+      color: colorCell,
       padding: padding,
       height: dataRowHeight,
       alignment:

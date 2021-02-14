@@ -202,7 +202,7 @@ class DTS extends CustomDataTableSource {
   CustomDataRow getRow(int index) {
     if (index < data.length) {
       return CustomDataRow(
-          onSelectChanged: (beer) {
+          onSelectChanged: (_) {
             _displayDialog(context, data[index]);
           },
           cells: [

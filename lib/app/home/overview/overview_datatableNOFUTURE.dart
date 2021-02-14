@@ -7,6 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:accountmanager/app/home/app_page/tbr/tbr_entry.dart';
 
+import '../../../common_widgets/CustomDataTable.dart';
+import '../../../common_widgets/CustomDataTableSource.dart';
+import '../../../common_widgets/CustomPaginatedDataTable.dart';
+
 class OverviewPaginatedTable extends StatefulWidget {
   const OverviewPaginatedTable({Key key}) : super(key: key);
 
@@ -16,23 +20,21 @@ class OverviewPaginatedTable extends StatefulWidget {
 
 class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
   // final dts = DTS();
-  int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
+  int _rowsPerPage = CustomPaginatedDataTable.defaultRowsPerPage;
   int _sortColumnIndex = 0;
   bool _sortAscending = false;
   TBRinProgress tbrInProgress;
 
   @override
   void initState() {
-    // tbrInProgress = context.read(tbrInProgressProvider);
+    tbrInProgress = context.read(tbrInProgressProvider);
     _sortAscending = false;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    // final tbrInProgress = context.read(tbrInProgressProvider);
-    // final firebaseAuth = context.read(firebaseAuthProvider);
-    // final FirestoreDatabase database = context.read(databaseProvider);
+    final tbrInProgress = context.read(tbrInProgressProvider);
     return _datatable(DTS(tbrInProgress));
   }
 
@@ -41,7 +43,7 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            PaginatedDataTable(
+            CustomPaginatedDataTable(
               header: Text(Strings.tbrStrings.assignTbr),
               source: dtsSource,
               rowsPerPage: _rowsPerPage,
@@ -53,7 +55,7 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
                 });
               },
               columns: [
-                DataColumn(
+                CustomDataColumn(
                   label: Text('Name'),
                   // onSort: (columnIndex, ascending) {
                   //   dtsSource.sort<String>(
@@ -65,42 +67,42 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
                   //   });
                   // },
                 ),
-                // DataColumn(
-                //   label: Text(Strings.technicianStrings.technician),
-                //   onSort: (columnIndex, ascending) {
-                //     dtsSource.sort<String>(
-                //         getField: (d) => d.technician.name,
-                //         ascending: _sortAscending);
-                //     setState(() {
-                //       _sortColumnIndex = columnIndex;
-                //       _sortAscending = !_sortAscending;
-                //     });
-                //   },
-                // ),
-                // DataColumn(
-                //   label: Text(Strings.tbrStrings.dueDate),
-                //   onSort: (columnIndex, ascending) {
-                //     dtsSource.sort<String>(
-                //         getField: (d) => d.dueDate.toString(),
-                //         ascending: _sortAscending);
-                //     setState(() {
-                //       _sortColumnIndex = columnIndex;
-                //       _sortAscending = !_sortAscending;
-                //     });
-                //   },
-                // ),
-                // DataColumn(
-                //   label: Text(Strings.tbrStrings.meetingDate),
-                //   onSort: (columnIndex, ascending) {
-                //     dtsSource.sort<String>(
-                //         getField: (d) => d.clientMeetingDate.toString(),
-                //         ascending: _sortAscending);
-                //     setState(() {
-                //       _sortColumnIndex = columnIndex;
-                //       _sortAscending = !_sortAscending;
-                //     });
-                //   },
-                // )
+                CustomDataColumn(
+                  label: Text("Priority"),
+                  // onSort: (columnIndex, ascending) {
+                  //   dtsSource.sort<String>(
+                  //       getField: (d) => d.technician.name,
+                  //       ascending: _sortAscending);
+                  //   setState(() {
+                  //     _sortColumnIndex = columnIndex;
+                  //     _sortAscending = !_sortAscending;
+                  //   });
+                  // },
+                ),
+                CustomDataColumn(
+                  label: Text("Question Text"),
+                  // onSort: (columnIndex, ascending) {
+                  //   dtsSource.sort<String>(
+                  //       getField: (d) => d.dueDate.toString(),
+                  //       ascending: _sortAscending);
+                  //   setState(() {
+                  //     _sortColumnIndex = columnIndex;
+                  //     _sortAscending = !_sortAscending;
+                  //   });
+                  // },
+                ),
+                CustomDataColumn(
+                  label: Text("Aligned (Y/N)"),
+                  // onSort: (columnIndex, ascending) {
+                  //   dtsSource.sort<String>(
+                  //       getField: (d) => d.clientMeetingDate.toString(),
+                  //       ascending: _sortAscending);
+                  //   setState(() {
+                  //     _sortColumnIndex = columnIndex;
+                  //     _sortAscending = !_sortAscending;
+                  //   });
+                  // },
+                )
               ],
             ),
             Container(height: 150),
@@ -111,29 +113,31 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
   }
 }
 
-class DTS extends DataTableSource {
+class DTS extends CustomDataTableSource {
   final TBRinProgress data;
 
   DTS(this.data);
 
   @override
-  DataRow getRow(int index) {
+  CustomDataRow getRow(int index) {
+    final String id = data.allQuestions[index].id;
     print(data);
     // print(data[index]);
     print(index);
     if (index < data.allQuestions.length) {
-      return DataRow(cells: [
-        DataCell(Text('${data.allQuestions[index]}')),
-        // DataCell(Text('${data[index].technician}')),
-        // DataCell(Text('${data[index].dueDate}')),
-        // DataCell(Text('${data[index].clientMeetingDate}')),
+      return CustomDataRow(cells: [
+        CustomDataCell(Text(data.allQuestions[index].questionName)),
+        CustomDataCell(Text(data.allQuestions[index].questionPriority)),
+        CustomDataCell(Text(data.allQuestions[index].questionText)),
+        CustomDataCell(getAlignment(
+            data.answers[id], data.allQuestions[index].goodBadAnswer)),
       ]);
     } else {
-      return const DataRow(cells: [
-        DataCell(Text(Strings.placeHolder)),
-        // DataCell(Text(Strings.placeHolder)),
-        // DataCell(Text(Strings.placeHolder)),
-        // DataCell(Text(Strings.placeHolder)),
+      return const CustomDataRow(cells: [
+        CustomDataCell(Text(Strings.placeHolder)),
+        CustomDataCell(Text(Strings.placeHolder)),
+        CustomDataCell(Text(Strings.placeHolder)),
+        CustomDataCell(Text(Strings.placeHolder)),
       ]);
     }
   }
@@ -161,4 +165,17 @@ class DTS extends DataTableSource {
 
   @override
   int get selectedRowCount => 0;
+}
+
+Widget getAlignment(List<bool> answerArray, String expected) {
+  print(answerArray);
+  print(expected);
+  if (!answerArray.contains(true)) {
+    return Text('');
+  }
+  if (answerArray[1] == true && expected == 'N = Bad') {
+    return Container(width: 50, color: Colors.red, child: Text('N'));
+  } else {
+    return Container(width: 50, color: Colors.green, child: Text('Y'));
+  }
 }
