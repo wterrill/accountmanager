@@ -669,16 +669,14 @@ class CustomDataTable extends StatelessWidget {
   }) {
     Color colorCell = Colors.transparent;
     print(label);
-    if (label.toString() == "Text(\"Y\"") {
+    if (label.toString().contains('0xff4caf50')) {
       colorCell = Colors.blue;
       print(colorCell);
     }
-    if (label.toString() == "Text(\"y\"") {
-      colorCell = Colors.green;
+    if (label.toString().contains('0xfff44336')) {
+      colorCell = const Color(0x55f44336);
       print(colorCell);
     }
-    print(label.toStringShort());
-    print(label.toStringDeep());
 
     final bool isLightTheme = Theme.of(context).brightness == Brightness.light;
     if (showEditIcon) {
