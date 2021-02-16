@@ -1,4 +1,5 @@
 import 'package:accountmanager/app/home/models/assignedTbr.dart';
+import 'package:accountmanager/app/home/models/question.dart';
 import 'package:accountmanager/app/home/models/tbr.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/constants/strings.dart';
@@ -42,6 +43,7 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
     return Column(
       children: [
         CustomPaginatedDataTable(
+          headingRowColor: Colors.blue,
           header: Text(Strings.tbrStrings.assignTbr),
           source: dtsSource,
           rowsPerPage: _rowsPerPage,
@@ -54,16 +56,26 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
           },
           columns: [
             CustomDataColumn(
+              label: Text('Category'),
+              onSort: (columnIndex, ascending) {
+                dtsSource.sort<String>(
+                    getField: (d) => d.category, ascending: _sortAscending);
+                setState(() {
+                  _sortColumnIndex = columnIndex;
+                  _sortAscending = !_sortAscending;
+                });
+              },
+            ),
+            CustomDataColumn(
               label: Text('Name'),
-              // onSort: (columnIndex, ascending) {
-              //   dtsSource.sort<String>(
-              //       getField: (d) => d.company.name,
-              //       ascending: _sortAscending);
-              //   setState(() {
-              //     _sortColumnIndex = columnIndex;
-              //     _sortAscending = !_sortAscending;
-              //   });
-              // },
+              onSort: (columnIndex, ascending) {
+                dtsSource.sort<String>(
+                    getField: (d) => d.questionName, ascending: _sortAscending);
+                setState(() {
+                  _sortColumnIndex = columnIndex;
+                  _sortAscending = !_sortAscending;
+                });
+              },
             ),
             CustomDataColumn(
               label: Text("Priority"),
@@ -111,8 +123,11 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
 
 class DTS extends CustomDataTableSource {
   final TBRinProgress data;
+  List<Question> questions;
 
-  DTS(this.data);
+  DTS(this.data) {
+    questions = data.allQuestions;
+  }
 
   @override
   CustomDataRow getRow(int index) {
@@ -122,6 +137,7 @@ class DTS extends CustomDataTableSource {
     print(index);
     if (index < data.allQuestions.length) {
       return CustomDataRow(cells: [
+        CustomDataCell(Text(data.allQuestions[index].category)),
         CustomDataCell(Text(data.allQuestions[index].questionName)),
         CustomDataCell(Text(data.allQuestions[index].questionPriority)),
         CustomDataCell(Text(data.allQuestions[index].questionText)),
@@ -134,24 +150,24 @@ class DTS extends CustomDataTableSource {
         CustomDataCell(Text(Strings.placeHolder)),
         CustomDataCell(Text(Strings.placeHolder)),
         CustomDataCell(Text(Strings.placeHolder)),
+        CustomDataCell(Text(Strings.placeHolder)),
       ]);
     }
   }
 
-  // void sort<T>(
-  //     {Comparable<T> Function(TBRinProgress d) getField, bool ascending}) {
-  //   data.sort((a, b) {
-  //     if (!ascending) {
-  //       final AssignedTBR c = a;
-  //       a = b;
-  //       b = c;
-  //     }
-  //     final Comparable<T> aValue = getField(a);
-  //     final Comparable<T> bValue = getField(b);
-  //     return Comparable.compare(aValue, bValue);
-  //   });
-  //   // notifyListeners();
-  // }
+  void sort<T>({Comparable<T> Function(Question d) getField, bool ascending}) {
+    questions.sort((a, b) {
+      if (!ascending) {
+        final Question c = a;
+        a = b;
+        b = c;
+      }
+      final Comparable<T> aValue = getField(a);
+      final Comparable<T> bValue = getField(b);
+      return Comparable.compare(aValue, bValue);
+    });
+    // notifyListeners();
+  }
 
   @override
   bool get isRowCountApproximate => false;

@@ -31,9 +31,9 @@ class OverviewPage extends StatelessWidget {
                 flex: 1,
                 child: Center(
                   child: FractionallySizedBox(
-                    widthFactor: 0.6,
+                    widthFactor: 0.4,
                     child: Text(
-                      'In order to use the development overivew page (...um...this one), first go to the App page, and fill out a TBR questionnaire. (it doesn\'t have to be done in it\'s entirety)\n\nThen, come back to this page to see the results.  This is only done for speed of development.  The final version will have the user select from a list of completed TBRs, that would then show the overview in its entirety for that specific TBR.',
+                      'In order to use the development overivew page (...um...this one), first go to the App page, and fill out a TBR questionnaire. (it doesn\'t have to be done in its entirety)\n\nThen, come back to this page to see the results.  This is only done for speed of development.  The final version will have the user select from a list of completed TBRs, that would then show the overview in its entirety for that specific TBR.',
                       style: TextStyle(fontSize: 17),
                     ),
                   ),
