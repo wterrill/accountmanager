@@ -4,19 +4,33 @@ const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
   "version.json": "6a0efda2f847da7d4065d1d04d53434b",
-"index.html": "4fc2208f91714d5ee25fbf894e3a71f9",
-"/": "4fc2208f91714d5ee25fbf894e3a71f9",
-"main.dart.js": "9814be5868bf4f016ee859c1dd7c632f",
+"index.html": "fabdbd9dbb276a7aefcc425fce4aa9f3",
+"/": "fabdbd9dbb276a7aefcc425fce4aa9f3",
+"main.dart.js": "1d53abcab43a4c0f0d6992dcb12d4a21",
 "favicon.png": "99733c2381f7c6d7ba95874b3cfb63ba",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "manifest.json": "1e6b01631d3dfd21795fadc73e4d3d64",
-"assets/AssetManifest.json": "ced7937ee91c84a6dcee149d1b117189",
-"assets/NOTICES": "29da0c28f33903810c1cedd749afcca2",
+"assets/AssetManifest.json": "e692c03f3f3f846a19ddfe32e2d719d2",
+"assets/NOTICES": "4b4a45eb5bb6bef6233b7edafb3792ba",
 "assets/FontManifest.json": "dc3d03800ccca4601324923c0b1d6d57",
 "assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "6d342eb68f170c97609e9da345464e5e",
 "assets/fonts/MaterialIcons-Regular.otf": "1288c9e28052e028aba623321f7826ac",
-"assets/assets/time-tracking.svg": "bb613fe94e5e61266a5015fbb725557e",
+"assets/assets/images/time-tracking.svg": "bb613fe94e5e61266a5015fbb725557e",
+"assets/assets/images/GCFD_Logo.png": "c6d8aaab6dc03cd052b4de51848bae80",
+"assets/assets/images/gcfdIcon.png": "34264cc903e1e50d051e3bf1f2c92292",
+"assets/assets/images/3dDownArrow.gif": "b8bd4c6af82cbf671cf8a0a64b8c2f9d",
+"assets/assets/images/beer.png": "34264cc903e1e50d051e3bf1f2c92292",
+"assets/assets/images/GCFD_Logo_vertical.png": "4b58e364c5a787f057b7aade43a128be",
+"assets/assets/images/vertical-logo.png": "e186bd98b44505a9c9500d77607d07ce",
+"assets/assets/images/gcfdIcon2.png": "3b9ad480c71e5e97d450070444eb8730",
+"assets/assets/images/OLD_GCFD_Logo.png": "668700bd8ff69a747b51c49acaf61f26",
+"assets/assets/images/OLD_GCFD_Logo.jpg": "5bb2381c1612dd76e0e77ef1047f8990",
+"assets/assets/images/location.jpg": "3616d2888fe269351cb1a621596a3501",
+"assets/assets/images/CMRI_sign.png": "e0518cd67be0caf343f8c2250a851687",
+"assets/assets/images/OLD_CMRI_top.png": "31d09736af4df23365908f17025f9b6f",
+"assets/assets/images/footer-logo.png": "a54482a62d0a07dc114fd057d12034f2",
+"assets/assets/images/CMRI_top.png": "3289223de011a20f25440e2addb39d65",
 "assets/assets/docx/template.docx": "1ef36c8eb5ae78c4752b92bbbcd883d3"
 };
 
@@ -35,7 +49,7 @@ self.addEventListener("install", (event) => {
   return event.waitUntil(
     caches.open(TEMP).then((cache) => {
       return cache.addAll(
-        CORE.map((value) => new Request(value + '?revision=' + RESOURCES[value], {'cache': 'reload'})));
+        CORE.map((value) => new Request(value, {'cache': 'reload'})));
     })
   );
 });

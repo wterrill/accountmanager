@@ -39,76 +39,72 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
   }
 
   Widget _datatable(DTS dtsSource) {
-    return Flexible(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            CustomPaginatedDataTable(
-              header: Text(Strings.tbrStrings.assignTbr),
-              source: dtsSource,
-              rowsPerPage: _rowsPerPage,
-              sortColumnIndex: _sortColumnIndex,
-              sortAscending: _sortAscending,
-              onRowsPerPageChanged: (rows) {
-                setState(() {
-                  _rowsPerPage = rows;
-                });
-              },
-              columns: [
-                CustomDataColumn(
-                  label: Text('Name'),
-                  // onSort: (columnIndex, ascending) {
-                  //   dtsSource.sort<String>(
-                  //       getField: (d) => d.company.name,
-                  //       ascending: _sortAscending);
-                  //   setState(() {
-                  //     _sortColumnIndex = columnIndex;
-                  //     _sortAscending = !_sortAscending;
-                  //   });
-                  // },
-                ),
-                CustomDataColumn(
-                  label: Text("Priority"),
-                  // onSort: (columnIndex, ascending) {
-                  //   dtsSource.sort<String>(
-                  //       getField: (d) => d.technician.name,
-                  //       ascending: _sortAscending);
-                  //   setState(() {
-                  //     _sortColumnIndex = columnIndex;
-                  //     _sortAscending = !_sortAscending;
-                  //   });
-                  // },
-                ),
-                CustomDataColumn(
-                  label: Text("Question Text"),
-                  // onSort: (columnIndex, ascending) {
-                  //   dtsSource.sort<String>(
-                  //       getField: (d) => d.dueDate.toString(),
-                  //       ascending: _sortAscending);
-                  //   setState(() {
-                  //     _sortColumnIndex = columnIndex;
-                  //     _sortAscending = !_sortAscending;
-                  //   });
-                  // },
-                ),
-                CustomDataColumn(
-                  label: Text("Aligned (Y/N)"),
-                  // onSort: (columnIndex, ascending) {
-                  //   dtsSource.sort<String>(
-                  //       getField: (d) => d.clientMeetingDate.toString(),
-                  //       ascending: _sortAscending);
-                  //   setState(() {
-                  //     _sortColumnIndex = columnIndex;
-                  //     _sortAscending = !_sortAscending;
-                  //   });
-                  // },
-                )
-              ],
+    return Column(
+      children: [
+        CustomPaginatedDataTable(
+          header: Text(Strings.tbrStrings.assignTbr),
+          source: dtsSource,
+          rowsPerPage: _rowsPerPage,
+          sortColumnIndex: _sortColumnIndex,
+          sortAscending: _sortAscending,
+          onRowsPerPageChanged: (rows) {
+            setState(() {
+              _rowsPerPage = rows;
+            });
+          },
+          columns: [
+            CustomDataColumn(
+              label: Text('Name'),
+              // onSort: (columnIndex, ascending) {
+              //   dtsSource.sort<String>(
+              //       getField: (d) => d.company.name,
+              //       ascending: _sortAscending);
+              //   setState(() {
+              //     _sortColumnIndex = columnIndex;
+              //     _sortAscending = !_sortAscending;
+              //   });
+              // },
             ),
-            Container(height: 150),
+            CustomDataColumn(
+              label: Text("Priority"),
+              // onSort: (columnIndex, ascending) {
+              //   dtsSource.sort<String>(
+              //       getField: (d) => d.technician.name,
+              //       ascending: _sortAscending);
+              //   setState(() {
+              //     _sortColumnIndex = columnIndex;
+              //     _sortAscending = !_sortAscending;
+              //   });
+              // },
+            ),
+            CustomDataColumn(
+              label: Text("Question Text"),
+              // onSort: (columnIndex, ascending) {
+              //   dtsSource.sort<String>(
+              //       getField: (d) => d.dueDate.toString(),
+              //       ascending: _sortAscending);
+              //   setState(() {
+              //     _sortColumnIndex = columnIndex;
+              //     _sortAscending = !_sortAscending;
+              //   });
+              // },
+            ),
+            CustomDataColumn(
+              label: Text("Aligned (Y/N)"),
+              // onSort: (columnIndex, ascending) {
+              //   dtsSource.sort<String>(
+              //       getField: (d) => d.clientMeetingDate.toString(),
+              //       ascending: _sortAscending);
+              //   setState(() {
+              //     _sortColumnIndex = columnIndex;
+              //     _sortAscending = !_sortAscending;
+              //   });
+              // },
+            )
           ],
         ),
-      ),
+        Container(height: 150),
+      ],
     );
   }
 }
@@ -174,8 +170,13 @@ Widget getAlignment(List<bool> answerArray, String expected) {
     return Text('');
   }
   if (answerArray[1] == true && expected == 'N = Bad') {
-    return Container(width: 50, color: Colors.red, child: Text('N'));
+    return Container(
+        width: 50, color: Color(0x55f44336), child: Center(child: Text('N')));
+  } else if (answerArray[2] == true) {
+    return Container(
+        width: 50, color: Color(0x559e9e9e), child: Center(child: Text('N/A')));
   } else {
-    return Container(width: 50, color: Colors.green, child: Text('Y'));
+    return Container(
+        width: 50, color: Color(0x554caf50), child: Center(child: Text('Y')));
   }
 }

@@ -31,7 +31,7 @@ class OnboardingPage extends StatelessWidget {
                 heightFactor: 0.9,
                 // child: PlatformSvg.asset('assets/time-tracking.svg')
                 // child: Image.network('/assets/time-tracking.svg')
-                child: SvgPicture.asset('assets/time-tracking.svg',
+                child: SvgPicture.asset('assets/images/time-tracking.svg',
                     semanticsLabel: 'Time tracking logo'),
               ),
             ),

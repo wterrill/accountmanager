@@ -57,12 +57,10 @@ class UploadButton extends StatelessWidget {
     return TextButton(
       style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all<Color>(Colors.green)),
-      // style: TextButton.styleFrom(backgroundColor: Colors.red),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Text(Strings.companyStrings.addCompany),
       ),
-
       onPressed: () {
         print('pressed');
         _submit(context);

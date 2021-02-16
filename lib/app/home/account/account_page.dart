@@ -75,6 +75,12 @@ class AccountPage extends StatelessWidget {
           child: _buildUserInfo(user),
         ),
       ),
+      body: Image.asset(
+        'assets/images/3dDownArrow.gif',
+        // 'assets/images/beer.png',
+        height: 125.0,
+        width: 125.0,
+      ),
     );
   }
 

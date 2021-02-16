@@ -51,7 +51,7 @@ class OverviewPage extends StatelessWidget {
                     Expanded(
                       flex: 1,
                       child: Image.asset(
-                        'images/3dDownArrow.gif',
+                        'assets/images/3dDownArrow.gif',
                         height: 125.0,
                         width: 125.0,
                       ),
@@ -65,7 +65,7 @@ class OverviewPage extends StatelessWidget {
         ),
       );
     } else {
-      return const Flexible(
+      return Container(
         child: SingleChildScrollView(
           child: OverviewPaginatedTable(),
         ),

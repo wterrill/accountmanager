@@ -1,12 +1,12 @@
 const Map<String,String> version = 
 {
-  'frameworkVersion': '1.26.0-18.0.pre.213',
+  'frameworkVersion': '1.27.0-2.0.pre.102',
   'channel': 'master',
   'repositoryUrl': 'https://github.com/flutter/flutter.git',
-  'frameworkRevision': '021311ed8a2c182d3237330e5d8ae4c4937b3d76',
-  'frameworkCommitDate': '2021-02-08 09:21:46 -0800',
-  'engineRevision': 'b04955656c87de0d80d259792e3a0e4a23b7c260',
-  'dartSdkVersion': '2.13.0 (build 2.13.0-0.0.dev)',
+  'frameworkRevision': 'b2e05062b6d1d73024bbd42bf974509f9ddfb383',
+  'frameworkCommitDate': '2021-02-15 03:56:03 -0500',
+  'engineRevision': '1d537824d6d29bf9967172d32450ef0671097cef',
+  'dartSdkVersion': '2.13.0 (build 2.13.0-30.0.dev)',
   'flutterRoot': '/Users/williamterrill/git/flutter/flutter'
 }
 ;
