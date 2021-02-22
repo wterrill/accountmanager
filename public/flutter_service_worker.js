@@ -4,18 +4,20 @@ const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
   "version.json": "6a0efda2f847da7d4065d1d04d53434b",
-"index.html": "d70d0ee398c0ec76fcc8e6d0120cbf34",
-"/": "d70d0ee398c0ec76fcc8e6d0120cbf34",
-"main.dart.js": "97030aa6640207761ae387b6a9299bbc",
+"index.html": "1a46ae4ebde6737c6fc67d1a85679be6",
+"/": "1a46ae4ebde6737c6fc67d1a85679be6",
+"main.dart.js": "db2ce24408669eca697d5dd7b76d8ca6",
 "favicon.png": "99733c2381f7c6d7ba95874b3cfb63ba",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "manifest.json": "1e6b01631d3dfd21795fadc73e4d3d64",
-"assets/AssetManifest.json": "e692c03f3f3f846a19ddfe32e2d719d2",
-"assets/NOTICES": "4b4a45eb5bb6bef6233b7edafb3792ba",
+"assets/AssetManifest.json": "0487ef7546d81b17a0943e6aa7ea8148",
+"assets/NOTICES": "14d7e24259ee71f024068c1cd8778d46",
 "assets/FontManifest.json": "dc3d03800ccca4601324923c0b1d6d57",
 "assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "6d342eb68f170c97609e9da345464e5e",
 "assets/fonts/MaterialIcons-Regular.otf": "1288c9e28052e028aba623321f7826ac",
+"assets/assets/images/MXOTechAccountManager.jpg": "a81ab4025e3fdb3baa452361b78949b1",
+"assets/assets/images/MXOTechAccountManager.png": "03b555ba85c98a8241c04866643c9a0f",
 "assets/assets/images/time-tracking.svg": "bb613fe94e5e61266a5015fbb725557e",
 "assets/assets/images/GCFD_Logo.png": "c6d8aaab6dc03cd052b4de51848bae80",
 "assets/assets/images/gcfdIcon.png": "34264cc903e1e50d051e3bf1f2c92292",
@@ -26,6 +28,7 @@ const RESOURCES = {
 "assets/assets/images/gcfdIcon2.png": "3b9ad480c71e5e97d450070444eb8730",
 "assets/assets/images/OLD_GCFD_Logo.png": "668700bd8ff69a747b51c49acaf61f26",
 "assets/assets/images/OLD_GCFD_Logo.jpg": "5bb2381c1612dd76e0e77ef1047f8990",
+"assets/assets/images/avatar.png": "c005e9b2f02efa0c44cc16cb8c6151a6",
 "assets/assets/images/location.jpg": "3616d2888fe269351cb1a621596a3501",
 "assets/assets/images/CMRI_sign.png": "e0518cd67be0caf343f8c2250a851687",
 "assets/assets/images/OLD_CMRI_top.png": "31d09736af4df23365908f17025f9b6f",
@@ -49,7 +52,7 @@ self.addEventListener("install", (event) => {
   return event.waitUntil(
     caches.open(TEMP).then((cache) => {
       return cache.addAll(
-        CORE.map((value) => new Request(value, {'cache': 'reload'})));
+        CORE.map((value) => new Request(value + '?revision=' + RESOURCES[value], {'cache': 'reload'})));
     })
   );
 });

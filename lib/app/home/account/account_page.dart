@@ -48,7 +48,7 @@ class AccountPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text(Strings.accountPage),
         actions: <Widget>[
-          FlatButton(
+          TextButton(
             key: const Key(Keys.logout),
             child: const Text(
               Strings.logout,
@@ -59,7 +59,8 @@ class AccountPage extends StatelessWidget {
             ),
             onPressed: () => _confirmSignOut(context, firebaseAuth),
           ),
-          FlatButton(
+          const SizedBox(width: 100),
+          TextButton(
             child: const Text(
               'Version',
               style: TextStyle(

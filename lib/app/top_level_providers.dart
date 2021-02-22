@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 import 'package:accountmanager/services/firestore_database.dart';
+import 'package:flutter/material.dart';
 
 // There are four top-level providers:
 // firebase auth -> This becomes a streamProvider
@@ -14,11 +15,26 @@ import 'package:accountmanager/services/firestore_database.dart';
 //   return TBRinProgress();
 // });
 
-final tbrInProgressProvider = Provider<TBRinProgress>((ref) {
+final tbrInProgressProvider = Provider((ref) {
   print('beer');
   TBRinProgress tbRinProgress = TBRinProgress();
   return tbRinProgress;
 });
+
+final widgetProvider = StateProvider<Widget>((ref) {
+  // WidgetProvider providedWidget =
+  return const Text('initialWidget');
+  // return providedWidget;
+});
+
+// class WidgetProvider {
+//   Widget widget;
+//   WidgetProvider({this.widget});
+
+//   void updateWidget({Widget widget}) {
+//     this.widget = widget;
+//   }
+// }
 
 final firebaseAuthProvider = Provider<FirebaseAuth>((ref) {
   return FirebaseAuth.instance;
