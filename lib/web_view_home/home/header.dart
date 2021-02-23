@@ -16,13 +16,16 @@ class _HeaderState extends State<Header> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            width: 500,
-            height: 150,
-            child: FittedBox(
-              fit: BoxFit.fitWidth,
-              child: Image.asset(
-                'assets/images/MXOTechAccountManager.png',
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Container(
+              width: 500,
+              height: 150,
+              child: FittedBox(
+                fit: BoxFit.fitWidth,
+                child: Image.asset(
+                  'assets/images/acct_manager_white.gif',
+                ),
               ),
             ),
           ),

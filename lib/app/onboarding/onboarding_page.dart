@@ -21,7 +21,7 @@ class OnboardingPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              'MXOTech Account Manager.\nManage Well, Manage Quickly.',
+              'MXOtech Account Manager.\nManage Well, Manage Quickly.',
               style: Theme.of(context).textTheme.headline4,
               textAlign: TextAlign.center,
             ),

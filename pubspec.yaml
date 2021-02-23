@@ -42,6 +42,7 @@ dependencies:
   integration_test: ^1.0.0
   animations: ^1.1.2
   super_tooltip: ^0.9.6
+  font_awesome_flutter: ^8.11.0
 
 dev_dependencies:
   flutter_driver:

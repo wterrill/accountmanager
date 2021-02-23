@@ -36,7 +36,7 @@ class SignInPage extends ConsumerWidget {
       },
       child: SignInPageContents(
         viewModel: signInModel,
-        title: 'MXOTech Account Manager Application',
+        title: 'MXOtech Account Manager Application',
       ),
     );
   }
@@ -46,7 +46,7 @@ class SignInPageContents extends StatelessWidget {
   const SignInPageContents(
       {Key key,
       this.viewModel,
-      this.title = 'MXOTech Account Manager Application'})
+      this.title = 'MXOtech Account Manager Application'})
       : super(key: key);
   final SignInViewModel viewModel;
   final String title;
