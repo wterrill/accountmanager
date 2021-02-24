@@ -264,7 +264,7 @@ class SidebarButton extends ConsumerWidget {
             if (states.contains(MaterialState.pressed)) {
               finalColor = const Color(0xFF29588F);
             }
-            return selected ? Colors.white.withAlpha(55) : finalColor;
+            return selected ? Colors.white.withAlpha(22) : finalColor;
             // return finalColor;
           }),
           shadowColor: MaterialStateProperty.resolveWith<Color>(
