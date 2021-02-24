@@ -22,19 +22,8 @@ final tbrInProgressProvider = Provider((ref) {
 });
 
 final widgetProvider = StateProvider<Widget>((ref) {
-  // WidgetProvider providedWidget =
   return const Text('initialWidget');
-  // return providedWidget;
 });
-
-// class WidgetProvider {
-//   Widget widget;
-//   WidgetProvider({this.widget});
-
-//   void updateWidget({Widget widget}) {
-//     this.widget = widget;
-//   }
-// }
 
 final firebaseAuthProvider = Provider<FirebaseAuth>((ref) {
   return FirebaseAuth.instance;

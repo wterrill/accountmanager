@@ -48,14 +48,14 @@ class OverviewPage extends StatelessWidget {
                       flex: 4,
                       child: Text(''),
                     ),
-                    Expanded(
-                      flex: 1,
-                      child: Image.asset(
-                        'assets/images/3dDownArrow.gif',
-                        height: 125.0,
-                        width: 125.0,
-                      ),
-                    ),
+                    // Expanded(
+                    //   flex: 1,
+                    //   child: Image.asset(
+                    //     'assets/images/3dDownArrow.gif',
+                    //     height: 125.0,
+                    //     width: 125.0,
+                    //   ),
+                    // ),
                     Expanded(flex: 2, child: Text('')),
                   ],
                 ),

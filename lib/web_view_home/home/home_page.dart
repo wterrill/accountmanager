@@ -24,7 +24,10 @@ class WebViewHomePage extends ConsumerWidget {
             Expanded(
               child: Row(
                 children: [
-                  Container(color: Colors.blue, width: 200, child: Sidebar()),
+                  Container(
+                      // color: Colors.blue,
+                      width: 200,
+                      child: const Sidebar()),
                   incomingWidget,
                 ],
               ),

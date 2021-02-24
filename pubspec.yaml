@@ -74,6 +74,7 @@ flutter:
     - assets/docx/template.docx
     # - assets/time-tracking.svg
     - assets/images/
+    - assets/icon/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see
@@ -97,3 +98,8 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+  fonts:
+    - family:  MyFlutterApp
+      fonts:
+       - asset: assets/fonts/MyFlutterApp.ttf
