@@ -99,7 +99,7 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 
-  fonts:
-    - family:  MyFlutterApp
-      fonts:
-       - asset: assets/fonts/MyFlutterApp.ttf
+  # fonts:
+  #   - family:  MyFlutterApp
+  #     fonts:
+  #      - asset: assets/fonts/MyFlutterApp.ttf

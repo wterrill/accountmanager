@@ -1,5 +1,5 @@
 import 'package:accountmanager/app/top_level_providers.dart';
-import 'package:accountmanager/web_view_home/home/sidebar.dart';
+import 'package:accountmanager/web_view_home/home/sidebar/sidebar.dart';
 import 'package:flutter/material.dart';
 import 'package:accountmanager/app/home/tab_item.dart';
 import 'package:hooks_riverpod/all.dart';
