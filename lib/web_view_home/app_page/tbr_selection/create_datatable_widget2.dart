@@ -1,18 +1,13 @@
-import 'package:accountmanager/app/home/app_page/tbr/tbr_entry.dart';
-import 'package:accountmanager/app/top_level_providers.dart';
-import 'package:accountmanager/constants/strings.dart';
-import 'package:accountmanager/routing/app_router.dart';
+import 'package:accountmanager/web_view_home/home/sidebar/sidebar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:intl/intl.dart';
-import 'package:pedantic/pedantic.dart';
 
-// import 'package:accountmanager/app/home/assign_TBR/widget_assign_TBR2.dart';
 import 'package:accountmanager/app/home/models/assignedTbr.dart';
+import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/common_widgets/empty_content.dart';
-import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
-
-// typedef ItemWidgetBuilder<T> = Widget Function(BuildContext context, T item);
+import 'package:accountmanager/constants/strings.dart';
+import 'package:accountmanager/web_view_home/app_page/tbr/tbr_app_page.dart';
 
 final assignedTbrStreamProvider =
     StreamProvider.autoDispose<List<AssignedTBR>>((ref) {
@@ -21,16 +16,24 @@ final assignedTbrStreamProvider =
 });
 
 class CreateSelectDataTableWidget extends ConsumerWidget {
+  final bool mobile;
+
+  CreateSelectDataTableWidget({@required this.mobile});
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final assignedTbrAsyncValue = watch(assignedTbrStreamProvider);
-    return DataTableBuilder(data: assignedTbrAsyncValue);
+    return DataTableBuilder(data: assignedTbrAsyncValue, mobile: mobile);
   }
 }
 
 class DataTableBuilder extends StatefulWidget {
-  const DataTableBuilder({Key key, @required this.data}) : super(key: key);
+  const DataTableBuilder({
+    Key key,
+    this.data,
+    @required this.mobile,
+  }) : super(key: key);
   final AsyncValue<List<AssignedTBR>> data;
+  final bool mobile;
 
   @override
   _DataTableBuilderState createState() => _DataTableBuilderState();
@@ -51,7 +54,8 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
   Widget build(BuildContext context) {
     return widget.data.when(
       data: (items) => items.isNotEmpty
-          ? _datatable(DTS(items, context))
+          ? _datatable(
+              DTS(data: items, context: context, mobile: widget.mobile))
           : const EmptyContent(),
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (_, __) => const EmptyContent(
@@ -176,11 +180,9 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
 class DTS extends DataTableSource {
   final List<AssignedTBR> data;
   final BuildContext context;
+  final bool mobile;
 
-  DTS(
-    this.data,
-    this.context,
-  );
+  DTS({this.data, this.context, this.mobile});
 
   @override
   DataRow getRow(int index) {
@@ -190,7 +192,7 @@ class DTS extends DataTableSource {
     if (index < data.length) {
       return DataRow(
           onSelectChanged: (_) {
-            _displayDialog(context, data[index]);
+            _displayDialog(context: context, data: data[index], mobile: mobile);
           },
           cells: [
             // ignore: unnecessary_string_interpolations
@@ -242,50 +244,19 @@ class DTS extends DataTableSource {
   int get selectedRowCount => 0;
 }
 
-Future<void> _displayDialog(BuildContext context, AssignedTBR data) async {
+Future<void> _displayDialog(
+    {BuildContext context, AssignedTBR data, bool mobile}) async {
+  Widget frame =
+      Container(color: Colors.brown[150], child: TBRappPage(data: data));
+  if (mobile) {
+    frame = Expanded(
+      child: Center(child: addMobileFrame(frame)
+          // child: Container(height: 700, width: 400, child: frame),
+          ),
+    );
+  } else {
+    frame = Expanded(child: Center(child: frame));
+  }
   print('_displayDialog => $data');
-
-// This gets rid of tabs
-  // await Navigator.of(context, rootNavigator: true).pushNamed(
-  //   AppRoutes.tbrPage,
-  //   arguments: {
-  //     'data': data,
-  //   },
-  // );
-
-  // this keeps the tab bar
-  await Navigator.of(context).push<TBREntry>(
-      MaterialPageRoute(builder: (context) => TBREntry(data: data)));
-
-// this keeps the tab bar
-  // await Navigator.of(context).pushAndRemoveUntil<TBREntry>(
-  //   MaterialPageRoute(builder: (context) => TBREntry(data: data)),
-  //   ModalRoute.withName('/'),
-  // );
-
-  // await Navigator.of(context).pushAndRemoveUntil<TBREntry>(
-  //     MaterialPageRoute(builder: (context) => TBREntry(data: data)),
-  //     (Route<dynamic> route) => false);
-
-  // Navigator.of(context).pushNamed('/tbrPage');
-
-  // try {
-  //   final Map<String, dynamic> result = await showWidgetDialog(
-  //     context: context,
-  //     title: 'Assign TBR',
-  //     widget:
-  //     // defaultActionText: '',
-  //     // cancelActionText: '',
-  //   );
-
-  //   if (result != null && (result['result']) == 'true') {
-  //     // print('result = $result');
-  //   }
-  // } catch (e) {
-  //   unawaited(showExceptionAlertDialog(
-  //     context: context,
-  //     title: 'Operation failed',
-  //     exception: e,
-  //   ));
-  // }
+  context.read(widgetProvider).state = frame;
 }

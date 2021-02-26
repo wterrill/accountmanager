@@ -120,20 +120,20 @@ class SignInPageContents extends StatelessWidget {
                 color: Theme.of(context).primaryColor,
               ),
               const SizedBox(height: 8),
-              const Text(
-                Strings.or,
-                style: TextStyle(fontSize: 14.0, color: Colors.black87),
-                textAlign: TextAlign.center,
-              ),
+              // const Text(
+              //   Strings.or,
+              //   style: TextStyle(fontSize: 14.0, color: Colors.black87),
+              //   textAlign: TextAlign.center,
+              // ),
               const SizedBox(height: 8),
-              SignInButton(
-                key: anonymousButtonKey,
-                text: Strings.goAnonymous,
-                color: Theme.of(context).primaryColor,
-                textColor: Colors.white,
-                onPressed:
-                    viewModel.isLoading ? null : viewModel.signInAnonymously,
-              ),
+              // SignInButton(
+              //   key: anonymousButtonKey,
+              //   text: Strings.goAnonymous,
+              //   color: Theme.of(context).primaryColor,
+              //   textColor: Colors.white,
+              //   onPressed:
+              //       viewModel.isLoading ? null : viewModel.signInAnonymously,
+              // ),
             ],
           ),
         );

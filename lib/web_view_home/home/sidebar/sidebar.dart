@@ -1,3 +1,5 @@
+import 'package:accountmanager/web_view_home/app_page/tbr_selection/start_tbr.dart';
+import 'package:accountmanager/web_view_home/home/developer/developer_page.dart';
 import 'package:accountmanager/web_view_home/home/sidebar/custom_background.dart';
 import 'package:accountmanager/web_view_home/home/sidebar/sidebar_button.dart';
 import 'package:flutter/material.dart';
@@ -134,16 +136,6 @@ class Sidebar extends ConsumerWidget {
               ),
               SidebarButton(
                 lastText: lastText,
-                text: 'App Page',
-                faIcon: FontAwesomeIcons.mobileAlt,
-                onPressedx: () {
-                  context.read(widgetProvider).state = Expanded(
-                      child: Container(
-                          color: Colors.purple[50], child: const TBRappPage()));
-                },
-              ),
-              SidebarButton(
-                lastText: lastText,
                 text: 'Edit Questions',
                 faIcon: FontAwesomeIcons.edit,
                 onPressedx: () {
@@ -162,16 +154,77 @@ class Sidebar extends ConsumerWidget {
                           color: Colors.brown[150], child: AccountWebPage()));
                 },
               ),
+              SidebarButton(
+                lastText: lastText,
+                text: 'App Page - Web',
+                // faIcon: FontAwesomeIcons.web,
+                imageIcon: const Icon(Icons.web, color: Colors.white),
+                onPressedx: () {
+                  context.read(widgetProvider).state = Expanded(
+                      child: Container(
+                          color: Colors.purple[50],
+                          child: const SelectTBRPage(mobile: false)));
+                },
+              ),
+              SidebarButton(
+                lastText: lastText,
+                text: 'App Page - Mobile',
+                faIcon: FontAwesomeIcons.mobileAlt,
+                onPressedx: () {
+                  context.read(widgetProvider).state = Expanded(
+                      child: Center(
+                          child: addMobileFrame(
+                              const SelectTBRPage(mobile: true))));
+                },
+              ),
               const Text(''),
               const Text(''),
               const Text(''),
-              const Text(''),
-              const Text(''),
-              const Text(''),
+              SidebarButton(
+                lastText: lastText,
+                text: 'Dev Testing',
+                faIcon: FontAwesomeIcons.atom,
+                onPressedx: () {
+                  context.read(widgetProvider).state = Expanded(
+                      child: Container(
+                          color: Colors.brown[150], child: DeveloperPage()));
+                },
+              ),
             ],
           ),
         ),
       ),
     );
   }
+}
+
+Widget addMobileFrame(Widget childWidget) {
+  const double heightbase = 790.0;
+  const double widthbase = heightbase / 1.9;
+  const double innerheight = heightbase - 30;
+  const double innerwidth = widthbase - 30;
+
+  return Stack(children: [
+    Align(
+      alignment: Alignment.center,
+      child: Container(
+          height: innerheight,
+          width: innerwidth,
+          color: Colors.purple[50],
+          child: childWidget),
+    ),
+    IgnorePointer(
+      child: Align(
+        alignment: Alignment.center,
+        child: Container(
+            width: widthbase,
+            height: heightbase,
+            // color: Colors.green,
+            child: FittedBox(
+              fit: BoxFit.fill,
+              child: Image.asset('assets/images/mobileFrame2.png'),
+            )),
+      ),
+    ),
+  ]);
 }
