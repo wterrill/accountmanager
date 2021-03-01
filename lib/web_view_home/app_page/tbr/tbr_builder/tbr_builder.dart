@@ -3,8 +3,10 @@ import 'package:accountmanager/app/home/models/tbr.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/common_widgets/custom_toggle_buttons.dart';
 import 'package:accountmanager/web_view_home/app_page/tbr/tbr_builder/super_tool_tip_widget.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'dart:math';
 
 class TBRbuilder extends StatefulWidget {
   const TBRbuilder({Key key, this.questionList}) : super(key: key);
@@ -39,6 +41,45 @@ class _TBRbuilderState extends State<TBRbuilder> {
     return Column(
       children: [
         // Section DropDown
+        Row(
+          children: [
+            TextButton(
+                child: Text('fill out all Yes'),
+                onPressed: () {
+                  for (String key in tbrInProgress.answers.keys) {
+                    tbrInProgress.answers[key] = [true, false, false];
+                  }
+                  setState(() {});
+                }),
+            TextButton(
+                child: Text('fill out all No'),
+                onPressed: () {
+                  for (String key in tbrInProgress.answers.keys) {
+                    tbrInProgress.answers[key] = [false, true, false];
+                  }
+                  setState(() {});
+                }),
+            TextButton(
+                child: Text('fill out all N/A'),
+                onPressed: () {
+                  for (String key in tbrInProgress.answers.keys) {
+                    tbrInProgress.answers[key] = [false, false, true];
+                  }
+                  setState(() {});
+                }),
+            TextButton(
+                child: Text('fill out all Random'),
+                onPressed: () {
+                  for (String key in tbrInProgress.answers.keys) {
+                    int randomNumber = Random().nextInt(3);
+                    List<bool> temp = [false, false, false];
+                    temp[randomNumber] = true;
+                    tbrInProgress.answers[key] = temp;
+                  }
+                  setState(() {});
+                }),
+          ],
+        ),
         DropdownButton(
           hint: Text(selectedSection),
           items: tbrInProgress.sections.map((value) {

@@ -72,7 +72,7 @@ class Sidebar extends ConsumerWidget {
           width: 250,
           // color: const Color(0xFF1B2E44),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -168,7 +168,7 @@ class Sidebar extends ConsumerWidget {
               ),
               SidebarButton(
                 lastText: lastText,
-                text: 'App Page - Mobile',
+                text: 'App Page: Mobile',
                 faIcon: FontAwesomeIcons.mobileAlt,
                 onPressedx: () {
                   context.read(widgetProvider).state = Expanded(
@@ -177,7 +177,17 @@ class Sidebar extends ConsumerWidget {
                               const SelectTBRPage(mobile: true))));
                 },
               ),
-              const Text(''),
+              SidebarButton(
+                lastText: lastText,
+                text: 'App Page: Tablet',
+                faIcon: FontAwesomeIcons.mobileAlt,
+                onPressedx: () {
+                  context.read(widgetProvider).state = Expanded(
+                      child: Center(
+                          child: addTabletFrame(
+                              const SelectTBRPage(mobile: true))));
+                },
+              ),
               const Text(''),
               const Text(''),
               SidebarButton(
@@ -190,6 +200,7 @@ class Sidebar extends ConsumerWidget {
                           color: Colors.brown[150], child: DeveloperPage()));
                 },
               ),
+              const Text(''),
             ],
           ),
         ),
@@ -223,6 +234,40 @@ Widget addMobileFrame(Widget childWidget) {
             child: FittedBox(
               fit: BoxFit.fill,
               child: Image.asset('assets/images/mobileFrame2.png'),
+            )),
+      ),
+    ),
+  ]);
+}
+
+Widget addTabletFrame(Widget childWidget) {
+  const double heightbase = 790.0;
+  const double widthbase = heightbase / 1.3;
+  const double innerheight = heightbase - 60;
+  const double innerwidth = widthbase - 60;
+
+  return Stack(children: [
+    Align(
+      alignment: Alignment.center,
+      child: Container(
+        height: innerheight,
+        width: innerwidth,
+        color: Colors.purple[50],
+        child: DefaultTextStyle(
+            style: const TextStyle(fontSize: 50, color: Colors.blue),
+            child: childWidget),
+      ),
+    ),
+    IgnorePointer(
+      child: Align(
+        alignment: Alignment.center,
+        child: Container(
+            width: widthbase,
+            height: heightbase,
+            // color: Colors.green,
+            child: FittedBox(
+              fit: BoxFit.fill,
+              child: Image.asset('assets/images/tabletFrame.png'),
             )),
       ),
     ),

@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 class TBRinProgress {
   List<Question> allQuestions;
   List<String> sections;
-  Map<String, List<String>> categories;
-  Map<String, List<bool>> answers;
-  Map<String, Map<String, List<Color>>> colorScheme;
-  Map<String, String> adminComment;
+  Map<String, List<String>> categories; // sections List<categories>
+  Map<String, List<bool>> answers; // question ID: 0,0,0    yes, no, n/a
+  Map<String, Map<String, List<Color>>>
+      colorScheme; //section: category: List<Colors>
+  Map<String, String> adminComment; // category:
   Map<String, String> tamNotes;
   TBRinProgress();
 

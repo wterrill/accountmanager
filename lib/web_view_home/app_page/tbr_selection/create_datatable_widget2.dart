@@ -1,4 +1,6 @@
-import 'package:accountmanager/web_view_home/home/sidebar/sidebar.dart';
+import 'package:accountmanager/common_widgets/CustomDataTable.dart';
+import 'package:accountmanager/common_widgets/CustomDataTableSource.dart';
+import 'package:accountmanager/common_widgets/CustomPaginatedDataTable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:intl/intl.dart';
@@ -8,6 +10,7 @@ import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/common_widgets/empty_content.dart';
 import 'package:accountmanager/constants/strings.dart';
 import 'package:accountmanager/web_view_home/app_page/tbr/tbr_app_page.dart';
+import 'package:accountmanager/web_view_home/home/sidebar/sidebar.dart';
 
 final assignedTbrStreamProvider =
     StreamProvider.autoDispose<List<AssignedTBR>>((ref) {
@@ -17,8 +20,12 @@ final assignedTbrStreamProvider =
 
 class CreateSelectDataTableWidget extends ConsumerWidget {
   final bool mobile;
+  final double scale;
 
-  CreateSelectDataTableWidget({@required this.mobile});
+  CreateSelectDataTableWidget({
+    this.mobile,
+    this.scale,
+  });
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final assignedTbrAsyncValue = watch(assignedTbrStreamProvider);
@@ -70,104 +77,107 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            PaginatedDataTable(
-              showCheckboxColumn: false,
-              header: Text("Select TBR to be completed"),
-              source: dtsSource,
-              rowsPerPage: _rowsPerPage,
-              sortColumnIndex: _sortColumnIndex,
-              sortAscending: _sortAscending,
-              onRowsPerPageChanged: (rows) {
-                setState(() {
-                  _rowsPerPage = rows;
-                });
-              },
-              columns: [
-                DataColumn(
-                  label: Text(Strings.companyStrings.company),
-                  onSort: (columnIndex, ascending) {
-                    dtsSource.sort<String>(
-                        getField: (d) => d.company.name,
-                        ascending: _sortAscending);
-                    setState(() {
-                      _sortColumnIndex = columnIndex;
-                      _sortAscending = !_sortAscending;
-                    });
-                  },
-                ),
-                DataColumn(
-                  label: Text(Strings.technicianStrings.technician),
-                  onSort: (columnIndex, ascending) {
-                    dtsSource.sort<String>(
-                        getField: (d) => d.technician.name,
-                        ascending: _sortAscending);
-                    setState(() {
-                      _sortColumnIndex = columnIndex;
-                      _sortAscending = !_sortAscending;
-                    });
-                  },
-                ),
-                DataColumn(
-                  label: Text(Strings.tbrStrings.dueDate),
-                  onSort: (columnIndex, ascending) {
-                    dtsSource.sort<String>(
-                        getField: (d) => d.dueDate.toString(),
-                        ascending: _sortAscending);
-                    setState(() {
-                      _sortColumnIndex = columnIndex;
-                      _sortAscending = !_sortAscending;
-                    });
-                  },
-                ),
-                DataColumn(
-                  label: Text(Strings.tbrStrings.meetingDate),
-                  onSort: (columnIndex, ascending) {
-                    dtsSource.sort<String>(
-                        getField: (d) => d.clientMeetingDate.toString(),
-                        ascending: _sortAscending);
-                    setState(() {
-                      _sortColumnIndex = columnIndex;
-                      _sortAscending = !_sortAscending;
-                    });
-                  },
-                ),
-                DataColumn(
-                  label: Text(Strings.tbrStrings.status),
-                  onSort: (columnIndex, ascending) {
-                    dtsSource.sort<String>(
-                        getField: (d) => d.status.statusIndex.toString(),
-                        ascending: _sortAscending);
-                    setState(() {
-                      _sortColumnIndex = columnIndex;
-                      _sortAscending = !_sortAscending;
-                    });
-                  },
-                ),
-                DataColumn(
-                  label: Text(Strings.tbrStrings.type),
-                  onSort: (columnIndex, ascending) {
-                    dtsSource.sort<String>(
-                        getField: (d) => d.questionnaireType.name,
-                        ascending: _sortAscending);
-                    setState(() {
-                      _sortColumnIndex = columnIndex;
-                      _sortAscending = !_sortAscending;
-                    });
-                  },
-                ),
-                DataColumn(
-                  label: Text('Assigned By'),
-                  onSort: (columnIndex, ascending) {
-                    dtsSource.sort<String>(
-                        getField: (d) => d.assignedBy,
-                        ascending: _sortAscending);
-                    setState(() {
-                      _sortColumnIndex = columnIndex;
-                      _sortAscending = !_sortAscending;
-                    });
-                  },
-                )
-              ],
+            DefaultTextStyle(
+              style: TextStyle(fontSize: 10, color: Colors.blue),
+              child: CustomPaginatedDataTable(
+                showCheckboxColumn: false,
+                header: Text("Select TBR to be completed"),
+                source: dtsSource,
+                rowsPerPage: _rowsPerPage,
+                sortColumnIndex: _sortColumnIndex,
+                sortAscending: _sortAscending,
+                onRowsPerPageChanged: (rows) {
+                  setState(() {
+                    _rowsPerPage = rows;
+                  });
+                },
+                columns: [
+                  CustomDataColumn(
+                    label: Text(Strings.companyStrings.company),
+                    onSort: (columnIndex, ascending) {
+                      dtsSource.sort<String>(
+                          getField: (d) => d.company.name,
+                          ascending: _sortAscending);
+                      setState(() {
+                        _sortColumnIndex = columnIndex;
+                        _sortAscending = !_sortAscending;
+                      });
+                    },
+                  ),
+                  CustomDataColumn(
+                    label: Text(Strings.technicianStrings.technician),
+                    onSort: (columnIndex, ascending) {
+                      dtsSource.sort<String>(
+                          getField: (d) => d.technician.name,
+                          ascending: _sortAscending);
+                      setState(() {
+                        _sortColumnIndex = columnIndex;
+                        _sortAscending = !_sortAscending;
+                      });
+                    },
+                  ),
+                  CustomDataColumn(
+                    label: Text(Strings.tbrStrings.dueDate),
+                    onSort: (columnIndex, ascending) {
+                      dtsSource.sort<String>(
+                          getField: (d) => d.dueDate.toString(),
+                          ascending: _sortAscending);
+                      setState(() {
+                        _sortColumnIndex = columnIndex;
+                        _sortAscending = !_sortAscending;
+                      });
+                    },
+                  ),
+                  CustomDataColumn(
+                    label: Text(Strings.tbrStrings.meetingDate),
+                    onSort: (columnIndex, ascending) {
+                      dtsSource.sort<String>(
+                          getField: (d) => d.clientMeetingDate.toString(),
+                          ascending: _sortAscending);
+                      setState(() {
+                        _sortColumnIndex = columnIndex;
+                        _sortAscending = !_sortAscending;
+                      });
+                    },
+                  ),
+                  CustomDataColumn(
+                    label: Text(Strings.tbrStrings.status),
+                    onSort: (columnIndex, ascending) {
+                      dtsSource.sort<String>(
+                          getField: (d) => d.status.statusIndex.toString(),
+                          ascending: _sortAscending);
+                      setState(() {
+                        _sortColumnIndex = columnIndex;
+                        _sortAscending = !_sortAscending;
+                      });
+                    },
+                  ),
+                  CustomDataColumn(
+                    label: Text(Strings.tbrStrings.type),
+                    onSort: (columnIndex, ascending) {
+                      dtsSource.sort<String>(
+                          getField: (d) => d.questionnaireType.name,
+                          ascending: _sortAscending);
+                      setState(() {
+                        _sortColumnIndex = columnIndex;
+                        _sortAscending = !_sortAscending;
+                      });
+                    },
+                  ),
+                  CustomDataColumn(
+                    label: Text('Assigned By'),
+                    onSort: (columnIndex, ascending) {
+                      dtsSource.sort<String>(
+                          getField: (d) => d.assignedBy,
+                          ascending: _sortAscending);
+                      setState(() {
+                        _sortColumnIndex = columnIndex;
+                        _sortAscending = !_sortAscending;
+                      });
+                    },
+                  )
+                ],
+              ),
             ),
             Container(height: 150),
           ],
@@ -177,7 +187,7 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
   }
 }
 
-class DTS extends DataTableSource {
+class DTS extends CustomDataTableSource {
   final List<AssignedTBR> data;
   final BuildContext context;
   final bool mobile;
@@ -185,36 +195,35 @@ class DTS extends DataTableSource {
   DTS({this.data, this.context, this.mobile});
 
   @override
-  DataRow getRow(int index) {
-    // print(data);
-    // print(data[index]);
-    // print(index);
+  CustomDataRow getRow(int index) {
     if (index < data.length) {
-      return DataRow(
+      return CustomDataRow(
           onSelectChanged: (_) {
             _displayDialog(context: context, data: data[index], mobile: mobile);
           },
           cells: [
             // ignore: unnecessary_string_interpolations
-            DataCell(Text('${data[index].company.toDropDownString()}')),
+            CustomDataCell(Text('${data[index].company.toDropDownString()}')),
             // ignore: unnecessary_string_interpolations
-            DataCell(Text('${data[index].technician.toDropDownString()}')),
-            DataCell(Text(DateFormat.yMMMEd().format(data[index].dueDate))),
-            DataCell(Text(
+            CustomDataCell(
+                Text('${data[index].technician.toDropDownString()}')),
+            CustomDataCell(
+                Text(DateFormat.yMMMEd().format(data[index].dueDate))),
+            CustomDataCell(Text(
                 DateFormat.yMMMEd().format(data[index].clientMeetingDate))),
-            DataCell(Text(data[index].status.getStatusName())),
-            DataCell(Text(data[index].questionnaireType.name)),
-            DataCell(Text(data[index].assignedBy))
+            CustomDataCell(Text(data[index].status.getStatusName())),
+            CustomDataCell(Text(data[index].questionnaireType.name)),
+            CustomDataCell(Text(data[index].assignedBy))
           ]);
     } else {
-      return const DataRow(cells: [
-        DataCell(Text(Strings.placeHolder)),
-        DataCell(Text(Strings.placeHolder)),
-        DataCell(Text(Strings.placeHolder)),
-        DataCell(Text(Strings.placeHolder)),
-        DataCell(Text(Strings.placeHolder)),
-        DataCell(Text(Strings.placeHolder)),
-        DataCell(Text(Strings.placeHolder)),
+      return const CustomDataRow(cells: [
+        CustomDataCell(Text(Strings.placeHolder)),
+        CustomDataCell(Text(Strings.placeHolder)),
+        CustomDataCell(Text(Strings.placeHolder)),
+        CustomDataCell(Text(Strings.placeHolder)),
+        CustomDataCell(Text(Strings.placeHolder)),
+        CustomDataCell(Text(Strings.placeHolder)),
+        CustomDataCell(Text(Strings.placeHolder)),
       ]);
     }
   }
@@ -250,9 +259,7 @@ Future<void> _displayDialog(
       Container(color: Colors.brown[150], child: TBRappPage(data: data));
   if (mobile) {
     frame = Expanded(
-      child: Center(child: addMobileFrame(frame)
-          // child: Container(height: 700, width: 400, child: frame),
-          ),
+      child: Center(child: addMobileFrame(frame)),
     );
   } else {
     frame = Expanded(child: Center(child: frame));

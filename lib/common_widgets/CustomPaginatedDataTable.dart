@@ -210,7 +210,7 @@ class CustomPaginatedDataTable extends StatefulWidget {
   ///
   /// Useful when initializing the field that will hold the current
   /// [rowsPerPage], when implemented [onRowsPerPageChanged].
-  static const int defaultRowsPerPage = 14;
+  static const int defaultRowsPerPage = 10;
 
   /// The options to offer for the rowsPerPage.
   ///
@@ -467,31 +467,30 @@ class CustomPaginatedDataTableState extends State<CustomPaginatedDataTable> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              // SingleChildScrollView(
-              //   scrollDirection: Axis.horizontal,
-              //   dragStartBehavior: widget.dragStartBehavior,
-              // child:
-              ConstrainedBox(
-                constraints: BoxConstraints(minWidth: constraints.minWidth),
-                child: Container(
-                  color: _mainBackgroundColor, //ColorDefs.colorDarkest,
-                  child: CustomDataTable(
-                    showCheckboxColumn: widget.showCheckboxColumn,
-                    key: _tableKey,
-                    columns: widget.columns,
-                    sortColumnIndex: widget.sortColumnIndex,
-                    sortAscending: widget.sortAscending,
-                    onSelectAll: widget.onSelectAll,
-                    dataRowHeight: widget.dataRowHeight,
-                    headingRowHeight: widget.headingRowHeight,
-                    headingRowColor: widget.headingRowColor,
-                    horizontalMargin: widget.horizontalMargin,
-                    columnSpacing: widget.columnSpacing,
-                    rows: _getRows(_firstRowIndex, widget.rowsPerPage),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                dragStartBehavior: widget.dragStartBehavior,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minWidth: constraints.minWidth),
+                  child: Container(
+                    color: _mainBackgroundColor, //ColorDefs.colorDarkest,
+                    child: CustomDataTable(
+                      showCheckboxColumn: widget.showCheckboxColumn,
+                      key: _tableKey,
+                      columns: widget.columns,
+                      sortColumnIndex: widget.sortColumnIndex,
+                      sortAscending: widget.sortAscending,
+                      onSelectAll: widget.onSelectAll,
+                      dataRowHeight: widget.dataRowHeight,
+                      headingRowHeight: widget.headingRowHeight,
+                      headingRowColor: widget.headingRowColor,
+                      horizontalMargin: widget.horizontalMargin,
+                      columnSpacing: widget.columnSpacing,
+                      rows: _getRows(_firstRowIndex, widget.rowsPerPage),
+                    ),
                   ),
                 ),
               ),
-              // ),
               DefaultTextStyle(
                 style: footerTextStyle,
                 child: IconTheme.merge(
