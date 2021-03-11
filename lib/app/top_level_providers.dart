@@ -21,6 +21,10 @@ final tbrInProgressProvider = Provider((ref) {
   return tbRinProgress;
 });
 
+final newTbrInProgressProvider = StateProvider<TBRinProgress>((ref) {
+  return TBRinProgress();
+});
+
 final widgetProvider = StateProvider<Widget>((ref) {
   return const Text('initialWidget');
 });

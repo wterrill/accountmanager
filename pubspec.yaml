@@ -43,6 +43,8 @@ dependencies:
   animations: ^1.1.2
   super_tooltip: ^0.9.6
   font_awesome_flutter: ^8.11.0
+  simple_animations: ^2.5.1
+  supercharged: ^1.12.0
 
 dev_dependencies:
   flutter_driver:

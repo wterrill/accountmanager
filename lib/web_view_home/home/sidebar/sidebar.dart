@@ -1,5 +1,8 @@
 import 'package:accountmanager/web_view_home/app_page/tbr_selection/start_tbr.dart';
 import 'package:accountmanager/web_view_home/home/developer/developer_page.dart';
+import 'package:accountmanager/web_view_home/home/developer/fancy_widgets1.dart';
+import 'package:accountmanager/web_view_home/home/developer/other_plasma1.dart';
+import 'package:accountmanager/web_view_home/home/developer/other_plasma2.dart';
 import 'package:accountmanager/web_view_home/home/sidebar/custom_background.dart';
 import 'package:accountmanager/web_view_home/home/sidebar/sidebar_button.dart';
 import 'package:flutter/material.dart';
@@ -62,149 +65,164 @@ class Sidebar extends ConsumerWidget {
     // const TextStyle buttonStyle = TextStyle(color: Colors.white, fontSize: 16);
     // Widget widget = watch(widgetProvider).state;
     final String lastText = watch(sideBarButtonStateProvider).state;
+    final sidebar = Container(
+      width: 250,
+      // color: const Color(0xFF1B2E44),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Text(''),
+          SidebarButton(
+            lastText: lastText,
+            text: 'Home',
+            faIcon: FontAwesomeIcons.home,
+            onPressedx: () {
+              context.read(widgetProvider).state = Expanded(
+                  child: Container(
+                      color: Colors.pink[100], child: OverviewWebPage()));
+            },
+          ),
+          SidebarButton(
+            lastText: lastText,
+            text: 'Assign Evaluation',
+            faIcon: FontAwesomeIcons.plusSquare,
+            onPressedx: () {
+              context.read(widgetProvider).state = Expanded(
+                  child: Container(
+                      color: Colors.blue[100], child: AssignTBRWebPage()));
+            },
+          ),
+          SidebarButton(
+            lastText: lastText,
+            text: 'Add Company',
+            // faIcon: FontAwesomeIcons.building,
+            imageIcon: Image.asset('assets/icon/add_company.gif'),
+            onPressedx: () {
+              context.read(widgetProvider).state = Expanded(
+                  child: Container(
+                      color: Colors.green[100], child: CreateCompanyWebPage()));
+            },
+          ),
+          SidebarButton(
+            lastText: lastText,
+            text: 'Add Technician',
+            // faIcon: MyFlutterApp.user, //FontAwesomeIcons.user,
+            imageIcon: Image.asset('assets/icon/add_user_will.png'),
+            onPressedx: () {
+              context.read(widgetProvider).state = Expanded(
+                  child: Container(
+                      color: Colors.green[200], child: CreateTechWebPage()));
+            },
+          ),
+          SidebarButton(
+            lastText: lastText,
+            text: 'View Roadmap',
+            faIcon: FontAwesomeIcons.road,
+            onPressedx: () {
+              context.read(widgetProvider).state = Expanded(
+                  child: Container(
+                      color: Colors.green[300],
+                      child: const Center(
+                          child:
+                              Text('I really have no idea what to put here'))));
+            },
+          ),
+          SidebarButton(
+            lastText: lastText,
+            text: 'Edit Questions',
+            faIcon: FontAwesomeIcons.edit,
+            onPressedx: () {
+              context.read(widgetProvider).state = Expanded(
+                  child: Container(
+                      color: Colors.brown[50], child: QuestionWebPage()));
+            },
+          ),
+          SidebarButton(
+            lastText: lastText,
+            text: 'Account Info',
+            faIcon: FontAwesomeIcons.user,
+            onPressedx: () {
+              context.read(widgetProvider).state = Expanded(
+                  child: Container(
+                      color: Colors.brown[150], child: AccountWebPage()));
+            },
+          ),
+          SidebarButton(
+            lastText: lastText,
+            text: 'App Page - Web',
+            // faIcon: FontAwesomeIcons.web,
+            imageIcon: const Icon(Icons.web, color: Colors.white),
+            onPressedx: () {
+              context.read(widgetProvider).state = Expanded(
+                  child: Container(
+                      color: Colors.purple[50],
+                      child: const SelectTBRPage(mobile: false)));
+            },
+          ),
+          SidebarButton(
+            lastText: lastText,
+            text: 'App Page: Mobile',
+            faIcon: FontAwesomeIcons.mobileAlt,
+            onPressedx: () {
+              context.read(widgetProvider).state = Expanded(
+                  child: Center(
+                      child:
+                          addMobileFrame(const SelectTBRPage(mobile: true))));
+            },
+          ),
+          SidebarButton(
+            lastText: lastText,
+            text: 'App Page: Tablet',
+            faIcon: FontAwesomeIcons.mobileAlt,
+            onPressedx: () {
+              context.read(widgetProvider).state = Expanded(
+                  child: Center(
+                      child:
+                          addTabletFrame(const SelectTBRPage(mobile: true))));
+            },
+          ),
+          const Text(''),
+          const Text(''),
+          SidebarButton(
+            lastText: lastText,
+            text: 'Dev Testing',
+            faIcon: FontAwesomeIcons.atom,
+            onPressedx: () {
+              context.read(widgetProvider).state = Expanded(
+                  child: Container(
+                      color: Colors.brown[150], child: DeveloperPage()));
+            },
+          ),
+          const Text(''),
+        ],
+      ),
+    );
+    //     return listening.Listener(
+    //       onPointerDown: _incrementDown,
+    //       onPointerMove: _updateLocation,
+    //       onPointerUp: _incrementUp,
+    //       child: CustomPaint(
+    //         painter: BluePainter(),
+    //         child: sidebar,
+    //   ),
+    // );
+
     return listening.Listener(
       onPointerDown: _incrementDown,
       onPointerMove: _updateLocation,
       onPointerUp: _incrementUp,
-      child: CustomPaint(
-        painter: BluePainter(),
-        child: Container(
+      child: Stack(children: [
+        Container(
           width: 250,
-          // color: const Color(0xFF1B2E44),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(''),
-              SidebarButton(
-                lastText: lastText,
-                text: 'Home',
-                faIcon: FontAwesomeIcons.home,
-                onPressedx: () {
-                  context.read(widgetProvider).state = Expanded(
-                      child: Container(
-                          color: Colors.pink[100], child: OverviewWebPage()));
-                },
-              ),
-              SidebarButton(
-                lastText: lastText,
-                text: 'Create Evaluation',
-                faIcon: FontAwesomeIcons.plusSquare,
-                onPressedx: () {
-                  context.read(widgetProvider).state = Expanded(
-                      child: Container(
-                          color: Colors.blue[100], child: AssignTBRWebPage()));
-                },
-              ),
-              SidebarButton(
-                lastText: lastText,
-                text: 'Add Company',
-                // faIcon: FontAwesomeIcons.building,
-                imageIcon: Image.asset('assets/icon/add_company.gif'),
-                onPressedx: () {
-                  context.read(widgetProvider).state = Expanded(
-                      child: Container(
-                          color: Colors.green[100],
-                          child: CreateCompanyWebPage()));
-                },
-              ),
-              SidebarButton(
-                lastText: lastText,
-                text: 'Add Technician',
-                // faIcon: MyFlutterApp.user, //FontAwesomeIcons.user,
-                imageIcon: Image.asset('assets/icon/add_user_will.png'),
-                onPressedx: () {
-                  context.read(widgetProvider).state = Expanded(
-                      child: Container(
-                          color: Colors.green[200],
-                          child: CreateTechWebPage()));
-                },
-              ),
-              SidebarButton(
-                lastText: lastText,
-                text: 'View Roadmap',
-                faIcon: FontAwesomeIcons.road,
-                onPressedx: () {
-                  context.read(widgetProvider).state = Expanded(
-                      child: Container(
-                          color: Colors.green[300],
-                          child: const Center(
-                              child: Text(
-                                  'I really have no idea what to put here'))));
-                },
-              ),
-              SidebarButton(
-                lastText: lastText,
-                text: 'Edit Questions',
-                faIcon: FontAwesomeIcons.edit,
-                onPressedx: () {
-                  context.read(widgetProvider).state = Expanded(
-                      child: Container(
-                          color: Colors.brown[50], child: QuestionWebPage()));
-                },
-              ),
-              SidebarButton(
-                lastText: lastText,
-                text: 'Account Info',
-                faIcon: FontAwesomeIcons.user,
-                onPressedx: () {
-                  context.read(widgetProvider).state = Expanded(
-                      child: Container(
-                          color: Colors.brown[150], child: AccountWebPage()));
-                },
-              ),
-              SidebarButton(
-                lastText: lastText,
-                text: 'App Page - Web',
-                // faIcon: FontAwesomeIcons.web,
-                imageIcon: const Icon(Icons.web, color: Colors.white),
-                onPressedx: () {
-                  context.read(widgetProvider).state = Expanded(
-                      child: Container(
-                          color: Colors.purple[50],
-                          child: const SelectTBRPage(mobile: false)));
-                },
-              ),
-              SidebarButton(
-                lastText: lastText,
-                text: 'App Page: Mobile',
-                faIcon: FontAwesomeIcons.mobileAlt,
-                onPressedx: () {
-                  context.read(widgetProvider).state = Expanded(
-                      child: Center(
-                          child: addMobileFrame(
-                              const SelectTBRPage(mobile: true))));
-                },
-              ),
-              SidebarButton(
-                lastText: lastText,
-                text: 'App Page: Tablet',
-                faIcon: FontAwesomeIcons.mobileAlt,
-                onPressedx: () {
-                  context.read(widgetProvider).state = Expanded(
-                      child: Center(
-                          child: addTabletFrame(
-                              const SelectTBRPage(mobile: true))));
-                },
-              ),
-              const Text(''),
-              const Text(''),
-              SidebarButton(
-                lastText: lastText,
-                text: 'Dev Testing',
-                faIcon: FontAwesomeIcons.atom,
-                onPressedx: () {
-                  context.read(widgetProvider).state = Expanded(
-                      child: Container(
-                          color: Colors.brown[150], child: DeveloperPage()));
-                },
-              ),
-              const Text(''),
-            ],
-          ),
+          // child: OtherPlasma2(),
+          // child: FancyPlasmaWidget1(),
+          // child: FancyPlasmaWidget2(),
+          child: OtherPlasma1(),
         ),
-      ),
+        sidebar
+      ]),
     );
   }
 }

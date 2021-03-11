@@ -34,6 +34,8 @@ cp -fr ./assets/* ./public/
 
 firebase deploy --only hosting
 
+
+
 # cd websiteTesting
 # echo "pushing new version to github"
 # git add .
@@ -50,3 +52,7 @@ firebase deploy --only hosting
 
 # 1. doesn't stop when there's an issue
 # 2. doesn't upload to app store
+
+ flutter build windows
+ flutter build macos
+ flutter build linux
