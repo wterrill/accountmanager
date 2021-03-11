@@ -11,17 +11,7 @@ import 'package:flutter/material.dart';
 // logger provider
 // tbrInProgress provider. This is used to pass values during development.
 
-// final tbrInProgressProvider = Provider<TBRinProgress>((ref) {
-//   return TBRinProgress();
-// });
-
-final tbrInProgressProvider = Provider((ref) {
-  print('beer');
-  TBRinProgress tbRinProgress = TBRinProgress();
-  return tbRinProgress;
-});
-
-final newTbrInProgressProvider = StateProvider<TBRinProgress>((ref) {
+final tbrInProgressProvider = StateProvider<TBRinProgress>((ref) {
   return TBRinProgress();
 });
 

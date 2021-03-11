@@ -16,7 +16,7 @@ import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
 class OverviewWebPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    TBRinProgress tbrInProgress = context.read(tbrInProgressProvider);
+    TBRinProgress tbrInProgress = context.read(tbrInProgressProvider).state;
     if (tbrInProgress.allQuestions == null) {
       return Center(
         child: Column(
@@ -46,14 +46,6 @@ class OverviewWebPage extends StatelessWidget {
                     flex: 4,
                     child: Text(''),
                   ),
-                  // Expanded(
-                  //   flex: 1,
-                  //   child: Image.asset(
-                  //     'assets/images/3dDownArrow.gif',
-                  //     height: 125.0,
-                  //     width: 125.0,
-                  //   ),
-                  // ),
                   Expanded(flex: 2, child: Text('')),
                 ],
               ),

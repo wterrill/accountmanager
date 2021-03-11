@@ -30,14 +30,14 @@ class _TBRbuilderState extends State<TBRbuilder> {
 
   @override
   void initState() {
-    tbrInProgress = context.read(newTbrInProgressProvider).state;
+    tbrInProgress = context.read(tbrInProgressProvider).state;
     tbrInProgress.initialize(widget.questionList);
     selectedSection = tbrInProgress.sections[1];
     selectedCategory =
         tbrInProgress.categories[selectedSection.toLowerCase()][0];
     filteredQuestions = tbrInProgress.getQuestions(
         sectionIn: selectedSection, categoryIn: selectedCategory);
-    // context.read(newTbrInProgressProvider).state = tbrInProgress;
+    // context.read(tbrInProgressProvider).state = tbrInProgress;
 
     super.initState();
   }
@@ -46,8 +46,8 @@ class _TBRbuilderState extends State<TBRbuilder> {
   Widget build(BuildContext context) {
     // List<TextEditingController>.generate(3, (TextEditingController index) => index * index);
     return Consumer(builder: (context, watch, child) {
-      // List<String> beer = watch(newTbrInProgressProvider).state.sections;
-      final TBRinProgress beer2 = watch(newTbrInProgressProvider).state;
+      // List<String> beer = watch(tbrInProgressProvider).state.sections;
+      final TBRinProgress beer2 = watch(tbrInProgressProvider).state;
 
       return Column(
         children: [

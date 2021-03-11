@@ -79,14 +79,14 @@ class _TBRbuilderState extends State<TBRbuilder> {
 
   @override
   void initState() {
-    tbrInProgress = context.read(newTbrInProgressProvider).state;
+    tbrInProgress = context.read(tbrInProgressProvider).state;
     tbrInProgress.initialize(widget.questionList);
     selectedSection = tbrInProgress.sections[1];
     selectedCategory =
         tbrInProgress.categories[selectedSection.toLowerCase()][0];
     filteredQuestions = tbrInProgress.getQuestions(
         sectionIn: selectedSection, categoryIn: selectedCategory);
-    context.read(newTbrInProgressProvider).state = tbrInProgress;
+    context.read(tbrInProgressProvider).state = tbrInProgress;
 
     super.initState();
   }

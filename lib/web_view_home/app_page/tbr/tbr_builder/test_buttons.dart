@@ -42,7 +42,7 @@ class TestButtonRow extends ConsumerWidget {
                 temp[randomNumber] = true;
                 tbrInProgress.answers[key] = temp;
               }
-              context.read(newTbrInProgressProvider).state = tbrInProgress;
+              context.read(tbrInProgressProvider).state = tbrInProgress;
             }),
       ],
     );
@@ -58,7 +58,7 @@ class TestButtonRow extends ConsumerWidget {
       for (final String key in tbrInProgress.answers.keys) {
         tbrInProgress.answers[key] = boolList;
       }
-      context.read(newTbrInProgressProvider).state = tbrInProgress;
+      context.read(tbrInProgressProvider).state = tbrInProgress;
     };
     if (onPressedNew != null) {
       onPressed = onPressedNew;

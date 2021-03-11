@@ -28,14 +28,14 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
 
   @override
   void initState() {
-    tbrInProgress = context.read(tbrInProgressProvider);
+    tbrInProgress = context.read(tbrInProgressProvider).state;
     _sortAscending = false;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final tbrInProgress = context.read(tbrInProgressProvider);
+    final tbrInProgress = context.read(tbrInProgressProvider).state;
     return _datatable(DTS(tbrInProgress));
   }
 

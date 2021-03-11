@@ -17,7 +17,7 @@ import '../models/tbr.dart';
 class OverviewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    TBRinProgress tbrInProgress = context.read(tbrInProgressProvider);
+    TBRinProgress tbrInProgress = context.read(tbrInProgressProvider).state;
     if (tbrInProgress.allQuestions == null) {
       return Scaffold(
         body: Center(
