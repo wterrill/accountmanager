@@ -1,5 +1,5 @@
-set -e # this exits when there is an error
-flutter test
+# set -e # this exits when there is an error
+# flutter test
 rm lib/buildTime/flutter_version.dart
 echo "Building flutter_version.dart"
 echo "const Map<String,String> version = " >> lib/buildTime/flutter_version.dart

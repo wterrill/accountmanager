@@ -2,14 +2,17 @@ import 'package:accountmanager/app/home/models/question.dart';
 import 'package:flutter/material.dart';
 
 class TBRinProgress {
-  List<Question> allQuestions;
+  List<Question> allQuestions; // 0, question1
   List<String> sections;
-  Map<String, List<String>> categories; // sections List<categories>
+  Map<String, List<String>> categories; // "section name", List<"category name">
+  Map<String, Map<String, double>>
+      percentages; // "section name", "category name",
   Map<String, List<bool>> answers; // question ID: 0,0,0    yes, no, n/a
   Map<String, Map<String, List<Color>>>
       colorScheme; //section: category: List<Colors>
   Map<String, String> adminComment; // category:
   Map<String, String> tamNotes;
+  bool showSubmitButton = false;
   TBRinProgress();
 
   void initialize(List<Question> allQuestionsIn) {
@@ -17,13 +20,14 @@ class TBRinProgress {
     sections = createSectionList(allQuestions);
     categories = createCategoryMap(sections, allQuestions);
     answers = createAnswerMap(allQuestions);
+    percentages = createPercentagesMap(categories);
     colorScheme = generateColors(allQuestions);
     adminComment = initializeComments(allQuestions);
     tamNotes = initializeComments(allQuestions);
   }
 
   Map<String, String> initializeComments(List<Question> allQuestions) {
-    Map<String, String> returnedMap = {};
+    final Map<String, String> returnedMap = {};
     for (final Question question in allQuestions) {
       returnedMap[question.id] = '';
     }
@@ -58,6 +62,21 @@ class TBRinProgress {
           uniqueSectionCategories;
     }
     return mapSectionsWithCategories;
+  }
+
+  Map<String, Map<String, double>> createPercentagesMap(
+      Map<String, List<String>> categories) {
+    final Map<String, Map<String, double>> finalMap = {};
+    for (final String sectkey in categories.keys) {
+      final List<String> sections = categories[sectkey];
+      final Map<String, double> catMap = {};
+      for (final String catkey in sections) {
+        catMap[catkey.toLowerCase()] = 0.0;
+      }
+      catMap['total'] = 0.0;
+      finalMap[sectkey] = catMap;
+    }
+    return finalMap;
   }
 
   List<Question> getQuestions({String sectionIn, String categoryIn}) {
@@ -105,7 +124,7 @@ class TBRinProgress {
   }
 
   Map<String, String> recedePage({String section, String category}) {
-    Map<String, String> newSectionCategory = {};
+    final Map<String, String> newSectionCategory = {};
     final List<String> currentCategories = categories[section.toLowerCase()];
     // case, beginning of categories
     if (currentCategories.indexOf(category) == 0) {
@@ -180,5 +199,47 @@ class TBRinProgress {
       wholeColorScheme[question.id] = returnedMap;
     }
     return wholeColorScheme;
+  }
+
+  void updatePercentages() {
+    for (final String sectionName in sections) {
+      int sectTotal = 0;
+      int sectTally = 0;
+      int catTally = 0;
+      // double catPercent;
+      for (final String catName in categories[sectionName.toLowerCase()]) {
+        final List<Question> questionsSectCat = allQuestions.where((element) {
+          if (element.section == sectionName && element.category == catName) {
+            print(element);
+            return true;
+          }
+          return false;
+        }).toList();
+        final List<Question> answeredQuestionsSectCat = questionsSectCat
+            .where((element) =>
+                answers[element.id].toString() != '[false, false, false]')
+            .toList();
+        catTally = answeredQuestionsSectCat.length;
+        sectTally = sectTally + catTally;
+        sectTotal = sectTotal + questionsSectCat.length;
+        final double catPercent = catTally / questionsSectCat.length;
+        percentages[sectionName.toLowerCase()][catName.toLowerCase()] =
+            catPercent;
+      }
+      final double sectPercent = sectTally / sectTotal;
+      percentages[sectionName.toLowerCase()]['total'] = sectPercent;
+    }
+    checkIfCanSubmit();
+  }
+
+  void checkIfCanSubmit() {
+    bool canSubmit = true;
+    for (final String section in sections) {
+      if (percentages[section.toLowerCase()]['total'] != 1) {
+        canSubmit = false;
+      }
+    }
+
+    showSubmitButton = canSubmit;
   }
 }

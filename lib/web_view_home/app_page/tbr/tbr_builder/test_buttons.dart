@@ -2,14 +2,16 @@ import 'dart:math';
 import 'package:accountmanager/app/home/models/tbr.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+TBRinProgress tbrInProgress;
 
 class TestButtonRow extends ConsumerWidget {
-  const TestButtonRow({Key key, this.tbrInProgress}) : super(key: key);
-  final TBRinProgress tbrInProgress;
+  const TestButtonRow({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
+    tbrInProgress = watch(tbrInProgressProvider).state;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
@@ -42,6 +44,7 @@ class TestButtonRow extends ConsumerWidget {
                 temp[randomNumber] = true;
                 tbrInProgress.answers[key] = temp;
               }
+              tbrInProgress.updatePercentages();
               context.read(tbrInProgressProvider).state = tbrInProgress;
             }),
       ],
@@ -58,6 +61,7 @@ class TestButtonRow extends ConsumerWidget {
       for (final String key in tbrInProgress.answers.keys) {
         tbrInProgress.answers[key] = boolList;
       }
+      tbrInProgress.updatePercentages();
       context.read(tbrInProgressProvider).state = tbrInProgress;
     };
     if (onPressedNew != null) {
