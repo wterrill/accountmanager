@@ -1,6 +1,7 @@
 // Copyright 2014 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+// ignore_for_file: file_names
 
 // @dart = 2.8
 
@@ -8,7 +9,6 @@
 import 'package:flutter/foundation.dart';
 
 import 'CustomDataTable.dart';
-// import 'data_table.dart';
 
 /// A data source for obtaining row data for [PaginatedDataTable] objects.
 ///

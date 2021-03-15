@@ -1,4 +1,4 @@
-import 'package:accountmanager/app/home/models/model_interface.dart';
+import 'package:accountmanager/app/models/model_interface.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 

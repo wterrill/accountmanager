@@ -1,26 +1,7 @@
+// ignore_for_file: file_names
 // // Copyright 2014 The Flutter Authors. All rights reserved.
 // // Use of this source code is governed by a BSD-style license that can be
 // // found in the LICENSE file.
-
-// import 'dart:math' as math;
-
-// import 'package:flutter/widgets.dart';
-// import 'package:flutter/rendering.dart';
-// import 'package:flutter/gestures.dart' show DragStartBehavior;
-
-// import 'button_bar.dart';
-// import 'card.dart';
-// import 'constants.dart';
-// import 'data_table.dart';
-// import 'data_table_source.dart';
-// import 'debug.dart';
-// import 'dropdown.dart';
-// import 'icon_button.dart';
-// import 'icons.dart';
-// import 'ink_decoration.dart';
-// import 'material_localizations.dart';
-// import 'progress_indicator.dart';
-// import 'theme.dart';
 
 // /// A material design data table that shows data using multiple pages.
 // ///

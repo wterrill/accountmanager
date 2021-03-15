@@ -1,22 +1,7 @@
-import 'package:accountmanager/app/home/models/question.dart';
-import 'package:accountmanager/app/home/question/dropdown_screen.dart';
+import 'package:accountmanager/app/models/question.dart';
 import 'package:accountmanager/common_widgets/annotated_editable_text.dart';
-import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pedantic/pedantic.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import 'package:accountmanager/app/home/assign_TBR/future_dropdown.dart';
-import 'package:accountmanager/app/home/models/Status.dart';
-import 'package:accountmanager/app/home/models/assignedTbr.dart';
-import 'package:accountmanager/app/home/models/company.dart';
-import 'package:accountmanager/app/home/models/questionnaire_type.dart';
-import 'package:accountmanager/app/home/models/technician.dart';
-import 'package:accountmanager/app/top_level_providers.dart';
-import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
-import 'package:accountmanager/services/firestore_database.dart';
 
 class EditQuestion extends StatefulWidget {
   const EditQuestion({
@@ -226,7 +211,7 @@ class _EditQuestionState extends State<EditQuestion> {
           style: const TextStyle(
               fontSize: 14.0, fontWeight: FontWeight.w500, color: Colors.blue)),
     ];
-    final FirestoreDatabase database = context.read(databaseProvider);
+    // final FirestoreDatabase database = context.read(databaseProvider);
     return FractionallySizedBox(
       heightFactor: 0.9,
       child: SingleChildScrollView(
@@ -456,61 +441,61 @@ class _EditQuestionState extends State<EditQuestion> {
     );
   }
 
-  Future<void> _sendAssignedTbr({@required AssignedTBR assignedTbr}) async {
-    try {
-      id ??= documentIdFromCurrentDate();
-      final database = context.read(databaseProvider);
-      await database.setTBR(assignedTbr);
-    } catch (e) {
-      unawaited(showExceptionAlertDialog(
-        context: context,
-        title: 'Operation failed',
-        exception: e,
-      ));
-    }
-  }
+  // Future<void> _sendAssignedTbr({@required AssignedTBR assignedTbr}) async {
+  //   try {
+  //     id ??= documentIdFromCurrentDate();
+  //     final database = context.read(databaseProvider);
+  //     await database.setTBR(assignedTbr);
+  //   } catch (e) {
+  //     unawaited(showExceptionAlertDialog(
+  //       context: context,
+  //       title: 'Operation failed',
+  //       exception: e,
+  //     ));
+  //   }
+  // }
 
-  Future<bool> _validateAndSaveForm(AssignedTBR assignedTbr) async {
-    if (assignedTbr.toMap() == null) {
-      return false;
-    }
-    bool answer = true;
-    while (answer == true) {
-      if (assignedTbr.dueDate.isBefore(DateTime.now())) {
-        answer = await showAlertDialog(
-            context: context,
-            title: 'Are you sure?',
-            content:
-                'The due date is in the past, are you sure you want to proceed?',
-            defaultActionText: 'Yes',
-            cancelActionText: 'No');
-        if (answer == false) break;
-      }
+  // Future<bool> _validateAndSaveForm(AssignedTBR assignedTbr) async {
+  //   if (assignedTbr.toMap() == null) {
+  //     return false;
+  //   }
+  //   bool answer = true;
+  //   while (answer == true) {
+  //     if (assignedTbr.dueDate.isBefore(DateTime.now())) {
+  //       answer = await showAlertDialog(
+  //           context: context,
+  //           title: 'Are you sure?',
+  //           content:
+  //               'The due date is in the past, are you sure you want to proceed?',
+  //           defaultActionText: 'Yes',
+  //           cancelActionText: 'No');
+  //       if (answer == false) break;
+  //     }
 
-      if (assignedTbr.clientMeetingDate.isBefore(DateTime.now())) {
-        answer = await showAlertDialog(
-            context: context,
-            title: 'Are you sure?',
-            content:
-                'The client meeting date is in the past, are you sure you want to proceed?',
-            defaultActionText: 'Yes',
-            cancelActionText: 'No');
-        if (answer == false) break;
-        //Condition should not unconditionally evalute to 'true' or to 'false'. verify:
-      }
+  //     if (assignedTbr.clientMeetingDate.isBefore(DateTime.now())) {
+  //       answer = await showAlertDialog(
+  //           context: context,
+  //           title: 'Are you sure?',
+  //           content:
+  //               'The client meeting date is in the past, are you sure you want to proceed?',
+  //           defaultActionText: 'Yes',
+  //           cancelActionText: 'No');
+  //       if (answer == false) break;
+  //       //Condition should not unconditionally evalute to 'true' or to 'false'. verify:
+  //     }
 
-      if (assignedTbr.dueDate.isBefore(assignedTbr.clientMeetingDate)) {
-        answer = await showAlertDialog(
-            context: context,
-            title: 'Are you sure?',
-            content:
-                'The due date is before the client meeting date, are you sure you want to proceed?',
-            defaultActionText: 'Yes',
-            cancelActionText: 'No');
-        if (answer == false) break;
-      }
-      if (answer == true) break;
-    }
-    return answer;
-  }
+  //     if (assignedTbr.dueDate.isBefore(assignedTbr.clientMeetingDate)) {
+  //       answer = await showAlertDialog(
+  //           context: context,
+  //           title: 'Are you sure?',
+  //           content:
+  //               'The due date is before the client meeting date, are you sure you want to proceed?',
+  //           defaultActionText: 'Yes',
+  //           cancelActionText: 'No');
+  //       if (answer == false) break;
+  //     }
+  //     if (answer == true) break;
+  //   }
+  //   return answer;
+  // }
 }

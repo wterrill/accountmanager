@@ -1,11 +1,12 @@
+// ignore_for_file: file_names
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 
-import 'package:accountmanager/app/home/models/company.dart';
-import 'package:accountmanager/app/home/models/questionnaire_type.dart';
-import 'package:accountmanager/app/home/models/technician.dart';
+import 'package:accountmanager/app/models/company.dart';
+import 'package:accountmanager/app/models/questionnaire_type.dart';
+import 'package:accountmanager/app/models/technician.dart';
 
 import 'Status.dart';
 

@@ -1,13 +1,9 @@
-import 'dart:async';
-
-import 'package:accountmanager/app/home/assign_TBR/create_datatable_widget2.dart';
-import 'package:accountmanager/app/home/assign_TBR/widget_assign_TBR2.dart';
-import 'package:accountmanager/app/home/models/company.dart';
-import 'package:accountmanager/app/home/models/questionnaire_type.dart';
-import 'package:accountmanager/app/home/models/technician.dart';
+import 'package:accountmanager/app/models/company.dart';
+import 'package:accountmanager/app/models/questionnaire_type.dart';
+import 'package:accountmanager/app/models/technician.dart';
 import 'package:accountmanager/common_widgets/display_widget_dialog_with_error.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:accountmanager/app/top_level_providers.dart';
+import 'package:accountmanager/web_view_home/assign_TBR/create_datatable_widget2.dart';
+import 'package:accountmanager/web_view_home/assign_TBR/widget_assign_TBR2.dart';
 import 'package:accountmanager/constants/strings.dart';
 import 'package:flutter/material.dart';
 

@@ -1,13 +1,12 @@
 // part of email_password_sign_in_ui;
 import 'dart:math';
+import 'package:accountmanager/common_utilities/buttonConverter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:accountmanager/packages/email_password_sign_in_ui/test/email_password_sign_in_model.dart';
 import '../../alert_dialogs/alert_dialogs.dart';
 import '../../custom_buttons/custom_buttons.dart';
-
-// import '../../string_validators/string_validators.dart';
 import '../../email_password_sign_in_ui/test/email_password_sign_in_strings.dart';
 
 String filename = 'email_password_sign_in_page.dart: ';
@@ -170,19 +169,19 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
               onPressed: model.isLoading ? null : _submit,
             ),
             const SizedBox(height: 8.0),
-            FlatButton(
-              key: const Key('secondary-button'),
-              child: Text(model.secondaryButtonText),
-              onPressed: model.isLoading
+            FlatButtonX(
+              keyx: const Key('secondary-button'),
+              childx: Text(model.secondaryButtonText),
+              onPressedx: model.isLoading
                   ? null
                   : () => _updateFormType(model.secondaryActionFormType),
             ),
             if (model.formType == EmailPasswordSignInFormType.signIn)
-              FlatButton(
-                key: const Key('tertiary-button'),
-                child: const Text(
+              FlatButtonX(
+                keyx: const Key('tertiary-button'),
+                childx: const Text(
                     EmailPasswordSignInStrings.forgotPasswordQuestion),
-                onPressed: model.isLoading
+                onPressedx: model.isLoading
                     ? null
                     : () => _updateFormType(
                         EmailPasswordSignInFormType.forgotPassword),

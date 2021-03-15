@@ -1,11 +1,22 @@
-import 'package:accountmanager/app/home/app_page/tbr/tbr_entry.dart';
-import 'package:accountmanager/app/home/models/assignedTbr.dart';
+// ignore_for_file: file_names
+// ignore_for_file: prefer_asserts_with_message
+// ignore_for_file: avoid_types_on_closure_parameters
+// ignore_for_file: avoid_positional_boolean_parameters
+// ignore_for_file: avoid_returning_null
+// ignore_for_file: curly_braces_in_flow_control_structures
+// ignore_for_file: parameter_assignments
+// ignore_for_file: join_return_with_assignment
+// ignore_for_file: prefer_const_constructors
+// ignore_for_file: avoid_classes_with_only_static_members
+// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: prefer_final_locals
+// ignore_for_file: unused_local_variable
+
+import 'package:accountmanager/app/models/assignedTbr.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:accountmanager/app/home/job_entries/entry_page.dart';
-import 'package:accountmanager/app/home/jobs/edit_job_page.dart';
-import 'package:accountmanager/app/home/models/entry.dart';
-import 'package:accountmanager/app/home/models/job.dart';
+import 'package:accountmanager/app/models/entry.dart';
+import 'package:accountmanager/app/models/job.dart';
 import 'package:accountmanager/packages/email_password_sign_in_ui/test/email_password_sign_in_page.dart';
 
 class AppRoutes {
@@ -30,7 +41,8 @@ class AppRouter {
         );
       case AppRoutes.editJobPage:
         return MaterialPageRoute<dynamic>(
-          builder: (_) => EditJobPage(job: args),
+          builder: (_) =>
+              Text('deleted on shift to web code'), // EditJobPage(job: args),
           settings: settings,
           fullscreenDialog: true,
         );
@@ -39,7 +51,8 @@ class AppRouter {
         final job = mapArgs['job'] as Job;
         final entry = mapArgs['entry'] as Entry;
         return MaterialPageRoute<dynamic>(
-          builder: (_) => EntryPage(job: job, entry: entry),
+          builder: (_) => Text(
+              'deleted on shift to web code'), //EntryPage(job: job, entry: entry),
           settings: settings,
           fullscreenDialog: true,
         );
@@ -48,7 +61,9 @@ class AppRouter {
         final data = mapArgs['data'] as AssignedTBR;
         final entry = mapArgs['entry'] as Entry;
         return MaterialPageRoute<dynamic>(
-          builder: (_) => TBREntry(data: data),
+          builder: (_) => Text('deleted on shift to web code'),
+
+          ///TBREntry(data: data),
           settings: settings,
           fullscreenDialog: true,
         );

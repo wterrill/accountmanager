@@ -1,4 +1,4 @@
-import 'package:accountmanager/app/home/models/status.dart';
+import 'package:accountmanager/app/models/status.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/foundation.dart';
 

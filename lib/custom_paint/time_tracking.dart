@@ -1,4 +1,16 @@
-import 'dart:ui' as ui;
+// ignore_for_file: file_names
+// ignore_for_file: prefer_asserts_with_message
+// ignore_for_file: avoid_types_on_closure_parameters
+// ignore_for_file: avoid_positional_boolean_parameters
+// ignore_for_file: avoid_returning_null
+// ignore_for_file: curly_braces_in_flow_control_structures
+// ignore_for_file: parameter_assignments
+// ignore_for_file: join_return_with_assignment
+// ignore_for_file: prefer_const_constructors
+// ignore_for_file: avoid_classes_with_only_static_members
+// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: prefer_final_locals
+
 import 'package:flutter/material.dart';
 
 class TimeTracking extends StatelessWidget {
@@ -21,7 +33,7 @@ class TimeTracking extends StatelessWidget {
 class RPSCustomPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    Path path_0 = Path();
+    final Path path_0 = Path();
     path_0.moveTo(size.width * 0.8125000, size.height * 0.04687500);
     path_0.lineTo(size.width * 0.8568359, size.height * 0.1798828);
     path_0.lineTo(size.width * 0.3724609, size.height * 0.1798828);

@@ -1,16 +1,16 @@
+// ignore_for_file: file_names
+import 'package:accountmanager/common_utilities/buttonConverter.dart';
+import 'package:accountmanager/web_view_home/assign_TBR/future_dropdown.dart';
 import 'package:date_time_picker/date_time_picker.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pedantic/pedantic.dart';
-
-import 'package:accountmanager/app/home/assign_TBR/future_dropdown.dart';
-import 'package:accountmanager/app/home/models/Status.dart';
-import 'package:accountmanager/app/home/models/assignedTbr.dart';
-import 'package:accountmanager/app/home/models/company.dart';
-import 'package:accountmanager/app/home/models/questionnaire_type.dart';
-import 'package:accountmanager/app/home/models/technician.dart';
+import 'package:accountmanager/app/models/Status.dart';
+import 'package:accountmanager/app/models/assignedTbr.dart';
+import 'package:accountmanager/app/models/company.dart';
+import 'package:accountmanager/app/models/questionnaire_type.dart';
+import 'package:accountmanager/app/models/technician.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
 import 'package:accountmanager/services/firestore_database.dart';
@@ -164,15 +164,15 @@ class _AssignTBRState extends State<AssignTBR> {
               });
             },
           ),
-          FlatButton(
-            child: const Text(
+          FlatButtonX(
+            childx: const Text(
               'Assign',
               style: TextStyle(
                 fontSize: 18.0,
                 color: Colors.blue,
               ),
             ),
-            onPressed: () async {
+            onPressedx: () async {
               bool valid = true;
               while (valid) {
                 bool validated;
@@ -216,15 +216,15 @@ class _AssignTBRState extends State<AssignTBR> {
             },
           ),
           const Spacer(),
-          FlatButton(
-              child: const Text(
+          FlatButtonX(
+              childx: const Text(
                 'Cancel',
                 style: TextStyle(
                   fontSize: 18.0,
                   color: Colors.blue,
                 ),
               ),
-              onPressed: () => Navigator.of(context).pop()),
+              onPressedx: () => Navigator.of(context).pop()),
           // Text(clientMeetingDate?.toString() ?? 'Not Selected')
         ],
       ),

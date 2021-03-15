@@ -1,4 +1,4 @@
-import 'package:accountmanager/app/home/models/question.dart';
+import 'package:accountmanager/app/models/question.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/foundation.dart';
 
@@ -257,7 +257,7 @@ void main() {
         whyAreWeAsking: 'placeholder20',
         id: 'placeholder21',
       );
-      List<Object> propsExpectedBAD = [
+      final List<Object> propsExpectedBAD = [
         'placeholder21',
         'placeholder1',
         'placeholder2',
@@ -310,7 +310,7 @@ void main() {
         whyAreWeAsking: 'placeholder20',
         id: 'placeholder21',
       );
-      List<Object> propsExpectedGOOD = [
+      final List<Object> propsExpectedGOOD = [
         'placeholder21',
         'placeholder1',
         'placeholder2',

@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
+// ignore_for_file:  constant_identifier_names
+// ignore_for_file: prefer_final_locals
+// ignore_for_file: prefer_const_constructors
 
-import 'dart:ui';
-
-import 'package:flutter/material.dart';
 import 'dart:math' as math;
+import 'dart:ui';
+import 'package:flutter/material.dart';
 
 class AnimationWrapper extends StatefulWidget {
   @override

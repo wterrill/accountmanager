@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:intl/intl.dart';
 
-import 'package:accountmanager/app/home/models/assignedTbr.dart';
+import 'package:accountmanager/app/models/assignedTbr.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/common_widgets/empty_content.dart';
 import 'package:accountmanager/constants/strings.dart';
@@ -22,7 +22,7 @@ class CreateSelectDataTableWidget extends ConsumerWidget {
   final bool mobile;
   final double scale;
 
-  CreateSelectDataTableWidget({
+  const CreateSelectDataTableWidget({
     this.mobile,
     this.scale,
   });
@@ -78,10 +78,10 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
         child: Column(
           children: [
             DefaultTextStyle(
-              style: TextStyle(fontSize: 10, color: Colors.blue),
+              style: const TextStyle(fontSize: 10, color: Colors.blue),
               child: CustomPaginatedDataTable(
                 showCheckboxColumn: false,
-                header: Text("Select TBR to be completed"),
+                header: const Text('Select TBR to be completed'),
                 source: dtsSource,
                 rowsPerPage: _rowsPerPage,
                 sortColumnIndex: _sortColumnIndex,
@@ -165,7 +165,7 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                     },
                   ),
                   CustomDataColumn(
-                    label: Text('Assigned By'),
+                    label: const Text('Assigned By'),
                     onSort: (columnIndex, ascending) {
                       dtsSource.sort<String>(
                           getField: (d) => d.assignedBy,
@@ -205,8 +205,7 @@ class DTS extends CustomDataTableSource {
             // ignore: unnecessary_string_interpolations
             CustomDataCell(Text('${data[index].company.toDropDownString()}')),
             // ignore: unnecessary_string_interpolations
-            CustomDataCell(
-                Text('${data[index].technician.toDropDownString()}')),
+            CustomDataCell(Text('${data[index].technician}')),
             CustomDataCell(
                 Text(DateFormat.yMMMEd().format(data[index].dueDate))),
             CustomDataCell(Text(

@@ -45,19 +45,17 @@ class SidebarButton extends ConsumerWidget {
 
           elevation: MaterialStateProperty.resolveWith<double>(
             //   // text color
-            (Set<MaterialState> states) =>
-                states.contains(MaterialState.hovered) ? 10.0 : 100.0,
+            (states) => states.contains(MaterialState.hovered) ? 10.0 : 100.0,
           ),
           foregroundColor: MaterialStateProperty.resolveWith<Color>(
             // text color
-            (Set<MaterialState> states) =>
-                states.contains(MaterialState.pressed)
-                    ? Colors.red
-                    : Colors.blue,
+            (states) => states.contains(MaterialState.pressed)
+                ? Colors.red
+                : Colors.blue,
           ),
           backgroundColor: MaterialStateProperty.resolveWith<Color>(
               // background color    this is color:
-              (Set<MaterialState> states) {
+              (states) {
             Color finalColor = Colors.transparent;
             if (states.contains(MaterialState.hovered)) {
               finalColor = Colors.transparent;

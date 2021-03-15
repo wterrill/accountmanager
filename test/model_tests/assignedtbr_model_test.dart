@@ -1,8 +1,8 @@
-import 'package:accountmanager/app/home/models/Status.dart';
-import 'package:accountmanager/app/home/models/assignedTbr.dart';
-import 'package:accountmanager/app/home/models/company.dart';
-import 'package:accountmanager/app/home/models/questionnaire_type.dart';
-import 'package:accountmanager/app/home/models/technician.dart';
+import 'package:accountmanager/app/models/Status.dart';
+import 'package:accountmanager/app/models/assignedTbr.dart';
+import 'package:accountmanager/app/models/company.dart';
+import 'package:accountmanager/app/models/questionnaire_type.dart';
+import 'package:accountmanager/app/models/technician.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';

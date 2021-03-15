@@ -17,8 +17,7 @@ environment:
   sdk: ">=2.8.4 <3.0.0"
 
 dependencies:
-  flutter:
-    sdk: flutter
+  animations: ^1.1.2
   cloud_firestore: ^0.14.0+1
   cupertino_icons: ^1.0.1
   date_time_picker: ^1.1.1
@@ -28,22 +27,28 @@ dependencies:
   firebase_auth: ^0.18.4+1
   firebase_core: ^0.5.3
   # flutter_svg: ^0.19.2+1
+  flutter:
+    sdk: flutter
   flutter_svg: 0.20.0-nullsafety.3
+  font_awesome_flutter: ^8.11.0
   google_sign_in: ^4.5.6
   hooks_riverpod: ^0.12.2
+  integration_test: ^1.0.0
   intl: ^0.16.1
+  
   js: ^0.6.2
   logger: ^0.9.4
   # platform_svg: ^0.0.1
   provider: ^4.3.2+3
   rxdart: ^0.24.1
   shared_preferences: ^0.5.12+4
-  state_notifier: ^0.6.0
-  integration_test: ^1.0.0
-  animations: ^1.1.2
-  super_tooltip: ^0.9.6
-  font_awesome_flutter: ^8.11.0
   simple_animations: ^2.5.1
+  state_notifier: ^0.6.0
+  
+  
+  super_tooltip: ^0.9.6
+  
+  
   supercharged: ^1.12.0
 
 dev_dependencies:

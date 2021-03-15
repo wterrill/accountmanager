@@ -11,7 +11,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
 import 'package:accountmanager/routing/app_router.dart';
-// import 'package:pedantic/pedantic.dart';
 
 final signInModelProvider = ChangeNotifierProvider<SignInViewModel>(
   (ref) => SignInViewModel(auth: ref.watch(firebaseAuthProvider)),

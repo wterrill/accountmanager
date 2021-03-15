@@ -1,7 +1,7 @@
+import 'package:accountmanager/common_widgets/empty_content.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:accountmanager/app/home/jobs/empty_content.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
 
 String filename = 'auth_widget.dart: ';

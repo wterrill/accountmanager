@@ -1,4 +1,4 @@
-import 'package:accountmanager/app/home/models/tbr.dart';
+import 'package:accountmanager/app/models/tbr.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/web_view_home/app_page/tbr/tbr_builder/tbr_builder.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +9,9 @@ class BottomArrows extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    TBRinProgress tbrInProgress = watch(tbrInProgressProvider).state;
-    TBRfillPageData tbrFillPageData = watch(tbrFillPageDataProvider).state;
+    final TBRinProgress tbrInProgress = watch(tbrInProgressProvider).state;
+    final TBRfillPageData tbrFillPageData =
+        watch(tbrFillPageDataProvider).state;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [

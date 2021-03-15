@@ -1,4 +1,4 @@
-import 'package:accountmanager/app/home/models/tbr.dart';
+import 'package:accountmanager/app/models/tbr.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/web_view_home/app_page/tbr/tbr_builder/tbr_builder.dart';
 import 'package:flutter/material.dart';
@@ -22,12 +22,12 @@ class DropDownSelectors extends ConsumerWidget {
           items: tbrInProgress.sections.map((value) {
             return DropdownMenuItem<String>(
               value: value,
-              child: Container(
-                // color: Colors.brown[200],
-                // width: 300,
-                child: Text(
-                    '$value : ${(tbrInProgress.percentages[value.toLowerCase()]['total'] * 100).toStringAsFixed(0)}%'),
-              ),
+              // child: Container(
+              // color: Colors.brown[200],
+              // width: 300,
+              child: Text(
+                  '$value : ${(tbrInProgress.percentages[value.toLowerCase()]['total'] * 100).toStringAsFixed(0)}%'),
+              // ),
             );
           }).toList(),
           // ignore: avoid_types_on_closure_parameters

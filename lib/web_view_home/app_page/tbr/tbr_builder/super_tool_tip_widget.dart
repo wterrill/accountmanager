@@ -33,11 +33,11 @@ class _SuperToolTipWidgetState extends State<SuperToolTipWidget> {
       return;
     }
 
-    final RenderBox renderBox = context.findRenderObject() as RenderBox;
-    final overlay = Overlay.of(context).context.findRenderObject() as RenderBox;
+    // final RenderBox renderBox = context.findRenderObject() as RenderBox;
+    // final overlay = Overlay.of(context).context.findRenderObject() as RenderBox;
 
-    final Offset targetGlobalCenter = renderBox
-        .localToGlobal(renderBox.size.center(Offset.zero), ancestor: overlay);
+    // final Offset targetGlobalCenter = renderBox
+    //     .localToGlobal(renderBox.size.center(Offset.zero), ancestor: overlay);
 
     // We create the tooltip on the first use
     tooltip = SuperTooltip(

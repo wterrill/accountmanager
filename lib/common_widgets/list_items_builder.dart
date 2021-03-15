@@ -1,6 +1,6 @@
+import 'package:accountmanager/common_widgets/empty_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:accountmanager/app/home/jobs/empty_content.dart';
 
 typedef ItemWidgetBuilder<T> = Widget Function(BuildContext context, T item);
 

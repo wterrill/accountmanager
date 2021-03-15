@@ -1,16 +1,13 @@
-import 'package:accountmanager/app/home/models/assignedTbr.dart';
-import 'package:accountmanager/app/home/models/question.dart';
-import 'package:accountmanager/app/home/models/tbr.dart';
-import 'package:accountmanager/app/top_level_providers.dart';
+// ignore_for_file: file_names
+import 'package:accountmanager/app/models/question.dart';
+import 'package:accountmanager/app/models/tbr.dart';
 import 'package:accountmanager/common_widgets/CustomDataTable.dart';
 import 'package:accountmanager/common_widgets/CustomDataTableSource.dart';
 import 'package:accountmanager/common_widgets/CustomPaginatedDataTable.dart';
 import 'package:accountmanager/constants/strings.dart';
-import 'package:accountmanager/services/firestore_database.dart';
 import 'package:accountmanager/web_view_home/overview/create_datatable_widget2.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:accountmanager/app/home/app_page/tbr/tbr_entry.dart';
 
 class OverviewPaginatedTable extends StatefulWidget {
   const OverviewPaginatedTable({Key key, this.id}) : super(key: key);
@@ -76,7 +73,7 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
           },
           columns: [
             CustomDataColumn(
-              label: Text('Category'),
+              label: const Text('Category'),
               onSort: (columnIndex, ascending) {
                 dtsSource.sort<String>(
                     getField: (d) => d.category, ascending: _sortAscending);
@@ -87,7 +84,7 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
               },
             ),
             CustomDataColumn(
-              label: Text('Name'),
+              label: const Text('Name'),
               onSort: (columnIndex, ascending) {
                 dtsSource.sort<String>(
                     getField: (d) => d.questionName, ascending: _sortAscending);
@@ -97,8 +94,8 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
                 });
               },
             ),
-            CustomDataColumn(
-              label: Text("Priority"),
+            const CustomDataColumn(
+              label: Text('Priority'),
               // onSort: (columnIndex, ascending) {
               //   dtsSource.sort<String>(
               //       getField: (d) => d.technician.name,
@@ -109,8 +106,8 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
               //   });
               // },
             ),
-            CustomDataColumn(
-              label: Text("Question Text"),
+            const CustomDataColumn(
+              label: Text('Question Text'),
               // onSort: (columnIndex, ascending) {
               //   dtsSource.sort<String>(
               //       getField: (d) => d.dueDate.toString(),
@@ -121,8 +118,8 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
               //   });
               // },
             ),
-            CustomDataColumn(
-              label: Text("Aligned (Y/N)"),
+            const CustomDataColumn(
+              label: Text('Aligned (Y/N)'),
               // onSort: (columnIndex, ascending) {
               //   dtsSource.sort<String>(
               //       getField: (d) => d.clientMeetingDate.toString(),
@@ -203,16 +200,22 @@ Widget getAlignment(List<bool> answerArray, String expected) {
   print(answerArray);
   print(expected);
   if (!answerArray.contains(true)) {
-    return Text('');
+    return const Text('');
   }
   if (answerArray[1] == true && expected == 'N = Bad') {
     return Container(
-        width: 50, color: Color(0x55f44336), child: Center(child: Text('N')));
+        width: 50,
+        color: const Color(0x55f44336),
+        child: const Center(child: Text('N')));
   } else if (answerArray[2] == true) {
     return Container(
-        width: 50, color: Color(0x559e9e9e), child: Center(child: Text('N/A')));
+        width: 50,
+        color: const Color(0x559e9e9e),
+        child: const Center(child: Text('N/A')));
   } else {
     return Container(
-        width: 50, color: Color(0x554caf50), child: Center(child: Text('Y')));
+        width: 50,
+        color: const Color(0x554caf50),
+        child: const Center(child: Text('Y')));
   }
 }

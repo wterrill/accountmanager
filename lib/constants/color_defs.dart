@@ -1,3 +1,14 @@
+// ignore_for_file: file_names
+// ignore_for_file: prefer_asserts_with_message
+// ignore_for_file: avoid_types_on_closure_parameters
+// ignore_for_file: avoid_positional_boolean_parameters
+// ignore_for_file: avoid_returning_null
+// ignore_for_file: curly_braces_in_flow_control_structures
+// ignore_for_file: parameter_assignments
+// ignore_for_file: join_return_with_assignment
+// ignore_for_file: prefer_const_constructors
+// ignore_for_file: avoid_classes_with_only_static_members
+
 import 'dart:ui';
 import 'package:flutter/material.dart';
 

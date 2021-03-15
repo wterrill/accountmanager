@@ -1,4 +1,4 @@
-import 'package:accountmanager/app/home/models/model_interface.dart';
+import 'package:accountmanager/app/models/model_interface.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
@@ -14,7 +14,7 @@ class QuestionnaireType extends Equatable implements DropdownModel {
   @override
   bool get stringify => true;
 
-  factory QuestionnaireType.fromMap(Map<String, dynamic> data, String id) {
+  factory QuestionnaireType.fromMap(Map<String, dynamic> data) {
     if (data == null) {
       return null;
     }

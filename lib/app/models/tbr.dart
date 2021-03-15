@@ -1,5 +1,4 @@
-import 'package:accountmanager/app/home/models/question.dart';
-import 'package:accountmanager/web_view_home/app_page/tbr/tbr_builder/test_buttons.dart';
+import 'package:accountmanager/app/models/question.dart';
 import 'package:flutter/material.dart';
 
 class TBRinProgress {
@@ -260,7 +259,7 @@ class TBRinProgress {
   }
 
   Map<String, dynamic> toMap() {
-    Map<String, dynamic> mapToSend = {};
+    final Map<String, dynamic> mapToSend = {};
     mapToSend['answers'] = answers;
     mapToSend['adminComment'] = adminComment;
     mapToSend['tamNotes'] = tamNotes;

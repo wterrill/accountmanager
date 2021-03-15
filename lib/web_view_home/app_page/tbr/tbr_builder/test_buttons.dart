@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:accountmanager/app/home/models/tbr.dart';
+import 'package:accountmanager/app/models/tbr.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

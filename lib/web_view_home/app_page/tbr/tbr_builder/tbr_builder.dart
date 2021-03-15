@@ -1,11 +1,9 @@
-import 'package:accountmanager/app/home/models/question.dart';
-import 'package:accountmanager/app/home/models/tbr.dart';
+import 'package:accountmanager/app/models/question.dart';
+import 'package:accountmanager/app/models/tbr.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
-import 'package:accountmanager/common_widgets/custom_toggle_buttons.dart';
 import 'package:accountmanager/web_view_home/app_page/tbr/tbr_builder/bottom_arrows.dart';
 import 'package:accountmanager/web_view_home/app_page/tbr/tbr_builder/drop_down_selectors.dart';
 import 'package:accountmanager/web_view_home/app_page/tbr/tbr_builder/submit_button_row.dart';
-import 'package:accountmanager/web_view_home/app_page/tbr/tbr_builder/super_tool_tip_widget.dart';
 import 'package:accountmanager/web_view_home/app_page/tbr/tbr_builder/tbr_evaluation_section.dart';
 import 'package:accountmanager/web_view_home/app_page/tbr/tbr_builder/test_buttons.dart';
 import 'package:flutter/foundation.dart';
@@ -57,14 +55,15 @@ class _TBRbuilderState extends State<TBRbuilder> {
     // List<TextEditingController>.generate(3, (TextEditingController index) => index * index);
     return Consumer(builder: (context, watch, child) {
       // List<String> beer = watch(tbrInProgressProvider).state.sections;
+      // ignore: unused_local_variable
       final TBRinProgress beer2 = watch(tbrInProgressProvider).state;
 
-      return Column(children: [
-        const TestButtonRow(),
-        const SubmitButtonRow(),
-        const DropDownSelectors(),
-        const Expanded(child: TbrEvaluationSection()),
-        const BottomArrows(),
+      return Column(children: const [
+        TestButtonRow(),
+        SubmitButtonRow(),
+        DropDownSelectors(),
+        Expanded(child: TbrEvaluationSection()),
+        BottomArrows(),
       ]);
     });
   }

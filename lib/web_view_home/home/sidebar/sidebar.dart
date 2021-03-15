@@ -1,9 +1,6 @@
 import 'package:accountmanager/web_view_home/app_page/tbr_selection/start_tbr.dart';
 import 'package:accountmanager/web_view_home/home/developer/developer_page.dart';
-import 'package:accountmanager/web_view_home/home/developer/fancy_widgets1.dart';
 import 'package:accountmanager/web_view_home/home/developer/other_plasma1.dart';
-import 'package:accountmanager/web_view_home/home/developer/other_plasma2.dart';
-import 'package:accountmanager/web_view_home/home/sidebar/custom_background.dart';
 import 'package:accountmanager/web_view_home/home/sidebar/sidebar_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -11,7 +8,6 @@ import 'package:hooks_riverpod/all.dart';
 
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/web_view_home/account/account_page.dart';
-import 'package:accountmanager/web_view_home/app_page/tbr/tbr_app_page.dart';
 import 'package:accountmanager/web_view_home/assign_TBR/assign_tbr_page.dart';
 import 'package:accountmanager/web_view_home/create_company/create_company_page.dart';
 import 'package:accountmanager/web_view_home/create_technician/create_tech_page.dart';
@@ -35,8 +31,8 @@ class Sidebar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    int _downCounter = 0;
-    int _upCounter = 0;
+    // int _downCounter = 0;
+    // int _upCounter = 0;
     double x = 0.0;
     double y = 0.0;
 
@@ -51,14 +47,14 @@ class Sidebar extends ConsumerWidget {
     void _incrementDown(PointerEvent details) {
       _updateLocation(details);
       // setState(() {
-      _downCounter++;
+      // _downCounter++;
       // });
     }
 
     void _incrementUp(PointerEvent details) {
       _updateLocation(details);
       // setState(() {
-      _upCounter++;
+      // _upCounter++;
       // });
     }
 
@@ -192,7 +188,7 @@ class Sidebar extends ConsumerWidget {
             onPressedx: () {
               context.read(widgetProvider).state = Expanded(
                   child: Container(
-                      color: Colors.brown[150], child: DeveloperPage()));
+                      color: Colors.brown[150], child: const DeveloperPage()));
             },
           ),
           const Text(''),

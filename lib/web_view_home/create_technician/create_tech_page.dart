@@ -1,13 +1,12 @@
-import 'package:accountmanager/app/home/create_technician/input_technician_ui.dart';
-import 'package:accountmanager/app/home/models/technician.dart';
+import 'package:accountmanager/app/models/technician.dart';
 import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
+import 'package:accountmanager/web_view_home/create_technician/input_technician_ui.dart';
+import 'package:accountmanager/web_view_home/create_technician/technician_list_tile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:accountmanager/app/home/create_technician/technician_list_tile.dart';
 import 'package:accountmanager/common_widgets/list_items_builder.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
-import 'package:accountmanager/constants/strings.dart';
 import 'package:pedantic/pedantic.dart';
 
 final technicianStreamProvider =
@@ -44,9 +43,9 @@ class CreateTechWebPage extends ConsumerWidget {
       children: [
         Container(
             height: 200,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: const InputTechnician(),
+            child: const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: InputTechnician(),
             )),
         Container(
           height: 300,

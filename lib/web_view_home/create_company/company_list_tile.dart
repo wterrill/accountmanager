@@ -1,4 +1,4 @@
-import 'package:accountmanager/app/home/models/company.dart';
+import 'package:accountmanager/app/models/company.dart';
 import 'package:flutter/material.dart';
 
 class CompanyListTile extends StatelessWidget {

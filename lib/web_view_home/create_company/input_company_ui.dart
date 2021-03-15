@@ -7,7 +7,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pedantic/pedantic.dart';
 
-import 'package:accountmanager/app/home/models/company.dart';
+import 'package:accountmanager/app/models/company.dart';
 import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
 import 'package:accountmanager/services/firestore_database.dart';
 

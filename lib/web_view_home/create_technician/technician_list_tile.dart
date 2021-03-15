@@ -1,4 +1,4 @@
-import 'package:accountmanager/app/home/models/technician.dart';
+import 'package:accountmanager/app/models/technician.dart';
 import 'package:flutter/material.dart';
 
 class TechnicianListTile extends StatelessWidget {

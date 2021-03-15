@@ -1,5 +1,4 @@
-import 'package:accountmanager/app/home/models/assignedTbr.dart';
-import 'package:accountmanager/app/home/models/tbr.dart';
+import 'package:accountmanager/app/models/tbr.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/common_widgets/display_widget_dialog_with_error.dart';
 import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';

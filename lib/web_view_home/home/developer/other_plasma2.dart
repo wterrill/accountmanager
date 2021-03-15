@@ -5,7 +5,7 @@ class OtherPlasma2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           tileMode: TileMode.mirror,
           begin: Alignment.topLeft,
@@ -24,7 +24,7 @@ class OtherPlasma2 extends StatelessWidget {
       child: PlasmaRenderer(
         type: PlasmaType.circle,
         particles: 10,
-        color: Color(0x4423b9e4),
+        color: const Color(0x4423b9e4),
         blur: 0.4,
         size: 1,
         speed: 6,
@@ -37,7 +37,7 @@ class OtherPlasma2 extends StatelessWidget {
         child: PlasmaRenderer(
           type: PlasmaType.circle,
           particles: 10,
-          color: Color(0x44b623e4),
+          color: const Color(0x44b623e4),
           blur: 0.4,
           size: 1,
           speed: 5.16,
@@ -50,7 +50,7 @@ class OtherPlasma2 extends StatelessWidget {
           child: PlasmaRenderer(
             type: PlasmaType.circle,
             particles: 3,
-            color: Color(0x4423c1e4),
+            color: const Color(0x4423c1e4),
             blur: 0.4,
             size: 1,
             speed: 6.48,

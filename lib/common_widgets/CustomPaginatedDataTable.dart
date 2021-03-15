@@ -1,10 +1,17 @@
 // Copyright 2014 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+// ignore_for_file: file_names
+// ignore_for_file: prefer_asserts_with_message
+// ignore_for_file: avoid_types_on_closure_parameters
+// ignore_for_file: avoid_positional_boolean_parameters
+// ignore_for_file: avoid_returning_null
+// ignore_for_file: curly_braces_in_flow_control_structures
+// ignore_for_file: parameter_assignments
+// ignore_for_file: join_return_with_assignment
+// ignore_for_file: prefer_const_constructors
 
 import 'dart:math' as math;
-
-import 'package:accountmanager/constants/color_defs.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/gestures.dart' show DragStartBehavior;
@@ -119,7 +126,7 @@ class CustomPaginatedDataTable extends StatefulWidget {
   /// The table card's header.
   ///
   /// This is typically a [Text] widget, but can also be a [ButtonBar] with
-  /// [FlatButton]s. Suitable defaults are automatically provided for the font,
+  /// FlatButton]s. Suitable defaults are automatically provided for the font,
   /// button color, button padding, and so forth.
   ///
   /// If items in the table are selectable, then, when the selection is not

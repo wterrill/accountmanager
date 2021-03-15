@@ -1,4 +1,4 @@
-import 'package:accountmanager/app/home/models/assignedTbr.dart';
+import 'package:accountmanager/app/models/assignedTbr.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/constants/strings.dart';
 import 'package:accountmanager/services/firestore_database.dart';

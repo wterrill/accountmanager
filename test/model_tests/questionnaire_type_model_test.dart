@@ -1,4 +1,4 @@
-import 'package:accountmanager/app/home/models/questionnaire_type.dart';
+import 'package:accountmanager/app/models/questionnaire_type.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/foundation.dart';
 
@@ -6,7 +6,7 @@ void main() {
   print('STARTED questionnaire_type_model_test.dart');
   group('fromMap tests', () {
     test('null data', () {
-      final questionnaireType1 = QuestionnaireType.fromMap(null, 'abc');
+      final questionnaireType1 = QuestionnaireType.fromMap(null);
       expect(questionnaireType1, null);
     });
     test('with all properties', () {
@@ -14,7 +14,7 @@ void main() {
         'questionnaireType_id': 'TBR id',
         'questionnaireType_name': 'TBR'
       };
-      final questionnaireType1 = QuestionnaireType.fromMap(goodMap, 'TBR id');
+      final questionnaireType1 = QuestionnaireType.fromMap(goodMap);
       const questionnaireType2 = QuestionnaireType(id: 'TBR id', name: 'TBR');
       expect(
         questionnaireType1,
@@ -23,7 +23,7 @@ void main() {
     });
 
     test('missing property', () {
-      final questionnaireType1 = QuestionnaireType.fromMap(const {}, 'abc');
+      final questionnaireType1 = QuestionnaireType.fromMap(const {});
       expect(questionnaireType1, null);
     });
   });

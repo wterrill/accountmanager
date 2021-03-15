@@ -1,4 +1,4 @@
-import 'package:accountmanager/app/home/models/tbr.dart';
+import 'package:accountmanager/app/models/tbr.dart';
 import 'package:accountmanager/common_widgets/CustomDataTable.dart';
 import 'package:accountmanager/common_widgets/CustomDataTableSource.dart';
 import 'package:accountmanager/common_widgets/CustomPaginatedDataTable.dart';
@@ -7,11 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:intl/intl.dart';
 
-import 'package:accountmanager/app/home/models/assignedTbr.dart';
+import 'package:accountmanager/app/models/assignedTbr.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/common_widgets/empty_content.dart';
 import 'package:accountmanager/constants/strings.dart';
-import 'package:accountmanager/web_view_home/app_page/tbr/tbr_app_page.dart';
 import 'package:accountmanager/web_view_home/home/sidebar/sidebar.dart';
 
 final assignedTbrStreamProvider =
@@ -38,7 +37,7 @@ class CreateOverviewSelectDataTableWidget extends ConsumerWidget {
   final bool mobile;
   final double scale;
 
-  CreateOverviewSelectDataTableWidget({
+  const CreateOverviewSelectDataTableWidget({
     this.mobile,
     this.scale,
   });
@@ -94,10 +93,10 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
         child: Column(
           children: [
             DefaultTextStyle(
-              style: TextStyle(fontSize: 10, color: Colors.blue),
+              style: const TextStyle(fontSize: 10, color: Colors.blue),
               child: CustomPaginatedDataTable(
                 showCheckboxColumn: false,
-                header: Text("Select TBR to be completed"),
+                header: const Text('Select TBR to be completed'),
                 source: dtsSource,
                 rowsPerPage: _rowsPerPage,
                 sortColumnIndex: _sortColumnIndex,
@@ -181,7 +180,7 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                     },
                   ),
                   CustomDataColumn(
-                    label: Text('Assigned By'),
+                    label: const Text('Assigned By'),
                     onSort: (columnIndex, ascending) {
                       dtsSource.sort<String>(
                           getField: (d) => d.assignedBy,
@@ -221,8 +220,7 @@ class DTS extends CustomDataTableSource {
             // ignore: unnecessary_string_interpolations
             CustomDataCell(Text('${data[index].company.toDropDownString()}')),
             // ignore: unnecessary_string_interpolations
-            CustomDataCell(
-                Text('${data[index].technician.toDropDownString()}')),
+            CustomDataCell(Text('${data[index].technician}')),
             CustomDataCell(
                 Text(DateFormat.yMMMEd().format(data[index].dueDate))),
             CustomDataCell(Text(
@@ -271,11 +269,13 @@ class DTS extends CustomDataTableSource {
 
 Future<void> _displayDialog(
     {BuildContext context, AssignedTBR data, bool mobile}) async {
-  String id = '1615681503403977';
-  Widget frame = Container(
-    child: SingleChildScrollView(
-      child: OverviewPaginatedTable(id: id),
-    ),
+  const String id = '1615681503403977';
+  Widget frame =
+      // Container(
+      //   child:
+      const SingleChildScrollView(
+    child: OverviewPaginatedTable(id: id),
+    // ),
   );
   // Widget frame =
   //     Container(color: Colors.brown[150], child: TBRappPage(data: data));

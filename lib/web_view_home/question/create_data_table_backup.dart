@@ -1,12 +1,9 @@
-import 'package:accountmanager/app/home/models/question.dart';
+import 'package:accountmanager/app/models/question.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/constants/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
-import 'package:intl/intl.dart';
 import 'package:pedantic/pedantic.dart';
-
-import 'package:accountmanager/app/home/assign_TBR/widget_assign_TBR2.dart';
 import 'package:accountmanager/common_widgets/empty_content.dart';
 import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
 
@@ -44,6 +41,7 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
   // String lastFilterText = "";
   // bool filterTimeToggle;
   // // int _rowsPerPage = CustomPaginatedDataTable.defaultRowsPerPage;
+  // ignore: unused_field
   int _sortColumnIndex = 0;
   bool _sortAscending;
   @override
@@ -150,6 +148,9 @@ class DTS extends DataTableSource {
     this.context,
   );
 
+// ignore_for_file: use_function_type_syntax_for_parameters
+// ignore_for_file: avoid_positional_boolean_parameters
+// ignore_for_file: avoid_types_on_closure_parameters
   void sort<T>(Comparable<T> getField(Question d), bool ascending) {
     data.sort((Question a, Question b) {
       if (!ascending) {
@@ -212,7 +213,7 @@ Future<void> _displayDialog(BuildContext context, Question data) async {
     final Map<String, dynamic> result = await showWidgetDialog(
         context: context,
         title: 'Assign TBR',
-        widget: Text('beer') //AssignTBR(data: data),  //**//**//**//**/
+        widget: const Text('beer') //AssignTBR(data: data),  //**//**//**//**/
         // defaultActionText: '',
         // cancelActionText: '',
         );

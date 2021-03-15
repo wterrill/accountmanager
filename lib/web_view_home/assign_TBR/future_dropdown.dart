@@ -1,9 +1,6 @@
-import 'package:accountmanager/app/home/models/model_interface.dart';
+import 'package:accountmanager/app/models/model_interface.dart';
 import 'package:accountmanager/common_utilities/utilities.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/all.dart';
-
-import 'package:accountmanager/services/firestore_database.dart';
 
 // typedef ItemWidgetBuilder<T> = Widget Function(BuildContext context, T item);
 

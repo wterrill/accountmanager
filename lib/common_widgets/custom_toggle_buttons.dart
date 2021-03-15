@@ -1,19 +1,14 @@
 // Copyright 2014 The Flutter Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
+// ignore_for_file: prefer_asserts_with_message
+// ignore_for_file: avoid_types_on_closure_parameters
+// ignore_for_file: avoid_positional_boolean_parameters
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-
-// import 'button.dart';
-// import 'constants.dart';
-// import 'debug.dart';
-// import 'theme.dart';
-// import 'theme_data.dart';
-// import 'toggle_buttons_theme.dart';
 
 /// A set of toggle buttons.
 ///

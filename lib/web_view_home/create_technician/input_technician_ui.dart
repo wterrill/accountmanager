@@ -7,7 +7,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pedantic/pedantic.dart';
 
-import 'package:accountmanager/app/home/models/technician.dart';
+import 'package:accountmanager/app/models/technician.dart';
 import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
 import 'package:accountmanager/services/firestore_database.dart';
 
@@ -74,7 +74,7 @@ class UploadButton extends StatelessWidget {
     if (_validateAndSaveForm()) {
       try {
         final database = context.read(databaseProvider);
-        final technicianNOTSURE = await database.technicianStream().first;
+        // final technicianNOTSURE = await database.technicianStream().first;
 
         final id = documentIdFromCurrentDate();
         final technician = Technician(id: id, name: _name);

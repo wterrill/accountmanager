@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_classes_with_only_static_members
 class Strings {
   // Generic strings
   static const String ok = 'OK';

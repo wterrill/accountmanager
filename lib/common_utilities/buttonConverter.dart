@@ -1,3 +1,6 @@
+// ignore_for_file: file_names
+// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: parameter_assignments
 import 'package:flutter/material.dart';
 
 Widget FlatButtonX(
@@ -12,21 +15,19 @@ Widget FlatButtonX(
   if (disabledTextColorx == null && textColorx == null) {
     disabledTextColorx = colorx;
   }
-  if (textColorx == null) {
-    textColorx = colorx;
-  }
+  textColorx ??= colorx;
   return TextButton(
       key: keyx,
       style: ButtonStyle(
         foregroundColor: MaterialStateProperty.resolveWith<Color>(
           // text color
-          (Set<MaterialState> states) => states.contains(MaterialState.disabled)
+          (states) => states.contains(MaterialState.disabled)
               ? disabledTextColorx
               : textColorx,
         ),
         backgroundColor: MaterialStateProperty.resolveWith<Color>(
           // background color    this is color:
-          (Set<MaterialState> states) =>
+          (states) =>
               states.contains(MaterialState.disabled) ? disabledColorx : colorx,
         ),
         shape: MaterialStateProperty.all(shapex),
@@ -48,21 +49,22 @@ Widget RaisedButtonX(
   if (disabledTextColorx == null && textColorx == null) {
     disabledTextColorx = colorx;
   }
-  if (textColorx == null) {
-    textColorx = colorx;
-  }
+  // if (textColorx == null) {
+  //   textColorx = colorx;
+  // }
+  textColorx ??= colorx;
   return ElevatedButton(
       key: keyx,
       style: ButtonStyle(
         foregroundColor: MaterialStateProperty.resolveWith<Color>(
           // text color
-          (Set<MaterialState> states) => states.contains(MaterialState.disabled)
+          (states) => states.contains(MaterialState.disabled)
               ? disabledTextColorx
               : textColorx,
         ),
         backgroundColor: MaterialStateProperty.resolveWith<Color>(
           // background color    this is color:
-          (Set<MaterialState> states) =>
+          (states) =>
               states.contains(MaterialState.disabled) ? disabledColorx : colorx,
         ),
         shape: MaterialStateProperty.all(shapex),

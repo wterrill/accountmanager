@@ -16,14 +16,14 @@ Future<Map<String, dynamic>> showWidgetDialog({
         content: widget,
         actions: <Widget>[
           if (cancelActionText != null)
-            FlatButton(
-              child: Text(cancelActionText),
-              onPressed: () => Navigator.of(context).pop({'result': 'true'}),
+            FlatButtonX(
+              childx: Text(cancelActionText),
+              onPressedx: () => Navigator.of(context).pop({'result': 'true'}),
             ),
           if (cancelActionText != null)
-            FlatButton(
-              child: Text(defaultActionText),
-              onPressed: () => Navigator.of(context).pop({'result': 'false'}),
+            FlatButtonX(
+              childx: Text(defaultActionText),
+              onPressedx: () => Navigator.of(context).pop({'result': 'false'}),
             ),
         ],
       ),

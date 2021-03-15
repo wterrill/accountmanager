@@ -1,12 +1,11 @@
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/constants/strings.dart';
+import 'package:accountmanager/web_view_home/assign_TBR/widget_assign_TBR2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:intl/intl.dart';
 import 'package:pedantic/pedantic.dart';
-
-import 'package:accountmanager/app/home/assign_TBR/widget_assign_TBR2.dart';
-import 'package:accountmanager/app/home/models/assignedTbr.dart';
+import 'package:accountmanager/app/models/assignedTbr.dart';
 import 'package:accountmanager/common_widgets/empty_content.dart';
 import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
 
@@ -166,7 +165,7 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                   },
                 ),
                 DataColumn(
-                  label: Text('Assigned By'),
+                  label: const Text('Assigned By'),
                   onSort: (columnIndex, ascending) {
                     dtsSource.sort<String>(
                         getField: (d) => d.assignedBy,
@@ -207,8 +206,8 @@ class DTS extends DataTableSource {
             _displayDialog(context, data[index]);
           },
           cells: [
-            DataCell(Text('${data[index].company.toDropDownString()}')),
-            DataCell(Text('${data[index].technician.toDropDownString()}')),
+            DataCell(Text('${data[index].company}')),
+            DataCell(Text('${data[index].technician}')),
             DataCell(Text(DateFormat.yMMMEd().format(data[index].dueDate))),
             DataCell(Text(
                 DateFormat.yMMMEd().format(data[index].clientMeetingDate))),

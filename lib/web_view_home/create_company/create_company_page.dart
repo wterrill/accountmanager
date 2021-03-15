@@ -1,14 +1,12 @@
-import 'package:accountmanager/app/home/create_company/input_company_ui.dart';
-import 'package:accountmanager/app/home/create_company/show_dialog_button.dart';
-import 'package:accountmanager/app/home/models/company.dart';
+import 'package:accountmanager/app/models/company.dart';
 import 'package:accountmanager/common_widgets/list_items_builder.dart';
 import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
+import 'package:accountmanager/web_view_home/create_company/company_list_tile.dart';
+import 'package:accountmanager/web_view_home/create_company/input_company_ui.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:accountmanager/app/home/create_company/company_list_tile.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
-import 'package:accountmanager/constants/strings.dart';
 import 'package:pedantic/pedantic.dart';
 
 final companyStreamProvider = StreamProvider.autoDispose<List<Company>>((ref) {

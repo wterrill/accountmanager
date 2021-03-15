@@ -1,11 +1,10 @@
-import 'package:accountmanager/app/home/models/assignedTbr.dart';
-import 'package:accountmanager/app/home/models/tbr.dart';
+import 'package:accountmanager/app/models/assignedTbr.dart';
+import 'package:accountmanager/app/models/tbr.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/constants/strings.dart';
 import 'package:accountmanager/services/firestore_database.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:accountmanager/app/home/app_page/tbr/tbr_entry.dart';
 
 class OverviewPaginatedTable extends StatefulWidget {
   const OverviewPaginatedTable({Key key, this.id}) : super(key: key);

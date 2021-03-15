@@ -1,12 +1,9 @@
-import 'package:accountmanager/app/home/account/account_page.dart';
-import 'package:accountmanager/app/home/assign_TBR/delete_me.dart';
-import 'package:accountmanager/constants/keys.dart';
+import 'package:accountmanager/web_view_home/assign_TBR/delete_me.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter/material.dart';
 
 void main() {
-  testWidgets('MyWidget has a title and message', (WidgetTester tester) async {
-    await tester.pumpWidget(MyWidget(title: 'T', message: 'M'));
+  testWidgets('MyWidget has a title and message', (tester) async {
+    await tester.pumpWidget(const MyWidget(title: 'T', message: 'M'));
     final titleFinder = find.text('T');
     final messageFinder = find.text('M');
 

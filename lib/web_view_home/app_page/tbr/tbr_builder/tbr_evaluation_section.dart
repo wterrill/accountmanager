@@ -1,5 +1,5 @@
-import 'package:accountmanager/app/home/models/question.dart';
-import 'package:accountmanager/app/home/models/tbr.dart';
+import 'package:accountmanager/app/models/question.dart';
+import 'package:accountmanager/app/models/tbr.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/common_widgets/custom_toggle_buttons.dart';
 import 'package:accountmanager/web_view_home/app_page/tbr/tbr_builder/super_tool_tip_widget.dart';
@@ -12,8 +12,9 @@ class TbrEvaluationSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    TBRfillPageData tbrFillPageData = watch(tbrFillPageDataProvider).state;
-    TBRinProgress tbrInProgress = watch(tbrInProgressProvider).state;
+    final TBRfillPageData tbrFillPageData =
+        watch(tbrFillPageDataProvider).state;
+    final TBRinProgress tbrInProgress = watch(tbrInProgressProvider).state;
     return ListView.builder(
       shrinkWrap: false,
       // Let the ListView know how many items it needs to build.

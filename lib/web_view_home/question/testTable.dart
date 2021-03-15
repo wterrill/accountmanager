@@ -1,7 +1,8 @@
+// ignore_for_file: file_names
 import 'package:flutter/material.dart';
 
 class Testing extends StatefulWidget {
-  Testing({Key key}) : super(key: key);
+  const Testing({Key key}) : super(key: key);
 
   @override
   _MyDataTableState createState() => _MyDataTableState();
@@ -30,14 +31,14 @@ class _MyDataTableState extends State<Testing> {
         DataColumn(
           label: Container(
             width: 100,
-            child: Text('Item Code'),
+            child: const Text('Item Code'),
           ),
         ),
-        DataColumn(
+        const DataColumn(
           label: Text('Stock Item'),
         ),
       ],
-      rows: [
+      rows: const [
         DataRow(
           cells: [
             DataCell(

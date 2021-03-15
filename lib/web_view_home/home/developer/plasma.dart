@@ -1,8 +1,10 @@
+// ignore_for_file:  constant_identifier_names
+// ignore_for_file: prefer_final_locals
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'package:supercharged/supercharged.dart';
-
-// import '../demo_screen.dart';
 import 'fancy_widgets1.dart';
 import 'other_plasma1.dart';
 import 'other_plasma2.dart';
@@ -15,17 +17,17 @@ class FancyPlasma1 extends StatelessWidget {
     var tween = _createTween();
 
     return LayoutBuilder(builder: (context, constraints) {
-      var ratio = constraints.maxWidth / constraints.maxHeight;
+      final double ratio = constraints.maxWidth / constraints.maxHeight;
 
       return PlayAnimation<TimelineValue<_P>>(
           tween: tween,
           duration: tween.duration,
           builder: (context, child, value) {
-            var p1Scale = value.get<double>(_P.p1Scale);
-            var p2Scale = value.get<double>(_P.p2Scale);
+            final double p1Scale = value.get<double>(_P.p1Scale);
+            final double p2Scale = value.get<double>(_P.p2Scale);
 
-            var p2 = Positioned.fill(
-              key: Key('p2'),
+            final Positioned p2 = Positioned.fill(
+              key: const Key('p2'),
               child: Transform.scale(
                   alignment: Alignment.topLeft,
                   scale: value.get(_P.p2Scale),
