@@ -4,6 +4,7 @@ import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/common_widgets/custom_toggle_buttons.dart';
 import 'package:accountmanager/web_view_home/app_page/tbr/tbr_builder/bottom_arrows.dart';
 import 'package:accountmanager/web_view_home/app_page/tbr/tbr_builder/drop_down_selectors.dart';
+import 'package:accountmanager/web_view_home/app_page/tbr/tbr_builder/submit_button_row.dart';
 import 'package:accountmanager/web_view_home/app_page/tbr/tbr_builder/super_tool_tip_widget.dart';
 import 'package:accountmanager/web_view_home/app_page/tbr/tbr_builder/tbr_evaluation_section.dart';
 import 'package:accountmanager/web_view_home/app_page/tbr/tbr_builder/test_buttons.dart';
@@ -60,6 +61,7 @@ class _TBRbuilderState extends State<TBRbuilder> {
 
       return Column(children: [
         const TestButtonRow(),
+        const SubmitButtonRow(),
         const DropDownSelectors(),
         const Expanded(child: TbrEvaluationSection()),
         const BottomArrows(),

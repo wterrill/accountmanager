@@ -4,6 +4,7 @@ import 'package:accountmanager/app/home/models/assignedTbr.dart';
 import 'package:accountmanager/app/home/models/company.dart';
 import 'package:accountmanager/app/home/models/question.dart';
 import 'package:accountmanager/app/home/models/questionnaire_type.dart';
+import 'package:accountmanager/app/home/models/tbr.dart';
 import 'package:accountmanager/app/home/models/technician.dart';
 import 'package:meta/meta.dart';
 import 'package:accountmanager/app/home/models/entry.dart';
@@ -94,6 +95,11 @@ class FirestoreDatabase {
         data: assignedTbr.toMap(),
       );
 
+  Future<void> setEvaluation(TBRinProgress tbrInProgress) => _service.setData(
+        path: FirestorePath.completedTBR(tbrInProgress.id),
+        data: tbrInProgress.toMap(),
+      );
+
   Future<void> deleteTBR(AssignedTBR assignedTbr) async {
     await _service.deleteData(path: FirestorePath.assignedtbr(assignedTbr.id));
   }
@@ -112,6 +118,13 @@ class FirestoreDatabase {
         path: FirestorePath.assignedtbrs(),
         builder: (data, id) => AssignedTBR.fromMap(data, id),
       );
+
+  Stream<TBRinProgress> completedTbrStream({@required String completedTbrId}) =>
+      _service.documentStream(
+        path: FirestorePath.completedTBR(completedTbrId),
+        builder: (data, documentId) => TBRinProgress.fromMap(data, documentId),
+      );
+
   Stream<List<Question>> questionStream() => _service.collectionStream(
         path: FirestorePath.questions(), //**//**//**//**/
         builder: (data, id) => Question.fromMap(data, id),

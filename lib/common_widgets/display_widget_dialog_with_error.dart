@@ -9,8 +9,8 @@ Future<void> displayWidgetDialogWithError(
       context: context,
       title: title,
       widget: widget,
-      // defaultActionText: '',
-      // cancelActionText: '',
+      defaultActionText: '',
+      cancelActionText: '',
     );
     print(result);
   } catch (e) {

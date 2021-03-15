@@ -7,12 +7,14 @@ import 'package:accountmanager/common_widgets/CustomDataTableSource.dart';
 import 'package:accountmanager/common_widgets/CustomPaginatedDataTable.dart';
 import 'package:accountmanager/constants/strings.dart';
 import 'package:accountmanager/services/firestore_database.dart';
+import 'package:accountmanager/web_view_home/overview/create_datatable_widget2.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:accountmanager/app/home/app_page/tbr/tbr_entry.dart';
 
 class OverviewPaginatedTable extends StatefulWidget {
-  const OverviewPaginatedTable({Key key}) : super(key: key);
+  const OverviewPaginatedTable({Key key, this.id}) : super(key: key);
+  final String id;
 
   @override
   _OverviewPaginatedTableState createState() => _OverviewPaginatedTableState();
@@ -27,16 +29,35 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
 
   @override
   void initState() {
-    tbrInProgress = context.read(tbrInProgressProvider).state;
-    _sortAscending = false;
+    // tbrInProgress = context.read(completedTbrStreamProvider(widget.id));
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final tbrInProgress = context.read(tbrInProgressProvider).state;
-    return _datatable(DTS(tbrInProgress));
+    // final tbrInProgress = context.read(tbrInProgressProvider).state;
+
+    return Consumer(builder: (context, watch, child) {
+      final tbrInProgressAsyncValue =
+          watch(completedTbrStreamProvider(widget.id));
+
+      return tbrInProgressAsyncValue.when(
+        data: (tbrInProgress) => _datatable(DTS(tbrInProgress)),
+        loading: () => Container(color: Colors.cyanAccent),
+        error: (_, __) => Container(color: Colors.red),
+      );
+    });
   }
+
+  //   Widget build(BuildContext context, ScopedReader watch) {
+  //   final jobAsyncValue = watch(jobStreamProvider(job.id));
+  //   return jobAsyncValue.when(
+  //     data: (job) => Text(job.name),
+  //     loading: () => Container(),
+  //     error: (_, __) => Container(),
+  //   );
+  // }
 
   Widget _datatable(DTS dtsSource) {
     return Column(

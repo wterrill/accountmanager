@@ -116,19 +116,19 @@ class Sidebar extends ConsumerWidget {
                       color: Colors.green[200], child: CreateTechWebPage()));
             },
           ),
-          SidebarButton(
-            lastText: lastText,
-            text: 'View Roadmap',
-            faIcon: FontAwesomeIcons.road,
-            onPressedx: () {
-              context.read(widgetProvider).state = Expanded(
-                  child: Container(
-                      color: Colors.green[300],
-                      child: const Center(
-                          child:
-                              Text('I really have no idea what to put here'))));
-            },
-          ),
+          // SidebarButton(
+          //   lastText: lastText,
+          //   text: 'View Roadmap',
+          //   faIcon: FontAwesomeIcons.road,
+          //   onPressedx: () {
+          //     context.read(widgetProvider).state = Expanded(
+          //         child: Container(
+          //             color: Colors.green[300],
+          //             child: const Center(
+          //                 child:
+          //                     Text('I really have no idea what to put here'))));
+          //   },
+          // ),
           SidebarButton(
             lastText: lastText,
             text: 'Edit Questions',

@@ -8,7 +8,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:accountmanager/app/home/app_page/tbr/tbr_entry.dart';
 
 class OverviewPaginatedTable extends StatefulWidget {
-  const OverviewPaginatedTable({Key key}) : super(key: key);
+  const OverviewPaginatedTable({Key key, this.id}) : super(key: key);
+  final String id;
 
   @override
   _OverviewPaginatedTableState createState() => _OverviewPaginatedTableState();

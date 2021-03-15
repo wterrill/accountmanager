@@ -23,4 +23,8 @@ class FirestorePath {
   // _________________________
   static String questions() => 'questionnaire';
   static String question(String questionId) => 'questionnaire/$questionId';
+  // _________________________
+  // tbrInProgress
+  static String completedTBRs() => 'completedTBRs';
+  static String completedTBR(String id) => 'completedTBRs/$id';
 }

@@ -1,4 +1,5 @@
 import 'package:accountmanager/app/home/models/question.dart';
+import 'package:accountmanager/web_view_home/app_page/tbr/tbr_builder/test_buttons.dart';
 import 'package:flutter/material.dart';
 
 class TBRinProgress {
@@ -13,7 +14,21 @@ class TBRinProgress {
   Map<String, String> adminComment; // category:
   Map<String, String> tamNotes;
   bool showSubmitButton = false;
+  String id;
   TBRinProgress();
+
+  factory TBRinProgress.fromMap(Map<String, dynamic> map, String id) {
+    if (map == null || id == null) return null;
+
+    if (map['Question Text'] == null) {
+      return null;
+    }
+
+    final TBRinProgress tbrInProgress = TBRinProgress();
+    tbrInProgress.id = '3';
+
+    return tbrInProgress;
+  }
 
   void initialize(List<Question> allQuestionsIn) {
     allQuestions = allQuestionsIn;
@@ -24,6 +39,7 @@ class TBRinProgress {
     colorScheme = generateColors(allQuestions);
     adminComment = initializeComments(allQuestions);
     tamNotes = initializeComments(allQuestions);
+    id = DateTime.now().toUtc().microsecondsSinceEpoch.toString();
   }
 
   Map<String, String> initializeComments(List<Question> allQuestions) {
@@ -241,5 +257,14 @@ class TBRinProgress {
     }
 
     showSubmitButton = canSubmit;
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> mapToSend = {};
+    mapToSend['answers'] = answers;
+    mapToSend['adminComment'] = adminComment;
+    mapToSend['tamNotes'] = tamNotes;
+    mapToSend['id'] = id;
+    return mapToSend;
   }
 }
