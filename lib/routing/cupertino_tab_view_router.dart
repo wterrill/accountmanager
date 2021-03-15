@@ -13,7 +13,7 @@
 // ignore_for_file: unused_local_variable
 
 import 'package:flutter/cupertino.dart';
-import 'package:accountmanager/app/models/job.dart';
+import 'package:accountmanager/models/job.dart';
 
 class CupertinoTabViewRoutes {
   static const jobEntriesPage = '/job-entries-page';

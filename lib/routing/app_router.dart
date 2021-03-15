@@ -12,11 +12,11 @@
 // ignore_for_file: prefer_final_locals
 // ignore_for_file: unused_local_variable
 
-import 'package:accountmanager/app/models/assignedTbr.dart';
+import 'package:accountmanager/models/assignedTbr.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:accountmanager/app/models/entry.dart';
-import 'package:accountmanager/app/models/job.dart';
+import 'package:accountmanager/models/entry.dart';
+import 'package:accountmanager/models/job.dart';
 import 'package:accountmanager/packages/email_password_sign_in_ui/test/email_password_sign_in_page.dart';
 
 class AppRoutes {

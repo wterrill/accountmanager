@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:accountmanager/app/models/job.dart';
+import 'package:accountmanager/models/job.dart';
 
 void main() {
   print('STARTED job_test.dart');

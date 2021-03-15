@@ -1,4 +1,4 @@
-import 'package:accountmanager/app/models/technician.dart';
+import 'package:accountmanager/models/technician.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/foundation.dart';
 

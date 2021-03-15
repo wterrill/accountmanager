@@ -1,14 +1,14 @@
 import 'dart:async';
 
-import 'package:accountmanager/app/models/assignedTbr.dart';
-import 'package:accountmanager/app/models/company.dart';
-import 'package:accountmanager/app/models/question.dart';
-import 'package:accountmanager/app/models/questionnaire_type.dart';
-import 'package:accountmanager/app/models/tbr.dart';
-import 'package:accountmanager/app/models/technician.dart';
+import 'package:accountmanager/models/assignedTbr.dart';
+import 'package:accountmanager/models/company.dart';
+import 'package:accountmanager/models/question.dart';
+import 'package:accountmanager/models/questionnaire_type.dart';
+import 'package:accountmanager/models/tbr.dart';
+import 'package:accountmanager/models/technician.dart';
 import 'package:meta/meta.dart';
-import 'package:accountmanager/app/models/entry.dart';
-import 'package:accountmanager/app/models/job.dart';
+import 'package:accountmanager/models/entry.dart';
+import 'package:accountmanager/models/job.dart';
 import 'package:accountmanager/packages/firestore_service/firestore_service.dart';
 import 'package:accountmanager/services/firestore_path.dart';
 

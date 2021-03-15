@@ -1,4 +1,4 @@
-import 'package:accountmanager/app/models/question.dart';
+import 'package:accountmanager/models/question.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/foundation.dart';
 

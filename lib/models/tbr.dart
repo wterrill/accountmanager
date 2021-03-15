@@ -1,0 +1,269 @@
+import 'package:accountmanager/models/question.dart';
+import 'package:flutter/material.dart';
+
+class TBRinProgress {
+  List<Question> allQuestions; // 0, question1
+  List<String> sections;
+  Map<String, List<String>> categories; // "section name", List<"category name">
+  Map<String, Map<String, double>>
+      percentages; // "section name", "category name",
+  Map<String, List<bool>> answers; // question ID: 0,0,0    yes, no, n/a
+  Map<String, Map<String, List<Color>>>
+      colorScheme; //section: category: List<Colors>
+  Map<String, String> adminComment; // category:
+  Map<String, String> tamNotes;
+  bool showSubmitButton = false;
+  String id;
+  TBRinProgress();
+
+  factory TBRinProgress.fromMap(Map<String, dynamic> map, String id) {
+    if (map == null || id == null) return null;
+
+    if (map['Question Text'] == null) {
+      return null;
+    }
+
+    final TBRinProgress tbrInProgress = TBRinProgress();
+    tbrInProgress.id = '3';
+
+    return tbrInProgress;
+  }
+
+  void initialize(List<Question> allQuestionsIn) {
+    allQuestions = allQuestionsIn;
+    sections = createSectionList(allQuestions);
+    categories = createCategoryMap(sections, allQuestions);
+    answers = createAnswerMap(allQuestions);
+    percentages = createPercentagesMap(categories);
+    colorScheme = generateColors(allQuestions);
+    adminComment = initializeComments(allQuestions);
+    tamNotes = initializeComments(allQuestions);
+    id = DateTime.now().toUtc().microsecondsSinceEpoch.toString();
+  }
+
+  Map<String, String> initializeComments(List<Question> allQuestions) {
+    final Map<String, String> returnedMap = {};
+    for (final Question question in allQuestions) {
+      returnedMap[question.id] = '';
+    }
+    return returnedMap;
+  }
+
+  List<String> createSectionList(List<Question> questionList) {
+    final List<String> temp = [];
+    questionList.sort((a, b) => a.section.compareTo(b.section));
+    for (final Question question in questionList) {
+      temp.add(question.section);
+    }
+    final Set sectionSet = temp.toSet();
+    return sectionSet.toList() as List<String>;
+  }
+
+  Map<String, List<String>> createCategoryMap(
+      List<String> sections, List<Question> questions) {
+    final Map<String, List<String>> mapSectionsWithCategories = {};
+    for (final String section in sections) {
+      final List<Question> questionOneSectionCategories =
+          questions.where((element) => element.section == section).toList();
+      final List<String> thisSectionCategories = [];
+      for (final question in questionOneSectionCategories) {
+        thisSectionCategories.add(question.category);
+      }
+      final Set categorySet = thisSectionCategories.toSet();
+      final List<String> uniqueSectionCategories =
+          categorySet.toList() as List<String>;
+      uniqueSectionCategories.sort((a, b) => a.compareTo(b));
+      mapSectionsWithCategories[section.toLowerCase()] =
+          uniqueSectionCategories;
+    }
+    return mapSectionsWithCategories;
+  }
+
+  Map<String, Map<String, double>> createPercentagesMap(
+      Map<String, List<String>> categories) {
+    final Map<String, Map<String, double>> finalMap = {};
+    for (final String sectkey in categories.keys) {
+      final List<String> sections = categories[sectkey];
+      final Map<String, double> catMap = {};
+      for (final String catkey in sections) {
+        catMap[catkey.toLowerCase()] = 0.0;
+      }
+      catMap['total'] = 0.0;
+      finalMap[sectkey] = catMap;
+    }
+    return finalMap;
+  }
+
+  List<Question> getQuestions({String sectionIn, String categoryIn}) {
+    final List<Question> sectionFiltered =
+        allQuestions.where((element) => element.section == sectionIn).toList();
+    final List<Question> categoryFiltered = sectionFiltered
+        .where((element) => element.category == categoryIn)
+        .toList();
+    return categoryFiltered;
+  }
+
+  Map<String, List<bool>> createAnswerMap(List<Question> questionList) {
+    final Map<String, List<bool>> returnedAnswers = {};
+    for (final Question question in questionList) {
+      returnedAnswers[question.id] = [false, false, false];
+    }
+    return returnedAnswers;
+  }
+
+  Map<String, String> advancePage({String section, String category}) {
+    final Map<String, String> newSectionCategory = {};
+    final List<String> currentCategories = categories[section.toLowerCase()];
+    // case, end of categories
+    if (currentCategories.indexOf(category) == currentCategories.length - 1) {
+      // case, end of categories, and end of sections
+      if (sections.indexOf(section) == sections.length - 1) {
+        newSectionCategory['section'] = section;
+        newSectionCategory['category'] = category;
+      }
+      // advance section, category to first
+      else {
+        final String newSection = sections[sections.indexOf(section) + 1];
+        newSectionCategory['section'] = newSection;
+        newSectionCategory['category'] =
+            categories[newSection.toLowerCase()][0];
+      }
+    }
+    // keep section, advance category
+    else {
+      newSectionCategory['section'] = section;
+      newSectionCategory['category'] = categories[section.toLowerCase()]
+          [categories[section.toLowerCase()].indexOf(category) + 1];
+    }
+    return newSectionCategory;
+  }
+
+  Map<String, String> recedePage({String section, String category}) {
+    final Map<String, String> newSectionCategory = {};
+    final List<String> currentCategories = categories[section.toLowerCase()];
+    // case, beginning of categories
+    if (currentCategories.indexOf(category) == 0) {
+      // case, beginning of categories, beginning of sections
+      if (sections.indexOf(section) == 0) {
+        newSectionCategory['section'] = section;
+        newSectionCategory['category'] = category;
+      }
+      // recede a section and set category to end of list
+      else {
+        final String newSection = sections[sections.indexOf(section) - 1];
+        newSectionCategory['section'] = newSection;
+        newSectionCategory['category'] = categories[newSection.toLowerCase()]
+            [categories[newSection.toLowerCase()].length - 1];
+      }
+    }
+    // keep section, and recede a category
+    else {
+      newSectionCategory['section'] = section;
+      newSectionCategory['category'] = categories[section.toLowerCase()]
+          [categories[section.toLowerCase()].indexOf(category) - 1];
+    }
+    return newSectionCategory;
+  }
+
+  Map<String, Map<String, List<Color>>> generateColors(
+      List<Question> questions) {
+    final Map<String, Map<String, List<Color>>> wholeColorScheme = {};
+    for (final Question question in questions) {
+      final Map<String, List<Color>> returnedMap = {};
+      if (question.goodBadAnswer == 'N = Bad') {
+        returnedMap['borderColorList'] = [
+          Colors.blue,
+          Colors.blue,
+          Colors.blue
+        ];
+        returnedMap['selectedColorList'] = [
+          Colors.black,
+          Colors.white,
+          Colors.black
+        ];
+        returnedMap['fillColorList'] = [Colors.green, Colors.red, Colors.grey];
+
+        returnedMap['hoverColorList'] = [
+          Colors.green[100],
+          Colors.red[100],
+          Colors.grey[300]
+        ];
+      } else {
+        returnedMap['borderColorList'] = [
+          Colors.blue,
+          Colors.blue,
+          Colors.blue
+        ];
+        returnedMap['selectedColorList'] = [
+          Colors.black,
+          Colors.black,
+          Colors.black
+        ];
+        returnedMap['fillColorList'] = [
+          Colors.green,
+          Colors.green,
+          Colors.grey
+        ];
+
+        returnedMap['hoverColorList'] = [
+          Colors.green[100],
+          Colors.green[100],
+          Colors.grey[300]
+        ];
+      }
+      wholeColorScheme[question.id] = returnedMap;
+    }
+    return wholeColorScheme;
+  }
+
+  void updatePercentages() {
+    for (final String sectionName in sections) {
+      int sectTotal = 0;
+      int sectTally = 0;
+      int catTally = 0;
+      // double catPercent;
+      for (final String catName in categories[sectionName.toLowerCase()]) {
+        final List<Question> questionsSectCat = allQuestions.where((element) {
+          if (element.section == sectionName && element.category == catName) {
+            print(element);
+            return true;
+          }
+          return false;
+        }).toList();
+        final List<Question> answeredQuestionsSectCat = questionsSectCat
+            .where((element) =>
+                answers[element.id].toString() != '[false, false, false]')
+            .toList();
+        catTally = answeredQuestionsSectCat.length;
+        sectTally = sectTally + catTally;
+        sectTotal = sectTotal + questionsSectCat.length;
+        final double catPercent = catTally / questionsSectCat.length;
+        percentages[sectionName.toLowerCase()][catName.toLowerCase()] =
+            catPercent;
+      }
+      final double sectPercent = sectTally / sectTotal;
+      percentages[sectionName.toLowerCase()]['total'] = sectPercent;
+    }
+    checkIfCanSubmit();
+  }
+
+  void checkIfCanSubmit() {
+    bool canSubmit = true;
+    for (final String section in sections) {
+      if (percentages[section.toLowerCase()]['total'] != 1) {
+        canSubmit = false;
+      }
+    }
+
+    showSubmitButton = canSubmit;
+  }
+
+  Map<String, dynamic> toMap() {
+    final Map<String, dynamic> mapToSend = {};
+    mapToSend['answers'] = answers;
+    mapToSend['adminComment'] = adminComment;
+    mapToSend['tamNotes'] = tamNotes;
+    mapToSend['id'] = id;
+    return mapToSend;
+  }
+}
