@@ -18,11 +18,11 @@ final assignedTbrStreamProvider =
   return database?.assignedTbrStream() ?? const Stream.empty();
 });
 
-class CreateSelectDataTableWidget extends ConsumerWidget {
+class CreateAppSelectDataTableWidget extends ConsumerWidget {
   final bool mobile;
   final double scale;
 
-  const CreateSelectDataTableWidget({
+  const CreateAppSelectDataTableWidget({
     this.mobile,
     this.scale,
   });
@@ -130,6 +130,7 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                   ),
                   CustomDataColumn(
                     label: Text(Strings.tbrStrings.meetingDate),
+                    // label: Text('CreateAppSelectDataTableWidget'),
                     onSort: (columnIndex, ascending) {
                       dtsSource.sort<String>(
                           getField: (d) => d.clientMeetingDate.toString(),
@@ -204,8 +205,10 @@ class DTS extends CustomDataTableSource {
           cells: [
             // ignore: unnecessary_string_interpolations
             CustomDataCell(Text('${data[index].company.toDropDownString()}')),
-            // ignore: unnecessary_string_interpolations
-            CustomDataCell(Text('${data[index].technician}')),
+
+            CustomDataCell(
+                // ignore: unnecessary_string_interpolations
+                Text('${data[index].technician.toDropDownString()}')),
             CustomDataCell(
                 Text(DateFormat.yMMMEd().format(data[index].dueDate))),
             CustomDataCell(Text(

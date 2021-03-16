@@ -17,7 +17,7 @@ final assignedTbrStreamProvider =
   return database?.assignedTbrStream() ?? const Stream.empty();
 });
 
-class CreateDataTableWidget extends ConsumerWidget {
+class CreateTBRAssignDataTableWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final assignedTbrAsyncValue = watch(assignedTbrStreamProvider);
@@ -130,6 +130,7 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                 ),
                 DataColumn(
                   label: Text(Strings.tbrStrings.meetingDate),
+                  // label: Text('CreateTBRAssignDataTableWidget'),
                   onSort: (columnIndex, ascending) {
                     dtsSource.sort<String>(
                         getField: (d) => d.clientMeetingDate.toString(),
@@ -206,8 +207,8 @@ class DTS extends DataTableSource {
             _displayDialog(context, data[index]);
           },
           cells: [
-            DataCell(Text('${data[index].company}')),
-            DataCell(Text('${data[index].technician}')),
+            DataCell(Text(data[index].company.toDropDownString())),
+            DataCell(Text(data[index].technician.toDropDownString())),
             DataCell(Text(DateFormat.yMMMEd().format(data[index].dueDate))),
             DataCell(Text(
                 DateFormat.yMMMEd().format(data[index].clientMeetingDate))),

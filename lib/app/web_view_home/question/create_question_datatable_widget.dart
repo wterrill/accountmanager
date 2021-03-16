@@ -18,7 +18,7 @@ final questionStreamProvider =
   return database?.questionStream() ?? const Stream.empty();
 }); //**//**//**//**/
 
-class CreateDataTableWidget extends ConsumerWidget {
+class CreateQuestionDataTableWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final questionAsyncValue = watch(questionStreamProvider); //**//**//**//**/

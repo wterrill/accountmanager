@@ -1,5 +1,5 @@
 import 'package:accountmanager/app/web_view_home/app_page/tbr/tbr_builder/tbr_builder.dart';
-import 'package:accountmanager/app/web_view_home/question/create_data_table.dart';
+import 'package:accountmanager/app/web_view_home/question/create_question_datatable_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:accountmanager/models/assignedTbr.dart';

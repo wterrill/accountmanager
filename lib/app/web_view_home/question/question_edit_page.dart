@@ -1,5 +1,5 @@
 import 'package:accountmanager/common_widgets/display_widget_dialog_with_error.dart';
-import 'package:accountmanager/app/web_view_home/question/create_data_table.dart';
+import 'package:accountmanager/app/web_view_home/question/create_question_datatable_widget.dart';
 import 'package:accountmanager/app/web_view_home/question/edit_question.dart';
 import 'package:accountmanager/constants/strings.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +26,7 @@ class QuestionWebPage extends StatelessWidget {
         //   //   child:
         //   // CreateDataTableWidget()
         //   Testing()
-        CreateDataTableWidget(),
+        CreateQuestionDataTableWidget(),
         Container(
           height: 100,
         )

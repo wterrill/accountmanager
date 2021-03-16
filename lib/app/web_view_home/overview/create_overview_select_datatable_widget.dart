@@ -219,8 +219,9 @@ class DTS extends CustomDataTableSource {
           cells: [
             // ignore: unnecessary_string_interpolations
             CustomDataCell(Text('${data[index].company.toDropDownString()}')),
-            // ignore: unnecessary_string_interpolations
-            CustomDataCell(Text('${data[index].technician}')),
+            CustomDataCell(
+                // ignore: unnecessary_string_interpolations
+                Text('${data[index].technician.toDropDownString()}')),
             CustomDataCell(
                 Text(DateFormat.yMMMEd().format(data[index].dueDate))),
             CustomDataCell(Text(

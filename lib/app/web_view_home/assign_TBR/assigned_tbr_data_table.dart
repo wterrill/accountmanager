@@ -101,6 +101,7 @@ class _IpaginatedTableState extends State<IpaginatedTable> {
                 ),
                 DataColumn(
                   label: Text(Strings.tbrStrings.meetingDate),
+                  // label: Text('assigned_tbr_data_table'),
                   onSort: (columnIndex, ascending) {
                     dtsSource.sort<String>(
                         getField: (d) => d.clientMeetingDate.toString(),
