@@ -274,11 +274,11 @@ class DTS extends CustomDataTableSource {
 
 Future<void> _displayDialog(
     {BuildContext context, AssignedTBR data, bool mobile}) async {
-  const String id = '1615940642443707';
+  final String id = data.id;
   Widget frame =
       // Container(
       //   child:
-      const SingleChildScrollView(
+      SingleChildScrollView(
     child: OverviewPaginatedTable(id: id),
     // ),
   );

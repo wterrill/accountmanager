@@ -24,7 +24,7 @@ class TBRinProgress {
     tbrInProgress.id = id;
     tbrInProgress.initialize(questions);
 
-    var temp = map['answers'] as Map<String, dynamic>;
+    final Map<String, dynamic> temp = map['answers'] as Map<String, dynamic>;
     Map<String, List<bool>> temp2 = {};
     temp.forEach((key, dynamic value) {
       print(key);
