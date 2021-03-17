@@ -119,14 +119,16 @@ class FirestoreDatabase {
         builder: (data, id) => AssignedTBR.fromMap(data, id),
       );
 
-  Stream<TBRinProgress> completedTbrStream({@required String completedTbrId}) =>
+  Stream<TBRinProgress> completedTbrStream(
+          {String completedTbrId, List<Question> questions}) =>
       _service.documentStream(
         path: FirestorePath.completedTBR(completedTbrId),
-        builder: (data, documentId) => TBRinProgress.fromMap(data, documentId),
+        builder: (data, documentId) =>
+            TBRinProgress.fromMap(data, documentId, questions),
       );
 
   Stream<List<Question>> questionStream() => _service.collectionStream(
-        path: FirestorePath.questions(), //**//**//**//**/
+        path: FirestorePath.questions(),
         builder: (data, id) => Question.fromMap(data, id),
       );
 }

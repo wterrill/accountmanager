@@ -16,15 +16,30 @@ class TBRinProgress {
   String id;
   TBRinProgress();
 
-  factory TBRinProgress.fromMap(Map<String, dynamic> map, String id) {
+  factory TBRinProgress.fromMap(
+      Map<String, dynamic> map, String id, List<Question> questions) {
     if (map == null || id == null) return null;
 
-    if (map['Question Text'] == null) {
-      return null;
-    }
-
     final TBRinProgress tbrInProgress = TBRinProgress();
-    tbrInProgress.id = '3';
+    tbrInProgress.id = id;
+    tbrInProgress.initialize(questions);
+
+    var temp = map['answers'] as Map<String, dynamic>;
+    Map<String, List<bool>> temp2 = {};
+    temp.forEach((key, dynamic value) {
+      print(key);
+      List<bool> tempArray = [true, true, true];
+      for (var i = 0; i < value.length; i++) {
+        if (value[i].toString() == 'true') {
+          tempArray[i] = true;
+        } else {
+          tempArray[i] = false;
+        }
+      }
+
+      temp2[key] = tempArray;
+    });
+    tbrInProgress.answers = temp2;
 
     return tbrInProgress;
   }

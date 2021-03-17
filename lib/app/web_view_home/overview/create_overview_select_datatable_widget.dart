@@ -28,8 +28,10 @@ final assignedTbrStreamProvider =
 final completedTbrStreamProvider =
     StreamProvider.autoDispose.family<TBRinProgress, String>((ref, id) {
   final database = ref.watch(databaseProvider);
-  return database != null && id != null
-      ? database.completedTbrStream(completedTbrId: id)
+  final questions = ref.watch(questionStreamProvider);
+  return database != null && id != null && questions is! AsyncLoading
+      ? database.completedTbrStream(
+          completedTbrId: id, questions: questions.data.value)
       : const Stream.empty();
 });
 
@@ -44,6 +46,8 @@ class CreateOverviewSelectDataTableWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final assignedTbrAsyncValue = watch(assignedTbrStreamProvider);
+    // final questionAsyncValue = watch(questionStreamProvider);
+
     return DataTableBuilder(data: assignedTbrAsyncValue, mobile: mobile);
   }
 }
@@ -270,7 +274,7 @@ class DTS extends CustomDataTableSource {
 
 Future<void> _displayDialog(
     {BuildContext context, AssignedTBR data, bool mobile}) async {
-  const String id = '1615681503403977';
+  const String id = '1615940642443707';
   Widget frame =
       // Container(
       //   child:

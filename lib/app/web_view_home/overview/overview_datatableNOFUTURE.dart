@@ -36,10 +36,10 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
     // final tbrInProgress = context.read(tbrInProgressProvider).state;
 
     return Consumer(builder: (context, watch, child) {
-      final tbrInProgressAsyncValue =
+      final completedTbrAsyncValue =
           watch(completedTbrStreamProvider(widget.id));
 
-      return tbrInProgressAsyncValue.when(
+      return completedTbrAsyncValue.when(
         data: (tbrInProgress) => _datatable(DTS(tbrInProgress)),
         loading: () => Container(color: Colors.cyanAccent),
         error: (_, __) => Container(color: Colors.red),

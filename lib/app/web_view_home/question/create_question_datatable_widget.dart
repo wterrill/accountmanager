@@ -12,31 +12,23 @@ import 'package:pedantic/pedantic.dart';
 import 'package:accountmanager/common_widgets/empty_content.dart';
 import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
 
-final questionStreamProvider =
-    StreamProvider.autoDispose<List<Question>>((ref) {
-  final database = ref.watch(databaseProvider);
-  return database?.questionStream() ?? const Stream.empty();
-}); //**//**//**//**/
-
 class CreateQuestionDataTableWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final questionAsyncValue = watch(questionStreamProvider); //**//**//**//**/
+    final questionAsyncValue = watch(questionStreamProvider);
     return DataTableBuilder(data: questionAsyncValue);
   }
 }
 
 class DataTableBuilder extends StatefulWidget {
   const DataTableBuilder({Key key, @required this.data}) : super(key: key);
-  final AsyncValue<List<Question>> data; //**//**//**//**/
+  final AsyncValue<List<Question>> data;
 
   @override
-  _DataTableBuilderState createState() => //**//**//**//**/
-      _DataTableBuilderState(); //**//**//**//**/
+  _DataTableBuilderState createState() => _DataTableBuilderState();
 }
 
 class _DataTableBuilderState extends State<DataTableBuilder> {
-  //**//**//**//**/
   int _rowsPerPage = CustomPaginatedDataTable.defaultRowsPerPage;
   // bool sort = true;
 
@@ -185,7 +177,7 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
 }
 
 class DTS extends CustomDataTableSource {
-  final List<Question> data; //**//**//**//**/
+  final List<Question> data;
   final BuildContext context;
 
   DTS(
@@ -244,16 +236,13 @@ class DTS extends CustomDataTableSource {
 }
 
 Future<void> _displayDialog(BuildContext context, Question data) async {
-  //**//**//**//**/
-  //**//**//**//**/
   print('_displayDialog => $data');
   try {
     final Map<String, dynamic> result = await showWidgetDialog(
         context: context,
         title: 'TBR Questions',
-        widget: EditQuestion(
-            data:
-                data) //DropdownScreen() //AssignTBR(data: data),  //**//**//**//**/
+        widget:
+            EditQuestion(data: data) //DropdownScreen() //AssignTBR(data: data),
         // defaultActionText: '',
         // cancelActionText: '',
         );
