@@ -200,7 +200,8 @@ class DTS extends CustomDataTableSource {
     if (index < data.length) {
       return CustomDataRow(
           onSelectChanged: (_) {
-            _displayDialog(context: context, data: data[index], mobile: mobile);
+            _displayDialog(
+                context: context, assignedTbr: data[index], mobile: mobile);
           },
           cells: [
             // ignore: unnecessary_string_interpolations
@@ -256,9 +257,10 @@ class DTS extends CustomDataTableSource {
 }
 
 Future<void> _displayDialog(
-    {BuildContext context, AssignedTBR data, bool mobile}) async {
-  Widget frame =
-      Container(color: Colors.brown[150], child: TBRappPage(data: data));
+    {BuildContext context, AssignedTBR assignedTbr, bool mobile}) async {
+  context.read(currentAssignedTbrProvider).state = assignedTbr;
+  Widget frame = Container(
+      color: Colors.brown[150], child: TBRappPage(assignedTBR: assignedTbr));
   if (mobile) {
     frame = Expanded(
       child: Center(child: addMobileFrame(frame)),
@@ -266,6 +268,6 @@ Future<void> _displayDialog(
   } else {
     frame = Expanded(child: Center(child: frame));
   }
-  print('_displayDialog => $data');
+  print('_displayDialog => $assignedTbr');
   context.read(widgetProvider).state = frame;
 }

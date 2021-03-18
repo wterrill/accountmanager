@@ -58,6 +58,7 @@ class AccountWebPage extends StatelessWidget {
           ),
           onPressed: () => _confirmSignOut(context, firebaseAuth),
         ),
+        const SizedBox(width: 50),
         TextButton(
           child: const Text(
             'Version',

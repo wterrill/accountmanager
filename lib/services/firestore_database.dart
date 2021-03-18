@@ -90,13 +90,17 @@ class FirestoreDatabase {
     await _service.deleteData(path: FirestorePath.company(company.id));
   }
 
-  Future<void> setTBR(AssignedTBR assignedTbr) => _service.setData(
-        path: FirestorePath.assignedtbr(assignedTbr.id),
-        data: assignedTbr.toMap(),
-      );
+  Future<void> setTBR(AssignedTBR assignedTbr) {
+    print('inside setTBR');
+    return _service.setData(
+      path: FirestorePath.assignedtbr(assignedTbr.id),
+      data: assignedTbr.toMap(),
+    );
+  }
 
-  Future<void> setEvaluation(TBRinProgress tbrInProgress) => _service.setData(
-        path: FirestorePath.completedTBR(tbrInProgress.id),
+  Future<void> setEvaluation(TBRinProgress tbrInProgress, String id) =>
+      _service.setData(
+        path: FirestorePath.completedTBR(id),
         data: tbrInProgress.toMap(),
       );
 
@@ -120,12 +124,14 @@ class FirestoreDatabase {
       );
 
   Stream<TBRinProgress> completedTbrStream(
-          {String completedTbrId, List<Question> questions}) =>
-      _service.documentStream(
-        path: FirestorePath.completedTBR(completedTbrId),
-        builder: (data, documentId) =>
-            TBRinProgress.fromMap(data, documentId, questions),
-      );
+      {String completedTbrId, List<Question> questions}) {
+    print('inside completedTbrStream');
+    return _service.documentStream(
+      path: FirestorePath.completedTBR(completedTbrId),
+      builder: (data, documentId) =>
+          TBRinProgress.fromMap(data, documentId, questions),
+    );
+  }
 
   Stream<List<Question>> questionStream() => _service.collectionStream(
         path: FirestorePath.questions(),

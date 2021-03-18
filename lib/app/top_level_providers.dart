@@ -1,3 +1,4 @@
+import 'package:accountmanager/models/assignedTbr.dart';
 import 'package:accountmanager/models/question.dart';
 import 'package:accountmanager/models/tbr.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,6 +13,10 @@ import 'package:flutter/material.dart';
 // logger provider
 // tbrInProgress provider. This is used to pass values during development.
 
+final currentAssignedTbrProvider = StateProvider<AssignedTBR>((ref) {
+  print('currentAssignedTbrProvider ** ** **');
+  return null;
+});
 final questionStreamProvider =
     StreamProvider.autoDispose<List<Question>>((ref) {
   final database = ref.watch(databaseProvider);

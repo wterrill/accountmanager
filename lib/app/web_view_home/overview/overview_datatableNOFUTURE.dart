@@ -27,18 +27,23 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
   @override
   void initState() {
     // tbrInProgress = context.read(completedTbrStreamProvider(widget.id));
-
+    print('initState in OverviewPaginatedTableState');
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     // final tbrInProgress = context.read(tbrInProgressProvider).state;
+    print('in build for overviewPaginatedTableState');
 
     return Consumer(builder: (context, watch, child) {
-      final completedTbrAsyncValue =
-          watch(completedTbrStreamProvider(widget.id));
+      String id = widget.id;
+      print(id);
+      print('before completedTbrAsyncValueProvider');
 
+      final AsyncValue<TBRinProgress> completedTbrAsyncValue =
+          watch(completedTbrStreamProvider(id));
+      print('after completedTbrAsyncValueProvider');
       return completedTbrAsyncValue.when(
         data: (tbrInProgress) => _datatable(DTS(tbrInProgress)),
         loading: () => Container(color: Colors.cyanAccent),

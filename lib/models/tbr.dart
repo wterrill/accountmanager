@@ -18,17 +18,19 @@ class TBRinProgress {
 
   factory TBRinProgress.fromMap(
       Map<String, dynamic> map, String id, List<Question> questions) {
+    print('inside TBRinProgress fromMap');
     if (map == null || id == null) return null;
 
     final TBRinProgress tbrInProgress = TBRinProgress();
+    // ignore: prefer_initializing_formals
     tbrInProgress.id = id;
     tbrInProgress.initialize(questions);
 
     final Map<String, dynamic> temp = map['answers'] as Map<String, dynamic>;
-    Map<String, List<bool>> temp2 = {};
+    final Map<String, List<bool>> temp2 = {};
     temp.forEach((key, dynamic value) {
       print(key);
-      List<bool> tempArray = [true, true, true];
+      final List<bool> tempArray = [true, true, true];
       for (var i = 0; i < value.length; i++) {
         if (value[i].toString() == 'true') {
           tempArray[i] = true;
@@ -36,7 +38,6 @@ class TBRinProgress {
           tempArray[i] = false;
         }
       }
-
       temp2[key] = tempArray;
     });
     tbrInProgress.answers = temp2;

@@ -103,7 +103,7 @@ class Sidebar extends ConsumerWidget {
           ),
           SidebarButton(
             lastText: lastText,
-            text: 'Add Technician',
+            text: 'Add Employee',
             // faIcon: MyFlutterApp.user, //FontAwesomeIcons.user,
             imageIcon: Image.asset('assets/icon/add_user_will.png'),
             onPressedx: () {

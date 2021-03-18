@@ -27,12 +27,18 @@ final assignedTbrStreamProvider =
 
 final completedTbrStreamProvider =
     StreamProvider.autoDispose.family<TBRinProgress, String>((ref, id) {
+  print('in completedTbrStreamProvider');
   final database = ref.watch(databaseProvider);
   final questions = ref.watch(questionStreamProvider);
-  return database != null && id != null && questions is! AsyncLoading
-      ? database.completedTbrStream(
-          completedTbrId: id, questions: questions.data.value)
-      : const Stream.empty();
+  print('after database and questions ref.watch');
+  if (database != null && id != null && questions is! AsyncLoading) {
+    print('before database.completedTbrStream');
+    return database.completedTbrStream(
+        completedTbrId: id, questions: questions.data.value);
+  } else {
+    print('before Stream.empty()');
+    return const Stream.empty();
+  }
 });
 
 class CreateOverviewSelectDataTableWidget extends ConsumerWidget {
@@ -218,7 +224,8 @@ class DTS extends CustomDataTableSource {
     if (index < data.length) {
       return CustomDataRow(
           onSelectChanged: (_) {
-            _displayDialog(context: context, data: data[index], mobile: mobile);
+            _displayDialog(
+                context: context, assignedTBR: data[index], mobile: mobile);
           },
           cells: [
             // ignore: unnecessary_string_interpolations
@@ -273,8 +280,11 @@ class DTS extends CustomDataTableSource {
 }
 
 Future<void> _displayDialog(
-    {BuildContext context, AssignedTBR data, bool mobile}) async {
-  final String id = data.id;
+    {BuildContext context, AssignedTBR assignedTBR, bool mobile}) async {
+  print(
+      'onPressed in _displayDialog in create_overview_select_datatable_widget.dart');
+  final String id = assignedTBR.id;
+  print('id');
   Widget frame =
       // Container(
       //   child:
@@ -291,6 +301,6 @@ Future<void> _displayDialog(
   } else {
     frame = Expanded(child: Center(child: frame));
   }
-  print('_displayDialog => $data');
+  print('_displayDialog => $assignedTBR');
   context.read(widgetProvider).state = frame;
 }
