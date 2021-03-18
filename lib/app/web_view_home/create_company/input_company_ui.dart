@@ -20,9 +20,30 @@ class InputCompany extends StatefulWidget {
   _InputCompanyState createState() => _InputCompanyState();
 }
 
-String _name;
-
 class _InputCompanyState extends State<InputCompany> {
+  String name;
+  TextEditingController textController = TextEditingController();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    textController.addListener(() {
+      final String text = textController.text;
+      textController.value = textController.value.copyWith(
+        text: text,
+        selection:
+            TextSelection(baseOffset: text.length, extentOffset: text.length),
+        composing: TextRange.empty,
+      );
+    });
+  }
+
+  @override
+  void dispose() {
+    textController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -30,62 +51,53 @@ class _InputCompanyState extends State<InputCompany> {
         TextField(
           keyboardType: TextInputType.text,
           maxLength: 50,
-          controller: TextEditingController(text: _name),
+          controller: textController, // TextEditingController(text: _name),
           decoration: const InputDecoration(
             labelText: 'Name',
             labelStyle: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
           ),
           keyboardAppearance: Brightness.light,
           style: const TextStyle(fontSize: 20.0, color: Colors.black),
-          onChanged: (name) => _name = name,
+          onChanged: (_) {
+            name = textController.text;
+          },
         ),
-        const UploadButton(),
+        TextButton(
+          style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(Colors.green)),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(Strings.companyStrings.addCompany),
+          ),
+          onPressed: () {
+            print('pressed');
+            print(name);
+            textController.text = '';
+            _submit(context, name);
+          },
+        )
       ],
     );
   }
 }
 
-class UploadButton extends StatelessWidget {
-  const UploadButton({
-    Key key,
-    this.name,
-  }) : super(key: key);
-  final String name;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-      style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(Colors.green)),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text(Strings.companyStrings.addCompany),
-      ),
-      onPressed: () {
-        print('pressed');
-        _submit(context);
-      },
-    );
-  }
-
-  Future<void> _submit(BuildContext context) async {
-    if (_validateAndSaveForm()) {
-      try {
-        final database = context.read(databaseProvider);
-        final id = documentIdFromCurrentDate();
-        final company = Company(id: id, name: _name);
-        await database.setCompany(company);
-      } catch (e) {
-        unawaited(showExceptionAlertDialog(
-          context: context,
-          title: 'Operation failed',
-          exception: e,
-        ));
-      }
+void _submit(BuildContext context, String name) {
+  if (_validateAndSaveForm()) {
+    try {
+      final database = context.read(databaseProvider);
+      final id = documentIdFromCurrentDate();
+      final company = Company(id: id, name: name);
+      database.setCompany(company);
+    } catch (e) {
+      unawaited(showExceptionAlertDialog(
+        context: context,
+        title: 'Operation failed',
+        exception: e,
+      ));
     }
   }
+}
 
-  bool _validateAndSaveForm() {
-    return true;
-  }
+bool _validateAndSaveForm() {
+  return true;
 }

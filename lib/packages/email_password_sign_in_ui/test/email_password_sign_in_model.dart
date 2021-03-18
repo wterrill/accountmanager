@@ -37,6 +37,8 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
   bool submitted;
 
   Future<bool> submit() async {
+    email = 'a@b.com'; //!
+    password = 'asdfghjkl;\''; //!
     try {
       updateWith(submitted: true);
       if (!canSubmit) {

@@ -56,8 +56,6 @@ class CreateOverviewSelectDataTableWidget extends ConsumerWidget {
       watch(latestQuestionsProvider).state = questions;
     });
 
-    // final questionAsyncValue = watch(questionStreamProvider);
-
     return DataTableBuilder(data: assignedTbrAsyncValue, mobile: mobile);
   }
 }

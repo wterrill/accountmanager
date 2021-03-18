@@ -27,14 +27,16 @@ class ListItemsBuilder<T> extends StatelessWidget {
   }
 
   Widget _buildList(List<T> items) {
+    final List<T> reversed = items.reversed.toList();
     return ListView.separated(
-      itemCount: items.length + 2,
+      // shrinkWrap: true,
+      itemCount: reversed.length + 2,
       separatorBuilder: (context, index) => const Divider(height: 0.5),
       itemBuilder: (context, index) {
-        if (index == 0 || index == items.length + 1) {
+        if (index == 0 || index == reversed.length + 1) {
           return Container(); // zero height: not visible
         }
-        return itemBuilder(context, items[index - 1]);
+        return itemBuilder(context, reversed[index - 1]);
       },
     );
   }
