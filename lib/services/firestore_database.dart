@@ -6,6 +6,7 @@ import 'package:accountmanager/models/question.dart';
 import 'package:accountmanager/models/questionnaire_type.dart';
 import 'package:accountmanager/models/tbr.dart';
 import 'package:accountmanager/models/technician.dart';
+import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:accountmanager/models/entry.dart';
 import 'package:accountmanager/models/job.dart';
@@ -138,3 +139,22 @@ class FirestoreDatabase {
         builder: (data, id) => Question.fromMap(data, id),
       );
 }
+
+//! <10.6   9.4 (normal range)
+//! lacework... thickened due to chronic airway disease.  trachea is even in wid
+//! no masses in lungs. stomach
+//! no masses. no food accumulation
+//! murmer -< couch to chronic airways disease. irratated
+//! cough suppressant. vetmedin -> 12-14 months extension
+//! consultation with cariologist. echocardio?
+//! going to see how he does with drugs
+//! airway disease.  respiratory patient
+//! expresses anal glands.  12.5 pounds
+
+//! 1 capsule 1 a day with food
+// 2 a day
+// blood work tomorrow
+// reponse to drugs
+// 14 days of doxicicline
+
+//!exam. bloodwork.  radios. anal. fecal to lab. blood pressure. lepto. nail trim.  $877.07

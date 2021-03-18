@@ -1,4 +1,3 @@
-import 'package:accountmanager/models/tbr.dart';
 import 'package:accountmanager/common_widgets/CustomDataTable.dart';
 import 'package:accountmanager/common_widgets/CustomDataTableSource.dart';
 import 'package:accountmanager/common_widgets/CustomPaginatedDataTable.dart';
@@ -25,21 +24,21 @@ final assignedTbrStreamProvider =
 //   return database?.completedTbrStream() ?? const Stream.empty();
 // });
 
-final completedTbrStreamProvider =
-    StreamProvider.autoDispose.family<TBRinProgress, String>((ref, id) {
-  print('in completedTbrStreamProvider');
-  final database = ref.watch(databaseProvider);
-  final questions = ref.watch(questionStreamProvider);
-  print('after database and questions ref.watch');
-  if (database != null && id != null && questions is! AsyncLoading) {
-    print('before database.completedTbrStream');
-    return database.completedTbrStream(
-        completedTbrId: id, questions: questions.data.value);
-  } else {
-    print('before Stream.empty()');
-    return const Stream.empty();
-  }
-});
+// final completedTbrStreamProvider =
+//     StreamProvider.autoDispose.family<TBRinProgress, String>((ref, id) {
+//   print('in completedTbrStreamProvider');
+//   final database = ref.watch(databaseProvider);
+//   final questions = ref.watch(questionStreamProvider);
+//   print('after database and questions ref.watch');
+//   if (database != null && id != null && questions is! AsyncLoading) {
+//     print('before database.completedTbrStream');
+//     return database.completedTbrStream(
+//         completedTbrId: id, questions: questions.data.value);
+//   } else {
+//     print('before Stream.empty()');
+//     return const Stream.empty();
+//   }
+// });
 
 class CreateOverviewSelectDataTableWidget extends ConsumerWidget {
   final bool mobile;
@@ -52,6 +51,11 @@ class CreateOverviewSelectDataTableWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final assignedTbrAsyncValue = watch(assignedTbrStreamProvider);
+    final questionsAsync = watch(questionStreamProvider);
+    questionsAsync.whenData((questions) {
+      watch(latestQuestionsProvider).state = questions;
+    });
+
     // final questionAsyncValue = watch(questionStreamProvider);
 
     return DataTableBuilder(data: assignedTbrAsyncValue, mobile: mobile);

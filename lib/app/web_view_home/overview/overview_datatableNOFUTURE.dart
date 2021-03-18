@@ -1,11 +1,11 @@
 // ignore_for_file: file_names
+import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/models/question.dart';
 import 'package:accountmanager/models/tbr.dart';
 import 'package:accountmanager/common_widgets/CustomDataTable.dart';
 import 'package:accountmanager/common_widgets/CustomDataTableSource.dart';
 import 'package:accountmanager/common_widgets/CustomPaginatedDataTable.dart';
 import 'package:accountmanager/constants/strings.dart';
-import 'package:accountmanager/app/web_view_home/overview/create_overview_select_datatable_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -22,7 +22,7 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
   int _rowsPerPage = CustomPaginatedDataTable.defaultRowsPerPage;
   int _sortColumnIndex = 0;
   bool _sortAscending = false;
-  TBRinProgress tbrInProgress;
+  // TBRinProgress tbrInProgress;
 
   @override
   void initState() {
@@ -35,14 +35,20 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
   Widget build(BuildContext context) {
     // final tbrInProgress = context.read(tbrInProgressProvider).state;
     print('in build for overviewPaginatedTableState');
+    // final database = context.watch(databaseProvider);
 
     return Consumer(builder: (context, watch, child) {
-      String id = widget.id;
+      final String id = widget.id;
       print(id);
       print('before completedTbrAsyncValueProvider');
-
       final AsyncValue<TBRinProgress> completedTbrAsyncValue =
           watch(completedTbrStreamProvider(id));
+      //* This is the code that fails when deploy on the web. it will need to be modified.
+//! **********************************************************************
+      //* final AsyncValue<TBRinProgress> completedTbrAsyncValue =
+      //*     watch(completedTbrStreamProvider(id));
+//! **********************************************************************
+
       print('after completedTbrAsyncValueProvider');
       return completedTbrAsyncValue.when(
         data: (tbrInProgress) => _datatable(DTS(tbrInProgress)),

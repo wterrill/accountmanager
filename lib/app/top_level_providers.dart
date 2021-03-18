@@ -13,6 +13,56 @@ import 'package:flutter/material.dart';
 // logger provider
 // tbrInProgress provider. This is used to pass values during development.
 
+// final completedTbrStreamProvider =
+//     StreamProvider.autoDispose.family<TBRinProgress, String>((ref, id) {
+//   print('in completedTbrStreamProvider');
+//   final database = ref.watch(databaseProvider);
+//   final questions = ref.watch(questionStreamProvider);
+//   print('after database and questions ref.watch');
+//   if (database != null && id != null && questions is! AsyncLoading) {
+//     print('before database.completedTbrStream');
+//     return database.completedTbrStream(
+//         completedTbrId: id, questions: questions.data.value);
+//   } else {
+//     print('before Stream.empty()');
+//     return const Stream.empty();
+//   }
+// });
+
+// final completedTbrStreamProvider = StreamProvider.autoDispose
+//     .family<TBRinProgress, String>((ref, completedTbrId) {
+//   print('in completedTbrStreamProvider');
+//   final database = ref.watch(databaseProvider);
+//   final questions = ref.watch(latestQuestionsProvider).state;
+//   print('after database and questions ref.watch');
+//   if (database != null && completedTbrId != null) {
+//     print('before database.completedTbrStream');
+//     return database.completedTbrStream(
+//         completedTbrId: completedTbrId, questions: questions);
+//   } else {
+//     print('before Stream.empty()');
+//     return const Stream.empty();
+//   }
+// });
+
+final completedTbrStreamProvider =
+    StreamProvider.autoDispose.family<TBRinProgress, String>((ref, jobId) {
+  print('jobStreamProvider in job_entries_page');
+  final database = ref.watch(databaseProvider);
+  return database != null && jobId != null
+      ? database.completedTbrStream(completedTbrId: jobId)
+      : const Stream.empty();
+});
+
+// final jobStreamProvider =
+//     StreamProvider.autoDispose.family<Job, String>((ref, jobId) {
+//   print('jobStreamProvider in job_entries_page');
+//   final database = ref.watch(databaseProvider);
+//   return database != null && jobId != null
+//       ? database.jobStream(jobId: jobId)
+//       : const Stream.empty();
+// });
+
 final currentAssignedTbrProvider = StateProvider<AssignedTBR>((ref) {
   print('currentAssignedTbrProvider ** ** **');
   return null;
@@ -21,6 +71,10 @@ final questionStreamProvider =
     StreamProvider.autoDispose<List<Question>>((ref) {
   final database = ref.watch(databaseProvider);
   return database?.questionStream() ?? const Stream.empty();
+});
+
+final latestQuestionsProvider = StateProvider<List<Question>>((ref) {
+  return null;
 });
 
 final tbrInProgressProvider = StateProvider<TBRinProgress>((ref) {
