@@ -1,5 +1,5 @@
 import 'package:accountmanager/models/Status.dart';
-import 'package:accountmanager/models/assignedTbr.dart';
+import 'package:accountmanager/models/assigned_tbr.dart';
 import 'package:accountmanager/models/tbr.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/common_widgets/display_widget_dialog_with_error.dart';

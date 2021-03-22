@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:intl/intl.dart';
 
-import 'package:accountmanager/models/assignedTbr.dart';
+import 'package:accountmanager/models/assigned_tbr.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/common_widgets/empty_content.dart';
 import 'package:accountmanager/constants/strings.dart';
@@ -17,28 +17,6 @@ final assignedTbrStreamProvider =
   final database = ref.watch(databaseProvider);
   return database?.assignedTbrStream() ?? const Stream.empty();
 });
-
-// final completedTbrStreamProvider =
-//     StreamProvider.autoDispose<TBRinProgress>((ref) {
-//   final database = ref.watch(databaseProvider);
-//   return database?.completedTbrStream() ?? const Stream.empty();
-// });
-
-// final completedTbrStreamProvider =
-//     StreamProvider.autoDispose.family<TBRinProgress, String>((ref, id) {
-//   print('in completedTbrStreamProvider');
-//   final database = ref.watch(databaseProvider);
-//   final questions = ref.watch(questionStreamProvider);
-//   print('after database and questions ref.watch');
-//   if (database != null && id != null && questions is! AsyncLoading) {
-//     print('before database.completedTbrStream');
-//     return database.completedTbrStream(
-//         completedTbrId: id, questions: questions.data.value);
-//   } else {
-//     print('before Stream.empty()');
-//     return const Stream.empty();
-//   }
-// });
 
 class CreateOverviewSelectDataTableWidget extends ConsumerWidget {
   final bool mobile;

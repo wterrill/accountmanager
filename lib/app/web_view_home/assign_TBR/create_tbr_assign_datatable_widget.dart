@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:intl/intl.dart';
 import 'package:pedantic/pedantic.dart';
-import 'package:accountmanager/models/assignedTbr.dart';
+import 'package:accountmanager/models/assigned_tbr.dart';
 import 'package:accountmanager/common_widgets/empty_content.dart';
 import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
 

@@ -2,7 +2,7 @@ import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/app/web_view_home/app_page/tbr/tbr_builder/tbr_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:accountmanager/models/assignedTbr.dart';
+import 'package:accountmanager/models/assigned_tbr.dart';
 import 'package:accountmanager/models/question.dart';
 import 'package:accountmanager/common_widgets/empty_content.dart';
 

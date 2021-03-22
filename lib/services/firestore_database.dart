@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:accountmanager/models/assignedTbr.dart';
+import 'package:accountmanager/models/assigned_tbr.dart';
 import 'package:accountmanager/models/company.dart';
 import 'package:accountmanager/models/question.dart';
 import 'package:accountmanager/models/questionnaire_type.dart';

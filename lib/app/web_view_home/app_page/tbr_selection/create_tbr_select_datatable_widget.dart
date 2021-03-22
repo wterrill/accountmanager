@@ -2,12 +2,11 @@ import 'package:accountmanager/app/web_view_home/app_page/tbr_selection/start_tb
 import 'package:accountmanager/common_widgets/CustomDataTable.dart';
 import 'package:accountmanager/common_widgets/CustomDataTableSource.dart';
 import 'package:accountmanager/common_widgets/CustomPaginatedDataTable.dart';
-import 'package:accountmanager/models/Status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:intl/intl.dart';
 
-import 'package:accountmanager/models/assignedTbr.dart';
+import 'package:accountmanager/models/assigned_tbr.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/common_widgets/empty_content.dart';
 import 'package:accountmanager/constants/strings.dart';
@@ -49,7 +48,7 @@ class CreateAppSelectDataTableWidget extends ConsumerWidget {
 }
 
 class DataTableBuilder extends ConsumerWidget {
-  DataTableBuilder({
+  const DataTableBuilder({
     Key key,
     this.data,
     @required this.mobile,
@@ -62,7 +61,8 @@ class DataTableBuilder extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final TableVars tableVars = watch(tableVarsProvider).state;
-    final bool beer = watch(showAllSwitchProvider).state;
+    final bool showAll = watch(showAllSwitchProvider).state;
+    print(showAll);
 
     return data.when(
       data: (items) {

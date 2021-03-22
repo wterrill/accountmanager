@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:accountmanager/models/Status.dart';
-import 'package:accountmanager/models/assignedTbr.dart';
+import 'package:accountmanager/models/assigned_tbr.dart';
 import 'package:accountmanager/models/company.dart';
 import 'package:accountmanager/models/questionnaire_type.dart';
 import 'package:accountmanager/models/technician.dart';

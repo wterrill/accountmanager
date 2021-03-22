@@ -1,5 +1,5 @@
 import 'package:accountmanager/app/web_view_home/overview/overview_page.dart';
-import 'package:accountmanager/models/assignedTbr.dart';
+import 'package:accountmanager/models/assigned_tbr.dart';
 import 'package:accountmanager/models/question.dart';
 import 'package:accountmanager/models/tbr.dart';
 import 'package:firebase_auth/firebase_auth.dart';
