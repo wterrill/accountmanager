@@ -2,8 +2,11 @@ import 'package:accountmanager/app/web_view_home/app_page/tbr_selection/create_t
 import 'package:accountmanager/models/company.dart';
 import 'package:accountmanager/models/questionnaire_type.dart';
 import 'package:accountmanager/models/technician.dart';
-// import 'package:accountmanager/app/web_view_home/overview/create_overview_select_datatable_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+StateProvider<bool> showAllSwitchProvider =
+    StateProvider<bool>((dynamic ref) => true);
 
 class SelectTBRPage extends StatefulWidget {
   final bool mobile;
@@ -27,9 +30,23 @@ class _SelectTBRPageState extends State<SelectTBRPage> {
 
   @override
   Widget build(BuildContext context) {
-    // final firebaseAuth = context.read(firebaseAuthProvider);
-    // final user = firebaseAuth.currentUser;
     return Column(children: [
+      Row(
+        children: [
+          const Text('Show All'),
+          Consumer(builder: (context, watch, child) {
+            final bool switchState = watch(showAllSwitchProvider).state;
+            return Switch(
+              onChanged: (boo) {
+                context.read(showAllSwitchProvider).state = boo;
+              },
+              value: context.read(showAllSwitchProvider).state,
+              activeTrackColor: Colors.lightGreenAccent,
+              activeColor: Colors.green,
+            );
+          }),
+        ],
+      ),
       CreateAppSelectDataTableWidget(mobile: widget.mobile),
     ]);
   }

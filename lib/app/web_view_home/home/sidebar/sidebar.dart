@@ -125,16 +125,16 @@ class Sidebar extends ConsumerWidget {
           //                     Text('I really have no idea what to put here'))));
           //   },
           // ),
-          SidebarButton(
-            lastText: lastText,
-            text: 'Edit Questions',
-            faIcon: FontAwesomeIcons.edit,
-            onPressedx: () {
-              context.read(widgetProvider).state = Expanded(
-                  child: Container(
-                      color: Colors.brown[50], child: QuestionWebPage()));
-            },
-          ),
+          // SidebarButton(
+          //   lastText: lastText,
+          //   text: 'Edit Questions',
+          //   faIcon: FontAwesomeIcons.edit,
+          //   onPressedx: () {
+          //     context.read(widgetProvider).state = Expanded(
+          //         child: Container(
+          //             color: Colors.brown[50], child: QuestionWebPage()));
+          //   },
+          // ),
           SidebarButton(
             lastText: lastText,
             text: 'Account Info',
@@ -157,28 +157,28 @@ class Sidebar extends ConsumerWidget {
                       child: const SelectTBRPage(mobile: false)));
             },
           ),
-          SidebarButton(
-            lastText: lastText,
-            text: 'App Page: Mobile',
-            faIcon: FontAwesomeIcons.mobileAlt,
-            onPressedx: () {
-              context.read(widgetProvider).state = Expanded(
-                  child: Center(
-                      child:
-                          addMobileFrame(const SelectTBRPage(mobile: true))));
-            },
-          ),
-          SidebarButton(
-            lastText: lastText,
-            text: 'App Page: Tablet',
-            faIcon: FontAwesomeIcons.mobileAlt,
-            onPressedx: () {
-              context.read(widgetProvider).state = Expanded(
-                  child: Center(
-                      child:
-                          addTabletFrame(const SelectTBRPage(mobile: true))));
-            },
-          ),
+          // SidebarButton(
+          //   lastText: lastText,
+          //   text: 'App Page: Mobile',
+          //   faIcon: FontAwesomeIcons.mobileAlt,
+          //   onPressedx: () {
+          //     context.read(widgetProvider).state = Expanded(
+          //         child: Center(
+          //             child:
+          //                 addMobileFrame(const SelectTBRPage(mobile: true))));
+          //   },
+          // ),
+          // SidebarButton(
+          //   lastText: lastText,
+          //   text: 'App Page: Tablet',
+          //   faIcon: FontAwesomeIcons.mobileAlt,
+          //   onPressedx: () {
+          //     context.read(widgetProvider).state = Expanded(
+          //         child: Center(
+          //             child:
+          //                 addTabletFrame(const SelectTBRPage(mobile: true))));
+          //   },
+          // ),
           const Text(''),
           const Text(''),
           SidebarButton(

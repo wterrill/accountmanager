@@ -56,7 +56,8 @@ class _TBRbuilderState extends State<TBRbuilder> {
     return Consumer(builder: (context, watch, child) {
       // List<String> beer = watch(tbrInProgressProvider).state.sections;
       // ignore: unused_local_variable
-      final TBRinProgress beer2 = watch(tbrInProgressProvider).state;
+      final TBRinProgress thisIsJustToUpdateTheScreen =
+          watch(tbrInProgressProvider).state;
 
       return Column(children: const [
         TestButtonRow(),

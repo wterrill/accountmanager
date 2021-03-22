@@ -1,6 +1,8 @@
+import 'package:accountmanager/app/web_view_home/app_page/tbr_selection/start_tbr.dart';
 import 'package:accountmanager/common_widgets/CustomDataTable.dart';
 import 'package:accountmanager/common_widgets/CustomDataTableSource.dart';
 import 'package:accountmanager/common_widgets/CustomPaginatedDataTable.dart';
+import 'package:accountmanager/models/Status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:intl/intl.dart';
@@ -18,6 +20,19 @@ final assignedTbrStreamProvider =
   return database?.assignedTbrStream() ?? const Stream.empty();
 });
 
+class TableVars {
+  TableVars(this.rowsPerPage) {
+    sortColumnIndex = 0;
+    sortAscending = true;
+  }
+  int rowsPerPage;
+  int sortColumnIndex;
+  bool sortAscending;
+}
+
+final tableVarsProvider = StateProvider<TableVars>(
+    (ref) => TableVars(PaginatedDataTable.defaultRowsPerPage));
+
 class CreateAppSelectDataTableWidget extends ConsumerWidget {
   final bool mobile;
   final double scale;
@@ -33,37 +48,31 @@ class CreateAppSelectDataTableWidget extends ConsumerWidget {
   }
 }
 
-class DataTableBuilder extends StatefulWidget {
-  const DataTableBuilder({
+class DataTableBuilder extends ConsumerWidget {
+  DataTableBuilder({
     Key key,
     this.data,
     @required this.mobile,
   }) : super(key: key);
   final AsyncValue<List<AssignedTBR>> data;
   final bool mobile;
+  // int _sortColumnIndex = 0;
+  // bool _sortAscending = false;
 
   @override
-  _DataTableBuilderState createState() => _DataTableBuilderState();
-}
+  Widget build(BuildContext context, ScopedReader watch) {
+    final TableVars tableVars = watch(tableVarsProvider).state;
+    final bool beer = watch(showAllSwitchProvider).state;
 
-class _DataTableBuilderState extends State<DataTableBuilder> {
-  int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
-  int _sortColumnIndex = 0;
-  bool _sortAscending = false;
-
-  @override
-  void initState() {
-    _sortAscending = false;
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return widget.data.when(
-      data: (items) => items.isNotEmpty
-          ? _datatable(
-              DTS(data: items, context: context, mobile: widget.mobile))
-          : const EmptyContent(),
+    return data.when(
+      data: (items) {
+        final DTS tempDTS =
+            DTS(incomingData: items, context: context, mobile: mobile);
+        tempDTS.filterValues(context);
+        return items.isNotEmpty
+            ? _datatable(tempDTS, tableVars, context)
+            : const EmptyContent();
+      },
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (_, __) => const EmptyContent(
         title: 'Something went wrong',
@@ -72,7 +81,7 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
     );
   }
 
-  Widget _datatable(DTS dtsSource) {
+  Widget _datatable(DTS dtsSource, TableVars tableVars, BuildContext context) {
     return Flexible(
       child: SingleChildScrollView(
         child: Column(
@@ -83,13 +92,13 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                 showCheckboxColumn: false,
                 header: const Text('Select TBR to be completed'),
                 source: dtsSource,
-                rowsPerPage: _rowsPerPage,
-                sortColumnIndex: _sortColumnIndex,
-                sortAscending: _sortAscending,
+                rowsPerPage: tableVars.rowsPerPage,
+                sortColumnIndex: tableVars.sortColumnIndex,
+                sortAscending: tableVars.sortAscending,
                 onRowsPerPageChanged: (rows) {
-                  setState(() {
-                    _rowsPerPage = rows;
-                  });
+                  // setState(() {
+                  context.read(tableVarsProvider).state.rowsPerPage = rows;
+                  // });
                 },
                 columns: [
                   CustomDataColumn(
@@ -97,11 +106,13 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                     onSort: (columnIndex, ascending) {
                       dtsSource.sort<String>(
                           getField: (d) => d.company.name,
-                          ascending: _sortAscending);
-                      setState(() {
-                        _sortColumnIndex = columnIndex;
-                        _sortAscending = !_sortAscending;
-                      });
+                          ascending: tableVars.sortAscending);
+                      // setState(() {
+                      context.read(tableVarsProvider).state.sortColumnIndex =
+                          tableVars.sortColumnIndex;
+                      context.read(tableVarsProvider).state.sortAscending =
+                          !tableVars.sortAscending;
+                      // });
                     },
                   ),
                   CustomDataColumn(
@@ -109,11 +120,13 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                     onSort: (columnIndex, ascending) {
                       dtsSource.sort<String>(
                           getField: (d) => d.technician.name,
-                          ascending: _sortAscending);
-                      setState(() {
-                        _sortColumnIndex = columnIndex;
-                        _sortAscending = !_sortAscending;
-                      });
+                          ascending: tableVars.sortAscending);
+                      // setState(() {
+                      context.read(tableVarsProvider).state.sortColumnIndex =
+                          columnIndex;
+                      context.read(tableVarsProvider).state.sortAscending =
+                          !tableVars.sortAscending;
+                      // });
                     },
                   ),
                   CustomDataColumn(
@@ -121,11 +134,13 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                     onSort: (columnIndex, ascending) {
                       dtsSource.sort<String>(
                           getField: (d) => d.dueDate.toString(),
-                          ascending: _sortAscending);
-                      setState(() {
-                        _sortColumnIndex = columnIndex;
-                        _sortAscending = !_sortAscending;
-                      });
+                          ascending: tableVars.sortAscending);
+                      // setState(() {
+                      context.read(tableVarsProvider).state.sortColumnIndex =
+                          columnIndex;
+                      context.read(tableVarsProvider).state.sortAscending =
+                          !tableVars.sortAscending;
+                      // });
                     },
                   ),
                   CustomDataColumn(
@@ -134,11 +149,13 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                     onSort: (columnIndex, ascending) {
                       dtsSource.sort<String>(
                           getField: (d) => d.clientMeetingDate.toString(),
-                          ascending: _sortAscending);
-                      setState(() {
-                        _sortColumnIndex = columnIndex;
-                        _sortAscending = !_sortAscending;
-                      });
+                          ascending: tableVars.sortAscending);
+                      // setState(() {
+                      context.read(tableVarsProvider).state.sortColumnIndex =
+                          columnIndex;
+                      context.read(tableVarsProvider).state.sortAscending =
+                          !tableVars.sortAscending;
+                      // });
                     },
                   ),
                   CustomDataColumn(
@@ -146,11 +163,13 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                     onSort: (columnIndex, ascending) {
                       dtsSource.sort<String>(
                           getField: (d) => d.status.statusIndex.toString(),
-                          ascending: _sortAscending);
-                      setState(() {
-                        _sortColumnIndex = columnIndex;
-                        _sortAscending = !_sortAscending;
-                      });
+                          ascending: tableVars.sortAscending);
+                      // setState(() {
+                      context.read(tableVarsProvider).state.sortColumnIndex =
+                          columnIndex;
+                      context.read(tableVarsProvider).state.sortAscending =
+                          !tableVars.sortAscending;
+                      // });
                     },
                   ),
                   CustomDataColumn(
@@ -158,11 +177,13 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                     onSort: (columnIndex, ascending) {
                       dtsSource.sort<String>(
                           getField: (d) => d.questionnaireType.name,
-                          ascending: _sortAscending);
-                      setState(() {
-                        _sortColumnIndex = columnIndex;
-                        _sortAscending = !_sortAscending;
-                      });
+                          ascending: tableVars.sortAscending);
+                      // setState(() {
+                      context.read(tableVarsProvider).state.sortColumnIndex =
+                          columnIndex;
+                      context.read(tableVarsProvider).state.sortAscending =
+                          !tableVars.sortAscending;
+                      // });
                     },
                   ),
                   CustomDataColumn(
@@ -170,11 +191,13 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                     onSort: (columnIndex, ascending) {
                       dtsSource.sort<String>(
                           getField: (d) => d.assignedBy,
-                          ascending: _sortAscending);
-                      setState(() {
-                        _sortColumnIndex = columnIndex;
-                        _sortAscending = !_sortAscending;
-                      });
+                          ascending: tableVars.sortAscending);
+                      // setState(() {
+                      context.read(tableVarsProvider).state.sortColumnIndex =
+                          columnIndex;
+                      context.read(tableVarsProvider).state.sortAscending =
+                          !tableVars.sortAscending;
+                      // });
                     },
                   )
                 ],
@@ -189,11 +212,12 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
 }
 
 class DTS extends CustomDataTableSource {
-  final List<AssignedTBR> data;
+  final List<AssignedTBR> incomingData;
   final BuildContext context;
   final bool mobile;
+  List<AssignedTBR> data;
 
-  DTS({this.data, this.context, this.mobile});
+  DTS({this.incomingData, this.context, this.mobile});
 
   @override
   CustomDataRow getRow(int index) {
@@ -244,6 +268,17 @@ class DTS extends CustomDataTableSource {
       return Comparable.compare(aValue, bValue);
     });
     // notifyListeners();
+  }
+
+  void filterValues(BuildContext context) {
+    final bool showAll = context.read(showAllSwitchProvider).state;
+    if (showAll) {
+      data = incomingData;
+    } else {
+      data = incomingData
+          .where((element) => element.status.getStatusName() != 'Completed')
+          .toList();
+    }
   }
 
   @override
