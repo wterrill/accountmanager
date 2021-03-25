@@ -1,3 +1,5 @@
+import 'package:accountmanager/app/web_view_home/overview/excel_button.dart';
+import 'package:accountmanager/app/web_view_home/overview/tbr_app_page.dart';
 import 'package:accountmanager/common_widgets/CustomDataTable.dart';
 import 'package:accountmanager/common_widgets/CustomDataTableSource.dart';
 import 'package:accountmanager/common_widgets/CustomPaginatedDataTable.dart';
@@ -204,7 +206,7 @@ class DTS extends CustomDataTableSource {
     if (index < data.length) {
       return CustomDataRow(
           onSelectChanged: (_) {
-            _displayDialog(
+            _displayNextPage(
                 context: context, assignedTBR: data[index], mobile: mobile);
           },
           cells: [
@@ -259,19 +261,27 @@ class DTS extends CustomDataTableSource {
   int get selectedRowCount => 0;
 }
 
-Future<void> _displayDialog(
+Future<void> _displayNextPage(
     {BuildContext context, AssignedTBR assignedTBR, bool mobile}) async {
   print(
       'onPressed in _displayDialog in create_overview_select_datatable_widget.dart');
   final String id = assignedTBR.id;
   print('id');
-  Widget frame =
-      // Container(
-      //   child:
-      SingleChildScrollView(
-    child: OverviewPaginatedTable(id: id),
-    // ),
-  );
+  // ignore: prefer_const_constructors
+  Widget frame = Text('error');
+  if (assignedTBR.status.getStatusName() == 'Assigned') {
+    context.read(currentAssignedTbrProvider).state = assignedTBR;
+    frame = Container(
+        color: Colors.brown[150], child: TBRappPage(assignedTBR: assignedTBR));
+  } else {
+    frame =
+        // Container(
+        //   child:
+        SingleChildScrollView(
+      child: OverviewPaginatedTable(id: id),
+      // ),
+    );
+  }
   // Widget frame =
   //     Container(color: Colors.brown[150], child: TBRappPage(data: data));
   if (mobile) {

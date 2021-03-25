@@ -144,18 +144,18 @@ class Sidebar extends ConsumerWidget {
                       color: Colors.brown[150], child: AccountWebPage()));
             },
           ),
-          SidebarButton(
-            lastText: lastText,
-            text: 'App Page - Web',
-            // faIcon: FontAwesomeIcons.web,
-            imageIcon: const Icon(Icons.web, color: Colors.white),
-            onPressedx: () {
-              context.read(widgetProvider).state = Expanded(
-                  child: Container(
-                      color: Colors.purple[50],
-                      child: const SelectTBRPage(mobile: false)));
-            },
-          ),
+          // SidebarButton(
+          //   lastText: lastText,
+          //   text: 'App Page - Web',
+          //   // faIcon: FontAwesomeIcons.web,
+          //   imageIcon: const Icon(Icons.web, color: Colors.white),
+          //   onPressedx: () {
+          //     context.read(widgetProvider).state = Expanded(
+          //         child: Container(
+          //             color: Colors.purple[50],
+          //             child: const SelectTBRPage(mobile: false)));
+          //   },
+          // ),
           // SidebarButton(
           //   lastText: lastText,
           //   text: 'App Page: Mobile',

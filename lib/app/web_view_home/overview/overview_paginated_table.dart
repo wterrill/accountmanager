@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 import 'package:accountmanager/app/top_level_providers.dart';
+import 'package:accountmanager/app/web_view_home/overview/excel_button.dart';
 import 'package:accountmanager/models/question.dart';
 import 'package:accountmanager/models/tbr.dart';
 import 'package:accountmanager/common_widgets/CustomDataTable.dart';
@@ -70,6 +71,7 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
   Widget _datatable(DTS dtsSource) {
     return Column(
       children: [
+        const ExcelButton(),
         CustomPaginatedDataTable(
           headingRowColor: Colors.blue,
           header: Text(Strings.tbrStrings.assignTbr),

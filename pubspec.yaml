@@ -22,8 +22,8 @@ dependencies:
   cupertino_icons: ^1.0.1
   date_time_picker: ^1.1.1
   # docx_template: ^0.2.4
-  equatable: ^1.2.5
-  excel: 1.0.3
+  equatable: ^2.0.0
+  excel: ^1.1.5
   firebase: ^7.3.3
   firebase_auth: ^0.18.4+1
   firebase_core: ^0.5.3
