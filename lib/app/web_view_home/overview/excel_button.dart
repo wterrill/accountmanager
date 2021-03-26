@@ -47,8 +47,8 @@ class ExcelButton extends ConsumerWidget {
       temp.add(completedTBR.allQuestions[row].questionName);
       temp.add(completedTBR.allQuestions[row].questionPriority);
       temp.add(completedTBR.allQuestions[row].questionText);
-      // getAlignment(
-      //     completedTBR.answers[id], completedTBR.allQuestions[index].goodBadAnswer)),
+      temp.add(getAlignment(completedTBR.answers[id],
+          completedTBR.allQuestions[row].goodBadAnswer));
 
       // }
       sheetObject.insertRowIterables(temp, row + 1);
@@ -58,18 +58,17 @@ class ExcelButton extends ConsumerWidget {
     //     .cell(CellIndex.indexByColumnRow(columnIndex: col, rowIndex: 0));
     // cell.value = 'beer';
 
-    final CellStyle cellStyle = CellStyle(
-        backgroundColorHex: '#1AFF1A',
-        fontFamily: getFontFamily(FontFamily.Calibri));
+    // final CellStyle cellStyle = CellStyle(
+    //     backgroundColorHex: '#1AFF1A',
+    //     fontFamily: getFontFamily(FontFamily.Calibri));
 
-    cellStyle.underline = Underline.Single; // or Underline.Double
+    // cellStyle.underline = Underline.Single; // or Underline.Double
 
-    final Data cell = sheetObject.cell(CellIndex.indexByString('A1'));
-    cell.value =
-        'WHERE IN THE WORLD IS CARMEN SAN DIEGO??'; // dynamic values support provided;
-    cell.cellStyle = cellStyle;
+    // final Data cell = sheetObject.cell(CellIndex.indexByString('A1'));
+    // cell.value =
+    //     'WHERE IN THE WORLD IS CARMEN SAN DIEGO??'; // dynamic values support provided;
+    // cell.cellStyle = cellStyle;
 
-    const String outputFile = '/Users/williamterrill/Desktop/form1.xlsx';
     excel.encode().then((onValue) {
       print(onValue);
       js.context.callMethod('webSaveAs', <dynamic>[
@@ -167,5 +166,20 @@ class ExcelButton extends ConsumerWidget {
     //     ..createSync(recursive: true)
     //     ..writeAsBytesSync(onValue);
     // });
+  }
+}
+
+String getAlignment(List<bool> answerArray, String expected) {
+  print(answerArray);
+  print(expected);
+  if (!answerArray.contains(true)) {
+    return '';
+  }
+  if (answerArray[1] == true && expected == 'N = Bad') {
+    return 'N';
+  } else if (answerArray[2] == true) {
+    return 'N/A';
+  } else {
+    return 'Y';
   }
 }
