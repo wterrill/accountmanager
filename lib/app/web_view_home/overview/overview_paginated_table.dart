@@ -10,6 +10,8 @@ import 'package:accountmanager/constants/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../app_page/tbr/tbr_builder/test_buttons.dart';
+
 class OverviewPaginatedTable extends StatefulWidget {
   const OverviewPaginatedTable({Key key, this.id}) : super(key: key);
   final String id;
@@ -71,7 +73,9 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
   Widget _datatable(DTS dtsSource) {
     return Column(
       children: [
-        const ExcelButton(),
+        ExcelButton(
+          tbrInProgress: dtsSource.getData(),
+        ),
         CustomPaginatedDataTable(
           headingRowColor: Colors.blue,
           header: Text(Strings.tbrStrings.assignTbr),
@@ -158,6 +162,8 @@ class DTS extends CustomDataTableSource {
   DTS(this.data) {
     questions = data.allQuestions;
   }
+
+  TBRinProgress getData() => data;
 
   @override
   CustomDataRow getRow(int index) {

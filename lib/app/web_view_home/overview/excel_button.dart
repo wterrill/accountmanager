@@ -1,27 +1,62 @@
-import 'dart:io';
+// import 'dart:io';
 // import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:excel/excel.dart';
+import 'dart:js' as js;
+import 'dart:html' as html;
+import 'dart:convert';
+
+import '../../../models/tbr.dart';
+import '../../../models/tbr.dart';
+// import 'dart:html' as html;
 // import 'package:path/path.dart';
 
 class ExcelButton extends ConsumerWidget {
-  const ExcelButton({Key key}) : super(key: key);
+  const ExcelButton({Key key, @required this.tbrInProgress}) : super(key: key);
+  final TBRinProgress tbrInProgress;
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     return TextButton(
         onPressed: () {
-          print('create excel');
-          createExcel(['beer']);
+          createExcel(tbrInProgress);
         },
         child: const Text('Create Excel'));
   }
 
-  void createExcel(List<String> args) {
+  void createExcel(TBRinProgress completedTBR) {
     final Excel excel = Excel.createExcel();
 
-    final Sheet sheetObject = excel['SheetName'];
+    final Sheet sheetObject = excel['Sheet1'];
+    // Make Header Row
+    final List<String> dataList = [
+      'Category',
+      'Name',
+      'Priority',
+      'Question Text',
+      'Aligned'
+    ];
+
+    sheetObject.insertRowIterables(dataList, 0);
+    for (var row = 0; row < completedTBR.allQuestions.length; row++) {
+      final List<String> temp = [];
+      final String id = tbrInProgress.allQuestions[row].id;
+      // for (var col = 0; col < dataList.length; col++) {
+      temp.add(completedTBR.allQuestions[row].category);
+      temp.add(completedTBR.allQuestions[row].questionName);
+      temp.add(completedTBR.allQuestions[row].questionPriority);
+      temp.add(completedTBR.allQuestions[row].questionText);
+      // getAlignment(
+      //     completedTBR.answers[id], completedTBR.allQuestions[index].goodBadAnswer)),
+
+      // }
+      sheetObject.insertRowIterables(temp, row + 1);
+    }
+
+    //     final Data cell = sheetObject
+    //     .cell(CellIndex.indexByColumnRow(columnIndex: col, rowIndex: 0));
+    // cell.value = 'beer';
 
     final CellStyle cellStyle = CellStyle(
         backgroundColorHex: '#1AFF1A',
@@ -34,43 +69,18 @@ class ExcelButton extends ConsumerWidget {
         'WHERE IN THE WORLD IS CARMEN SAN DIEGO??'; // dynamic values support provided;
     cell.cellStyle = cellStyle;
 
-    // printing cell-type
-    // print('CellType:   ${cell.cellType}');
-
-    ///
-    /// Inserting and removing column and rows
-
-    // insert column at index = 8
-    // sheetObject.insertColumn(8);
-
-    // // remove column at index = 18
-    // sheetObject.removeColumn(18);
-
-    // // insert row at index = 82
-    // sheetObject.removeRow(82);
-
-    // // remove row at index = 80
-    // sheetObject.removeRow(80);
-
-    final List<String> dataList = [
-      'Google',
-      'loves',
-      'Flutter',
-      'and',
-      'Flutter',
-      'loves',
-      'Google'
-    ];
-
-    sheetObject.insertRowIterables(dataList, 8);
-
     const String outputFile = '/Users/williamterrill/Desktop/form1.xlsx';
     excel.encode().then((onValue) {
-      File(outputFile)
-        // File(join(outputFile))
-        ..createSync(recursive: true)
-        ..writeAsBytesSync(onValue);
-      print('yup');
+      print(onValue);
+      js.context.callMethod('webSaveAs', <dynamic>[
+        html.Blob(<List<int>>[onValue]),
+        'test.xlsx'
+      ]);
+      // File(outputFile)
+      //   // File(join(outputFile))
+      //   // ..createSync(recursive: true)
+      //   ..writeAsBytesSync(onValue);
+      // print('yup');
     });
 
     // const String file = '/Users/kawal/Desktop/form.xlsx';
