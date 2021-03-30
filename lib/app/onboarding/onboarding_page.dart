@@ -1,3 +1,4 @@
+import 'package:accountmanager/app/onboarding/rive_animation.dart';
 import 'package:accountmanager/constants/keys.dart';
 import 'package:accountmanager/provider_defs/provider_defs.dart';
 import 'package:flutter/material.dart';
@@ -27,13 +28,14 @@ class OnboardingPage extends StatelessWidget {
             ),
             Flexible(
               child: FractionallySizedBox(
-                  widthFactor: 0.4,
-                  heightFactor: 0.9,
-                  // child: PlatformSvg.asset('assets/time-tracking.svg')
-                  child: Image.network('/assets/time-tracking.svg')
-                  // child: SvgPicture.asset('assets/images/time-tracking.svg',
-                  //     semanticsLabel: 'Time tracking logo'),
-                  ),
+                widthFactor: 0.4,
+                heightFactor: 0.9,
+                // child: PlatformSvg.asset('assets/time-tracking.svg')
+                child: const RiveAnimation(),
+                //Image.network('/assets/time-tracking.svg')
+                // child: SvgPicture.asset('assets/images/time-tracking.svg',
+                //     semanticsLabel: 'Time tracking logo'),
+              ),
             ),
             CustomRaisedButton(
               key: const Key(Keys.getStarted),

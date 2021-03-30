@@ -81,7 +81,7 @@ class Sidebar extends ConsumerWidget {
           ),
           SidebarButton(
             lastText: lastText,
-            text: 'Assign Evaluation',
+            text: 'Create Evaluation',
             faIcon: FontAwesomeIcons.plusSquare,
             onPressedx: () {
               context.read(widgetProvider).state = Expanded(
@@ -180,16 +180,20 @@ class Sidebar extends ConsumerWidget {
           // ),
           const Text(''),
           const Text(''),
-          SidebarButton(
-            lastText: lastText,
-            text: 'Dev Testing',
-            faIcon: FontAwesomeIcons.atom,
-            onPressedx: () {
-              context.read(widgetProvider).state = Expanded(
-                  child: Container(
-                      color: Colors.brown[150], child: const DeveloperPage()));
-            },
-          ),
+          const Text(''),
+          const Text(''),
+          const Text(''),
+          const Text(''),
+          // SidebarButton(
+          //   lastText: lastText,
+          //   text: 'Dev Testing',
+          //   faIcon: FontAwesomeIcons.atom,
+          //   onPressedx: () {
+          //     context.read(widgetProvider).state = Expanded(
+          //         child: Container(
+          //             color: Colors.brown[150], child: const DeveloperPage()));
+          //   },
+          // ),
           const Text(''),
         ],
       ),
@@ -214,7 +218,7 @@ class Sidebar extends ConsumerWidget {
           // child: OtherPlasma2(),
           // child: FancyPlasmaWidget1(),
           // child: FancyPlasmaWidget2(),
-          child: OtherPlasma1(),
+          // child: OtherPlasma1(),
         ),
         sidebar
       ]),

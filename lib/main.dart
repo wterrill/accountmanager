@@ -33,6 +33,7 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    DateTime lastBuild;
     final firebaseAuth = context.read(firebaseAuthProvider);
     return MaterialApp(
       theme: ThemeData(
@@ -51,6 +52,19 @@ class MyApp extends StatelessWidget {
         nonSignedInBuilder: (_) {
           return Consumer(
             builder: (context, watch, _) {
+              final sharedPreferencesService =
+                  watch(sharedPreferencesServiceProvider);
+              lastBuild = sharedPreferencesService.getLastDateTime();
+              print(DateTime.now());
+              print(lastBuild);
+              print(lastBuild?.add(const Duration(minutes: 60)));
+              DateTime now = DateTime.now();
+              DateTime last = lastBuild;
+              DateTime limit = lastBuild.add(const Duration(seconds: 60));
+              if (now.isAfter(limit) ?? false) {
+                deleteOnboarding(context);
+                sharedPreferencesService.setLastDateTime(DateTime.now());
+              }
               final didCompleteOnboarding =
                   watch(onboardingViewModelProvider.state);
               return didCompleteOnboarding ? SignInPage() : OnboardingPage();
@@ -67,4 +81,9 @@ class MyApp extends StatelessWidget {
       },
     );
   }
+}
+
+Future<void> deleteOnboarding(BuildContext context) async {
+  final onboardingViewModel = context.read(onboardingViewModelProvider);
+  await onboardingViewModel.deleteOnboarding();
 }

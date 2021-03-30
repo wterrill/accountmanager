@@ -1,6 +1,5 @@
 // ignore_for_file: file_names
 import 'package:accountmanager/app/top_level_providers.dart';
-import 'package:accountmanager/app/web_view_home/overview/excel_button.dart';
 import 'package:accountmanager/models/question.dart';
 import 'package:accountmanager/models/tbr.dart';
 import 'package:accountmanager/common_widgets/CustomDataTable.dart';
@@ -9,8 +8,7 @@ import 'package:accountmanager/common_widgets/CustomPaginatedDataTable.dart';
 import 'package:accountmanager/constants/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import '../app_page/tbr/tbr_builder/test_buttons.dart';
+import 'excel_button.dart';
 
 class OverviewPaginatedTable extends StatefulWidget {
   const OverviewPaginatedTable({Key key, this.id}) : super(key: key);
@@ -71,86 +69,90 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
   // }
 
   Widget _datatable(DTS dtsSource) {
-    return Column(
-      children: [
-        ExcelButton(
-          tbrInProgress: dtsSource.getData(),
-        ),
-        CustomPaginatedDataTable(
-          headingRowColor: Colors.blue,
-          header: Text(Strings.tbrStrings.assignTbr),
-          source: dtsSource,
-          rowsPerPage: _rowsPerPage,
-          sortColumnIndex: _sortColumnIndex,
-          sortAscending: _sortAscending,
-          onRowsPerPageChanged: (rows) {
-            setState(() {
-              _rowsPerPage = rows;
-            });
-          },
-          columns: [
-            CustomDataColumn(
-              label: const Text('Category'),
-              onSort: (columnIndex, ascending) {
-                dtsSource.sort<String>(
-                    getField: (d) => d.category, ascending: _sortAscending);
-                setState(() {
-                  _sortColumnIndex = columnIndex;
-                  _sortAscending = !_sortAscending;
-                });
-              },
-            ),
-            CustomDataColumn(
-              label: const Text('Name'),
-              onSort: (columnIndex, ascending) {
-                dtsSource.sort<String>(
-                    getField: (d) => d.questionName, ascending: _sortAscending);
-                setState(() {
-                  _sortColumnIndex = columnIndex;
-                  _sortAscending = !_sortAscending;
-                });
-              },
-            ),
-            const CustomDataColumn(
-              label: Text('Priority'),
-              // onSort: (columnIndex, ascending) {
-              //   dtsSource.sort<String>(
-              //       getField: (d) => d.technician.name,
-              //       ascending: _sortAscending);
-              //   setState(() {
-              //     _sortColumnIndex = columnIndex;
-              //     _sortAscending = !_sortAscending;
-              //   });
-              // },
-            ),
-            const CustomDataColumn(
-              label: Text('Question Text'),
-              // onSort: (columnIndex, ascending) {
-              //   dtsSource.sort<String>(
-              //       getField: (d) => d.dueDate.toString(),
-              //       ascending: _sortAscending);
-              //   setState(() {
-              //     _sortColumnIndex = columnIndex;
-              //     _sortAscending = !_sortAscending;
-              //   });
-              // },
-            ),
-            const CustomDataColumn(
-              label: Text('Aligned (Y/N)'),
-              // onSort: (columnIndex, ascending) {
-              //   dtsSource.sort<String>(
-              //       getField: (d) => d.clientMeetingDate.toString(),
-              //       ascending: _sortAscending);
-              //   setState(() {
-              //     _sortColumnIndex = columnIndex;
-              //     _sortAscending = !_sortAscending;
-              //   });
-              // },
-            )
-          ],
-        ),
-        Container(height: 150),
-      ],
+    return Container(
+      color: Colors.white70,
+      child: Column(
+        children: [
+          ExcelButton(
+            tbrInProgress: dtsSource.getData(),
+          ),
+          CustomPaginatedDataTable(
+            headingRowColor: Colors.blue,
+            header: Text(Strings.tbrStrings.assignTbr),
+            source: dtsSource,
+            rowsPerPage: _rowsPerPage,
+            sortColumnIndex: _sortColumnIndex,
+            sortAscending: _sortAscending,
+            onRowsPerPageChanged: (rows) {
+              setState(() {
+                _rowsPerPage = rows;
+              });
+            },
+            columns: [
+              CustomDataColumn(
+                label: const Text('Category'),
+                onSort: (columnIndex, ascending) {
+                  dtsSource.sort<String>(
+                      getField: (d) => d.category, ascending: _sortAscending);
+                  setState(() {
+                    _sortColumnIndex = columnIndex;
+                    _sortAscending = !_sortAscending;
+                  });
+                },
+              ),
+              CustomDataColumn(
+                label: const Text('Name'),
+                onSort: (columnIndex, ascending) {
+                  dtsSource.sort<String>(
+                      getField: (d) => d.questionName,
+                      ascending: _sortAscending);
+                  setState(() {
+                    _sortColumnIndex = columnIndex;
+                    _sortAscending = !_sortAscending;
+                  });
+                },
+              ),
+              const CustomDataColumn(
+                label: Text('Priority'),
+                // onSort: (columnIndex, ascending) {
+                //   dtsSource.sort<String>(
+                //       getField: (d) => d.technician.name,
+                //       ascending: _sortAscending);
+                //   setState(() {
+                //     _sortColumnIndex = columnIndex;
+                //     _sortAscending = !_sortAscending;
+                //   });
+                // },
+              ),
+              const CustomDataColumn(
+                label: Text('Question Text'),
+                // onSort: (columnIndex, ascending) {
+                //   dtsSource.sort<String>(
+                //       getField: (d) => d.dueDate.toString(),
+                //       ascending: _sortAscending);
+                //   setState(() {
+                //     _sortColumnIndex = columnIndex;
+                //     _sortAscending = !_sortAscending;
+                //   });
+                // },
+              ),
+              const CustomDataColumn(
+                label: Text('Aligned (Y/N)'),
+                // onSort: (columnIndex, ascending) {
+                //   dtsSource.sort<String>(
+                //       getField: (d) => d.clientMeetingDate.toString(),
+                //       ascending: _sortAscending);
+                //   setState(() {
+                //     _sortColumnIndex = columnIndex;
+                //     _sortAscending = !_sortAscending;
+                //   });
+                // },
+              )
+            ],
+          ),
+          Container(height: 150),
+        ],
+      ),
     );
   }
 }

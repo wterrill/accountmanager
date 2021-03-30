@@ -5,6 +5,7 @@ class SharedPreferencesService {
   final SharedPreferences sharedPreferences;
 
   static const onboardingCompleteKey = 'onboardingComplete';
+  static const lastDateTimeKey = 'lastDateTime';
 
   Future<void> setOnboardingComplete() async {
     await sharedPreferences.setBool(onboardingCompleteKey, true);
@@ -14,6 +15,21 @@ class SharedPreferencesService {
     await sharedPreferences.remove(onboardingCompleteKey);
   }
 
+  Future<void> setLastDateTime(DateTime dateTime) async {
+    await sharedPreferences.setString(lastDateTimeKey, dateTime.toString());
+  }
+
   bool isOnboardingComplete() =>
       sharedPreferences.getBool(onboardingCompleteKey) ?? false;
+
+  DateTime getLastDateTime() {
+    String dateTimeString = sharedPreferences.getString(lastDateTimeKey);
+    if (dateTimeString != null) {
+      DateTime parsed = DateTime.parse(dateTimeString);
+      return parsed;
+    } else {
+      setLastDateTime(DateTime.now());
+      return DateTime.now();
+    }
+  }
 }

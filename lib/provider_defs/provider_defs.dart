@@ -5,7 +5,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final onboardingViewModelProvider =
     StateNotifierProvider<OnboardingViewModel>((ref) {
   final sharedPreferencesService = ref.watch(sharedPreferencesServiceProvider);
-  return OnboardingViewModel(sharedPreferencesService);
+  final OnboardingViewModel view =
+      OnboardingViewModel(sharedPreferencesService);
+  return view;
 });
 
 final sharedPreferencesServiceProvider =

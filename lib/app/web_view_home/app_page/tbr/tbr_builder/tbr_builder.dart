@@ -59,13 +59,16 @@ class _TBRbuilderState extends State<TBRbuilder> {
       final TBRinProgress thisIsJustToUpdateTheScreen =
           watch(tbrInProgressProvider).state;
 
-      return Column(children: const [
-        TestButtonRow(),
-        SubmitButtonRow(),
-        DropDownSelectors(),
-        Expanded(child: TbrEvaluationSection()),
-        BottomArrows(),
-      ]);
+      return Container(
+        color: Colors.white70,
+        child: Column(children: const [
+          TestButtonRow(),
+          SubmitButtonRow(),
+          DropDownSelectors(),
+          Expanded(child: TbrEvaluationSection()),
+          BottomArrows(),
+        ]),
+      );
     });
   }
 }

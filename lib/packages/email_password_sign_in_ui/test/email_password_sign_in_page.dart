@@ -106,8 +106,8 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
   }
 
   Widget _buildEmailField() {
-    _emailController.text = 'a@b.com';
-    _passwordController.text = 'asdfghjkl;\'';
+    // _emailController.text = 'a@b.com';
+    // _passwordController.text = 'asdfghjkl;\'';
     return TextFormField(
       key: const Key('email'),
       controller: _emailController,

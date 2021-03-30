@@ -86,7 +86,7 @@ class SidebarButton extends ConsumerWidget {
           padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
           child: Row(children: [
             Container(
-              width: 35,
+              width: 65,
               height: 35,
               child: FittedBox(child: image),
             ),

@@ -1,16 +1,29 @@
-// import 'dart:io';
-// import 'dart:typed_data';
+// import 'dart:html' as html;
+// import 'dart:js' as js;
+import 'package:universal_html/html.dart' as html;
+import 'package:universal_html/js.dart' as js;
+
+// import 'package:universal_html/driver.dart';
+// import 'package:universal_html/indexed_db.dart';
+// import 'package:universal_html/js.dart';
+// import 'package:universal_html/js_util.dart';
+// import 'package:universal_html/prefer_sdk/indexed_db.dart';
+// import 'package:universal_html/prefer_sdk/js.dart';
+// import 'package:universal_html/prefer_sdk/js_util.dart';
+// import 'package:universal_html/prefer_sdk/svg.dart';
+// import 'package:universal_html/prefer_sdk/web_gl.dart';
+// import 'package:universal_html/prefer_universal/indexed_db.dart';
+// import 'package:universal_html/prefer_universal/js.dart';
+// import 'package:universal_html/prefer_universal/js_util.dart';
+// import 'package:universal_html/prefer_universal/svg.dart';
+// import 'package:universal_html/prefer_universal/web_gl.dart';
+// import 'package:universal_html/svg.dart';
+// import 'package:universal_html/web_gl.dart';
+
+import 'package:accountmanager/models/tbr.dart';
+import 'package:excel/excel.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:excel/excel.dart';
-import 'dart:js' as js;
-import 'dart:html' as html;
-import 'dart:convert';
-
-import '../../../models/tbr.dart';
-import '../../../models/tbr.dart';
-// import 'dart:html' as html;
-// import 'package:path/path.dart';
 
 class ExcelButton extends ConsumerWidget {
   const ExcelButton({Key key, @required this.tbrInProgress}) : super(key: key);
@@ -39,6 +52,13 @@ class ExcelButton extends ConsumerWidget {
     ];
 
     sheetObject.insertRowIterables(dataList, 0);
+    for (var i = 0; i < dataList.length; i++) {
+      final Data cell = sheetObject
+          .cell(CellIndex.indexByColumnRow(columnIndex: i, rowIndex: 0));
+      cell.cellStyle =
+          CellStyle(backgroundColorHex: '#AAAAAA', underline: Underline.Double);
+    }
+
     for (var row = 0; row < completedTBR.allQuestions.length; row++) {
       final List<String> temp = [];
       final String id = tbrInProgress.allQuestions[row].id;
@@ -52,6 +72,29 @@ class ExcelButton extends ConsumerWidget {
 
       // }
       sheetObject.insertRowIterables(temp, row + 1);
+      final Data cell = sheetObject
+          .cell(CellIndex.indexByColumnRow(columnIndex: 4, rowIndex: row));
+      CellStyle cellStyle = CellStyle(backgroundColorHex: '#FFFFFF');
+      switch (cell.value as String) {
+        case 'N':
+          {
+            cellStyle = CellStyle(backgroundColorHex: '#FF0000');
+            break;
+          }
+        case 'Y':
+          {
+            cellStyle = CellStyle(backgroundColorHex: '#00FF00');
+            break;
+          }
+        case 'N/A':
+          {
+            cellStyle = CellStyle(backgroundColorHex: '#555555');
+            break;
+          }
+        case 'Aligned':
+          cellStyle = CellStyle(backgroundColorHex: '#AAAAAA');
+      }
+      cell.cellStyle = cellStyle;
     }
 
     //     final Data cell = sheetObject
