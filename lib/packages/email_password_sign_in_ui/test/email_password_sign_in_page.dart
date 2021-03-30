@@ -105,6 +105,10 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
     _passwordController.clear();
   }
 
+  Widget _buildLogo() {
+    return Image.asset('assets/images/sign_in_logo.png');
+  }
+
   Widget _buildEmailField() {
     // _emailController.text = 'a@b.com';
     // _passwordController.text = 'asdfghjkl;\'';
@@ -154,6 +158,7 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            _buildLogo(),
             const SizedBox(height: 8.0),
             _buildEmailField(),
             if (model.formType !=
@@ -195,25 +200,39 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 2.0,
-        title: Text(model.title),
-      ),
+      // appBar: AppBar(
+      //   elevation: 2.0,
+      //   title: Text(model.title),
+      // ),
       backgroundColor: Colors.grey[200],
-      body: SingleChildScrollView(
-        child: Center(
-          child: LayoutBuilder(builder: (context, constraints) {
-            return Container(
-              width: min(constraints.maxWidth, 600),
-              padding: const EdgeInsets.all(16.0),
-              child: Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: _buildContent(),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/sign_in_background.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: SingleChildScrollView(
+          child: Center(
+            child: LayoutBuilder(builder: (context, constraints) {
+              return Container(
+                width: min(constraints.maxWidth, 600),
+                padding: const EdgeInsets.fromLTRB(16.0, 200.0, 16.0, 16.0),
+                child: Card(
+                  elevation: 10,
+                  shape: RoundedRectangleBorder(
+                      side: const BorderSide(color: Colors.black, width: 0.5),
+                      borderRadius: BorderRadius.circular(25)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: _buildContent(),
+                  ),
                 ),
-              ),
-            );
-          }),
+              );
+            }),
+          ),
         ),
       ),
     );

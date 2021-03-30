@@ -19,7 +19,7 @@ class _HeaderState extends State<Header> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          padding: const EdgeInsets.symmetric(horizontal: 30.0),
           child: Container(
             width: 500,
             height: 150,

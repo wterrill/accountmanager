@@ -34,7 +34,7 @@ dependencies:
   font_awesome_flutter: ^8.11.0
   google_sign_in: ^4.5.6
   hooks_riverpod: ^0.12.2
-  integration_test: ^1.0.0
+  # integration_test: ^1.0.0
   intl: ^0.16.1
   
   js: ^0.6.2
@@ -56,8 +56,8 @@ dependencies:
   universal_html: 1.2.4
 
 dev_dependencies:
-  flutter_driver:
-    sdk: flutter
+  # flutter_driver:
+  #   sdk: flutter
   
 
   flutter_test:
@@ -67,6 +67,8 @@ dev_dependencies:
   random_string: ^2.0.0
   test: any
 
+dependency_overrides:
+  archive : ^2.0.0
 # flutter_icons:
 #   android: "launcher_icon"
 #   ios: true

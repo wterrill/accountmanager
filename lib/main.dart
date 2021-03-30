@@ -30,6 +30,8 @@ Future<void> main() async {
   ));
 }
 
+bool didCompleteOnboarding = false;
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -55,9 +57,13 @@ class MyApp extends StatelessWidget {
               final sharedPreferencesService =
                   watch(sharedPreferencesServiceProvider);
               lastBuild = sharedPreferencesService.getLastDateTime();
+              final didCompleteOnboarding =
+                  watch(onboardingViewModelProvider.state);
+              print('didCompleteOnboarding1: $didCompleteOnboarding');
+
               print(DateTime.now());
               print(lastBuild);
-              print(lastBuild?.add(const Duration(minutes: 60)));
+              print(lastBuild?.add(const Duration(seconds: 10)));
               DateTime now = DateTime.now();
               DateTime last = lastBuild;
               DateTime limit = lastBuild.add(const Duration(seconds: 60));
@@ -65,8 +71,7 @@ class MyApp extends StatelessWidget {
                 deleteOnboarding(context);
                 sharedPreferencesService.setLastDateTime(DateTime.now());
               }
-              final didCompleteOnboarding =
-                  watch(onboardingViewModelProvider.state);
+              print('didCompleteOnboarding1: $didCompleteOnboarding');
               return didCompleteOnboarding ? SignInPage() : OnboardingPage();
             },
           );

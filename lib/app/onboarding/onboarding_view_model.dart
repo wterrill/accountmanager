@@ -15,7 +15,7 @@ class OnboardingViewModel extends StateNotifier<bool> {
 
   Future<void> deleteOnboarding() async {
     await sharedPreferencesService.deleteOnboardingComplete();
-    state = true;
+    state = false;
   }
 
   bool get isOnboardingComplete => state;
