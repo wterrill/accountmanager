@@ -155,43 +155,57 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
       child: Form(
         onChanged: () => model.updateWith(
             email: _emailController.text, password: _passwordController.text),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            _buildLogo(),
-            const SizedBox(height: 8.0),
-            _buildEmailField(),
-            if (model.formType !=
-                EmailPasswordSignInFormType.forgotPassword) ...<Widget>[
+        child: Container(
+          width: 100,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              _buildLogo(),
               const SizedBox(height: 8.0),
-              _buildPasswordField(),
-            ],
-            const SizedBox(height: 8.0),
-            FormSubmitButton(
-              key: const Key('primary-button'),
-              text: model.primaryButtonText,
-              loading: model.isLoading,
-              onPressed: model.isLoading ? null : _submit,
-            ),
-            const SizedBox(height: 8.0),
-            FlatButtonX(
-              keyx: const Key('secondary-button'),
-              childx: Text(model.secondaryButtonText),
-              onPressedx: model.isLoading
-                  ? null
-                  : () => _updateFormType(model.secondaryActionFormType),
-            ),
-            if (model.formType == EmailPasswordSignInFormType.signIn)
+              _buildEmailField(),
+              if (model.formType !=
+                  EmailPasswordSignInFormType.forgotPassword) ...<Widget>[
+                const SizedBox(height: 8.0),
+                _buildPasswordField(),
+              ],
+              const SizedBox(height: 8.0),
+              if (model.formType == EmailPasswordSignInFormType.signIn)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    FlatButtonX(
+                      keyx: const Key('tertiary-button'),
+                      childx: const Text(
+                          EmailPasswordSignInStrings.forgotPasswordQuestion),
+                      onPressedx: model.isLoading
+                          ? null
+                          : () => _updateFormType(
+                              EmailPasswordSignInFormType.forgotPassword),
+                    ),
+                  ],
+                ),
+              const SizedBox(height: 32.0),
+              FormSubmitButton(
+                // shape: RoundedRectangleBorder(
+                //     side: const BorderSide(color: Colors.black, width: 0.5),
+                //     borderRadius: BorderRadius.circular(25)),
+
+                key: const Key('primary-button'),
+                text: model.primaryButtonText,
+                loading: model.isLoading,
+                onPressed: model.isLoading ? null : _submit,
+              ),
+              const SizedBox(height: 8.0),
               FlatButtonX(
-                keyx: const Key('tertiary-button'),
-                childx: const Text(
-                    EmailPasswordSignInStrings.forgotPasswordQuestion),
+                keyx: const Key('secondary-button'),
+                childx: Text(model.secondaryButtonText),
                 onPressedx: model.isLoading
                     ? null
-                    : () => _updateFormType(
-                        EmailPasswordSignInFormType.forgotPassword),
+                    : () => _updateFormType(model.secondaryActionFormType),
               ),
-          ],
+              const SizedBox(height: 32.0),
+            ],
+          ),
         ),
       ),
     );
@@ -218,7 +232,7 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
           child: Center(
             child: LayoutBuilder(builder: (context, constraints) {
               return Container(
-                width: min(constraints.maxWidth, 600),
+                width: min(constraints.maxWidth, 500),
                 padding: const EdgeInsets.fromLTRB(16.0, 200.0, 16.0, 16.0),
                 child: Card(
                   elevation: 10,
@@ -226,7 +240,7 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
                       side: const BorderSide(color: Colors.black, width: 0.5),
                       borderRadius: BorderRadius.circular(25)),
                   child: Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.fromLTRB(64.0, 32.0, 64.0, 32.0),
                     child: _buildContent(),
                   ),
                 ),
