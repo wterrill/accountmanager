@@ -71,17 +71,28 @@ class Sidebar extends ConsumerWidget {
           const Text(''),
           SidebarButton(
             lastText: lastText,
-            text: 'Overview',
+            text: 'View Evaluations',
             faIcon: FontAwesomeIcons.home,
             onPressedx: () {
-              context.read(widgetProvider).state = Expanded(
-                  child: Container(
-                      color: Colors.pink[100], child: OverviewWebPage()));
+              context.read(widgetProvider).state =
+                  Expanded(child: OverviewWebPage());
             },
           ),
           SidebarButton(
             lastText: lastText,
-            text: 'Create Evaluation',
+            text: 'Start Evaluation',
+            // faIcon: FontAwesomeIcons.web,
+            imageIcon: const Icon(Icons.web, color: Colors.white),
+            onPressedx: () {
+              context.read(widgetProvider).state = Expanded(
+                  child: Container(
+                      color: Colors.white,
+                      child: const SelectTBRPage(mobile: false)));
+            },
+          ),
+          SidebarButton(
+            lastText: lastText,
+            text: 'Assign Evaluation',
             faIcon: FontAwesomeIcons.plusSquare,
             onPressedx: () {
               context.read(widgetProvider).state = Expanded(
@@ -144,18 +155,7 @@ class Sidebar extends ConsumerWidget {
                       color: Colors.brown[150], child: AccountWebPage()));
             },
           ),
-          // SidebarButton(
-          //   lastText: lastText,
-          //   text: 'App Page - Web',
-          //   // faIcon: FontAwesomeIcons.web,
-          //   imageIcon: const Icon(Icons.web, color: Colors.white),
-          //   onPressedx: () {
-          //     context.read(widgetProvider).state = Expanded(
-          //         child: Container(
-          //             color: Colors.purple[50],
-          //             child: const SelectTBRPage(mobile: false)));
-          //   },
-          // ),
+
           // SidebarButton(
           //   lastText: lastText,
           //   text: 'App Page: Mobile',

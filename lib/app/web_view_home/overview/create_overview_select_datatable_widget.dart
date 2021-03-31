@@ -68,7 +68,7 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
     return widget.data.when(
       data: (items) => items.isNotEmpty
           ? _datatable(
-              DTS(data: items, context: context, mobile: widget.mobile))
+              DTS(incomingData: items, context: context, mobile: widget.mobile))
           : const EmptyContent(),
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (_, __) => const EmptyContent(
@@ -86,6 +86,7 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
             DefaultTextStyle(
               style: const TextStyle(fontSize: 10, color: Colors.blue),
               child: CustomPaginatedDataTable(
+                headingRowColor: Colors.grey[300],
                 showCheckboxColumn: false,
                 header: const Text('Select TBR to be completed'),
                 source: dtsSource,
@@ -194,11 +195,26 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
 }
 
 class DTS extends CustomDataTableSource {
-  final List<AssignedTBR> data;
+  final List<AssignedTBR> incomingData;
+  List<AssignedTBR> data;
   final BuildContext context;
   final bool mobile;
 
-  DTS({this.data, this.context, this.mobile});
+  DTS({this.incomingData, this.context, this.mobile}) {
+    filterValues(context);
+  }
+
+  void filterValues(BuildContext context) {
+    // final bool showAll = context.read(showAllSwitchProvider).state;
+    const bool showAll = false;
+    if (showAll) {
+      data = incomingData;
+    } else {
+      data = incomingData
+          .where((element) => element.status.getStatusName() == 'Completed')
+          .toList();
+    }
+  }
 
   @override
   CustomDataRow getRow(int index) {
@@ -270,8 +286,7 @@ Future<void> _displayNextPage(
   Widget frame = Text('error');
   if (assignedTBR.status.getStatusName() == 'Assigned') {
     context.read(currentAssignedTbrProvider).state = assignedTBR;
-    frame = Container(
-        color: Colors.brown[150], child: TBRappPage(assignedTBR: assignedTBR));
+    frame = TBRappPage(assignedTBR: assignedTBR);
   } else {
     frame =
         // Container(

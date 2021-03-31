@@ -90,6 +90,7 @@ class DataTableBuilder extends ConsumerWidget {
               style: const TextStyle(fontSize: 10, color: Colors.blue),
               child: CustomPaginatedDataTable(
                 showCheckboxColumn: false,
+                headingRowColor: Colors.grey[300],
                 header: const Text('Select TBR to be completed'),
                 source: dtsSource,
                 rowsPerPage: tableVars.rowsPerPage,
