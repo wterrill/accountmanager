@@ -70,7 +70,7 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
 
   Widget _datatable(DTS dtsSource) {
     return Container(
-      color: Colors.white70,
+      color: Colors.white,
       child: Column(
         children: [
           ExcelButton(

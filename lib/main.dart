@@ -64,9 +64,9 @@ class MyApp extends StatelessWidget {
               print(DateTime.now());
               print(lastBuild);
               print(lastBuild?.add(const Duration(seconds: 10)));
-              DateTime now = DateTime.now();
-              DateTime last = lastBuild;
-              DateTime limit = lastBuild.add(const Duration(seconds: 60));
+              final DateTime now = DateTime.now();
+              // final DateTime last = lastBuild;
+              final DateTime limit = lastBuild.add(const Duration(seconds: 60));
               if (now.isAfter(limit) ?? false) {
                 deleteOnboarding(context);
                 sharedPreferencesService.setLastDateTime(DateTime.now());

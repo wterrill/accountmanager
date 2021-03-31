@@ -1,6 +1,4 @@
 import 'package:accountmanager/app/web_view_home/app_page/tbr_selection/start_tbr.dart';
-import 'package:accountmanager/app/web_view_home/home/developer/developer_page.dart';
-import 'package:accountmanager/app/web_view_home/home/developer/other_plasma1.dart';
 import 'package:accountmanager/app/web_view_home/home/sidebar/sidebar_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

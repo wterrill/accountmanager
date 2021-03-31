@@ -26,12 +26,12 @@ class OnboardingPage extends StatelessWidget {
               style: Theme.of(context).textTheme.headline4,
               textAlign: TextAlign.center,
             ),
-            Flexible(
+            const Flexible(
               child: FractionallySizedBox(
                 widthFactor: 0.4,
                 heightFactor: 0.9,
                 // child: PlatformSvg.asset('assets/time-tracking.svg')
-                child: const RiveAnimation(),
+                child: RiveAnimation(),
                 //Image.network('/assets/time-tracking.svg')
                 // child: SvgPicture.asset('assets/images/time-tracking.svg',
                 //     semanticsLabel: 'Time tracking logo'),

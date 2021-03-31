@@ -13,8 +13,8 @@ class WebViewHomePage extends ConsumerWidget {
     print('home page build');
     return Scaffold(
       body: Stack(children: [
-        // OtherPlasma1(),
-        Container(color: Colors.blue),
+        OtherPlasma1(),
+        // Container(color: Colors.blue),
         Column(
           children: [
             const Header(),

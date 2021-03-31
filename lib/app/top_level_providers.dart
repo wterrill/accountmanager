@@ -42,8 +42,7 @@ final tbrInProgressProvider = StateProvider<TBRinProgress>((ref) {
 });
 
 final widgetProvider = StateProvider<Widget>((ref) {
-  return Expanded(
-      child: Container(color: Colors.pink[100], child: OverviewWebPage()));
+  return Expanded(child: Container(child: OverviewWebPage()));
 });
 
 final firebaseAuthProvider = Provider<FirebaseAuth>((ref) {

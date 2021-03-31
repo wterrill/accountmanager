@@ -40,7 +40,7 @@ class CustomRaisedButton extends StatelessWidget {
       height: height,
       child: RaisedButtonX(
         childx: loading ? buildSpinner(context) : child,
-        shapex: RoundedRectangleBorder(
+        shapex: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(25),
           ),

@@ -1,8 +1,9 @@
+import 'package:accountmanager/app/web_view_home/home/sidebar/sidebar.dart';
+import 'package:accountmanager/app/web_view_home/overview/overview_paginated_table.dart';
 import 'package:accountmanager/app/web_view_home/overview/tbr_app_page.dart';
 import 'package:accountmanager/common_widgets/CustomDataTable.dart';
 import 'package:accountmanager/common_widgets/CustomDataTableSource.dart';
 import 'package:accountmanager/common_widgets/CustomPaginatedDataTable.dart';
-import 'package:accountmanager/app/web_view_home/overview/overview_paginated_table.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:intl/intl.dart';
@@ -11,7 +12,6 @@ import 'package:accountmanager/models/assigned_tbr.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/common_widgets/empty_content.dart';
 import 'package:accountmanager/constants/strings.dart';
-import 'package:accountmanager/app/web_view_home/home/sidebar/sidebar.dart';
 
 final assignedTbrStreamProvider =
     StreamProvider.autoDispose<List<AssignedTBR>>((ref) {
@@ -288,13 +288,16 @@ Future<void> _displayNextPage(
     context.read(currentAssignedTbrProvider).state = assignedTBR;
     frame = TBRappPage(assignedTBR: assignedTBR);
   } else {
-    frame =
-        // Container(
-        //   child:
-        SingleChildScrollView(
-      child: OverviewPaginatedTable(id: id),
-      // ),
+    frame = Container(
+      alignment: Alignment.topCenter,
+      color: Colors.white,
+      child: SingleChildScrollView(
+        // scrollDirection: Axis.horizontal,
+        child: OverviewPaginatedTable(id: id),
+      ),
     );
+
+    // );
   }
   // Widget frame =
   //     Container(color: Colors.brown[150], child: TBRappPage(data: data));

@@ -273,7 +273,7 @@ class _AssignTBRState extends State<AssignTBR> {
         //Condition should not unconditionally evalute to 'true' or to 'false'. verify:
       }
 
-      if (assignedTbr.dueDate.isBefore(assignedTbr.clientMeetingDate)) {
+      if (assignedTbr.dueDate.isAfter(assignedTbr.clientMeetingDate)) {
         answer = await showAlertDialog(
             context: context,
             title: 'Are you sure?',

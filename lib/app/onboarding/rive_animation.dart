@@ -11,9 +11,9 @@ class RiveAnimation extends StatefulWidget {
 
 class _RiveAnimationState extends State<RiveAnimation>
     with SingleTickerProviderStateMixin {
-  void _togglePlay() {
-    setState(() => _controller.isActive = !_controller.isActive);
-  }
+  // void _togglePlay() {
+  //   setState(() => _controller.isActive = !_controller.isActive);
+  // }
 
   /// Tracks if the animation is playing by whether controller is running.
   bool get isPlaying => _controller?.isActive ?? false;

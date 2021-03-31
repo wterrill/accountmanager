@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:accountmanager/services/shared_preferences_service.dart';
 import 'package:state_notifier/state_notifier.dart';

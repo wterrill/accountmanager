@@ -23,9 +23,9 @@ class SharedPreferencesService {
       sharedPreferences.getBool(onboardingCompleteKey) ?? false;
 
   DateTime getLastDateTime() {
-    String dateTimeString = sharedPreferences.getString(lastDateTimeKey);
+    final String dateTimeString = sharedPreferences.getString(lastDateTimeKey);
     if (dateTimeString != null) {
-      DateTime parsed = DateTime.parse(dateTimeString);
+      final DateTime parsed = DateTime.parse(dateTimeString);
       return parsed;
     } else {
       setLastDateTime(DateTime.now());
