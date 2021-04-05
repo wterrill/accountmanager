@@ -677,10 +677,8 @@ class CustomDataTable extends StatelessWidget {
     MaterialStateProperty<Color> overlayColor,
   }) {
     Color colorCell = Colors.transparent;
-    print(label);
     if (label.toString().contains('4caf50')) {
       colorCell = Color(0x554caf50);
-      print(colorCell);
     }
     if (label.toString().contains('f44336')) {
       colorCell = const Color(0x55f44336);

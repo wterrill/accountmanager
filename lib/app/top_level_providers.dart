@@ -1,4 +1,5 @@
-import 'package:accountmanager/app/web_view_home/overview/overview_page.dart';
+// import 'package:accountmanager/app/web_view_home/overview/overview_page.dart';
+import 'package:accountmanager/app/web_view_home/overview3/start_page.dart';
 import 'package:accountmanager/models/assigned_tbr.dart';
 import 'package:accountmanager/models/question.dart';
 import 'package:accountmanager/models/tbr.dart';
@@ -42,7 +43,11 @@ final tbrInProgressProvider = StateProvider<TBRinProgress>((ref) {
 });
 
 final widgetProvider = StateProvider<Widget>((ref) {
-  return Expanded(child: Container(child: OverviewWebPage()));
+  return const Expanded(
+    child: Overview3WebPage(
+      mobile: false,
+    ),
+  );
 });
 
 final firebaseAuthProvider = Provider<FirebaseAuth>((ref) {

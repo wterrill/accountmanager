@@ -1,5 +1,6 @@
 import 'package:accountmanager/app/web_view_home/app_page/tbr_selection/start_tbr.dart';
 import 'package:accountmanager/app/web_view_home/home/sidebar/sidebar_button.dart';
+import 'package:accountmanager/app/web_view_home/overview3/start_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/all.dart';
@@ -9,7 +10,6 @@ import 'package:accountmanager/app/web_view_home/account/account_page.dart';
 import 'package:accountmanager/app/web_view_home/assign_TBR/assign_tbr_page.dart';
 import 'package:accountmanager/app/web_view_home/create_company/create_company_page.dart';
 import 'package:accountmanager/app/web_view_home/create_technician/create_tech_page.dart';
-import 'package:accountmanager/app/web_view_home/overview/overview_page.dart';
 import 'package:flutter/widgets.dart' as listening;
 import 'package:flutter/widgets.dart';
 
@@ -73,7 +73,7 @@ class Sidebar extends ConsumerWidget {
             faIcon: FontAwesomeIcons.home,
             onPressedx: () {
               context.read(widgetProvider).state =
-                  Expanded(child: OverviewWebPage());
+                  Expanded(child: Overview3WebPage());
             },
           ),
           SidebarButton(

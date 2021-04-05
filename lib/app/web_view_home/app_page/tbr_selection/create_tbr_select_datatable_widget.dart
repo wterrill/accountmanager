@@ -34,41 +34,38 @@ final tableVarsProvider = StateProvider<TableVars>(
 
 class CreateAppSelectDataTableWidget extends ConsumerWidget {
   final bool mobile;
-  final double scale;
 
   const CreateAppSelectDataTableWidget({
     this.mobile,
-    this.scale,
   });
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final assignedTbrAsyncValue = watch(assignedTbrStreamProvider);
-    return DataTableBuilder(data: assignedTbrAsyncValue, mobile: mobile);
+    return DataTableBuilder(dataAsync: assignedTbrAsyncValue, mobile: mobile);
   }
 }
 
 class DataTableBuilder extends ConsumerWidget {
   const DataTableBuilder({
     Key key,
-    this.data,
+    this.dataAsync,
     @required this.mobile,
   }) : super(key: key);
-  final AsyncValue<List<AssignedTBR>> data;
+  final AsyncValue<List<AssignedTBR>> dataAsync;
   final bool mobile;
-  // int _sortColumnIndex = 0;
-  // bool _sortAscending = false;
 
-  @override
+  @override // 8
   Widget build(BuildContext context, ScopedReader watch) {
     final TableVars tableVars = watch(tableVarsProvider).state;
     final bool showAll = watch(showAllSwitchProvider).state;
     print(showAll);
 
-    return data.when(
+    return dataAsync.when(
       data: (items) {
-        final DTS tempDTS =
+        print(items[0].company);
+        final DTS tempDTS = // 9
             DTS(incomingData: items, context: context, mobile: mobile);
-        tempDTS.filterValues(context);
+        // tempDTS.filterValues(context);
         return items.isNotEmpty
             ? _datatable(tempDTS, tableVars, context)
             : const EmptyContent();
@@ -105,28 +102,39 @@ class DataTableBuilder extends ConsumerWidget {
                   CustomDataColumn(
                     label: Text(Strings.companyStrings.company),
                     onSort: (columnIndex, ascending) {
+                      print(dtsSource.data[0].company);
                       dtsSource.sort<String>(
+                          // 1
                           getField: (d) => d.company.name,
                           ascending: tableVars.sortAscending);
+                      print(dtsSource.data[0].company);
                       // setState(() {
-                      context.read(tableVarsProvider).state.sortColumnIndex =
-                          tableVars.sortColumnIndex;
-                      context.read(tableVarsProvider).state.sortAscending =
-                          !tableVars.sortAscending;
+                      final TableVars tableVarsTemp = TableVars(
+                          context.read(tableVarsProvider).state.rowsPerPage);
+                      tableVarsTemp.sortColumnIndex = columnIndex;
+                      tableVarsTemp.sortAscending = ascending;
+                      TableVars beer = context.read(tableVarsProvider).state;
+                      print(beer.sortAscending);
+
+                      context.read(tableVarsProvider).state = tableVarsTemp;
                       // });
                     },
                   ),
                   CustomDataColumn(
                     label: Text(Strings.technicianStrings.technician),
                     onSort: (columnIndex, ascending) {
+                      print(dtsSource);
                       dtsSource.sort<String>(
                           getField: (d) => d.technician.name,
                           ascending: tableVars.sortAscending);
+                      print(dtsSource);
                       // setState(() {
-                      context.read(tableVarsProvider).state.sortColumnIndex =
-                          columnIndex;
-                      context.read(tableVarsProvider).state.sortAscending =
-                          !tableVars.sortAscending;
+                      final TableVars tempTableVars = TableVars(
+                          context.read(tableVarsProvider).state.rowsPerPage);
+                      tempTableVars.sortColumnIndex = columnIndex;
+                      tempTableVars.sortAscending = ascending;
+
+                      context.read(tableVarsProvider).state = tempTableVars;
                       // });
                     },
                   ),
@@ -137,25 +145,28 @@ class DataTableBuilder extends ConsumerWidget {
                           getField: (d) => d.dueDate.toString(),
                           ascending: tableVars.sortAscending);
                       // setState(() {
-                      context.read(tableVarsProvider).state.sortColumnIndex =
-                          columnIndex;
-                      context.read(tableVarsProvider).state.sortAscending =
-                          !tableVars.sortAscending;
+                      final TableVars tempTableVars = TableVars(
+                          context.read(tableVarsProvider).state.rowsPerPage);
+                      tempTableVars.sortColumnIndex = columnIndex;
+                      tempTableVars.sortAscending = ascending;
+
+                      context.read(tableVarsProvider).state = tempTableVars;
                       // });
                     },
                   ),
                   CustomDataColumn(
                     label: Text(Strings.tbrStrings.meetingDate),
-                    // label: Text('CreateAppSelectDataTableWidget'),
                     onSort: (columnIndex, ascending) {
                       dtsSource.sort<String>(
                           getField: (d) => d.clientMeetingDate.toString(),
                           ascending: tableVars.sortAscending);
                       // setState(() {
-                      context.read(tableVarsProvider).state.sortColumnIndex =
-                          columnIndex;
-                      context.read(tableVarsProvider).state.sortAscending =
-                          !tableVars.sortAscending;
+                      final TableVars tempTableVars = TableVars(
+                          context.read(tableVarsProvider).state.rowsPerPage);
+                      tempTableVars.sortColumnIndex = columnIndex;
+                      tempTableVars.sortAscending = ascending;
+
+                      context.read(tableVarsProvider).state = tempTableVars;
                       // });
                     },
                   ),
@@ -166,10 +177,12 @@ class DataTableBuilder extends ConsumerWidget {
                           getField: (d) => d.status.statusIndex.toString(),
                           ascending: tableVars.sortAscending);
                       // setState(() {
-                      context.read(tableVarsProvider).state.sortColumnIndex =
-                          columnIndex;
-                      context.read(tableVarsProvider).state.sortAscending =
-                          !tableVars.sortAscending;
+                      final TableVars tempTableVars = TableVars(
+                          context.read(tableVarsProvider).state.rowsPerPage);
+                      tempTableVars.sortColumnIndex = columnIndex;
+                      tempTableVars.sortAscending = ascending;
+
+                      context.read(tableVarsProvider).state = tempTableVars;
                       // });
                     },
                   ),
@@ -180,10 +193,12 @@ class DataTableBuilder extends ConsumerWidget {
                           getField: (d) => d.questionnaireType.name,
                           ascending: tableVars.sortAscending);
                       // setState(() {
-                      context.read(tableVarsProvider).state.sortColumnIndex =
-                          columnIndex;
-                      context.read(tableVarsProvider).state.sortAscending =
-                          !tableVars.sortAscending;
+                      final TableVars tempTableVars = TableVars(
+                          context.read(tableVarsProvider).state.rowsPerPage);
+                      tempTableVars.sortColumnIndex = columnIndex;
+                      tempTableVars.sortAscending = ascending;
+
+                      context.read(tableVarsProvider).state = tempTableVars;
                       // });
                     },
                   ),
@@ -194,10 +209,12 @@ class DataTableBuilder extends ConsumerWidget {
                           getField: (d) => d.assignedBy,
                           ascending: tableVars.sortAscending);
                       // setState(() {
-                      context.read(tableVarsProvider).state.sortColumnIndex =
-                          columnIndex;
-                      context.read(tableVarsProvider).state.sortAscending =
-                          !tableVars.sortAscending;
+                      final TableVars tempTableVars = TableVars(
+                          context.read(tableVarsProvider).state.rowsPerPage);
+                      tempTableVars.sortColumnIndex = columnIndex;
+                      tempTableVars.sortAscending = ascending;
+
+                      context.read(tableVarsProvider).state = tempTableVars;
                       // });
                     },
                   )
@@ -214,24 +231,36 @@ class DataTableBuilder extends ConsumerWidget {
 
 class DTS extends CustomDataTableSource {
   final List<AssignedTBR> incomingData;
+  List<AssignedTBR> data;
   final BuildContext context;
   final bool mobile;
-  List<AssignedTBR> data;
 
-  DTS({this.incomingData, this.context, this.mobile});
+  DTS({this.incomingData, this.context, this.mobile}) {
+    filterValues(context);
+  }
+
+  void filterValues(BuildContext context) {
+    final bool showAll = context.read(showAllSwitchProvider).state;
+    if (showAll) {
+      data = incomingData;
+    } else {
+      data = incomingData
+          .where((element) => element.status.getStatusName() != 'Completed')
+          .toList();
+    }
+  }
 
   @override
   CustomDataRow getRow(int index) {
     if (index < data.length) {
       return CustomDataRow(
           onSelectChanged: (_) {
-            _displayDialog(
-                context: context, assignedTbr: data[index], mobile: mobile);
+            _displayNextPage(
+                context: context, assignedTBR: data[index], mobile: mobile);
           },
           cells: [
             // ignore: unnecessary_string_interpolations
             CustomDataCell(Text('${data[index].company.toDropDownString()}')),
-
             CustomDataCell(
                 // ignore: unnecessary_string_interpolations
                 Text('${data[index].technician.toDropDownString()}')),
@@ -264,22 +293,11 @@ class DTS extends CustomDataTableSource {
         a = b;
         b = c;
       }
-      final Comparable<T> aValue = getField(a);
+      final Comparable<T> aValue = getField(a); // 2 - 7
       final Comparable<T> bValue = getField(b);
       return Comparable.compare(aValue, bValue);
     });
     // notifyListeners();
-  }
-
-  void filterValues(BuildContext context) {
-    final bool showAll = context.read(showAllSwitchProvider).state;
-    if (showAll) {
-      data = incomingData;
-    } else {
-      data = incomingData
-          .where((element) => element.status.getStatusName() != 'Completed')
-          .toList();
-    }
   }
 
   @override
@@ -290,13 +308,12 @@ class DTS extends CustomDataTableSource {
 
   @override
   int get selectedRowCount => 0;
-}
+} // End of DTS()
 
-Future<void> _displayDialog(
-    {BuildContext context, AssignedTBR assignedTbr, bool mobile}) async {
-  context.read(currentAssignedTbrProvider).state = assignedTbr;
-  Widget frame = Container(
-      color: Colors.brown[150], child: TBRappPage(assignedTBR: assignedTbr));
+Future<void> _displayNextPage(
+    {BuildContext context, AssignedTBR assignedTBR, bool mobile}) async {
+  context.read(currentAssignedTbrProvider).state = assignedTBR;
+  Widget frame = Container(child: TBRappPage(assignedTBR: assignedTBR));
   if (mobile) {
     frame = Expanded(
       child: Center(child: addMobileFrame(frame)),
@@ -304,6 +321,6 @@ Future<void> _displayDialog(
   } else {
     frame = Expanded(child: Center(child: frame));
   }
-  print('_displayDialog => $assignedTbr');
+  print('_displayDialog => $assignedTBR');
   context.read(widgetProvider).state = frame;
 }
