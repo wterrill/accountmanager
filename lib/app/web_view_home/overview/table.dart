@@ -1,14 +1,15 @@
 // ignore_for_file: file_names
+
 import 'package:accountmanager/app/top_level_providers.dart';
-import 'package:accountmanager/models/question.dart';
-import 'package:accountmanager/models/tbr.dart';
+import 'package:accountmanager/app/web_view_home/overview/excel_button.dart';
 import 'package:accountmanager/common_widgets/CustomDataTable.dart';
 import 'package:accountmanager/common_widgets/CustomDataTableSource.dart';
 import 'package:accountmanager/common_widgets/CustomPaginatedDataTable.dart';
 import 'package:accountmanager/constants/strings.dart';
+import 'package:accountmanager/models/question.dart';
+import 'package:accountmanager/models/tbr.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'excel_button.dart';
 
 class OverviewPaginatedTable extends StatefulWidget {
   const OverviewPaginatedTable({Key key, this.id}) : super(key: key);
@@ -52,21 +53,15 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
 
       print('after completedTbrAsyncValueProvider');
       return completedTbrAsyncValue.when(
-        data: (tbrInProgress) => _datatable(DTS(tbrInProgress)),
+        data: (tbrInProgress) {
+          print('got there');
+          return _datatable(DTS(tbrInProgress));
+        },
         loading: () => Container(color: Colors.cyanAccent),
         error: (_, __) => Container(color: Colors.red),
       );
     });
   }
-
-  //   Widget build(BuildContext context, ScopedReader watch) {
-  //   final jobAsyncValue = watch(jobStreamProvider(job.id));
-  //   return jobAsyncValue.when(
-  //     data: (job) => Text(job.name),
-  //     loading: () => Container(),
-  //     error: (_, __) => Container(),
-  //   );
-  // }
 
   Widget _datatable(DTS dtsSource) {
     return Container(

@@ -1,7 +1,6 @@
 import 'package:accountmanager/app/top_level_providers.dart';
-import 'package:accountmanager/app/web_view_home/home/sidebar/sidebar.dart';
-import 'package:accountmanager/app/web_view_home/overview3/start_page.dart';
-import 'package:accountmanager/app/web_view_home/overview3/table.dart';
+import 'package:accountmanager/app/web_view_home/overview/start_page.dart';
+import 'package:accountmanager/app/web_view_home/overview/table.dart';
 import 'package:accountmanager/common_widgets/CustomDataTable.dart';
 import 'package:accountmanager/common_widgets/CustomDataTableSource.dart';
 import 'package:accountmanager/common_widgets/CustomPaginatedDataTable.dart';
@@ -31,10 +30,10 @@ class TableVars {
 final tableVarsProvider = StateProvider<TableVars>(
     (ref) => TableVars(CustomPaginatedDataTable.defaultRowsPerPage));
 
-class CreateOverview3SelectDataTableWidget extends ConsumerWidget {
+class CreateOverviewSelectDataTableWidget extends ConsumerWidget {
   final bool mobile;
 
-  const CreateOverview3SelectDataTableWidget({
+  const CreateOverviewSelectDataTableWidget({
     this.mobile,
   });
   @override
@@ -116,7 +115,8 @@ class DataTableBuilder extends ConsumerWidget {
                           context.read(tableVarsProvider).state.rowsPerPage);
                       tableVarsTemp.sortColumnIndex = columnIndex;
                       tableVarsTemp.sortAscending = ascending;
-                      TableVars beer = context.read(tableVarsProvider).state;
+                      final TableVars beer =
+                          context.read(tableVarsProvider).state;
                       print(beer.sortAscending);
 
                       context.read(tableVarsProvider).state = tableVarsTemp;
@@ -322,7 +322,7 @@ Future<void> _displayNextPage(
     color: Colors.white,
     child: SingleChildScrollView(
       // scrollDirection: Axis.horizontal,
-      child: Overview3PaginatedTable(id: id),
+      child: OverviewPaginatedTable(id: id),
     ),
   );
   frame = Expanded(child: Center(child: frame));

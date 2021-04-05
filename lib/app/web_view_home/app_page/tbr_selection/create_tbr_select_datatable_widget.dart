@@ -113,7 +113,8 @@ class DataTableBuilder extends ConsumerWidget {
                           context.read(tableVarsProvider).state.rowsPerPage);
                       tableVarsTemp.sortColumnIndex = columnIndex;
                       tableVarsTemp.sortAscending = ascending;
-                      TableVars beer = context.read(tableVarsProvider).state;
+                      final TableVars beer =
+                          context.read(tableVarsProvider).state;
                       print(beer.sortAscending);
 
                       context.read(tableVarsProvider).state = tableVarsTemp;
@@ -313,7 +314,8 @@ class DTS extends CustomDataTableSource {
 Future<void> _displayNextPage(
     {BuildContext context, AssignedTBR assignedTBR, bool mobile}) async {
   context.read(currentAssignedTbrProvider).state = assignedTBR;
-  Widget frame = Container(child: TBRappPage(assignedTBR: assignedTBR));
+  Widget frame = Container(
+      color: Colors.white, child: TBRappPage(assignedTBR: assignedTBR));
   if (mobile) {
     frame = Expanded(
       child: Center(child: addMobileFrame(frame)),

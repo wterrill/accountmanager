@@ -1,4 +1,4 @@
-import 'package:accountmanager/app/web_view_home/overview3/data_table.dart';
+import 'package:accountmanager/app/web_view_home/overview/data_table.dart';
 import 'package:accountmanager/models/company.dart';
 import 'package:accountmanager/models/questionnaire_type.dart';
 import 'package:accountmanager/models/technician.dart';
@@ -8,16 +8,16 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 StateProvider<bool> showAllSwitchProvider =
     StateProvider<bool>((dynamic ref) => true);
 
-class Overview3WebPage extends StatefulWidget {
+class OverviewWebPage extends StatefulWidget {
   final bool mobile;
 
-  const Overview3WebPage({Key key, @required this.mobile}) : super(key: key);
+  const OverviewWebPage({Key key, @required this.mobile}) : super(key: key);
 
   @override
-  _Overview3WebPageState createState() => _Overview3WebPageState();
+  _OverviewWebPageState createState() => _OverviewWebPageState();
 }
 
-class _Overview3WebPageState extends State<Overview3WebPage> {
+class _OverviewWebPageState extends State<OverviewWebPage> {
   Technician selectedTechnician;
   Company selectedCompany;
   QuestionnaireType selectedQuestionnaireType;
@@ -33,7 +33,7 @@ class _Overview3WebPageState extends State<Overview3WebPage> {
     return Container(
       color: Colors.white,
       child: Column(children: const [
-        CreateOverview3SelectDataTableWidget(mobile: false),
+        CreateOverviewSelectDataTableWidget(mobile: false),
       ]),
     );
   }
