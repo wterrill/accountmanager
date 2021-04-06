@@ -46,43 +46,66 @@ class _InputCompanyState extends State<InputCompany> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
       children: [
-        TextField(
-          keyboardType: TextInputType.text,
-          maxLength: 50,
-          controller: textController, // TextEditingController(text: _name),
-          decoration: const InputDecoration(
-            labelText: 'Name',
-            labelStyle: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
+        Expanded(
+          flex: 6,
+          child: TextField(
+            keyboardType: TextInputType.text,
+            maxLength: 50,
+            controller: textController, // TextEditingController(text: _name),
+            decoration: const InputDecoration(
+              labelText: 'Company Name',
+              labelStyle:
+                  TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
+            ),
+            keyboardAppearance: Brightness.light,
+            style: const TextStyle(fontSize: 20.0, color: Colors.black),
+            onChanged: (_) {
+              name = textController.text;
+            },
           ),
-          keyboardAppearance: Brightness.light,
-          style: const TextStyle(fontSize: 20.0, color: Colors.black),
-          onChanged: (_) {
-            name = textController.text;
-          },
         ),
-        TextButton(
-          style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(Colors.green)),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(Strings.companyStrings.addCompany),
+        Expanded(
+          flex: 1,
+          child: Container(),
+        ),
+        Expanded(
+          flex: 1,
+          child: TextButton(
+            style: ButtonStyle(
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25.0),
+                    // side: BorderSide(
+                    //   color: Colors.red.withOpacity(0.8),
+                    //   width: 1,
+                    // ),
+                  ),
+                ),
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.green)),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('Add'),
+            ),
+            onPressed: () {
+              textController.text = '';
+              _submit(context, name);
+            },
           ),
-          onPressed: () {
-            print('pressed');
-            print(name);
-            textController.text = '';
-            _submit(context, name);
-          },
-        )
+        ),
+        Expanded(
+          flex: 2,
+          child: Container(),
+        ),
       ],
     );
   }
 }
 
 void _submit(BuildContext context, String name) {
-  if (_validateAndSaveForm()) {
+  if (_validateAndSaveForm(name)) {
     try {
       final database = context.read(databaseProvider);
       final id = documentIdFromCurrentDate();
@@ -98,6 +121,10 @@ void _submit(BuildContext context, String name) {
   }
 }
 
-bool _validateAndSaveForm() {
-  return true;
+bool _validateAndSaveForm(String name) {
+  if (name != '') {
+    return true;
+  } else {
+    return false;
+  }
 }

@@ -106,7 +106,7 @@ class Sidebar extends ConsumerWidget {
             onPressedx: () {
               context.read(widgetProvider).state = Expanded(
                   child: Container(
-                      color: Colors.green[100], child: CreateCompanyWebPage()));
+                      color: Colors.grey[100], child: CreateCompanyWebPage()));
             },
           ),
           SidebarButton(
@@ -117,7 +117,7 @@ class Sidebar extends ConsumerWidget {
             onPressedx: () {
               context.read(widgetProvider).state = Expanded(
                   child: Container(
-                      color: Colors.green[200], child: CreateTechWebPage()));
+                      color: Colors.grey[100], child: CreateTechWebPage()));
             },
           ),
           // SidebarButton(
