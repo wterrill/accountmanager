@@ -7,7 +7,7 @@ import 'package:accountmanager/constants/color_defs.dart';
 import 'package:accountmanager/constants/strings.dart';
 import 'package:accountmanager/app/web_view_home/question/edit_question.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:accountmanager/common_widgets/empty_content.dart';
 import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';

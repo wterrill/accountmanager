@@ -1,5 +1,4 @@
 import 'package:accountmanager/app/top_level_providers.dart';
-import 'package:accountmanager/constants/strings.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -86,9 +85,9 @@ class _InputTechnicianState extends State<InputTechnician> {
                 backgroundColor:
                     MaterialStateProperty.all<Color>(Colors.green)),
             // style: TextButton.styleFrom(backgroundColor: Colors.red),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: const Text('Add'),
+            child: const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text('Add'),
             ),
 
             onPressed: () {

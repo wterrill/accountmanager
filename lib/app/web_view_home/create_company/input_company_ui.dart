@@ -1,5 +1,4 @@
 import 'package:accountmanager/app/top_level_providers.dart';
-import 'package:accountmanager/constants/strings.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -85,8 +84,8 @@ class _InputCompanyState extends State<InputCompany> {
                 ),
                 backgroundColor:
                     MaterialStateProperty.all<Color>(Colors.green)),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
+            child: const Padding(
+              padding: EdgeInsets.all(8.0),
               child: Text('Add'),
             ),
             onPressed: () {

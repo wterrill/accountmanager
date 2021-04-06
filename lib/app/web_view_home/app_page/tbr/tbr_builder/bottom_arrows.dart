@@ -2,7 +2,7 @@ import 'package:accountmanager/models/tbr.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/app/web_view_home/app_page/tbr/tbr_builder/tbr_builder.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class BottomArrows extends ConsumerWidget {
   const BottomArrows({Key key}) : super(key: key);

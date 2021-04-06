@@ -2,7 +2,7 @@ import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/app/web_view_home/home/developer/other_plasma1.dart';
 import 'package:accountmanager/app/web_view_home/home/sidebar/sidebar.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'header.dart';
 

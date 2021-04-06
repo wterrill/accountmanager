@@ -3,7 +3,7 @@ import 'package:accountmanager/app/web_view_home/home/sidebar/sidebar_button.dar
 import 'package:accountmanager/app/web_view_home/overview/start_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/app/web_view_home/account/account_page.dart';
