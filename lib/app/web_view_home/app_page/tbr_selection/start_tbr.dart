@@ -33,7 +33,10 @@ class _SelectTBRPageState extends State<SelectTBRPage> {
     return Column(children: [
       Row(
         children: [
-          const Text('Show Completed'),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text('Show Completed'),
+          ),
           Consumer(builder: (context, watch, child) {
             final bool switchState = watch(showAllSwitchProvider).state;
             print(switchState);

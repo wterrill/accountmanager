@@ -2,7 +2,7 @@ import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/constants/strings.dart';
 import 'package:accountmanager/app/web_view_home/assign_TBR/widget_assign_TBR2.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:accountmanager/models/assigned_tbr.dart';
