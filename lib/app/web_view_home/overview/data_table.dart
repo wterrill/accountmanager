@@ -58,18 +58,19 @@ class DataTableBuilder extends ConsumerWidget {
 
   @override // 8
   Widget build(BuildContext context, ScopedReader watch) {
-    final TableVars tableVars = watch(tableVarsProvider).state;
-    final bool showAll = watch(showAllSwitchProvider).state;
-    print(showAll);
+    // final TableVars tableVars = watch(tableVarsProvider).state;
+    // final bool showAll = watch(showAllSwitchProvider).state;
+    // print(showAll);
 
     return dataAsync.when(
       data: (items) {
+        final List<AssignedTBR> beer = items
+            .where((element) => element.status.getStatusName() == 'Completed')
+            .toList();
         print(items[0].company);
-        final DTS tempDTS = // 9
-            DTS(incomingData: items, context: context, mobile: mobile);
-        // tempDTS.filterValues(context);
+
         return items.isNotEmpty
-            ? _datatable(tempDTS, tableVars, context)
+            ? ShowDataTable(items: beer, mobile: mobile)
             : const EmptyContent();
       },
       loading: () => const Center(child: CircularProgressIndicator()),
@@ -79,8 +80,19 @@ class DataTableBuilder extends ConsumerWidget {
       ),
     );
   }
+}
 
-  Widget _datatable(DTS dtsSource, TableVars tableVars, BuildContext context) {
+class ShowDataTable extends ConsumerWidget {
+  const ShowDataTable({Key key, this.items, this.mobile}) : super(key: key);
+  final List<AssignedTBR> items;
+  final bool mobile;
+
+  @override
+  Widget build(BuildContext context, ScopedReader watch) {
+    final DTS dtsSource = DTS(incomingData: items, mobile: mobile);
+    final TableVars tableVars = watch(tableVarsProvider).state;
+    // final bool showAll = watch(showAllSwitchProvider).state;
+
     return Flexible(
       child: SingleChildScrollView(
         child: Column(
@@ -243,15 +255,7 @@ class DTS extends CustomDataTableSource {
   }
 
   void filterValues(BuildContext context) {
-    // final bool showAll = context.read(showAllSwitchProvider).state;
-    const bool showAll = false;
-    if (showAll) {
-      data = incomingData;
-    } else {
-      data = incomingData
-          .where((element) => element.status.getStatusName() == 'Completed')
-          .toList();
-    }
+    data = incomingData;
   }
 
   @override
