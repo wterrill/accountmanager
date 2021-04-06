@@ -91,7 +91,8 @@ class ShowDataTable extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final TableVars tableVars = watch(tableVarsProvider).state;
-    final DTS dtsSource = DTS(incomingData: items, mobile: mobile);
+    final DTS dtsSource =
+        DTS(incomingData: items, context: context, mobile: mobile);
 
     return Flexible(
       child: SingleChildScrollView(
@@ -250,7 +251,7 @@ class DTS extends CustomDataTableSource {
   final BuildContext context;
   final bool mobile;
 
-  DTS({this.incomingData, this.context, this.mobile}) {
+  DTS({this.incomingData, @required this.context, this.mobile}) {
     filterValues(context);
   }
 
@@ -320,7 +321,7 @@ class DTS extends CustomDataTableSource {
 
 Future<void> _displayNextPage(
     {BuildContext context, AssignedTBR assignedTBR, bool mobile}) async {
-  context.read(currentAssignedTbrProvider).state = assignedTBR;
+  // context.read(currentAssignedTbrProvider).state = assignedTBR;
   Widget frame = Container(
       color: Colors.white, child: TBRappPage(assignedTBR: assignedTBR));
   if (mobile) {

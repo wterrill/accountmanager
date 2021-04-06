@@ -1,5 +1,4 @@
 import 'package:accountmanager/app/top_level_providers.dart';
-import 'package:accountmanager/app/web_view_home/overview/start_page.dart';
 import 'package:accountmanager/app/web_view_home/overview/table.dart';
 import 'package:accountmanager/common_widgets/CustomDataTable.dart';
 import 'package:accountmanager/common_widgets/CustomDataTableSource.dart';
@@ -88,7 +87,8 @@ class ShowDataTable extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final DTS dtsSource = DTS(incomingData: items, mobile: mobile);
+    final DTS dtsSource =
+        DTS(incomingData: items, mobile: mobile, context: context);
     final TableVars tableVars = watch(tableVarsProvider).state;
     // final bool showAll = watch(showAllSwitchProvider).state;
 
@@ -318,8 +318,10 @@ class DTS extends CustomDataTableSource {
 } // End of DTS()
 
 Future<void> _displayNextPage(
-    {BuildContext context, AssignedTBR assignedTBR, bool mobile}) async {
-  final String id = assignedTBR.id;
+    {@required BuildContext context,
+    AssignedTBR assignedTBR,
+    bool mobile}) async {
+  final String id = assignedTBR.id; //OverviewPaginatedTable(id: id);
   Widget frame = Container(
     alignment: Alignment.topCenter,
     color: Colors.white,
