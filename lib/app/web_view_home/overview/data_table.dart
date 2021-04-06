@@ -64,13 +64,12 @@ class DataTableBuilder extends ConsumerWidget {
 
     return dataAsync.when(
       data: (items) {
-        final List<AssignedTBR> beer = items
+        final List<AssignedTBR> filteredItems = items
             .where((element) => element.status.getStatusName() == 'Completed')
             .toList();
-        print(items[0].company);
 
         return items.isNotEmpty
-            ? ShowDataTable(items: beer, mobile: mobile)
+            ? ShowDataTable(items: filteredItems, mobile: mobile)
             : const EmptyContent();
       },
       loading: () => const Center(child: CircularProgressIndicator()),
