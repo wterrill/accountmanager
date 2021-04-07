@@ -44,12 +44,24 @@ class _HeaderState extends State<Header> {
               //   child: Image.asset('assets/images/avatar.png', width: 100),
               // ),
               Container(
-                width: 60,
-                height: 60,
+                width: 80,
+                height: 80,
                 child: CircleAvatar(
                     child: Center(
-                  child: Text(user.email[0],
-                      style: const TextStyle(color: Colors.blue, fontSize: 48)),
+                  child: Text(
+                    user.email[0].toUpperCase(),
+                    style: const TextStyle(
+                        color: Colors.blue,
+                        fontSize: 50,
+                        fontFamily: 'Monoton'),
+
+                    //   Text(
+                    // user.email[0].toUpperCase(),
+                    // style: const TextStyle(
+                    //     color: Colors.blue,
+                    //     fontSize: 48,
+                    //     fontFamily: 'Allerta'),
+                  ),
                 )),
               ),
               const SizedBox(width: 15),
