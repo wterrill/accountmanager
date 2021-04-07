@@ -66,6 +66,8 @@ class _AssignTBRState extends State<AssignTBR> {
         id: id ??= documentIdFromCurrentDate());
   }
 
+  bool answer;
+
   @override
   Widget build(BuildContext context) {
     final firebaseAuth = context.read(firebaseAuthProvider);
@@ -189,10 +191,10 @@ class _AssignTBRState extends State<AssignTBR> {
                         valid = false;
                         break;
                       }
-                      bool answer = false;
+
                       if (validated && widget.data == null) {
                         answer = true;
-                      } else {
+                      } else if (answer == null) {
                         answer = await showAlertDialog(
                           context: context,
                           title: 'Warning...',
@@ -201,6 +203,11 @@ class _AssignTBRState extends State<AssignTBR> {
                           cancelActionText: 'No',
                           defaultActionText: 'Yes',
                         );
+                        print(answer);
+
+                        if (!answer) {
+                          valid = false;
+                        }
                       }
                       final AssignedTBR assignedTbr =
                           createCurrentTBR(assignedBy);
@@ -259,43 +266,43 @@ class _AssignTBRState extends State<AssignTBR> {
     if (assignedTbr.toMap() == null) {
       return false;
     }
-    bool answer = true;
-    while (answer == true) {
+    bool validated = true;
+    while (validated == true) {
       if (assignedTbr.dueDate.isBefore(DateTime.now())) {
-        answer = await showAlertDialog(
+        validated = await showAlertDialog(
             context: context,
             title: 'Are you sure?',
             content:
                 'The due date is in the past, are you sure you want to proceed?',
             defaultActionText: 'Yes',
             cancelActionText: 'No');
-        if (answer == false) break;
+        if (validated == false) break;
       }
 
       if (assignedTbr.clientMeetingDate.isBefore(DateTime.now())) {
-        answer = await showAlertDialog(
+        validated = await showAlertDialog(
             context: context,
             title: 'Are you sure?',
             content:
                 'The client meeting date is in the past, are you sure you want to proceed?',
             defaultActionText: 'Yes',
             cancelActionText: 'No');
-        if (answer == false) break;
+        if (validated == false) break;
         //Condition should not unconditionally evalute to 'true' or to 'false'. verify:
       }
 
       if (assignedTbr.dueDate.isAfter(assignedTbr.clientMeetingDate)) {
-        answer = await showAlertDialog(
+        validated = await showAlertDialog(
             context: context,
             title: 'Are you sure?',
             content:
                 'The due date is before the client meeting date, are you sure you want to proceed?',
             defaultActionText: 'Yes',
             cancelActionText: 'No');
-        if (answer == false) break;
+        if (validated == false) break;
       }
-      if (answer == true) break;
+      if (validated == true) break;
     }
-    return answer;
+    return validated;
   }
 }

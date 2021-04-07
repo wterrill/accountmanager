@@ -209,7 +209,11 @@ class DTS extends CustomDataTableSource {
     if (index < data.length) {
       return CustomDataRow(
           onSelectChanged: (_) {
-            _displayDialog(context, data[index]);
+            if (data[index].status.getStatusName() != 'Completed') {
+              _displayDialog(context, data[index]);
+            } else {
+              print('nope');
+            }
           },
           cells: [
             CustomDataCell(statusBox(data[index].status.getStatusName())),
