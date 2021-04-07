@@ -58,10 +58,6 @@ class DataTableBuilder extends ConsumerWidget {
 
   @override // 8
   Widget build(BuildContext context, ScopedReader watch) {
-    // final TableVars tableVars = watch(tableVarsProvider).state;
-    // final bool showAll = watch(showAllSwitchProvider).state;
-    // print(showAll);
-
     return dataAsync.when(
       data: (items) {
         final List<AssignedTBR> filteredItems = items
@@ -91,7 +87,6 @@ class ShowDataTable extends ConsumerWidget {
     final DTS dtsSource =
         DTS(incomingData: items, mobile: mobile, context: context);
     final TableVars tableVars = watch(tableVarsProvider).state;
-    // final bool showAll = watch(showAllSwitchProvider).state;
 
     return Flexible(
       child: SingleChildScrollView(

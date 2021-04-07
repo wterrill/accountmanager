@@ -24,7 +24,7 @@ final completedTbrStreamProvider =
       : const Stream.empty();
 });
 
-final currentAssignedTbrProvider = StateProvider<AssignedTBR>((ref) {
+final inProgressTbrProvider = StateProvider<AssignedTBR>((ref) {
   print('currentAssignedTbrProvider ** ** **');
   return null;
 });

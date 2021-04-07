@@ -29,7 +29,7 @@ class SubmitButtonRow extends ConsumerWidget {
     Future<void> sendCompletedEvaluation({TBRinProgress tbrInProgress}) async {
       try {
         final database = context.read(databaseProvider);
-        final String id = context.read(currentAssignedTbrProvider).state.id;
+        final String id = context.read(inProgressTbrProvider).state.id;
         await database.setEvaluation(tbrInProgress, id);
       } catch (e) {
         unawaited(showExceptionAlertDialog(
@@ -74,9 +74,8 @@ class SubmitButtonRow extends ConsumerWidget {
                             child: const Text('Send'),
                             onPressed: () async {
                               print('onPressed in SEND');
-                              final AssignedTBR assignedTbr = context
-                                  .read(currentAssignedTbrProvider)
-                                  .state;
+                              final AssignedTBR assignedTbr =
+                                  context.read(inProgressTbrProvider).state;
                               final AssignedTBR newassignedTbr = AssignedTBR(
                                   id: assignedTbr.id,
                                   technician: assignedTbr.technician,
@@ -88,7 +87,7 @@ class SubmitButtonRow extends ConsumerWidget {
                                       assignedTbr.clientMeetingDate,
                                   status: Status(statusIndex: 2),
                                   assignedBy: assignedTbr.assignedBy);
-                              context.read(currentAssignedTbrProvider).state =
+                              context.read(inProgressTbrProvider).state =
                                   newassignedTbr;
 
                               await _sendAssignedTbr(

@@ -57,9 +57,6 @@ class DataTableBuilder extends ConsumerWidget {
 
   @override // 8
   Widget build(BuildContext context, ScopedReader watch) {
-    // final TableVars tableVars = watch(tableVarsProvider).state;
-    // final bool showAll = watch(showAllSwitchProvider).state;
-
     return dataAsync.when(
       data: (items) {
         final bool showAll = watch(showAllSwitchProvider).state;
@@ -265,8 +262,12 @@ class DTS extends CustomDataTableSource {
     if (index < data.length) {
       return CustomDataRow(
           onSelectChanged: (_) {
-            _displayNextPage(
-                context: context, assignedTBR: data[index], mobile: mobile);
+            if (data[index].status.getStatusName() != 'Completed') {
+              _displayNextPage(context: context, assignedTBR: data[index]);
+            } else {
+              print(
+                  'nope'); // Todo This should be a dialog at least... at most it should show the completed (and now editable) TBR
+            }
           },
           cells: [
             // ignore: unnecessary_string_interpolations
@@ -323,7 +324,8 @@ class DTS extends CustomDataTableSource {
 
 Future<void> _displayNextPage(
     {BuildContext context, AssignedTBR assignedTBR, bool mobile}) async {
-  // context.read(currentAssignedTbrProvider).state = assignedTBR;
+  //
+  context.read(inProgressTbrProvider).state = assignedTBR;
   Widget frame = Container(
       color: Colors.white, child: TBRappPage(assignedTBR: assignedTBR));
   if (mobile) {

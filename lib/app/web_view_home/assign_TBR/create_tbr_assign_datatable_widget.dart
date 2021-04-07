@@ -212,7 +212,8 @@ class DTS extends CustomDataTableSource {
             if (data[index].status.getStatusName() != 'Completed') {
               _displayDialog(context, data[index]);
             } else {
-              print('nope');
+              print(
+                  'nope'); // Todo This should be a dialog at least... at most it should show the completed (and now editable) TBR
             }
           },
           cells: [

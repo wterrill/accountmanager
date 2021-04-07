@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 StateProvider<bool> showAllSwitchProvider =
-    StateProvider<bool>((dynamic ref) => true);
+    StateProvider<bool>((dynamic ref) => false);
 
 class OverviewWebPage extends StatefulWidget {
   final bool mobile;
