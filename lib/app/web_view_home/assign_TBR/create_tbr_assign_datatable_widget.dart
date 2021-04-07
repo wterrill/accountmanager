@@ -1,4 +1,8 @@
 import 'package:accountmanager/app/top_level_providers.dart';
+import 'package:accountmanager/common_widgets/CustomDataTable.dart';
+import 'package:accountmanager/common_widgets/CustomDataTableSource.dart';
+import 'package:accountmanager/common_widgets/CustomPaginatedDataTable.dart';
+import 'package:accountmanager/common_widgets/status_box.dart';
 import 'package:accountmanager/constants/strings.dart';
 import 'package:accountmanager/app/web_view_home/assign_TBR/widget_assign_TBR2.dart';
 import 'package:flutter/material.dart';
@@ -79,7 +83,8 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            PaginatedDataTable(
+            CustomPaginatedDataTable(
+              headingRowColor: Colors.grey[300],
               showCheckboxColumn: false,
               header: Text(Strings.tbrStrings.header),
               source: dtsSource,
@@ -92,7 +97,19 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                 });
               },
               columns: [
-                DataColumn(
+                CustomDataColumn(
+                  label: Text(Strings.tbrStrings.status),
+                  onSort: (columnIndex, ascending) {
+                    dtsSource.sort<String>(
+                        getField: (d) => d.status.statusIndex.toString(),
+                        ascending: _sortAscending);
+                    setState(() {
+                      _sortColumnIndex = columnIndex;
+                      _sortAscending = !_sortAscending;
+                    });
+                  },
+                ),
+                CustomDataColumn(
                   label: Text(Strings.companyStrings.company),
                   onSort: (columnIndex, ascending) {
                     dtsSource.sort<String>(
@@ -104,7 +121,7 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                     });
                   },
                 ),
-                DataColumn(
+                CustomDataColumn(
                   label: Text(Strings.technicianStrings.technician),
                   onSort: (columnIndex, ascending) {
                     dtsSource.sort<String>(
@@ -116,7 +133,7 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                     });
                   },
                 ),
-                DataColumn(
+                CustomDataColumn(
                   label: Text(Strings.tbrStrings.dueDate),
                   onSort: (columnIndex, ascending) {
                     dtsSource.sort<String>(
@@ -128,7 +145,7 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                     });
                   },
                 ),
-                DataColumn(
+                CustomDataColumn(
                   label: Text(Strings.tbrStrings.meetingDate),
                   // label: Text('CreateTBRAssignDataTableWidget'),
                   onSort: (columnIndex, ascending) {
@@ -141,19 +158,7 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                     });
                   },
                 ),
-                DataColumn(
-                  label: Text(Strings.tbrStrings.status),
-                  onSort: (columnIndex, ascending) {
-                    dtsSource.sort<String>(
-                        getField: (d) => d.status.statusIndex.toString(),
-                        ascending: _sortAscending);
-                    setState(() {
-                      _sortColumnIndex = columnIndex;
-                      _sortAscending = !_sortAscending;
-                    });
-                  },
-                ),
-                DataColumn(
+                CustomDataColumn(
                   label: Text(Strings.tbrStrings.type),
                   onSort: (columnIndex, ascending) {
                     dtsSource.sort<String>(
@@ -165,7 +170,7 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                     });
                   },
                 ),
-                DataColumn(
+                CustomDataColumn(
                   label: const Text('Assigned By'),
                   onSort: (columnIndex, ascending) {
                     dtsSource.sort<String>(
@@ -187,7 +192,7 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
   }
 }
 
-class DTS extends DataTableSource {
+class DTS extends CustomDataTableSource {
   final List<AssignedTBR> data;
   final BuildContext context;
 
@@ -197,34 +202,35 @@ class DTS extends DataTableSource {
   );
 
   @override
-  DataRow getRow(int index) {
+  CustomDataRow getRow(int index) {
     // print(data);
     // print(data[index]);
     // print(index);
     if (index < data.length) {
-      return DataRow(
+      return CustomDataRow(
           onSelectChanged: (_) {
             _displayDialog(context, data[index]);
           },
           cells: [
-            DataCell(Text(data[index].company.toDropDownString())),
-            DataCell(Text(data[index].technician.toDropDownString())),
-            DataCell(Text(DateFormat.yMMMEd().format(data[index].dueDate))),
-            DataCell(Text(
+            CustomDataCell(statusBox(data[index].status.getStatusName())),
+            CustomDataCell(Text(data[index].company.toDropDownString())),
+            CustomDataCell(Text(data[index].technician.toDropDownString())),
+            CustomDataCell(
+                Text(DateFormat.yMMMEd().format(data[index].dueDate))),
+            CustomDataCell(Text(
                 DateFormat.yMMMEd().format(data[index].clientMeetingDate))),
-            DataCell(Text(data[index].status.getStatusName())),
-            DataCell(Text(data[index].questionnaireType.name)),
-            DataCell(Text(data[index].assignedBy))
+            CustomDataCell(Text(data[index].questionnaireType.name)),
+            CustomDataCell(Text(data[index].assignedBy))
           ]);
     } else {
-      return const DataRow(cells: [
-        DataCell(Text(Strings.placeHolder)),
-        DataCell(Text(Strings.placeHolder)),
-        DataCell(Text(Strings.placeHolder)),
-        DataCell(Text(Strings.placeHolder)),
-        DataCell(Text(Strings.placeHolder)),
-        DataCell(Text(Strings.placeHolder)),
-        DataCell(Text(Strings.placeHolder)),
+      return const CustomDataRow(cells: [
+        CustomDataCell(Text(Strings.placeHolder)),
+        CustomDataCell(Text(Strings.placeHolder)),
+        CustomDataCell(Text(Strings.placeHolder)),
+        CustomDataCell(Text(Strings.placeHolder)),
+        CustomDataCell(Text(Strings.placeHolder)),
+        CustomDataCell(Text(Strings.placeHolder)),
+        CustomDataCell(Text(Strings.placeHolder)),
       ]);
     }
   }

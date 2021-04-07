@@ -2,6 +2,7 @@ import 'package:accountmanager/app/web_view_home/app_page/tbr_selection/start_tb
 import 'package:accountmanager/common_widgets/CustomDataTable.dart';
 import 'package:accountmanager/common_widgets/CustomDataTableSource.dart';
 import 'package:accountmanager/common_widgets/CustomPaginatedDataTable.dart';
+import 'package:accountmanager/common_widgets/status_box.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -64,7 +65,7 @@ class DataTableBuilder extends ConsumerWidget {
         final bool showAll = watch(showAllSwitchProvider).state;
         final List<AssignedTBR> filteredItems = items.where((element) {
           if (!showAll) {
-            return element.status.getStatusName() == 'Completed';
+            return element.status.getStatusName() != 'Completed';
           } else {
             return true;
           }
@@ -114,6 +115,22 @@ class ShowDataTable extends ConsumerWidget {
                   // });
                 },
                 columns: [
+                  CustomDataColumn(
+                    label: Text(Strings.tbrStrings.status),
+                    onSort: (columnIndex, ascending) {
+                      dtsSource.sort<String>(
+                          getField: (d) => d.status.statusIndex.toString(),
+                          ascending: tableVars.sortAscending);
+                      // setState(() {
+                      final TableVars tempTableVars = TableVars(
+                          context.read(tableVarsProvider).state.rowsPerPage);
+                      tempTableVars.sortColumnIndex = columnIndex;
+                      tempTableVars.sortAscending = ascending;
+
+                      context.read(tableVarsProvider).state = tempTableVars;
+                      // });
+                    },
+                  ),
                   CustomDataColumn(
                     label: Text(Strings.companyStrings.company),
                     onSort: (columnIndex, ascending) {
@@ -175,22 +192,6 @@ class ShowDataTable extends ConsumerWidget {
                     onSort: (columnIndex, ascending) {
                       dtsSource.sort<String>(
                           getField: (d) => d.clientMeetingDate.toString(),
-                          ascending: tableVars.sortAscending);
-                      // setState(() {
-                      final TableVars tempTableVars = TableVars(
-                          context.read(tableVarsProvider).state.rowsPerPage);
-                      tempTableVars.sortColumnIndex = columnIndex;
-                      tempTableVars.sortAscending = ascending;
-
-                      context.read(tableVarsProvider).state = tempTableVars;
-                      // });
-                    },
-                  ),
-                  CustomDataColumn(
-                    label: Text(Strings.tbrStrings.status),
-                    onSort: (columnIndex, ascending) {
-                      dtsSource.sort<String>(
-                          getField: (d) => d.status.statusIndex.toString(),
                           ascending: tableVars.sortAscending);
                       // setState(() {
                       final TableVars tempTableVars = TableVars(
@@ -269,6 +270,7 @@ class DTS extends CustomDataTableSource {
           },
           cells: [
             // ignore: unnecessary_string_interpolations
+            CustomDataCell(statusBox(data[index].status.getStatusName())),
             CustomDataCell(Text('${data[index].company.toDropDownString()}')),
             CustomDataCell(
                 // ignore: unnecessary_string_interpolations
@@ -277,7 +279,7 @@ class DTS extends CustomDataTableSource {
                 Text(DateFormat.yMMMEd().format(data[index].dueDate))),
             CustomDataCell(Text(
                 DateFormat.yMMMEd().format(data[index].clientMeetingDate))),
-            CustomDataCell(Text(data[index].status.getStatusName())),
+
             CustomDataCell(Text(data[index].questionnaireType.name)),
             CustomDataCell(Text(data[index].assignedBy))
           ]);

@@ -4,6 +4,7 @@ import 'package:accountmanager/common_widgets/CustomDataTable.dart';
 import 'package:accountmanager/common_widgets/CustomDataTableSource.dart';
 import 'package:accountmanager/common_widgets/CustomPaginatedDataTable.dart';
 import 'package:accountmanager/common_widgets/empty_content.dart';
+import 'package:accountmanager/common_widgets/status_box.dart';
 import 'package:accountmanager/constants/strings.dart';
 import 'package:accountmanager/models/assigned_tbr.dart';
 import 'package:flutter/material.dart';
@@ -113,6 +114,22 @@ class ShowDataTable extends ConsumerWidget {
                 },
                 columns: [
                   CustomDataColumn(
+                    label: Text(Strings.tbrStrings.status),
+                    onSort: (columnIndex, ascending) {
+                      dtsSource.sort<String>(
+                          getField: (d) => d.status.statusIndex.toString(),
+                          ascending: tableVars.sortAscending);
+                      // setState(() {
+                      final TableVars tempTableVars = TableVars(
+                          context.read(tableVarsProvider).state.rowsPerPage);
+                      tempTableVars.sortColumnIndex = columnIndex;
+                      tempTableVars.sortAscending = ascending;
+
+                      context.read(tableVarsProvider).state = tempTableVars;
+                      // });
+                    },
+                  ),
+                  CustomDataColumn(
                     label: Text(Strings.companyStrings.company),
                     onSort: (columnIndex, ascending) {
                       print(dtsSource.data[0].company);
@@ -173,22 +190,6 @@ class ShowDataTable extends ConsumerWidget {
                     onSort: (columnIndex, ascending) {
                       dtsSource.sort<String>(
                           getField: (d) => d.clientMeetingDate.toString(),
-                          ascending: tableVars.sortAscending);
-                      // setState(() {
-                      final TableVars tempTableVars = TableVars(
-                          context.read(tableVarsProvider).state.rowsPerPage);
-                      tempTableVars.sortColumnIndex = columnIndex;
-                      tempTableVars.sortAscending = ascending;
-
-                      context.read(tableVarsProvider).state = tempTableVars;
-                      // });
-                    },
-                  ),
-                  CustomDataColumn(
-                    label: Text(Strings.tbrStrings.status),
-                    onSort: (columnIndex, ascending) {
-                      dtsSource.sort<String>(
-                          getField: (d) => d.status.statusIndex.toString(),
                           ascending: tableVars.sortAscending);
                       // setState(() {
                       final TableVars tempTableVars = TableVars(
@@ -266,6 +267,7 @@ class DTS extends CustomDataTableSource {
                 context: context, assignedTBR: data[index], mobile: mobile);
           },
           cells: [
+            CustomDataCell(statusBox(data[index].status.getStatusName())),
             // ignore: unnecessary_string_interpolations
             CustomDataCell(Text('${data[index].company.toDropDownString()}')),
             CustomDataCell(
@@ -275,7 +277,7 @@ class DTS extends CustomDataTableSource {
                 Text(DateFormat.yMMMEd().format(data[index].dueDate))),
             CustomDataCell(Text(
                 DateFormat.yMMMEd().format(data[index].clientMeetingDate))),
-            CustomDataCell(Text(data[index].status.getStatusName())),
+
             CustomDataCell(Text(data[index].questionnaireType.name)),
             CustomDataCell(Text(data[index].assignedBy))
           ]);

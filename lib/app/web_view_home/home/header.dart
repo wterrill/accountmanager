@@ -47,20 +47,24 @@ class _HeaderState extends State<Header> {
                 width: 80,
                 height: 80,
                 child: CircleAvatar(
-                    child: Center(
-                  child: Text(
-                    user.email[0].toUpperCase(),
-                    style: const TextStyle(
-                        color: Colors.blue,
-                        fontSize: 50,
-                        fontFamily: 'Monoton'),
+                    child: Container(
+                  width: 80,
+                  height: 80,
+                  child: Center(
+                    child: Text(
+                      user.email[0].toUpperCase(),
+                      style: const TextStyle(
+                          color: Colors.blue,
+                          fontSize: 48,
+                          fontFamily: 'Monoton'),
 
-                    //   Text(
-                    // user.email[0].toUpperCase(),
-                    // style: const TextStyle(
-                    //     color: Colors.blue,
-                    //     fontSize: 48,
-                    //     fontFamily: 'Allerta'),
+                      //   Text(
+                      // user.email[0].toUpperCase(),
+                      // style: const TextStyle(
+                      //     color: Colors.blue,
+                      //     fontSize: 48,
+                      //     fontFamily: 'Allerta'),
+                    ),
                   ),
                 )),
               ),

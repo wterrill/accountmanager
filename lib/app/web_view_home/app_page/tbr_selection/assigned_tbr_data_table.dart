@@ -1,3 +1,6 @@
+import 'package:accountmanager/common_widgets/CustomDataTable.dart';
+import 'package:accountmanager/common_widgets/CustomDataTableSource.dart';
+import 'package:accountmanager/common_widgets/CustomPaginatedDataTable.dart';
 import 'package:accountmanager/models/assigned_tbr.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/constants/strings.dart';
@@ -51,7 +54,7 @@ class _IpaginatedTableState extends State<IpaginatedTable> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            PaginatedDataTable(
+            CustomPaginatedDataTable(
               header: Text(Strings.tbrStrings.assignTbr),
               source: dtsSource,
               rowsPerPage: _rowsPerPage,
@@ -63,7 +66,7 @@ class _IpaginatedTableState extends State<IpaginatedTable> {
                 });
               },
               columns: [
-                DataColumn(
+                CustomDataColumn(
                   label: Text(Strings.companyStrings.company),
                   onSort: (columnIndex, ascending) {
                     dtsSource.sort<String>(
@@ -75,7 +78,7 @@ class _IpaginatedTableState extends State<IpaginatedTable> {
                     });
                   },
                 ),
-                DataColumn(
+                CustomDataColumn(
                   label: Text(Strings.technicianStrings.technician),
                   onSort: (columnIndex, ascending) {
                     dtsSource.sort<String>(
@@ -87,7 +90,7 @@ class _IpaginatedTableState extends State<IpaginatedTable> {
                     });
                   },
                 ),
-                DataColumn(
+                CustomDataColumn(
                   label: Text(Strings.tbrStrings.dueDate),
                   onSort: (columnIndex, ascending) {
                     dtsSource.sort<String>(
@@ -99,7 +102,7 @@ class _IpaginatedTableState extends State<IpaginatedTable> {
                     });
                   },
                 ),
-                DataColumn(
+                CustomDataColumn(
                   label: Text(Strings.tbrStrings.meetingDate),
                   // label: Text('assigned_tbr_data_table'),
                   onSort: (columnIndex, ascending) {
@@ -122,29 +125,29 @@ class _IpaginatedTableState extends State<IpaginatedTable> {
   }
 }
 
-class DTS extends DataTableSource {
+class DTS extends CustomDataTableSource {
   final List<AssignedTBR> data;
 
   DTS(this.data);
 
   @override
-  DataRow getRow(int index) {
+  CustomDataRow getRow(int index) {
     print(data);
     // print(data[index]);
     print(index);
     if (index < data.length) {
-      return DataRow(cells: [
-        DataCell(Text('${data[index].company}')),
-        DataCell(Text('${data[index].technician}')),
-        DataCell(Text('${data[index].dueDate}')),
-        DataCell(Text('${data[index].clientMeetingDate}')),
+      return CustomDataRow(cells: [
+        CustomDataCell(Text('${data[index].company}')),
+        CustomDataCell(Text('${data[index].technician}')),
+        CustomDataCell(Text('${data[index].dueDate}')),
+        CustomDataCell(Text('${data[index].clientMeetingDate}')),
       ]);
     } else {
-      return const DataRow(cells: [
-        DataCell(Text(Strings.placeHolder)),
-        DataCell(Text(Strings.placeHolder)),
-        DataCell(Text(Strings.placeHolder)),
-        DataCell(Text(Strings.placeHolder)),
+      return const CustomDataRow(cells: [
+        CustomDataCell(Text(Strings.placeHolder)),
+        CustomDataCell(Text(Strings.placeHolder)),
+        CustomDataCell(Text(Strings.placeHolder)),
+        CustomDataCell(Text(Strings.placeHolder)),
       ]);
     }
   }

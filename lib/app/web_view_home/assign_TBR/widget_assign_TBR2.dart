@@ -72,9 +72,11 @@ class _AssignTBRState extends State<AssignTBR> {
     final user = firebaseAuth.currentUser;
     assignedBy ??= user.email;
     final FirestoreDatabase database = context.read(databaseProvider);
-    return FractionallySizedBox(
-      heightFactor: 0.6,
+    return SizedBox(
+      height: 320,
+      width: 300,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // DropdownScreen(),
           FutureDropdown(
@@ -164,68 +166,77 @@ class _AssignTBRState extends State<AssignTBR> {
               });
             },
           ),
-          FlatButtonX(
-            childx: const Text(
-              'Assign',
-              style: TextStyle(
-                fontSize: 18.0,
-                color: Colors.blue,
-              ),
-            ),
-            onPressedx: () async {
-              bool valid = true;
-              while (valid) {
-                bool validated;
-                validated =
-                    await _validateAndSaveForm(createCurrentTBR(assignedBy));
-                if (validated == false) {
-                  valid = false;
-                  break;
-                }
-                bool answer = false;
-                if (validated && widget.data == null) {
-                  answer = true;
-                } else {
-                  answer = await showAlertDialog(
-                    context: context,
-                    title: 'Warning...',
-                    content:
-                        'This action will permanently overwrite data in the database.  Are you sure you want to proceed?',
-                    cancelActionText: 'No',
-                    defaultActionText: 'Yes',
-                  );
-                }
-                final AssignedTBR assignedTbr = createCurrentTBR(assignedBy);
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Row(
+              children: [
+                FlatButtonX(
+                  colorx: Colors.green,
+                  childx: Text(
+                    'Assign',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      color: Colors.blue[900],
+                    ),
+                  ),
+                  onPressedx: () async {
+                    bool valid = true;
+                    while (valid) {
+                      bool validated;
+                      validated = await _validateAndSaveForm(
+                          createCurrentTBR(assignedBy));
+                      if (validated == false) {
+                        valid = false;
+                        break;
+                      }
+                      bool answer = false;
+                      if (validated && widget.data == null) {
+                        answer = true;
+                      } else {
+                        answer = await showAlertDialog(
+                          context: context,
+                          title: 'Warning...',
+                          content:
+                              'This action will permanently overwrite data in the database.  Are you sure you want to proceed?',
+                          cancelActionText: 'No',
+                          defaultActionText: 'Yes',
+                        );
+                      }
+                      final AssignedTBR assignedTbr =
+                          createCurrentTBR(assignedBy);
 
-                final bool notNullnotEditedOREditedAndChanged =
-                    (!editAssignTBR && (assignedTbr.toMap() != null)) ||
-                        (editAssignTBR &&
-                            (assignedTbr != null) &&
-                            !mapEquals<String, dynamic>(
-                                originalMap, assignedTbr.toMap()));
-                if (answer //) {
-                    &&
-                    notNullnotEditedOREditedAndChanged) {
-                  unawaited(_sendAssignedTbr(assignedTbr: assignedTbr));
-                  valid = false;
-                }
-              }
-              print('valid = $valid');
+                      final bool notNullnotEditedOREditedAndChanged =
+                          (!editAssignTBR && (assignedTbr.toMap() != null)) ||
+                              (editAssignTBR &&
+                                  (assignedTbr != null) &&
+                                  !mapEquals<String, dynamic>(
+                                      originalMap, assignedTbr.toMap()));
+                      if (answer //) {
+                          &&
+                          notNullnotEditedOREditedAndChanged) {
+                        unawaited(_sendAssignedTbr(assignedTbr: assignedTbr));
+                        valid = false;
+                      }
+                    }
+                    print('valid = $valid');
 
-              Navigator.of(context).pop();
-            },
-          ),
-          const Spacer(),
-          FlatButtonX(
-              childx: const Text(
-                'Cancel',
-                style: TextStyle(
-                  fontSize: 18.0,
-                  color: Colors.blue,
+                    Navigator.of(context).pop();
+                  },
                 ),
-              ),
-              onPressedx: () => Navigator.of(context).pop()),
-          // Text(clientMeetingDate?.toString() ?? 'Not Selected')
+                const Spacer(),
+                FlatButtonX(
+                    colorx: Colors.green,
+                    childx: Text(
+                      'Cancel',
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        color: Colors.blue[900],
+                      ),
+                    ),
+                    onPressedx: () => Navigator.of(context).pop()),
+              ],
+            ),
+          ),
         ],
       ),
     );

@@ -28,18 +28,23 @@ class _AssignTBRWebPageState extends State<AssignTBRWebPage> {
     // final firebaseAuth = context.read(firebaseAuthProvider);
     // final user = firebaseAuth.currentUser;
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        TextButton(
-          style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(Colors.green)),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(Strings.tbrStrings.assignTbr),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+          child: TextButton(
+            style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.green)),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(Strings.tbrStrings.assignTbr),
+            ),
+            onPressed: () {
+              displayWidgetDialogWithError(
+                  context, Strings.tbrStrings.assignTbr, const AssignTBR());
+            },
           ),
-          onPressed: () {
-            displayWidgetDialogWithError(
-                context, Strings.tbrStrings.assignTbr, const AssignTBR());
-          },
         ),
         CreateTBRAssignDataTableWidget()
       ],
