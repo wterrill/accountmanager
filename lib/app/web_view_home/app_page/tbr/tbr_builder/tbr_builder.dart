@@ -61,12 +61,12 @@ class _TBRbuilderState extends State<TBRbuilder> {
 
       return Container(
         color: Colors.white70,
-        child: Column(children: const [
-          TestButtonRow(),
-          SubmitButtonRow(),
-          DropDownSelectors(),
+        child: Column(children: [
+          const TestButtonRow(),
+          const SubmitButtonRow(),
+          const DropDownSelectors(),
           Expanded(child: TbrEvaluationSection()),
-          BottomArrows(),
+          const BottomArrows(),
         ]),
       );
     });

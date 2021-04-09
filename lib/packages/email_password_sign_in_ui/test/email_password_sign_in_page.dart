@@ -216,7 +216,7 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
     return Scaffold(
       // appBar: AppBar(
       //   elevation: 2.0,
-      //   title: Text(model.title),
+      //   title: Text("BEER"),
       // ),
       backgroundColor: Colors.grey[200],
       body: Container(

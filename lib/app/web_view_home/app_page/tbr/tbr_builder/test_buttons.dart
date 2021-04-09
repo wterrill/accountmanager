@@ -47,6 +47,20 @@ class TestButtonRow extends ConsumerWidget {
               tbrInProgress.updatePercentages();
               context.read(tbrInProgressProvider).state = tbrInProgress;
             }),
+        buildTestButton(
+            context: context,
+            text: 'fill out all comments',
+            color: Colors.yellow,
+            onPressedNew: () {
+              for (final String key in tbrInProgress.answers.keys) {
+                tbrInProgress.adminComment[key] =
+                    'admin: ${tbrInProgress.getQuestionFromId(key).questionText}';
+                tbrInProgress.tamNotes[key] =
+                    'Tam: ${tbrInProgress.getQuestionFromId(key).questionName}';
+              }
+              tbrInProgress.updatePercentages();
+              context.read(tbrInProgressProvider).state = tbrInProgress;
+            }),
       ],
     );
   }

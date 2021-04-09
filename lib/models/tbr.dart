@@ -42,6 +42,14 @@ class TBRinProgress {
     });
     tbrInProgress.answers = temp2;
 
+    Map<String, dynamic> tempMap = map['adminComment'] as Map<String, dynamic>;
+
+    tbrInProgress.adminComment =
+        tempMap.map((key, dynamic value) => MapEntry(key, value?.toString()));
+    tempMap = map['tamNotes'] as Map<String, dynamic>;
+    tbrInProgress.tamNotes =
+        tempMap.map((key, dynamic value) => MapEntry(key, value?.toString()));
+
     return tbrInProgress;
   }
 
@@ -272,6 +280,15 @@ class TBRinProgress {
     }
 
     showSubmitButton = canSubmit;
+  }
+
+  Question getQuestionFromId(String id) {
+    for (int i = 0; i < allQuestions.length; i++) {
+      if (allQuestions[i].id == id) {
+        return allQuestions[i];
+      }
+    }
+    return null;
   }
 
   Map<String, dynamic> toMap() {

@@ -19,20 +19,24 @@ class ExcelButton extends ConsumerWidget {
   }
 
   void createExcel(TBRinProgress completedTBR) {
+    //Sheet1
     final Excel excel = Excel.createExcel();
-
-    final Sheet sheetObject = excel['Sheet1'];
+    Sheet sheetObject = excel['Sheet1'];
     // Make Header Row
-    final List<String> dataList = [
+    List<String> headerList = [
       'Category',
       'Name',
       'Priority',
       'Question Text',
-      'Aligned'
+      'Aligned',
+      'Admin Notes',
+      'TAM Notes'
     ];
+    // print headers
+    sheetObject.insertRowIterables(headerList, 0);
 
-    sheetObject.insertRowIterables(dataList, 0);
-    for (var i = 0; i < dataList.length; i++) {
+    // start printing rows
+    for (var i = 0; i < headerList.length; i++) {
       final Data cell = sheetObject
           .cell(CellIndex.indexByColumnRow(columnIndex: i, rowIndex: 0));
       cell.cellStyle =
@@ -42,15 +46,16 @@ class ExcelButton extends ConsumerWidget {
     for (var row = 0; row < completedTBR.allQuestions.length; row++) {
       final List<String> temp = [];
       final String id = tbrInProgress.allQuestions[row].id;
-      // for (var col = 0; col < dataList.length; col++) {
+      // Write one single row
       temp.add(completedTBR.allQuestions[row].category);
       temp.add(completedTBR.allQuestions[row].questionName);
       temp.add(completedTBR.allQuestions[row].questionPriority);
       temp.add(completedTBR.allQuestions[row].questionText);
       temp.add(getAlignment(completedTBR.answers[id],
           completedTBR.allQuestions[row].goodBadAnswer));
+      temp.add(completedTBR.adminComment[id]);
+      temp.add(completedTBR.tamNotes[id]);
 
-      // }
       sheetObject.insertRowIterables(temp, row + 1);
       final Data cell = sheetObject
           .cell(CellIndex.indexByColumnRow(columnIndex: 4, rowIndex: row));
@@ -76,6 +81,48 @@ class ExcelButton extends ConsumerWidget {
       }
       cell.cellStyle = cellStyle;
     }
+
+// Sheet 2
+    sheetObject = excel['Sheet2'];
+    int yes = 0;
+    int no = 0;
+    int na = 0;
+    for (var i = 0; i < completedTBR.allQuestions.length; i++) {
+      String id = completedTBR.allQuestions[i].id;
+      if (completedTBR.answers[id].toString() ==
+          [true, false, false].toString()) {
+        yes++;
+      }
+      if (completedTBR.answers[id].toString() ==
+          [false, true, false].toString()) {
+        no++;
+      }
+      if (completedTBR.answers[id].toString() ==
+          [false, false, true].toString()) {
+        na++;
+      }
+    }
+
+    headerList = [
+      'Number of Yes',
+      'Number of No',
+      'Number of N/A',
+      'Total answers'
+    ];
+    // print headers
+    sheetObject.insertRowIterables(headerList, 0);
+    List<String> temp = [];
+    temp.add(yes.toString());
+    temp.add(no.toString());
+    temp.add(na.toString());
+    temp.add((yes + no + na).toString());
+    sheetObject.insertRowIterables(temp, 1);
+    temp = [];
+    int total = yes + no + na;
+    temp.add('${(yes * 100 / total).toStringAsFixed(2)}%');
+    temp.add('${(no * 100 / total).toStringAsFixed(2)}%');
+    temp.add('${(na * 100 / total).toStringAsFixed(2)}%');
+    sheetObject.insertRowIterables(temp, 2);
 
     //     final Data cell = sheetObject
     //     .cell(CellIndex.indexByColumnRow(columnIndex: col, rowIndex: 0));

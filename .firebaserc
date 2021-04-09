@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "mxotechaccountmanager"
+    "production": "mxotechaccountmanager",
+    "testing": "devmxotechaccountmanager"
   }
 }

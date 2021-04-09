@@ -1,3 +1,37 @@
+
+
+if [ $1 == production ]
+then
+
+   echo "-------------------------------------------------"
+   echo "-------------------------------------------------"
+   echo "   PRODUCTION PRODUCTION PRODUCTION PRODUCTION   "
+   echo "-------------------------------------------------"
+   echo "-------------------------------------------------"
+   cd web
+   cp index_production.html index.html
+   cd ..
+   firebase use production
+
+# elif [ $a -gt $b ]
+# then
+#    echo "a is greater than b"
+# elif [ $a -lt $b ]
+# then
+#    echo "a is less than b"
+else
+   echo "*************************************************"
+   echo "*************************************************"
+   echo "*TESTING TESTING TESTING TESTING TESTING TESTING*"
+   echo "*************************************************"
+   echo "*************************************************"
+   cd web
+   cp index_development.html index.html
+   cd ..
+   firebase use testing
+fi
+
+
 # set -e # this exits when there is an error
 # flutter test
 rm lib/buildTime/flutter_version.dart

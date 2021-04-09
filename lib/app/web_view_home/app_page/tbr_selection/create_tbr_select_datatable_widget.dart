@@ -263,15 +263,16 @@ class DTS extends CustomDataTableSource {
       return CustomDataRow(
           onSelectChanged: (_) {
             if (data[index].status.getStatusName() != 'Completed') {
-              _displayNextPage(context: context, assignedTBR: data[index]);
+              _displayNextPage(
+                  context: context, assignedTBR: data[index], mobile: false);
             } else {
               print(
                   'nope'); // Todo This should be a dialog at least... at most it should show the completed (and now editable) TBR
             }
           },
           cells: [
-            // ignore: unnecessary_string_interpolations
             CustomDataCell(statusBox(data[index].status.getStatusName())),
+            // ignore: unnecessary_string_interpolations
             CustomDataCell(Text('${data[index].company.toDropDownString()}')),
             CustomDataCell(
                 // ignore: unnecessary_string_interpolations
@@ -323,7 +324,9 @@ class DTS extends CustomDataTableSource {
 } // End of DTS()
 
 Future<void> _displayNextPage(
-    {BuildContext context, AssignedTBR assignedTBR, bool mobile}) async {
+    {@required BuildContext context,
+    @required AssignedTBR assignedTBR,
+    @required bool mobile}) async {
   //
   context.read(inProgressTbrProvider).state = assignedTBR;
   Widget frame = Container(

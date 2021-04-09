@@ -142,6 +142,30 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
                 //     _sortAscending = !_sortAscending;
                 //   });
                 // },
+              ),
+              const CustomDataColumn(
+                label: Text('Admin Notes'),
+                // onSort: (columnIndex, ascending) {
+                //   dtsSource.sort<String>(
+                //       getField: (d) => d.clientMeetingDate.toString(),
+                //       ascending: _sortAscending);
+                //   setState(() {
+                //     _sortColumnIndex = columnIndex;
+                //     _sortAscending = !_sortAscending;
+                //   });
+                // },
+              ),
+              const CustomDataColumn(
+                label: Text('TAM Notes'),
+                // onSort: (columnIndex, ascending) {
+                //   dtsSource.sort<String>(
+                //       getField: (d) => d.clientMeetingDate.toString(),
+                //       ascending: _sortAscending);
+                //   setState(() {
+                //     _sortColumnIndex = columnIndex;
+                //     _sortAscending = !_sortAscending;
+                //   });
+                // },
               )
             ],
           ),
@@ -170,15 +194,27 @@ class DTS extends CustomDataTableSource {
     print(index);
     if (index < data.allQuestions.length) {
       return CustomDataRow(cells: [
-        CustomDataCell(Text(data.allQuestions[index].category)),
-        CustomDataCell(Text(data.allQuestions[index].questionName)),
-        CustomDataCell(Text(data.allQuestions[index].questionPriority)),
-        CustomDataCell(Text(data.allQuestions[index].questionText)),
+        CustomDataCell(Container(
+            width: 200, child: Text(data.allQuestions[index].category))),
+        CustomDataCell(Container(
+            width: 200, child: Text(data.allQuestions[index].questionName))),
+        CustomDataCell(Container(
+            width: 50, child: Text(data.allQuestions[index].questionPriority))),
+        CustomDataCell(Container(
+            width: 400, child: Text(data.allQuestions[index].questionText))),
         CustomDataCell(getAlignment(
             data.answers[id], data.allQuestions[index].goodBadAnswer)),
+        CustomDataCell(Container(
+            width: 100,
+            child: Text(data.adminComment[data.allQuestions[index].id] ?? ''))),
+        CustomDataCell(Container(
+            width: 100,
+            child: Text(data.tamNotes[data.allQuestions[index].id] ?? ''))),
       ]);
     } else {
       return const CustomDataRow(cells: [
+        CustomDataCell(Text(Strings.placeHolder)),
+        CustomDataCell(Text(Strings.placeHolder)),
         CustomDataCell(Text(Strings.placeHolder)),
         CustomDataCell(Text(Strings.placeHolder)),
         CustomDataCell(Text(Strings.placeHolder)),

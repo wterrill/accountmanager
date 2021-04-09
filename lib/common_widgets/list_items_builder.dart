@@ -5,13 +5,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 typedef ItemWidgetBuilder<T> = Widget Function(BuildContext context, T item);
 
 class ListItemsBuilder<T> extends StatelessWidget {
-  const ListItemsBuilder({
+  ListItemsBuilder({
     Key key,
     @required this.data,
     @required this.itemBuilder,
   }) : super(key: key);
   final AsyncValue<List<T>> data;
   final ItemWidgetBuilder<T> itemBuilder;
+  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +30,11 @@ class ListItemsBuilder<T> extends StatelessWidget {
   Widget _buildList(List<T> items) {
     final List<T> reversed = items.reversed.toList();
     return Scrollbar(
+      isAlwaysShown: true,
+      controller: _scrollController,
       child: ListView.separated(
         // shrinkWrap: true,
+        controller: _scrollController,
         itemCount: reversed.length + 2,
         separatorBuilder: (context, index) => const Divider(height: 0.5),
         itemBuilder: (context, index) {

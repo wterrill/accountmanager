@@ -74,23 +74,14 @@ class CreateCompanyWebPage extends ConsumerWidget {
                     height: 300,
                     child: ListItemsBuilder<Company>(
                       data: companyAsyncValue,
-                      itemBuilder: (context, company) => Dismissible(
-                        key: Key('job-${company.id}'),
-                        background: Container(color: Colors.red),
-                        direction: DismissDirection.endToStart,
-                        // onDismissed: (direction) => _delete(context, job),
-                        child: CompanyListTile(
-                            trailing: TextButton(
-                                child: const Text('delete'),
-                                onPressed: () =>
-                                    _deleteCompany(context, company)),
-                            company: company,
-                            onTap:
-                                () {} // => JobEntriesPage.show(context, job),
-                            ),
-                        // onDismissed: (direction) =>
-                        //     _deleteCompany(context, company),
-                      ),
+                      itemBuilder: (context, company) => CompanyListTile(
+                          trailing: TextButton(
+                              child: const Text('delete'),
+                              onPressed: () =>
+                                  _deleteCompany(context, company)),
+                          company: company,
+                          onTap: () {} // => JobEntriesPage.show(context, job),
+                          ),
                     ),
                   ),
                 ],

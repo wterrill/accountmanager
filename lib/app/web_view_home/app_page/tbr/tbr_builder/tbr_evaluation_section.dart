@@ -8,7 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class TbrEvaluationSection extends ConsumerWidget {
-  const TbrEvaluationSection({Key key}) : super(key: key);
+  TbrEvaluationSection({Key key}) : super(key: key);
+
+  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
@@ -16,7 +18,10 @@ class TbrEvaluationSection extends ConsumerWidget {
         watch(tbrFillPageDataProvider).state;
     final TBRinProgress tbrInProgress = watch(tbrInProgressProvider).state;
     return Scrollbar(
+      controller: _scrollController,
+      isAlwaysShown: true,
       child: ListView.builder(
+        controller: _scrollController,
         shrinkWrap: false,
         // Let the ListView know how many items it needs to build.
         itemCount: tbrFillPageData.filteredQuestions.length,
