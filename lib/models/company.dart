@@ -30,7 +30,9 @@ class Company extends Equatable implements DropdownModel {
   }
 
   @override
-  String toString() => toMap().toString();
+  String toString() => name;
+
+  String toDeluxeString() => toMap().toString();
 
   @override
   String toDropDownString() => name;

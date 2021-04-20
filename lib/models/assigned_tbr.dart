@@ -53,7 +53,9 @@ class AssignedTBR extends Equatable {
     final String companyName = data['company_name'] as String;
     final String companyId = data['company_id'] as String;
     final String technicianId = data['technician_id'] as String;
-    final String technicianName = data['technician_name'] as String;
+    final String technicianFirstName = data['technician_firstName'] as String;
+    final String technicianLastName = data['technician_lastName'] as String;
+    final String technicianEmail = data['technician_email'] as String;
     final String questionnaireTypeId = data['questionnaireType_id'] as String;
     final String questionnaireTypeName =
         data['questionnaireType_name'] as String;
@@ -65,7 +67,9 @@ class AssignedTBR extends Equatable {
     if (companyName == null ||
         companyId == null ||
         technicianId == null ||
-        technicianName == null ||
+        technicianFirstName == null ||
+        technicianLastName == null ||
+        technicianEmail == null ||
         questionnaireTypeId == null ||
         questionnaireTypeName == null ||
         dueDate == null ||
@@ -74,7 +78,12 @@ class AssignedTBR extends Equatable {
         assignedBy == null) {
       return null;
     }
-    final Technician tech = Technician(id: technicianId, name: technicianName);
+    final Technician tech = Technician(
+      id: technicianId,
+      firstName: technicianFirstName,
+      lastName: technicianLastName,
+      email: technicianEmail,
+    );
     final Company comp = Company(id: companyId, name: companyName);
     final QuestionnaireType question =
         QuestionnaireType(id: questionnaireTypeId, name: questionnaireTypeName);
@@ -111,7 +120,9 @@ class AssignedTBR extends Equatable {
         'company_name': company.name,
         'company_id': company.id,
         'technician_id': technician.id,
-        'technician_name': technician.name,
+        'technician_firstName': technician.firstName,
+        'technician_lastName': technician.lastName,
+        'technician_email': technician.email,
         'questionnaireType_id': questionnaireType.id,
         'questionnaireType_name': questionnaireType.name,
         'dueDate': dueDate,

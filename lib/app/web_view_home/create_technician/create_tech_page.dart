@@ -61,28 +61,28 @@ class CreateTechWebPage extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Add Technician', style: TextStyles.heading2),
-                  Container(
-                      height: 200,
-                      child: const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: InputTechnician(),
-                      )),
+                  // Text('Add Technician', style: TextStyles.heading2),
+                  // Container(
+                  //     height: 200,
+                  //     child: const Padding(
+                  //       padding: EdgeInsets.all(8.0),
+                  //       child: InputTechnician(),
+                  //     )),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child:
                         Text('Active Technicians', style: TextStyles.heading2),
                   ),
                   Container(
-                    height: 300,
+                    height: 600,
                     child: ListItemsBuilder<Technician>(
                         data: technicianAsyncValue,
                         itemBuilder: (context, technician) {
                           return TechnicianListTile(
-                              trailing: TextButton(
-                                  child: const Text('delete'),
-                                  onPressed: () =>
-                                      _deleteTechnician(context, technician)),
+                              // trailing: TextButton(
+                              //     child: const Text('delete'),
+                              //     onPressed: () =>
+                              //         _deleteTechnician(context, technician)),
                               technician: technician,
                               onTap:
                                   () {} // => JobEntriesPage.show(context, job),

@@ -155,7 +155,7 @@ class ShowDataTable extends ConsumerWidget {
                     onSort: (columnIndex, ascending) {
                       print(dtsSource);
                       dtsSource.sort<String>(
-                          getField: (d) => d.technician.name,
+                          getField: (d) => d.technician.firstName,
                           ascending: tableVars.sortAscending);
                       print(dtsSource);
                       // setState(() {

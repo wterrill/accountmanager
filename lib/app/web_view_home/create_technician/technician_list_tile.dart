@@ -12,7 +12,7 @@ class TechnicianListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(technician.name),
+      title: Text('${technician.firstName} ${technician.lastName}'),
       trailing: trailing,
       onTap: onTap,
     );

@@ -69,33 +69,27 @@ class _InputTechnicianState extends State<InputTechnician> {
           flex: 1,
           child: Container(),
         ),
-        Expanded(
-          flex: 1,
-          child: TextButton(
-            style: ButtonStyle(
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25.0),
-                    // side: BorderSide(
-                    //   color: Colors.red.withOpacity(0.8),
-                    //   width: 1,
-                    // ),
-                  ),
-                ),
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.green)),
-            // style: TextButton.styleFrom(backgroundColor: Colors.red),
-            child: const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text('Add'),
-            ),
-
-            onPressed: () {
-              textController.text = '';
-              _submit(context, name);
-            },
-          ),
-        ),
+        // Expanded(
+        //   flex: 1,
+        //   child: TextButton(
+        //     style: ButtonStyle(
+        //         shape: MaterialStateProperty.all(
+        //           RoundedRectangleBorder(
+        //             borderRadius: BorderRadius.circular(25.0),
+        //           ),
+        //         ),
+        //         backgroundColor:
+        //             MaterialStateProperty.all<Color>(Colors.green)),
+        //     child: const Padding(
+        //       padding: EdgeInsets.all(8.0),
+        //       child: Text('Add'),
+        //     ),
+        //     onPressed: () {
+        //       textController.text = '';
+        //       _submit(context, name);
+        //     },
+        //   ),
+        // ),
         Expanded(
           flex: 2,
           child: Container(),
@@ -105,24 +99,24 @@ class _InputTechnicianState extends State<InputTechnician> {
   }
 }
 
-Future<void> _submit(BuildContext context, String name) async {
-  if (_validateAndSaveForm(name)) {
-    try {
-      final database = context.read(databaseProvider);
-      // final technicianNOTSURE = await database.technicianStream().first;
+// Future<void> _submit(BuildContext context, String name) async {
+//   if (_validateAndSaveForm(name)) {
+//     try {
+//       final database = context.read(databaseProvider);
+//       // final technicianNOTSURE = await database.technicianStream().first;
 
-      final id = documentIdFromCurrentDate();
-      final technician = Technician(id: id, name: name);
-      await database.setTechnician(technician);
-    } catch (e) {
-      unawaited(showExceptionAlertDialog(
-        context: context,
-        title: 'Operation failed',
-        exception: e,
-      ));
-    }
-  }
-}
+//       final id = documentIdFromCurrentDate();
+//       // final technician = Technician(id: id, name: name);
+//       // await database.setTechnician(technician);
+//     } catch (e) {
+//       unawaited(showExceptionAlertDialog(
+//         context: context,
+//         title: 'Operation failed',
+//         exception: e,
+//       ));
+//     }
+//   }
+// }
 
 bool _validateAndSaveForm(String name) {
   if (name != '') {

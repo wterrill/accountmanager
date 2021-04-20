@@ -74,10 +74,10 @@ class FirestoreDatabase {
         sort: (lhs, rhs) => rhs.start.compareTo(lhs.start),
       );
 
-  Future<void> setTechnician(Technician technician) => _service.setData(
-        path: FirestorePath.technician(technician.id),
-        data: technician.toMap(),
-      );
+  // Future<void> setTechnician(Technician technician) => _service.setData(
+  //       path: FirestorePath.technician(technician.id),
+  //       data: technician.toMap(),
+  //     );
 
   Future<void> deleteTechnician(Technician technician) async {
     await _service.deleteData(path: FirestorePath.technician(technician.id));

@@ -4,12 +4,18 @@ import 'package:meta/meta.dart';
 
 @immutable
 class Technician extends Equatable implements DropdownModel {
-  const Technician({@required this.id, @required this.name});
+  const Technician(
+      {@required this.id,
+      @required this.firstName,
+      @required this.lastName,
+      @required this.email});
   final String id;
-  final String name;
+  final String firstName;
+  final String lastName;
+  final String email;
 
   @override
-  List<Object> get props => [id, name];
+  List<Object> get props => [id, firstName, lastName, email];
 
   @override
   bool get stringify => true;
@@ -18,21 +24,33 @@ class Technician extends Equatable implements DropdownModel {
     if (data == null) {
       return null;
     }
-    final name = data['technician_name'] as String;
-    if (name == null) {
+    final firstName = data['firstName'] as String;
+    if (firstName == null) {
+      return null;
+    }
+    final lastName = data['lastName'] as String;
+    if (lastName == null) {
+      return null;
+    }
+
+    final email = data['email'] as String;
+    if (email == null) {
       return null;
     }
     // final ratePerHour = data['ratePerHour'] as int;
-    return Technician(id: documentId, name: name);
+    return Technician(
+        id: documentId, firstName: firstName, lastName: lastName, email: email);
   }
 
   Map<String, dynamic> toMap() {
-    return {'technician_name': name, 'technician_id': id};
+    return {'technician_name': firstName, 'technician_id': id};
   }
 
   @override
-  String toString() => toMap().toString();
+  String toString() => '$firstName $lastName';
+
+  String toDeluxeString() => toMap().toString();
 
   @override
-  String toDropDownString() => name;
+  String toDropDownString() => '$firstName $lastName';
 }

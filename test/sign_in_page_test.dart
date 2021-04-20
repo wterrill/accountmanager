@@ -36,7 +36,7 @@ void main() {
             return MaterialApp(
               home: SignInPage(),
               onGenerateRoute: (settings) =>
-                  AppRouter.onGenerateRoute(settings, firebaseAuth),
+                  AppRouter.onGenerateRoute(settings, firebaseAuth, context),
               navigatorObservers: [mockNavigatorObserver],
             );
           }),

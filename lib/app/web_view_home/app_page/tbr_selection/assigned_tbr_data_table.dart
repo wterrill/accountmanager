@@ -82,7 +82,7 @@ class _IpaginatedTableState extends State<IpaginatedTable> {
                   label: Text(Strings.technicianStrings.technician),
                   onSort: (columnIndex, ascending) {
                     dtsSource.sort<String>(
-                        getField: (d) => d.technician.name,
+                        getField: (d) => d.technician.firstName,
                         ascending: _sortAscending);
                     setState(() {
                       _sortColumnIndex = columnIndex;
