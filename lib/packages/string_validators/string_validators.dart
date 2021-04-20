@@ -50,8 +50,24 @@ class EmailEditingRegexValidator extends RegexValidator {
   EmailEditingRegexValidator() : super(regexSource: '^(|\\S)+\$');
 }
 
+class FirstNameEditingRegexValidator extends RegexValidator {
+  FirstNameEditingRegexValidator() : super(regexSource: '^(|\\S)+\$');
+}
+
+class LastNameEditingRegexValidator extends RegexValidator {
+  LastNameEditingRegexValidator() : super(regexSource: '^(|\\S)+\$');
+}
+
 class EmailSubmitRegexValidator extends RegexValidator {
   EmailSubmitRegexValidator() : super(regexSource: '^\\S+@\\S+\\.\\S+\$');
+}
+
+class FirstNameSubmitRegexValidator extends RegexValidator {
+  FirstNameSubmitRegexValidator() : super(regexSource: '^[A-Za-z]+\$');
+}
+
+class LastNameSubmitRegexValidator extends RegexValidator {
+  LastNameSubmitRegexValidator() : super(regexSource: '^[A-Za-z]+\$');
 }
 
 class NonEmptyStringValidator extends StringValidator {

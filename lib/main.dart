@@ -82,7 +82,7 @@ class MyApp extends StatelessWidget {
         },
       ),
       onGenerateRoute: (settings) {
-        return AppRouter.onGenerateRoute(settings, firebaseAuth);
+        return AppRouter.onGenerateRoute(settings, firebaseAuth, context);
       },
     );
   }

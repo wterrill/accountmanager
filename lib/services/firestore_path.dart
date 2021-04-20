@@ -27,4 +27,6 @@ class FirestorePath {
   // tbrInProgress
   static String completedTBRs() => 'completedTBRs';
   static String completedTBR(String id) => 'completedTBRs/$id';
+  //
+  static String user(String uid) => 'userInfo/$uid';
 }

@@ -18,10 +18,12 @@ class EmailPasswordSignInPage extends StatefulWidget {
   final EmailPasswordSignInModel model;
   final VoidCallback onSignedIn;
 
-  factory EmailPasswordSignInPage.withFirebaseAuth(FirebaseAuth firebaseAuth,
+  factory EmailPasswordSignInPage.withFirebaseAuth(
+      FirebaseAuth firebaseAuth, BuildContext context,
       {@required VoidCallback onSignedIn}) {
     return EmailPasswordSignInPage(
-      model: EmailPasswordSignInModel(firebaseAuth: firebaseAuth),
+      model: EmailPasswordSignInModel(
+          firebaseAuth: firebaseAuth, context: context),
       onSignedIn: onSignedIn,
     );
   }
@@ -35,6 +37,8 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
   final FocusScopeNode _node = FocusScopeNode();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
 
   EmailPasswordSignInModel get model => widget.model;
 
@@ -99,6 +103,18 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
     _submit();
   }
 
+  void _firstNameEditingComplete() {
+    if (model.canSubmitFirstName) {
+      _node.nextFocus();
+    }
+  }
+
+  void _lastNameEditingComplete() {
+    if (model.canSubmitLastName) {
+      _node.nextFocus();
+    }
+  }
+
   void _updateFormType(EmailPasswordSignInFormType formType) {
     model.updateFormType(formType);
     _emailController.clear();
@@ -109,9 +125,49 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
     return Image.asset('assets/images/sign_in_logo.png');
   }
 
+  Widget _buildFirstNameField() {
+    return TextFormField(
+      key: const Key('firstName'),
+      controller: _firstNameController,
+      decoration: InputDecoration(
+        labelText: EmailPasswordSignInStrings.firstNameLabel,
+        hintText: EmailPasswordSignInStrings.firstNameHint,
+        errorText: model.firstNameErrorText,
+        enabled: !model.isLoading,
+      ),
+      autocorrect: false,
+      textInputAction: TextInputAction.next,
+      keyboardType: TextInputType.name,
+      keyboardAppearance: Brightness.light,
+      onEditingComplete: _firstNameEditingComplete,
+      inputFormatters: <TextInputFormatter>[
+        model.firstNameInputFormatter,
+      ],
+    );
+  }
+
+  Widget _buildLastNameField() {
+    return TextFormField(
+      key: const Key('lastName'),
+      controller: _lastNameController,
+      decoration: InputDecoration(
+        labelText: EmailPasswordSignInStrings.lastNameLabel,
+        hintText: EmailPasswordSignInStrings.lastNameHint,
+        errorText: model.lastNameErrorText,
+        enabled: !model.isLoading,
+      ),
+      autocorrect: false,
+      textInputAction: TextInputAction.next,
+      keyboardType: TextInputType.name,
+      keyboardAppearance: Brightness.light,
+      onEditingComplete: _lastNameEditingComplete,
+      inputFormatters: <TextInputFormatter>[
+        model.lastNameInputFormatter,
+      ],
+    );
+  }
+
   Widget _buildEmailField() {
-    // _emailController.text = 'a@b.com';
-    // _passwordController.text = 'asdfghjkl;\'';
     return TextFormField(
       key: const Key('email'),
       controller: _emailController,
@@ -154,7 +210,10 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
       node: _node,
       child: Form(
         onChanged: () => model.updateWith(
-            email: _emailController.text, password: _passwordController.text),
+            email: _emailController.text,
+            password: _passwordController.text,
+            firstName: _firstNameController.text,
+            lastName: _lastNameController.text),
         child: Container(
           width: 100,
           child: Column(
@@ -162,6 +221,11 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
             children: <Widget>[
               _buildLogo(),
               const SizedBox(height: 8.0),
+              if (model.formType ==
+                  EmailPasswordSignInFormType.register) ...<Widget>[
+                _buildFirstNameField(),
+                _buildLastNameField(),
+              ],
               _buildEmailField(),
               if (model.formType !=
                   EmailPasswordSignInFormType.forgotPassword) ...<Widget>[
@@ -186,10 +250,6 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
                 ),
               const SizedBox(height: 32.0),
               FormSubmitButton(
-                // shape: RoundedRectangleBorder(
-                //     side: const BorderSide(color: Colors.black, width: 0.5),
-                //     borderRadius: BorderRadius.circular(25)),
-
                 key: const Key('primary-button'),
                 text: model.primaryButtonText,
                 loading: model.isLoading,

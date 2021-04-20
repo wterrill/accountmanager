@@ -28,6 +28,12 @@ class FirestoreDatabase {
         data: entry.toMap(),
       );
 
+  Future<void> saveUserInfo(String uid, Map<String, String> data) =>
+      _service.setData(
+        path: FirestorePath.user(uid),
+        data: data,
+      );
+
   Future<void> deleteEntry(Entry entry) =>
       _service.deleteData(path: FirestorePath.entry(uid, entry.id));
 

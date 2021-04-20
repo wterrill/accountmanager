@@ -13,6 +13,7 @@
 // ignore_for_file: unused_local_variable
 
 import 'package:accountmanager/models/assigned_tbr.dart';
+import 'package:accountmanager/services/firestore_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:accountmanager/models/entry.dart';
@@ -28,13 +29,14 @@ class AppRoutes {
 
 class AppRouter {
   static Route<dynamic> onGenerateRoute(
-      RouteSettings settings, FirebaseAuth firebaseAuth) {
+      RouteSettings settings, FirebaseAuth firebaseAuth, BuildContext context) {
     final args = settings.arguments;
     print('args=$args');
     switch (settings.name) {
       case AppRoutes.emailPasswordSignInPage:
         return MaterialPageRoute<dynamic>(
-          builder: (_) => EmailPasswordSignInPage.withFirebaseAuth(firebaseAuth,
+          builder: (_) => EmailPasswordSignInPage.withFirebaseAuth(
+              firebaseAuth, context,
               onSignedIn: args),
           settings: settings,
           fullscreenDialog: true,

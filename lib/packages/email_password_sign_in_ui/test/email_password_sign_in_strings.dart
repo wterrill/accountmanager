@@ -20,10 +20,20 @@ class EmailPasswordSignInStrings {
       'Check your email to reset your password';
   static const String emailLabel = 'Email';
   static const String emailHint = 'test@test.com';
+  static const String firstNameLabel = 'First Name';
+  static const String firstNameHint = 'i.e. John';
+  static const String lastNameLabel = 'Last Name';
+  static const String lastNameHint = 'i.e. Smith';
   static const String password8CharactersLabel = 'Password (8+ characters)';
   static const String passwordLabel = 'Password';
   static const String invalidEmailErrorText = 'Email is invalid';
   static const String invalidEmailEmpty = 'Email can\'t be empty';
+  static const String invalidFirstNameEmpty = 'First name can\'t be empty';
+  static const String invalidFirstNameErrorText =
+      'First name only allows alpha characters';
+  static const String invalidLastNameEmpty = 'Last name can\'t be empty';
+  static const String invalidLastNameErrorText =
+      'Last name only allows alpha characters';
   static const String invalidPasswordTooShort = 'Password is too short';
   static const String invalidPasswordEmpty = 'Password can\'t be empty';
 }
