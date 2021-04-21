@@ -3,6 +3,7 @@ import 'package:accountmanager/common_widgets/CustomDataTable.dart';
 import 'package:accountmanager/common_widgets/CustomDataTableSource.dart';
 import 'package:accountmanager/common_widgets/CustomPaginatedDataTable.dart';
 import 'package:accountmanager/common_widgets/status_box.dart';
+import 'package:accountmanager/models/tbr.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -263,11 +264,18 @@ class DTS extends CustomDataTableSource {
       return CustomDataRow(
           onSelectChanged: (_) {
             if (data[index].status.getStatusName() != 'Completed') {
-              _displayNextPage(
+              _displayNewTBREvalPage(
                   context: context, assignedTBR: data[index], mobile: false);
             } else {
-              print(
-                  'nope'); // Todo This should be a dialog at least... at most it should show the completed (and now editable) TBR
+              final AsyncValue<TBRinProgress> completedTbrAsyncValue =
+                  context.read(completedTbrStreamProvider(data[index].id));
+              completedTbrAsyncValue.whenData((completedTBR) {
+                _displayCompletedTBREvalPage(
+                    context: context,
+                    assignedTBR: data[index],
+                    completedTBR: completedTBR,
+                    mobile: false);
+              });
             }
           },
           cells: [
@@ -323,14 +331,13 @@ class DTS extends CustomDataTableSource {
   int get selectedRowCount => 0;
 } // End of DTS()
 
-Future<void> _displayNextPage(
+Future<void> _displayNewTBREvalPage(
     {@required BuildContext context,
     @required AssignedTBR assignedTBR,
     @required bool mobile}) async {
   //
   context.read(inProgressTbrProvider).state = assignedTBR;
-  Widget frame = Container(
-      color: Colors.white, child: TBRappPage(assignedTBR: assignedTBR));
+  Widget frame = Container(color: Colors.white, child: const TBRappPage());
   if (mobile) {
     frame = Expanded(
       child: Center(child: addMobileFrame(frame)),
@@ -339,5 +346,24 @@ Future<void> _displayNextPage(
     frame = Expanded(child: Center(child: frame));
   }
   print('_displayDialog => $assignedTBR');
+  context.read(widgetProvider).state = frame;
+}
+
+Future<void> _displayCompletedTBREvalPage(
+    {@required BuildContext context,
+    @required AssignedTBR assignedTBR,
+    @required TBRinProgress completedTBR,
+    @required bool mobile}) async {
+  context.read(inProgressTbrProvider).state = assignedTBR;
+
+  Widget frame = Container(color: Colors.white, child: const TBRappPage());
+  if (mobile) {
+    frame = Expanded(
+      child: Center(child: addMobileFrame(frame)),
+    );
+  } else {
+    frame = Expanded(child: Center(child: frame));
+  }
+  print('_displayDialog => $completedTBR');
   context.read(widgetProvider).state = frame;
 }

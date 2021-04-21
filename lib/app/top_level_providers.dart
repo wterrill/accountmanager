@@ -16,11 +16,11 @@ import 'package:flutter/material.dart';
 // tbrInProgress provider. This is used to pass values during development.
 
 final completedTbrStreamProvider =
-    StreamProvider.family<TBRinProgress, String>((ref, jobId) {
+    StreamProvider.family<TBRinProgress, String>((ref, id) {
   final database = ref.watch(databaseProvider);
   final questions = ref.watch(latestQuestionsProvider).state;
-  return database != null && jobId != null
-      ? database.completedTbrStream(completedTbrId: jobId, questions: questions)
+  return database != null && id != null
+      ? database.completedTbrStream(completedTbrId: id, questions: questions)
       : const Stream.empty();
 });
 

@@ -13,7 +13,8 @@ void main() {
       final technician = Technician.fromMap(
           const {'technician_name': 'This Is A Name', 'technician_id': 'abc'},
           'abc');
-      expect(technician, const Technician(name: 'This Is A Name', id: 'abc'));
+      expect(
+          technician, const Technician(firstName: 'This Is A Name', id: 'abc'));
     });
 
     test('missing name', () {
@@ -24,7 +25,7 @@ void main() {
 
   group('toMap', () {
     test('valid name, ratePerHour', () {
-      const technican = Technician(name: 'Blogging', id: 'abc');
+      const technican = Technician(firstName: 'Blogging', id: 'abc');
       expect(technican.toMap(),
           {'technician_name': 'Blogging', 'technician_id': 'abc'});
     });
@@ -32,24 +33,24 @@ void main() {
 
   group('equality', () {
     test('different properties, equality returns false', () {
-      const technician1 = Technician(name: 'DifferentName', id: 'abc');
-      const technician2 = Technician(name: 'SameName', id: 'abc');
+      const technician1 = Technician(firstName: 'DifferentName', id: 'abc');
+      const technician2 = Technician(firstName: 'SameName', id: 'abc');
       expect(technician1 == technician2, false);
     });
     test('same properties, equality returns true', () {
-      const technician1 = Technician(name: 'SameName', id: 'abc');
-      const technician2 = Technician(name: 'SameName', id: 'abc');
+      const technician1 = Technician(firstName: 'SameName', id: 'abc');
+      const technician2 = Technician(firstName: 'SameName', id: 'abc');
       expect(technician1 == technician2, true);
     });
   });
 
   group('props test', () {
     test('different properties, equality returns false', () {
-      const technician1 = Technician(name: 'Blogging1', id: 'abc');
+      const technician1 = Technician(firstName: 'Blogging1', id: 'abc');
       expect(listEquals(technician1.props, ['abc', 'Blogging']), false);
     });
     test('same properties, equality returns true', () {
-      const technician1 = Technician(name: 'Blogging', id: 'abc');
+      const technician1 = Technician(firstName: 'Blogging', id: 'abc');
       expect(listEquals(technician1.props, ['abc', 'Blogging']), true);
     });
   });

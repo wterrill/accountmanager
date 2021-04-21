@@ -1,4 +1,5 @@
 // ignore_for_file: file_names
+import 'package:accountmanager/app/web_view_home/assign_TBR/send_email_dialog.dart';
 import 'package:accountmanager/common_utilities/buttonConverter.dart';
 import 'package:accountmanager/app/web_view_home/assign_TBR/future_dropdown.dart';
 import 'package:date_time_picker/date_time_picker.dart';
@@ -183,6 +184,7 @@ class _AssignTBRState extends State<AssignTBR> {
                   ),
                   onPressedx: () async {
                     bool valid = true;
+                    AssignedTBR assignedTbrForEmail;
                     while (valid) {
                       bool validated;
                       validated = await _validateAndSaveForm(
@@ -224,10 +226,17 @@ class _AssignTBRState extends State<AssignTBR> {
                         unawaited(_sendAssignedTbr(assignedTbr: assignedTbr));
                         valid = false;
                       }
+                      assignedTbrForEmail = assignedTbr;
                     }
                     print('valid = $valid');
 
                     Navigator.of(context).pop();
+
+                    await showWidgetDialog(
+                        context: context,
+                        title: 'Send Email',
+                        widget:
+                            SendEmailDialog(assignedTbr: assignedTbrForEmail));
                   },
                 ),
                 const Spacer(),

@@ -15,12 +15,7 @@ class _HeaderState extends State<Header> {
   Widget build(BuildContext context) {
     final FirebaseAuth firebaseAuth = context.read(firebaseAuthProvider);
     final user = firebaseAuth.currentUser;
-    return
-        // Container(
-        // color: const Color(0xFF1B2E44),
-        // height: 146,
-        // child:
-        Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Padding(
@@ -40,9 +35,6 @@ class _HeaderState extends State<Header> {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Row(
             children: [
-              // CircleAvatar(
-              //   child: Image.asset('assets/images/avatar.png', width: 100),
-              // ),
               Container(
                 width: 80,
                 height: 80,
@@ -57,13 +49,6 @@ class _HeaderState extends State<Header> {
                           color: Colors.blue,
                           fontSize: 48,
                           fontFamily: 'Monoton'),
-
-                      //   Text(
-                      // user.email[0].toUpperCase(),
-                      // style: const TextStyle(
-                      //     color: Colors.blue,
-                      //     fontSize: 48,
-                      //     fontFamily: 'Allerta'),
                     ),
                   ),
                 )),

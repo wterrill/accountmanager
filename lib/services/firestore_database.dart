@@ -42,6 +42,23 @@ class FirestoreDatabase {
         data: job.toMap(),
       );
 
+  Future<void> sendEmail(
+      // this method uses the email extension in firestore.  Therefore, the email
+      // just needs to be posted in the 'mail' collection in the database.
+      {@required List<String> toList,
+      @required String from,
+      @required String body,
+      @required String subject}) {
+    final Map<String, dynamic> data = {
+      'message': {'html': body, 'subject': subject},
+      'to': toList
+    };
+    return _service.setData(
+      path: FirestorePath.mail(),
+      data: data,
+    );
+  }
+
   Future<void> deleteJob(Job job) async {
     // delete where entry.jobId == job.jobId
     final allEntries = await entriesStream(job: job).first;
@@ -135,8 +152,10 @@ class FirestoreDatabase {
     print('inside completedTbrStream');
     return _service.documentStream(
       path: FirestorePath.completedTBR(completedTbrId),
-      builder: (data, documentId) =>
-          TBRinProgress.fromMap(data, documentId, questions),
+      builder: (data, documentId) {
+        print(data);
+        return TBRinProgress.fromMap(data, documentId, questions);
+      },
     );
   }
 

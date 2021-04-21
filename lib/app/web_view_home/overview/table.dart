@@ -28,7 +28,6 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
 
   @override
   void initState() {
-    // tbrInProgress = context.read(completedTbrStreamProvider(widget.id));
     print('initState in OverviewPaginatedTableState');
     super.initState();
   }

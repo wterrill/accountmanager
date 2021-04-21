@@ -88,7 +88,7 @@ class ExcelButton extends ConsumerWidget {
     int no = 0;
     int na = 0;
     for (var i = 0; i < completedTBR.allQuestions.length; i++) {
-      String id = completedTBR.allQuestions[i].id;
+      final String id = completedTBR.allQuestions[i].id;
       if (completedTBR.answers[id].toString() ==
           [true, false, false].toString()) {
         yes++;
@@ -118,7 +118,7 @@ class ExcelButton extends ConsumerWidget {
     temp.add((yes + no + na).toString());
     sheetObject.insertRowIterables(temp, 1);
     temp = [];
-    int total = yes + no + na;
+    final int total = yes + no + na;
     temp.add('${(yes * 100 / total).toStringAsFixed(2)}%');
     temp.add('${(no * 100 / total).toStringAsFixed(2)}%');
     temp.add('${(na * 100 / total).toStringAsFixed(2)}%');

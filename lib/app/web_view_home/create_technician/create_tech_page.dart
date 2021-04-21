@@ -1,14 +1,13 @@
+import 'package:accountmanager/app/web_view_home/create_technician/technician_dialog.dart';
 import 'package:accountmanager/constants/text_styles.dart';
 import 'package:accountmanager/models/technician.dart';
 import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
-import 'package:accountmanager/app/web_view_home/create_technician/input_technician_ui.dart';
 import 'package:accountmanager/app/web_view_home/create_technician/technician_list_tile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:accountmanager/common_widgets/list_items_builder.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
-import 'package:pedantic/pedantic.dart';
 
 final technicianStreamProvider =
     StreamProvider.autoDispose<List<Technician>>((ref) {
@@ -18,19 +17,19 @@ final technicianStreamProvider =
 
 // watch database
 class CreateTechWebPage extends ConsumerWidget {
-  Future<void> _deleteTechnician(
-      BuildContext context, Technician technician) async {
-    try {
-      final database = context.read(databaseProvider);
-      await database.deleteTechnician(technician);
-    } catch (e) {
-      unawaited(showExceptionAlertDialog(
-        context: context,
-        title: 'Operation failed',
-        exception: e,
-      ));
-    }
-  }
+  // Future<void> _deleteTechnician(
+  //     BuildContext context, Technician technician) async {
+  //   try {
+  //     final database = context.read(databaseProvider);
+  //     await database.deleteTechnician(technician);
+  //   } catch (e) {
+  //     unawaited(showExceptionAlertDialog(
+  //       context: context,
+  //       title: 'Operation failed',
+  //       exception: e,
+  //     ));
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
@@ -84,8 +83,13 @@ class CreateTechWebPage extends ConsumerWidget {
                               //     onPressed: () =>
                               //         _deleteTechnician(context, technician)),
                               technician: technician,
-                              onTap:
-                                  () {} // => JobEntriesPage.show(context, job),
+                              onTap: () {
+                                showWidgetDialog(
+                                    context: context,
+                                    title: 'Technician information',
+                                    widget: TechnicianDialog(
+                                        technician: technician));
+                              } // => JobEntriesPage.show(context, job),
                               );
                           // onDismissed: (direction) =>
                           //     _deleteTechnician(context, technician),

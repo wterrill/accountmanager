@@ -33,7 +33,11 @@ void main() {
 
       final assignedtbr2 = AssignedTBR(
           id: 'abc',
-          technician: const Technician(name: 'a techs name', id: 'a techs id'),
+          technician: const Technician(
+              firstName: 'a techs name',
+              lastName: 'a techs last name',
+              email: 'tech@email.com',
+              id: 'a techs id'),
           company: const Company(id: 'an id', name: 'a company'), //'a company',
           questionnaireType: const QuestionnaireType(name: 'TBR', id: 'TBR id'),
           dueDate: DateTime.parse('2021-01-30T00:00:00.000'),
@@ -68,7 +72,11 @@ void main() {
     test('different properties, equality returns false', () {
       final assignedtbr1 = AssignedTBR(
           id: 'abc',
-          technician: const Technician(name: 'a techs name', id: 'a techs id'),
+          technician: const Technician(
+              firstName: 'a techs name',
+              lastName: 'a techs last name',
+              email: 'tech@email.com',
+              id: 'a techs id'),
           company: const Company(id: 'an id', name: 'a company'), //'a company',
           questionnaireType: const QuestionnaireType(name: 'TBR', id: 'TBR id'),
           dueDate: DateTime.parse('2021-01-30T00:00:00.000'),
@@ -77,7 +85,11 @@ void main() {
           assignedBy: 'a@b.com');
       final assignedtbr2 = AssignedTBR(
           id: 'abc',
-          technician: const Technician(name: 'a techs name', id: 'a techs id'),
+          technician: const Technician(
+              firstName: 'a techs name',
+              lastName: 'a techs last name',
+              email: 'tech@email.com',
+              id: 'a techs id'),
           company: const Company(id: 'an id', name: 'a company'), //'a company',
           questionnaireType: const QuestionnaireType(name: 'TBR', id: 'TBR id'),
           dueDate: DateTime.parse('2021-01-30T00:00:00.000'),
@@ -90,7 +102,11 @@ void main() {
     test('same properties, equality returns true', () {
       final assignedtbr1 = AssignedTBR(
           id: 'abc',
-          technician: const Technician(name: 'a techs name', id: 'a techs id'),
+          technician: const Technician(
+              firstName: 'a techs name',
+              lastName: 'a techs last name',
+              email: 'tech@email.com',
+              id: 'a techs id'),
           company: const Company(id: 'an id', name: 'a company'), //'a company',
           questionnaireType: const QuestionnaireType(name: 'TBR', id: 'TBR id'),
           dueDate: DateTime.parse('2021-01-30T00:00:00.000'),
@@ -99,7 +115,11 @@ void main() {
           assignedBy: 'a@b.com');
       final assignedtbr2 = AssignedTBR(
           id: 'abc',
-          technician: const Technician(name: 'a techs name', id: 'a techs id'),
+          technician: const Technician(
+              firstName: 'a techs name',
+              lastName: 'a techs last name',
+              email: 'tech@email.com',
+              id: 'a techs id'),
           company: const Company(id: 'an id', name: 'a company'), //'a company',
           questionnaireType: const QuestionnaireType(name: 'TBR', id: 'TBR id'),
           dueDate: DateTime.parse('2021-01-30T00:00:00.000'),
@@ -114,7 +134,11 @@ void main() {
     test('different properties, props equality returns false', () {
       final assignedtbr1 = AssignedTBR(
           id: '123',
-          technician: const Technician(name: 'a techs name', id: 'a techs id'),
+          technician: const Technician(
+              firstName: 'a techs name',
+              lastName: 'a techs last name',
+              email: 'tech@email.com',
+              id: 'a techs id'),
           company: const Company(id: 'an id', name: 'a company'), //'a company',
           questionnaireType: const QuestionnaireType(name: 'TBR', id: 'TBR id'),
           dueDate: DateTime.parse('2021-01-30T00:00:00.000'),
@@ -124,7 +148,11 @@ void main() {
 
       final List<dynamic> constantProps = <dynamic>[
         'abc',
-        const Technician(name: 'a techs name', id: 'a techs id'),
+        const Technician(
+            firstName: 'a techs name',
+            lastName: 'a techs last name',
+            email: 'tech@email.com',
+            id: 'a techs id'),
         const Company(id: 'an id', name: 'a company'), //'a company',
         const QuestionnaireType(name: 'TBR', id: 'TBR id'),
         DateTime.parse('2021-01-30T00:00:00.000'),
@@ -137,7 +165,11 @@ void main() {
     test('same properties, props equality returns true', () {
       final assignedtbr1 = AssignedTBR(
           id: 'abc',
-          technician: const Technician(name: 'a techs name', id: 'a techs id'),
+          technician: const Technician(
+              firstName: 'a techs name',
+              lastName: 'a techs last name',
+              email: 'tech@email.com',
+              id: 'a techs id'),
           company: const Company(id: 'an id', name: 'a company'), //'a company',
           questionnaireType: const QuestionnaireType(name: 'TBR', id: 'TBR id'),
           dueDate: DateTime.parse('2021-01-30T00:00:00.000'),
@@ -147,7 +179,11 @@ void main() {
 
       final List<dynamic> constantProps = <dynamic>[
         'abc',
-        const Technician(name: 'a techs name', id: 'a techs id'),
+        const Technician(
+            firstName: 'a techs name',
+            lastName: 'a techs last name',
+            email: 'tech@email.com',
+            id: 'a techs id'),
         const Company(id: 'an id', name: 'a company'), //'a company',
         const QuestionnaireType(name: 'TBR', id: 'TBR id'),
         DateTime.parse('2021-01-30T00:00:00.000'),
