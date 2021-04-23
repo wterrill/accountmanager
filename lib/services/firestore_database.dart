@@ -28,19 +28,21 @@ class FirestoreDatabase {
         data: entry.toMap(),
       );
 
-  Future<void> saveUserInfo(String uid, Map<String, String> data) =>
-      _service.setData(
-        path: FirestorePath.user(uid),
-        data: data,
-      );
+  Future<void> saveUserInfo(String uid, Map<String, String> data) {
+    print("inside saveUserInfo");
+    return _service.setData(
+      path: FirestorePath.user(uid),
+      data: data,
+    );
+  }
 
   Future<void> deleteEntry(Entry entry) =>
       _service.deleteData(path: FirestorePath.entry(uid, entry.id));
 
-  Future<void> setJob(Job job) => _service.setData(
-        path: FirestorePath.job(uid, job.id),
-        data: job.toMap(),
-      );
+  // Future<void> setJob(Job job) => _service.setData(
+  //       path: FirestorePath.job(uid, job.id),
+  //       data: job.toMap(),
+  //     );
 
   Future<void> sendEmail(
       // this method uses the email extension in firestore.  Therefore, the email
@@ -59,27 +61,27 @@ class FirestoreDatabase {
     );
   }
 
-  Future<void> deleteJob(Job job) async {
-    // delete where entry.jobId == job.jobId
-    final allEntries = await entriesStream(job: job).first;
-    for (final entry in allEntries) {
-      if (entry.jobId == job.id) {
-        await deleteEntry(entry);
-      }
-    }
-    // delete job
-    await _service.deleteData(path: FirestorePath.job(uid, job.id));
-  }
+  // Future<void> deleteJob(Job job) async {
+  //   // delete where entry.jobId == job.jobId
+  //   final allEntries = await entriesStream(job: job).first;
+  //   for (final entry in allEntries) {
+  //     if (entry.jobId == job.id) {
+  //       await deleteEntry(entry);
+  //     }
+  //   }
+  //   // delete job
+  //   await _service.deleteData(path: FirestorePath.job(uid, job.id));
+  // }
 
-  Stream<Job> jobStream({@required String jobId}) => _service.documentStream(
-        path: FirestorePath.job(uid, jobId),
-        builder: (data, documentId) => Job.fromMap(data, documentId),
-      );
+  // Stream<Job> jobStream({@required String jobId}) => _service.documentStream(
+  //       path: FirestorePath.job(uid, jobId),
+  //       builder: (data, documentId) => Job.fromMap(data, documentId),
+  //     );
 
-  Stream<List<Job>> jobsStream() => _service.collectionStream(
-        path: FirestorePath.jobs(uid),
-        builder: (data, documentId) => Job.fromMap(data, documentId),
-      );
+  // Stream<List<Job>> jobsStream() => _service.collectionStream(
+  //       path: FirestorePath.jobs(uid),
+  //       builder: (data, documentId) => Job.fromMap(data, documentId),
+  //     );
 
   Stream<List<Entry>> entriesStream({Job job}) =>
       _service.collectionStream<Entry>(

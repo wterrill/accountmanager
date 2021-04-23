@@ -18,14 +18,14 @@ Future<bool> showAlertDialog({
             FlatButtonX(
               childx: Text(cancelActionText),
               onPressedx: () {
-                print('here');
+                print('here_here');
                 Navigator.of(context).pop(false);
               },
             ),
           FlatButtonX(
             childx: Text(defaultActionText),
             onPressedx: () {
-              print('here');
+              print('here_and_there');
               Navigator.of(context).pop(true);
             },
           ),

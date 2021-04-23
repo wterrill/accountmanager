@@ -25,7 +25,6 @@ final completedTbrStreamProvider =
 });
 
 final inProgressTbrProvider = StateProvider<AssignedTBR>((ref) {
-  print('currentAssignedTbrProvider ** ** **');
   return null;
 });
 final questionStreamProvider =

@@ -76,7 +76,7 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
               .createUserWithEmailAndPassword(email: email, password: password);
           final FirestoreDatabase firestoreDatabase =
               await context.read(databaseProvider);
-
+          print("just before saveUserInfo");
           await firestoreDatabase.saveUserInfo(userCredential.user.uid, {
             'firstName': firstName,
             'lastName': lastName,
