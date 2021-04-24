@@ -29,7 +29,7 @@ class FirestoreDatabase {
       );
 
   Future<void> saveUserInfo(String uid, Map<String, String> data) {
-    print("inside saveUserInfo");
+    print('inside saveUserInfo');
     return _service.setData(
       path: FirestorePath.user(uid),
       data: data,

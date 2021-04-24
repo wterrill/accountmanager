@@ -54,7 +54,8 @@ final firebaseAuthProvider = Provider<FirebaseAuth>((ref) {
   return firebaseAuthInstance;
 });
 
-final registeredProvider = StateProvider<Map<String, String>>((ref) => null);
+final registeredProvider =
+    StateProvider<Map<String, String>>((ref) => {'null': 'null'});
 
 final authStateChangesProvider = StreamProvider<User>((ref) {
   final Stream<User> userDataStream =
