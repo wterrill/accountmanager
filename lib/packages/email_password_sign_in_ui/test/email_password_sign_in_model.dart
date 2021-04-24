@@ -74,16 +74,14 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
         case EmailPasswordSignInFormType.register:
           final UserCredential userCredential = await firebaseAuth
               .createUserWithEmailAndPassword(email: email, password: password);
-          final FirestoreDatabase firestoreDatabase =
-              await context.read(databaseProvider);
-          print('firestoreDatabase reads: $firestoreDatabase');
-          print("just before saveUserInfo");
-          await firestoreDatabase.saveUserInfo(userCredential.user.uid, {
+
+          context.read(registeredProvider).state = {
             'firstName': firstName,
             'lastName': lastName,
             'email': email,
             'uid': userCredential.user.uid
-          });
+          };
+
           break;
         case EmailPasswordSignInFormType.forgotPassword:
           await firebaseAuth.sendPasswordResetEmail(email: email);

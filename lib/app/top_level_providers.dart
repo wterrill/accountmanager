@@ -50,11 +50,16 @@ final widgetProvider = StateProvider<Widget>((ref) {
 });
 
 final firebaseAuthProvider = Provider<FirebaseAuth>((ref) {
-  return FirebaseAuth.instance;
+  final FirebaseAuth firebaseAuthInstance = FirebaseAuth.instance;
+  return firebaseAuthInstance;
 });
 
+final registeredProvider = StateProvider<Map<String, String>>((ref) => null);
+
 final authStateChangesProvider = StreamProvider<User>((ref) {
-  return ref.watch(firebaseAuthProvider).authStateChanges();
+  final Stream<User> userDataStream =
+      ref.watch(firebaseAuthProvider).authStateChanges();
+  return userDataStream;
 });
 
 final databaseProvider = Provider<FirestoreDatabase>((ref) {

@@ -1,5 +1,6 @@
 import 'package:accountmanager/provider_defs/provider_defs.dart';
 import 'package:accountmanager/app/web_view_home/home/home_page.dart';
+import 'package:accountmanager/services/firestore_database.dart';
 import 'package:animations/animations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,7 +10,7 @@ import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/app/sign_in/sign_in_page.dart';
 import 'package:accountmanager/routing/app_router.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:accountmanager/services/shared_preferences_service.dart';
 
 String filename = 'main.dart:';
@@ -77,6 +78,19 @@ class MyApp extends StatelessWidget {
           );
         },
         signedInBuilder: (_) {
+          final FirestoreDatabase firestoreDatabase =
+              context.read(databaseProvider);
+
+          final Map<String, String> registeredData =
+              context.read(registeredProvider).state;
+          if (registeredData != null) {
+            print('firestoreDatabase reads: $firestoreDatabase');
+            print('just before saveUserInfo');
+            firestoreDatabase.saveUserInfo(
+                registeredData['uid'], registeredData);
+            context.read(registeredProvider).state = null;
+          }
+
           // return HomePage();
           return WebViewHomePage();
         },
