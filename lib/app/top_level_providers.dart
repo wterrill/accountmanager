@@ -54,9 +54,6 @@ final firebaseAuthProvider = Provider<FirebaseAuth>((ref) {
   return firebaseAuthInstance;
 });
 
-final registeredProvider =
-    StateProvider<Map<String, String>>((ref) => {'null': 'null'});
-
 final authStateChangesProvider = StreamProvider<User>((ref) {
   final Stream<User> userDataStream =
       ref.watch(firebaseAuthProvider).authStateChanges();
@@ -79,3 +76,29 @@ final loggerProvider = Provider<Logger>((ref) {
     ),
   );
 });
+
+class RegisteredClass extends StateNotifier<Map<String, String>> {
+  Map<String, String> currentValue;
+  RegisteredClass() : super({'null': 'null'});
+
+  void reset() {
+    state = {'null': 'null'};
+  }
+
+  Map<String, String> get getValue => state;
+
+// ignore: use_setters_to_change_properties
+  void set(Map<String, String> newValue) {
+    state = newValue;
+  }
+}
+
+final registeredProvider = StateNotifierProvider((ref) => RegisteredClass());
+
+// class Counter extends StateNotifier<int> {
+//   Counter(): super(0);
+
+//   void increment() => state = state + 1;
+// }
+
+// final counterProvider = StateNotifierProvider((ref) => Counter());
