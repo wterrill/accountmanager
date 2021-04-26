@@ -78,19 +78,6 @@ class MyApp extends StatelessWidget {
           );
         },
         signedInBuilder: (_) {
-          final FirestoreDatabase firestoreDatabase =
-              context.read(databaseProvider);
-
-          final Map<String, String> registeredData =
-              context.read(registeredProvider).state;
-          if (registeredData.toString() != '{\'null\': \'null\'}') {
-            print('firestoreDatabase reads: $firestoreDatabase');
-            print('just before saveUserInfo');
-            firestoreDatabase.saveUserInfo(
-                registeredData['uid'], registeredData);
-          }
-
-          // return HomePage();
           return WebViewHomePage();
         },
       ),
