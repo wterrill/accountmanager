@@ -24,8 +24,9 @@ void main() {
       MaterialApp(
         home: Scaffold(
           body: Builder(
-            builder: (_) => EmailPasswordSignInPage(
-              model: EmailPasswordSignInModel(firebaseAuth: mockAuth),
+            builder: (context) => EmailPasswordSignInPage(
+              model: EmailPasswordSignInModel(
+                  context: context, firebaseAuth: mockAuth),
               onSignedIn: onSignedIn,
             ),
           ),

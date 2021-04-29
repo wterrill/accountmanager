@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:accountmanager/buildTime/flutter_test_bool.dart';
 import 'package:accountmanager/models/tbr.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:flutter/material.dart';
@@ -15,52 +16,57 @@ class TestButtonRow extends ConsumerWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        buildTestButton(
-          context: context,
-          text: 'Fill out all YES',
-          boolList: [true, false, false],
-          color: Colors.green,
-        ),
-        buildTestButton(
-          context: context,
-          text: 'Fill out all No',
-          boolList: [false, true, false],
-          color: Colors.red,
-        ),
-        buildTestButton(
-          context: context,
-          text: 'Fill out all N/A',
-          boolList: [false, false, true],
-          color: Colors.grey,
-        ),
-        buildTestButton(
+        if (testingBool)
+          buildTestButton(
             context: context,
-            text: 'fill out all Random',
-            color: Colors.yellow,
-            onPressedNew: () {
-              for (final String key in tbrInProgress.answers.keys) {
-                final int randomNumber = Random().nextInt(3);
-                final List<bool> temp = [false, false, false];
-                temp[randomNumber] = true;
-                tbrInProgress.answers[key] = temp;
-              }
-              tbrInProgress.updatePercentages();
-              context.read(tbrInProgressProvider).state = tbrInProgress;
-            }),
-        buildTestButton(
+            text: 'Fill out all YES',
+            boolList: [true, false, false],
+            color: Colors.green,
+          ),
+        if (testingBool)
+          buildTestButton(
             context: context,
-            text: 'fill out all comments',
-            color: Colors.yellow,
-            onPressedNew: () {
-              for (final String key in tbrInProgress.answers.keys) {
-                tbrInProgress.adminComment[key] =
-                    'admin: ${tbrInProgress.getQuestionFromId(key).questionText}';
-                tbrInProgress.tamNotes[key] =
-                    'Tam: ${tbrInProgress.getQuestionFromId(key).questionName}';
-              }
-              tbrInProgress.updatePercentages();
-              context.read(tbrInProgressProvider).state = tbrInProgress;
-            }),
+            text: 'Fill out all No',
+            boolList: [false, true, false],
+            color: Colors.red,
+          ),
+        if (testingBool)
+          buildTestButton(
+            context: context,
+            text: 'Fill out all N/A',
+            boolList: [false, false, true],
+            color: Colors.grey,
+          ),
+        if (testingBool)
+          buildTestButton(
+              context: context,
+              text: 'fill out all Random',
+              color: Colors.yellow,
+              onPressedNew: () {
+                for (final String key in tbrInProgress.answers.keys) {
+                  final int randomNumber = Random().nextInt(3);
+                  final List<bool> temp = [false, false, false];
+                  temp[randomNumber] = true;
+                  tbrInProgress.answers[key] = temp;
+                }
+                tbrInProgress.updatePercentages();
+                context.read(tbrInProgressProvider).state = tbrInProgress;
+              }),
+        if (testingBool)
+          buildTestButton(
+              context: context,
+              text: 'fill out all comments',
+              color: Colors.yellow,
+              onPressedNew: () {
+                for (final String key in tbrInProgress.answers.keys) {
+                  tbrInProgress.adminComment[key] =
+                      'admin: ${tbrInProgress.getQuestionFromId(key).questionText}';
+                  tbrInProgress.tamNotes[key] =
+                      'Tam: ${tbrInProgress.getQuestionFromId(key).questionName}';
+                }
+                tbrInProgress.updatePercentages();
+                context.read(tbrInProgressProvider).state = tbrInProgress;
+              }),
       ],
     );
   }

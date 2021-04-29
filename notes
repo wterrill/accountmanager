@@ -11,3 +11,7 @@ flutter config --enable-macos-desktop
 // singh  312.926.6000   
 
 // fax  312.926.2007    central  scheduling 312.926.0628
+
+firestore database import / export
+https://stackoverflow.com/questions/46617960/export-json-from-firestore
+https://clemfournier.medium.com/how-to-get-my-firebase-service-account-key-file-f0ec97a21620

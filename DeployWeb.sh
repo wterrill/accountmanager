@@ -46,6 +46,16 @@ printf  "\";" >> lib/buildTime/flutter_date.dart
 sed -i "" "s/\"/'/g" lib/buildTime/flutter_date.dart
 echo "Continuing flutter build"
 
+BOOLVALUE="true"
+echo $BOOLVALUE
+if [ $1 == production ]
+then
+BOOLVALUE="false"
+echo $BOOLVALUE
+fi
+rm lib/buildTime/flutter_test_bool.dart
+echo "Building boolean test value"
+echo "const bool testingBool = $BOOLVALUE;" >> lib/buildTime/flutter_test_bool.dart
 
 #############
 ## Testing ##

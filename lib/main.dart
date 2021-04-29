@@ -1,6 +1,5 @@
 import 'package:accountmanager/provider_defs/provider_defs.dart';
 import 'package:accountmanager/app/web_view_home/home/home_page.dart';
-import 'package:accountmanager/services/firestore_database.dart';
 import 'package:animations/animations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';

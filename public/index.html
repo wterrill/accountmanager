@@ -38,6 +38,7 @@
 
   <script>
     // Your web app's Firebase configuration
+    // PRODUCTION
     // Initialize Firebase
     var firebaseConfig = {
       apiKey: "AIzaSyCeHOCdG2CjCzxChmeDV1WdonR-KqD6BDY",
@@ -49,7 +50,7 @@
       measurementId: "G-GQD0ZLD62J"
     };
 
-
+    // TESTING
     // var firebaseConfig = {
     //   apiKey: "AIzaSyDyIty8iAVXjXhKlWJHtOx0Tgfjc9pahiU",
     //   authDomain: "devmxotechaccountmanager.firebaseapp.com",
@@ -66,7 +67,7 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function () {
-        navigator.serviceWorker.register('flutter_service_worker.js?v=3444732874');
+        navigator.serviceWorker.register('flutter_service_worker.js?v=614582744');
       });
     }
   </script>

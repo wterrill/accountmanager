@@ -234,9 +234,9 @@ class _AssignTBRState extends State<AssignTBR> {
 
                     await showWidgetDialog(
                         context: context,
-                        title: 'Send Email',
-                        widget:
-                            SendEmailDialog(assignedTbr: assignedTbrForEmail));
+                        title: 'Sent Email',
+                        widget: SendEmailAssignDialog(
+                            assignedTbr: assignedTbrForEmail));
                   },
                 ),
                 const Spacer(),

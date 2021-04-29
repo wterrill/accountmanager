@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:accountmanager/models/assigned_tbr.dart';
+import 'package:intl/intl.dart';
 
-class SendEmailDialog extends StatelessWidget {
-  const SendEmailDialog({
+class SendEmailAssignDialog extends StatelessWidget {
+  const SendEmailAssignDialog({
     Key key,
     @required this.assignedTbr,
   }) : super(key: key);
@@ -14,8 +15,15 @@ class SendEmailDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String emailText =
-        'You have been assigned a TBR by: \n\n${assignedTbr.assignedBy} \n\nfor the company: \n\n${assignedTbr.company.name} \n\nwith a due date of: \n\n${assignedTbr.dueDate} \nand a client meeting date of:\n\n${assignedTbr.clientMeetingDate}';
+    final String emailText = '''
+        <p>You have been assigned a TBR by:</p> 
+        <h2>${assignedTbr.assignedBy}</h2> 
+        <p> for the company: </p>
+        <h2>${assignedTbr.company.name}</h2> 
+        <p>with a due date of: </p>
+        <h2>${DateFormat.yMMMEd().format(assignedTbr.dueDate)} </h2>
+        <p>and a client meeting date of:</p>
+        <h2>${DateFormat.yMMMEd().format(assignedTbr.clientMeetingDate)}</h2>''';
     final FirestoreDatabase database = context.read(databaseProvider);
     database.sendEmail(
         toList: [assignedTbr.technician.email],
@@ -28,7 +36,7 @@ class SendEmailDialog extends StatelessWidget {
         Text('from: ${assignedTbr.assignedBy}'),
         Text('to: ${assignedTbr.technician.email}'),
         Text('time: ${DateTime.parse(assignedTbr.id)}'),
-        Text(emailText)
+        const Text('email sent')
       ],
     );
   }

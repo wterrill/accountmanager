@@ -1,3 +1,4 @@
+import 'package:accountmanager/app/web_view_home/app_page/tbr/tbr_builder/send_email_finished_dialog.dart';
 import 'package:accountmanager/models/Status.dart';
 import 'package:accountmanager/models/assigned_tbr.dart';
 import 'package:accountmanager/models/tbr.dart';
@@ -94,6 +95,12 @@ class SubmitButtonRow extends ConsumerWidget {
                                   assignedTbr: newassignedTbr);
                               await sendCompletedEvaluation(
                                   tbrInProgress: tbrInProgress);
+
+                              await showWidgetDialog(
+                                  context: context,
+                                  title: 'Sent Email',
+                                  widget: SendEmailFinishedDialog(
+                                      assignedTbr: newassignedTbr));
 
                               Navigator.of(context).pop();
                             }),
