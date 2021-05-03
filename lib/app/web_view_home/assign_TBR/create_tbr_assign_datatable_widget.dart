@@ -15,7 +15,7 @@ import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
 
 // typedef ItemWidgetBuilder<T> = Widget Function(BuildContext context, T item);
 
-final assignedTbrStreamProvider =
+final AutoDisposeStreamProvider<List<AssignedTBR>>? assignedTbrStreamProvider =
     StreamProvider.autoDispose<List<AssignedTBR>>((ref) {
   final database = ref.watch(databaseProvider);
   return database?.assignedTbrStream() ?? const Stream.empty();
@@ -24,13 +24,13 @@ final assignedTbrStreamProvider =
 class CreateTBRAssignDataTableWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final assignedTbrAsyncValue = watch(assignedTbrStreamProvider);
+    final assignedTbrAsyncValue = watch(assignedTbrStreamProvider!);
     return DataTableBuilder(data: assignedTbrAsyncValue);
   }
 }
 
 class DataTableBuilder extends StatefulWidget {
-  const DataTableBuilder({Key key, @required this.data}) : super(key: key);
+  const DataTableBuilder({Key? key, required this.data}) : super(key: key);
   final AsyncValue<List<AssignedTBR>> data;
 
   @override
@@ -113,7 +113,7 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                   label: Text(Strings.companyStrings.company),
                   onSort: (columnIndex, ascending) {
                     dtsSource.sort<String>(
-                        getField: (d) => d.company.name,
+                        getField: (d) => d.company!.name,
                         ascending: _sortAscending);
                     setState(() {
                       _sortColumnIndex = columnIndex;
@@ -125,7 +125,7 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                   label: Text(Strings.technicianStrings.technician),
                   onSort: (columnIndex, ascending) {
                     dtsSource.sort<String>(
-                        getField: (d) => d.technician.firstName,
+                        getField: (d) => d.technician!.firstName,
                         ascending: _sortAscending);
                     setState(() {
                       _sortColumnIndex = columnIndex;
@@ -162,7 +162,7 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                   label: Text(Strings.tbrStrings.type),
                   onSort: (columnIndex, ascending) {
                     dtsSource.sort<String>(
-                        getField: (d) => d.questionnaireType.name,
+                        getField: (d) => d.questionnaireType!.name,
                         ascending: _sortAscending);
                     setState(() {
                       _sortColumnIndex = columnIndex;
@@ -218,14 +218,14 @@ class DTS extends CustomDataTableSource {
           },
           cells: [
             CustomDataCell(statusBox(data[index].status.getStatusName())),
-            CustomDataCell(Text(data[index].company.toDropDownString())),
-            CustomDataCell(Text(data[index].technician.toDropDownString())),
+            CustomDataCell(Text(data[index].company!.toDropDownString()!)),
+            CustomDataCell(Text(data[index].technician!.toDropDownString())),
             CustomDataCell(
-                Text(DateFormat.yMMMEd().format(data[index].dueDate))),
+                Text(DateFormat.yMMMEd().format(data[index].dueDate!))),
             CustomDataCell(Text(
-                DateFormat.yMMMEd().format(data[index].clientMeetingDate))),
-            CustomDataCell(Text(data[index].questionnaireType.name)),
-            CustomDataCell(Text(data[index].assignedBy))
+                DateFormat.yMMMEd().format(data[index].clientMeetingDate!))),
+            CustomDataCell(Text(data[index].questionnaireType!.name)),
+            CustomDataCell(Text(data[index].assignedBy!))
           ]);
     } else {
       return const CustomDataRow(cells: [
@@ -241,15 +241,15 @@ class DTS extends CustomDataTableSource {
   }
 
   void sort<T>(
-      {Comparable<T> Function(AssignedTBR d) getField, bool ascending}) {
+      {Comparable<T>? Function(AssignedTBR d)? getField, bool? ascending}) {
     data.sort((a, b) {
-      if (!ascending) {
+      if (!ascending!) {
         final AssignedTBR c = a;
         a = b;
         b = c;
       }
-      final Comparable<T> aValue = getField(a);
-      final Comparable<T> bValue = getField(b);
+      final Comparable<T> aValue = getField!(a)!;
+      final Comparable<T> bValue = getField(b)!;
       return Comparable.compare(aValue, bValue);
     });
     // notifyListeners();
@@ -268,7 +268,7 @@ class DTS extends CustomDataTableSource {
 Future<void> _displayDialog(BuildContext context, AssignedTBR data) async {
   print('_displayDialog => $data');
   try {
-    final Map<String, dynamic> result = await showWidgetDialog(
+    final Map<String, dynamic>? result = await showWidgetDialog(
       context: context,
       title: 'Assign TBR',
       widget: AssignTBR(data: data),

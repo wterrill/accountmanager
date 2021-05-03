@@ -15,8 +15,8 @@ import 'mocks.dart';
 void main() {
   setupFirebaseAuthMocks();
   group('sign-in page', () {
-    MockFirebaseAuth mockFirebaseAuth;
-    MockNavigatorObserver mockNavigatorObserver;
+    MockFirebaseAuth? mockFirebaseAuth;
+    MockNavigatorObserver? mockNavigatorObserver;
 
     setUp(() async {
       mockFirebaseAuth = MockFirebaseAuth();
@@ -37,13 +37,13 @@ void main() {
               home: SignInPage(),
               onGenerateRoute: (settings) =>
                   AppRouter.onGenerateRoute(settings, firebaseAuth, context),
-              navigatorObservers: [mockNavigatorObserver],
+              navigatorObservers: [mockNavigatorObserver!],
             );
           }),
         ),
       );
       // didPush is called once when the widget is first built
-      verify(mockNavigatorObserver.didPush(any, any)).called(1);
+      verify(mockNavigatorObserver!.didPush(any!, any)).called(1);
     }
 
     testWidgets('email & password navigation', (tester) async {
@@ -56,7 +56,7 @@ void main() {
       await tester.tap(emailPasswordButton);
       await tester.pumpAndSettle();
 
-      verify(mockNavigatorObserver.didPush(any, any)).called(1);
+      verify(mockNavigatorObserver!.didPush(any!, any)).called(1);
     });
   });
 }

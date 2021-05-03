@@ -15,13 +15,13 @@ import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
 class CreateQuestionDataTableWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final questionAsyncValue = watch(questionStreamProvider);
+    final questionAsyncValue = watch(questionStreamProvider!);
     return DataTableBuilder(data: questionAsyncValue);
   }
 }
 
 class DataTableBuilder extends StatefulWidget {
-  const DataTableBuilder({Key key, @required this.data}) : super(key: key);
+  const DataTableBuilder({Key? key, required this.data}) : super(key: key);
   final AsyncValue<List<Question>> data;
 
   @override
@@ -212,15 +212,15 @@ class DTS extends CustomDataTableSource {
     }
   }
 
-  void sort<T>({Comparable<T> Function(Question d) getField, bool ascending}) {
+  void sort<T>({Comparable<T>? Function(Question d)? getField, bool? ascending}) {
     data.sort((a, b) {
-      if (!ascending) {
+      if (!ascending!) {
         final Question c = a;
         a = b;
         b = c;
       }
-      final Comparable<T> aValue = getField(a);
-      final Comparable<T> bValue = getField(b);
+      final Comparable<T> aValue = getField!(a)!;
+      final Comparable<T> bValue = getField(b)!;
       return Comparable.compare(aValue, bValue);
     });
   }
@@ -238,7 +238,7 @@ class DTS extends CustomDataTableSource {
 Future<void> _displayDialog(BuildContext context, Question data) async {
   print('_displayDialog => $data');
   try {
-    final Map<String, dynamic> result = await showWidgetDialog(
+    final Map<String, dynamic>? result = await showWidgetDialog(
         context: context,
         title: 'TBR Questions',
         widget:

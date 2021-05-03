@@ -11,17 +11,17 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class TBRbuilder extends StatefulWidget {
-  const TBRbuilder({Key key, this.questionList}) : super(key: key);
-  final List<Question> questionList;
+  const TBRbuilder({Key? key, this.questionList}) : super(key: key);
+  final List<Question>? questionList;
 
   @override
   _TBRbuilderState createState() => _TBRbuilderState();
 }
 
 class TBRfillPageData {
-  String selectedSection;
-  String selectedCategory;
-  List<Question> filteredQuestions;
+  String? selectedSection;
+  String? selectedCategory;
+  late List<Question> filteredQuestions;
 }
 
 final tbrFillPageDataProvider = StateProvider<TBRfillPageData>((ref) {
@@ -32,18 +32,18 @@ class _TBRbuilderState extends State<TBRbuilder> {
   // String selectedSection;
   // String selectedCategory;
   // List<Question> filteredQuestions;
-  TBRinProgress tbrInProgress;
-  TBRfillPageData tbrFillPageData;
+  TBRinProgress? tbrInProgress;
+  late TBRfillPageData tbrFillPageData;
 
   @override
   void initState() {
     tbrFillPageData = context.read(tbrFillPageDataProvider).state;
     tbrInProgress = context.read(tbrInProgressProvider).state;
-    tbrInProgress.initialize(widget.questionList);
-    tbrFillPageData.selectedSection = tbrInProgress.sections[1];
-    tbrFillPageData.selectedCategory = tbrInProgress
-        .categories[tbrFillPageData.selectedSection.toLowerCase()][0];
-    tbrFillPageData.filteredQuestions = tbrInProgress.getQuestions(
+    tbrInProgress!.initialize(widget.questionList);
+    tbrFillPageData.selectedSection = tbrInProgress!.sections[1];
+    tbrFillPageData.selectedCategory = tbrInProgress!
+        .categories[tbrFillPageData.selectedSection!.toLowerCase()]![0];
+    tbrFillPageData.filteredQuestions = tbrInProgress!.getQuestions(
         sectionIn: tbrFillPageData.selectedSection,
         categoryIn: tbrFillPageData.selectedCategory);
 
@@ -56,7 +56,7 @@ class _TBRbuilderState extends State<TBRbuilder> {
     return Consumer(builder: (context, watch, child) {
       // List<String> beer = watch(tbrInProgressProvider).state.sections;
       // ignore: unused_local_variable
-      final TBRinProgress thisIsJustToUpdateTheScreen =
+      final TBRinProgress? thisIsJustToUpdateTheScreen =
           watch(tbrInProgressProvider).state;
 
       return Container(
@@ -69,6 +69,6 @@ class _TBRbuilderState extends State<TBRbuilder> {
           const BottomArrows(),
         ]),
       );
-    });
+    } as Widget Function(BuildContext, T Function<T>(ProviderBase<Object?, T>), Widget?));
   }
 }

@@ -1,3 +1,3 @@
 abstract class DropdownModel {
-  String toDropDownString();
+  String? toDropDownString();
 }

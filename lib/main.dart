@@ -72,7 +72,7 @@ class MyApp extends StatelessWidget {
               }
               print('didCompleteOnboarding1: $didCompleteOnboarding');
               return didCompleteOnboarding ? SignInPage() : OnboardingPage();
-            },
+            } as Widget Function(BuildContext, T Function<T>(ProviderBase<Object?, T>), Widget?),
           );
         },
         signedInBuilder: (_) {

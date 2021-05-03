@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final sideBarButtonStateProvider = StateProvider<String>((ref) {
+final sideBarButtonStateProvider = StateProvider<String?>((ref) {
   return 'none';
 });
 
 class SidebarButton extends ConsumerWidget {
   const SidebarButton(
-      {Key key,
+      {Key? key,
       this.text,
       this.faIcon,
       this.onPressedx,
@@ -17,11 +17,11 @@ class SidebarButton extends ConsumerWidget {
       : super(key: key);
 
   // final TextStyle buttonStyle;
-  final String text;
-  final IconData faIcon;
-  final Function onPressedx;
-  final String lastText;
-  final Widget imageIcon;
+  final String? text;
+  final IconData? faIcon;
+  final Function? onPressedx;
+  final String? lastText;
+  final Widget? imageIcon;
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
@@ -31,7 +31,7 @@ class SidebarButton extends ConsumerWidget {
     } else {
       selected = false;
     }
-    Widget image = imageIcon;
+    Widget? image = imageIcon;
     if (faIcon != null) {
       image = FaIcon(
         faIcon,
@@ -93,12 +93,12 @@ class SidebarButton extends ConsumerWidget {
             const SizedBox(
               width: 15,
             ),
-            Text(text,
+            Text(text!,
                 style: const TextStyle(color: Colors.white, fontSize: 16))
           ]),
         ),
         onPressed: () {
-          onPressedx.call();
+          onPressedx!.call();
           context.read(sideBarButtonStateProvider).state = text;
         });
   }

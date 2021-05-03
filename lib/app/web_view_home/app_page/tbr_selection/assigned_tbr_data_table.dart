@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class IpaginatedTable extends StatefulWidget {
-  const IpaginatedTable({Key key}) : super(key: key);
+  const IpaginatedTable({Key? key}) : super(key: key);
 
   @override
   _IpaginatedTableState createState() => _IpaginatedTableState();
@@ -29,7 +29,7 @@ class _IpaginatedTableState extends State<IpaginatedTable> {
 
   @override
   Widget build(BuildContext context) {
-    final FirestoreDatabase database = context.read(databaseProvider);
+    final FirestoreDatabase database = context.read(databaseProvider as ProviderBase<Object?, FirestoreDatabase>);
     return FutureBuilder(
         future: database.assignedTbrStream().first,
         builder: (context, snapshot) {
@@ -41,7 +41,7 @@ class _IpaginatedTableState extends State<IpaginatedTable> {
             if (snapshot.hasError) {
               return const Text(Strings.error);
             } else {
-              return _datatable(DTS(snapshot.data as List<AssignedTBR>));
+              return _datatable(DTS(snapshot.data as List<AssignedTBR>?));
             }
           } else {
             return const Center(child: CircularProgressIndicator());
@@ -70,7 +70,7 @@ class _IpaginatedTableState extends State<IpaginatedTable> {
                   label: Text(Strings.companyStrings.company),
                   onSort: (columnIndex, ascending) {
                     dtsSource.sort<String>(
-                        getField: (d) => d.company.name,
+                        getField: (d) => d.company!.name,
                         ascending: _sortAscending);
                     setState(() {
                       _sortColumnIndex = columnIndex;
@@ -82,7 +82,7 @@ class _IpaginatedTableState extends State<IpaginatedTable> {
                   label: Text(Strings.technicianStrings.technician),
                   onSort: (columnIndex, ascending) {
                     dtsSource.sort<String>(
-                        getField: (d) => d.technician.firstName,
+                        getField: (d) => d.technician!.firstName,
                         ascending: _sortAscending);
                     setState(() {
                       _sortColumnIndex = columnIndex;
@@ -126,7 +126,7 @@ class _IpaginatedTableState extends State<IpaginatedTable> {
 }
 
 class DTS extends CustomDataTableSource {
-  final List<AssignedTBR> data;
+  final List<AssignedTBR>? data;
 
   DTS(this.data);
 
@@ -135,12 +135,12 @@ class DTS extends CustomDataTableSource {
     print(data);
     // print(data[index]);
     print(index);
-    if (index < data.length) {
+    if (index < data!.length) {
       return CustomDataRow(cells: [
-        CustomDataCell(Text('${data[index].company}')),
-        CustomDataCell(Text('${data[index].technician}')),
-        CustomDataCell(Text('${data[index].dueDate}')),
-        CustomDataCell(Text('${data[index].clientMeetingDate}')),
+        CustomDataCell(Text('${data![index].company}')),
+        CustomDataCell(Text('${data![index].technician}')),
+        CustomDataCell(Text('${data![index].dueDate}')),
+        CustomDataCell(Text('${data![index].clientMeetingDate}')),
       ]);
     } else {
       return const CustomDataRow(cells: [
@@ -153,15 +153,15 @@ class DTS extends CustomDataTableSource {
   }
 
   void sort<T>(
-      {Comparable<T> Function(AssignedTBR d) getField, bool ascending}) {
-    data.sort((a, b) {
-      if (!ascending) {
+      {Comparable<T>? Function(AssignedTBR d)? getField, bool? ascending}) {
+    data!.sort((a, b) {
+      if (!ascending!) {
         final AssignedTBR c = a;
         a = b;
         b = c;
       }
-      final Comparable<T> aValue = getField(a);
-      final Comparable<T> bValue = getField(b);
+      final Comparable<T> aValue = getField!(a)!;
+      final Comparable<T> bValue = getField(b)!;
       return Comparable.compare(aValue, bValue);
     });
     // notifyListeners();
@@ -171,7 +171,7 @@ class DTS extends CustomDataTableSource {
   bool get isRowCountApproximate => false;
 
   @override
-  int get rowCount => data.length;
+  int get rowCount => data!.length;
 
   @override
   int get selectedRowCount => 0;

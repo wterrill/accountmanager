@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 
 class TechnicianListTile extends StatelessWidget {
   const TechnicianListTile(
-      {Key key, @required this.technician, this.onTap, this.trailing})
+      {Key? key, required this.technician, this.onTap, this.trailing})
       : super(key: key);
   final Technician technician;
-  final VoidCallback onTap;
-  final Widget trailing;
+  final VoidCallback? onTap;
+  final Widget? trailing;
 
   @override
   Widget build(BuildContext context) {

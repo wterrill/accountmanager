@@ -11,4 +11,4 @@ final onboardingViewModelProvider =
 });
 
 final sharedPreferencesServiceProvider =
-    Provider<SharedPreferencesService>((ref) => throw UnimplementedError());
+    Provider<SharedPreferencesService>(((ref) => throw UnimplementedError()) as SharedPreferencesService Function(ProviderReference));

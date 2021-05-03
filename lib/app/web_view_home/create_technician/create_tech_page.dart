@@ -9,7 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:accountmanager/common_widgets/list_items_builder.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
 
-final technicianStreamProvider =
+final AutoDisposeStreamProvider<List<Technician>>? technicianStreamProvider =
     StreamProvider.autoDispose<List<Technician>>((ref) {
   final database = ref.watch(databaseProvider);
   return database?.technicianStream() ?? const Stream.empty();
@@ -38,7 +38,7 @@ class CreateTechWebPage extends ConsumerWidget {
   }
 
   Widget _buildContents(BuildContext context, ScopedReader watch) {
-    final technicianAsyncValue = watch(technicianStreamProvider);
+    final technicianAsyncValue = watch(technicianStreamProvider!);
     return Padding(
       padding: const EdgeInsets.all(40.0),
       child: Column(

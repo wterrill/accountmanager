@@ -10,13 +10,13 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pedantic/pedantic.dart';
 
 class SubmitButtonRow extends ConsumerWidget {
-  const SubmitButtonRow({Key key}) : super(key: key);
+  const SubmitButtonRow({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    Future<void> _sendAssignedTbr({@required AssignedTBR assignedTbr}) async {
+    Future<void> _sendAssignedTbr({required AssignedTBR assignedTbr}) async {
       try {
-        final database = context.read(databaseProvider);
+        final database = context.read(databaseProvider as ProviderBase<Object?, FirestoreDatabase>);
         await database.setTBR(assignedTbr);
       } catch (e) {
         unawaited(showExceptionAlertDialog(
@@ -27,10 +27,10 @@ class SubmitButtonRow extends ConsumerWidget {
       }
     }
 
-    Future<void> sendCompletedEvaluation({TBRinProgress tbrInProgress}) async {
+    Future<void> sendCompletedEvaluation({required TBRinProgress tbrInProgress}) async {
       try {
-        final database = context.read(databaseProvider);
-        final String id = context.read(inProgressTbrProvider).state.id;
+        final database = context.read(databaseProvider as ProviderBase<Object?, FirestoreDatabase>);
+        final String id = context.read(inProgressTbrProvider).state!.id;
         await database.setEvaluation(tbrInProgress, id);
       } catch (e) {
         unawaited(showExceptionAlertDialog(
@@ -42,7 +42,7 @@ class SubmitButtonRow extends ConsumerWidget {
       }
     }
 
-    final TBRinProgress tbrInProgress = watch(tbrInProgressProvider).state;
+    final TBRinProgress tbrInProgress = watch(tbrInProgressProvider).state!;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
@@ -76,7 +76,7 @@ class SubmitButtonRow extends ConsumerWidget {
                             onPressed: () async {
                               print('onPressed in SEND');
                               final AssignedTBR assignedTbr =
-                                  context.read(inProgressTbrProvider).state;
+                                  context.read(inProgressTbrProvider).state!;
                               final AssignedTBR newassignedTbr = AssignedTBR(
                                   id: assignedTbr.id,
                                   technician: assignedTbr.technician,

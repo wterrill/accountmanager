@@ -1,11 +1,11 @@
 part of alert_dialogs;
 
-Future<Map<String, dynamic>> showWidgetDialog({
-  @required BuildContext context,
-  @required String title,
-  @required Widget widget,
-  String cancelActionText,
-  String defaultActionText,
+Future<Map<String, dynamic>?> showWidgetDialog({
+  required BuildContext context,
+  required String title,
+  required Widget widget,
+  String? cancelActionText,
+  String? defaultActionText,
 }) async {
   print(widget);
   if (kIsWeb || !Platform.isIOS) {
@@ -22,7 +22,7 @@ Future<Map<String, dynamic>> showWidgetDialog({
             ),
           if (cancelActionText != null)
             FlatButtonX(
-              childx: Text(defaultActionText),
+              childx: Text(defaultActionText!),
               onPressedx: () => Navigator.of(context).pop({'result': 'false'}),
             ),
         ],
@@ -41,7 +41,7 @@ Future<Map<String, dynamic>> showWidgetDialog({
             onPressed: () => Navigator.of(context).pop(false),
           ),
         CupertinoDialogAction(
-          child: Text(defaultActionText),
+          child: Text(defaultActionText!),
           onPressed: () => Navigator.of(context).pop(true),
         ),
       ],

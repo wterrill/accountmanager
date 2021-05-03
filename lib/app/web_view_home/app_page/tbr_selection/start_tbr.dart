@@ -11,17 +11,17 @@ StateProvider<bool> showAllSwitchProvider =
 class SelectTBRPage extends StatefulWidget {
   final bool mobile;
 
-  const SelectTBRPage({Key key, @required this.mobile}) : super(key: key);
+  const SelectTBRPage({Key? key, required this.mobile}) : super(key: key);
 
   @override
   _SelectTBRPageState createState() => _SelectTBRPageState();
 }
 
 class _SelectTBRPageState extends State<SelectTBRPage> {
-  Technician selectedTechnician;
-  Company selectedCompany;
-  QuestionnaireType selectedQuestionnaireType;
-  DateTime startdateTBR;
+  Technician? selectedTechnician;
+  Company? selectedCompany;
+  QuestionnaireType? selectedQuestionnaireType;
+  DateTime? startdateTBR;
 
   @override
   void initState() {
@@ -49,7 +49,7 @@ class _SelectTBRPageState extends State<SelectTBRPage> {
               activeTrackColor: Colors.lightGreenAccent,
               activeColor: Colors.green,
             );
-          }),
+          } as Widget Function(BuildContext, T Function<T>(ProviderBase<Object?, T>), Widget?)),
         ],
       ),
       CreateAppSelectDataTableWidget(mobile: widget.mobile),

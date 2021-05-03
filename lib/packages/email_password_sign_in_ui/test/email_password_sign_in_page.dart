@@ -13,14 +13,14 @@ String filename = 'email_password_sign_in_page.dart: ';
 
 class EmailPasswordSignInPage extends StatefulWidget {
   const EmailPasswordSignInPage(
-      {Key key, @required this.model, this.onSignedIn})
+      {Key? key, required this.model, this.onSignedIn})
       : super(key: key);
   final EmailPasswordSignInModel model;
-  final VoidCallback onSignedIn;
+  final VoidCallback? onSignedIn;
 
   factory EmailPasswordSignInPage.withFirebaseAuth(
-      FirebaseAuth firebaseAuth, BuildContext context,
-      {@required VoidCallback onSignedIn}) {
+      FirebaseAuth? firebaseAuth, BuildContext context,
+      {required VoidCallback? onSignedIn}) {
     return EmailPasswordSignInPage(
       model: EmailPasswordSignInModel(
           firebaseAuth: firebaseAuth, context: context),
@@ -80,7 +80,7 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
           );
         } else {
           if (widget.onSignedIn != null) {
-            widget.onSignedIn();
+            widget.onSignedIn!();
           }
         }
       }
@@ -115,7 +115,7 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
     }
   }
 
-  void _updateFormType(EmailPasswordSignInFormType formType) {
+  void _updateFormType(EmailPasswordSignInFormType? formType) {
     model.updateFormType(formType);
     _emailController.clear();
     _passwordController.clear();
@@ -251,14 +251,14 @@ class _EmailPasswordSignInPageState extends State<EmailPasswordSignInPage> {
               const SizedBox(height: 32.0),
               FormSubmitButton(
                 key: const Key('primary-button'),
-                text: model.primaryButtonText,
+                text: model.primaryButtonText!,
                 loading: model.isLoading,
                 onPressed: model.isLoading ? null : _submit,
               ),
               const SizedBox(height: 8.0),
               FlatButtonX(
                 keyx: const Key('secondary-button'),
-                childx: Text(model.secondaryButtonText),
+                childx: Text(model.secondaryButtonText!),
                 onPressedx: model.isLoading
                     ? null
                     : () => _updateFormType(model.secondaryActionFormType),

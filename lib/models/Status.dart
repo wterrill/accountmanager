@@ -5,22 +5,22 @@ import 'package:meta/meta.dart';
 
 @immutable
 class Status extends Equatable {
-  final int statusIndex;
+  final int? statusIndex;
   Status({
     this.statusIndex,
   });
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         statusIndex,
       ];
 
   final List<String> statusName = ['Assigned', 'In Progress', 'Completed'];
 
-  String getStatusName() => statusName[statusIndex];
+  String getStatusName() => statusName[statusIndex!];
 
   Status copyWith({
-    int statusIndex,
+    int? statusIndex,
   }) {
     return Status(
       statusIndex: statusIndex ?? this.statusIndex,
@@ -28,25 +28,25 @@ class Status extends Equatable {
   }
 
   Map<String, dynamic> toMap() {
-    return <String, int>{
+    return <String, int?>{
       'statusIndex': statusIndex,
     };
   }
 
-  factory Status.fromMap(Map<String, dynamic> map) {
+  factory Status.fromMap(Map<String, dynamic>? map) {
     if (map == null) return null;
 
     if (map['statusIndex'] == null) return null;
 
     return Status(
-      statusIndex: map['statusIndex'] as int,
+      statusIndex: map['statusIndex'] as int?,
     );
   }
 
   String toJson() => json.encode(toMap());
 
   factory Status.fromJson(String source) =>
-      Status.fromMap(json.decode(source) as Map<String, dynamic>);
+      Status.fromMap(json.decode(source) as Map<String, dynamic>?);
 
   @override
   String toString() => 'Status(statusIndex: $statusIndex)';

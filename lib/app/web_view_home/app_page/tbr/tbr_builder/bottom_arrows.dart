@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class BottomArrows extends ConsumerWidget {
-  const BottomArrows({Key key}) : super(key: key);
+  const BottomArrows({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final TBRinProgress tbrInProgress = watch(tbrInProgressProvider).state;
+    final TBRinProgress? tbrInProgress = watch(tbrInProgressProvider).state;
     final TBRfillPageData tbrFillPageData =
         watch(tbrFillPageDataProvider).state;
     return Row(
@@ -22,9 +22,9 @@ class BottomArrows extends ConsumerWidget {
             child: IconButton(
               icon: const Icon(Icons.arrow_back),
               onPressed: () {
-                final Map<String, String> newSectionCategory =
-                    tbrInProgress.recedePage(
-                        section: tbrFillPageData.selectedSection,
+                final Map<String, String?> newSectionCategory =
+                    tbrInProgress!.recedePage(
+                        section: tbrFillPageData.selectedSection!,
                         category: tbrFillPageData.selectedCategory);
 
                 tbrFillPageData.selectedSection = newSectionCategory['section'];
@@ -46,9 +46,9 @@ class BottomArrows extends ConsumerWidget {
             child: IconButton(
               icon: const Icon(Icons.arrow_forward),
               onPressed: () {
-                final Map<String, String> newSectionCategory =
-                    tbrInProgress.advancePage(
-                        section: tbrFillPageData.selectedSection,
+                final Map<String, String?> newSectionCategory =
+                    tbrInProgress!.advancePage(
+                        section: tbrFillPageData.selectedSection!,
                         category: tbrFillPageData.selectedCategory);
 
                 tbrFillPageData.selectedSection = newSectionCategory['section'];

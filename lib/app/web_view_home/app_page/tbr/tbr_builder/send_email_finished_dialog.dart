@@ -8,15 +8,15 @@ import 'package:intl/intl.dart';
 
 class SendEmailFinishedDialog extends StatelessWidget {
   const SendEmailFinishedDialog({
-    Key key,
-    @required this.assignedTbr,
+    Key? key,
+    required this.assignedTbr,
   }) : super(key: key);
   final AssignedTBR assignedTbr;
 
   @override
   Widget build(BuildContext context) {
-    final firebaseAuth = context.read(firebaseAuthProvider);
-    final user = firebaseAuth.currentUser;
+    final firebaseAuth = context.read(firebaseAuthProvider as ProviderBase<Object?, FirebaseAuth>);
+    final user = firebaseAuth.currentUser!;
     final String emailText = '''
         <p>The user:</p> 
         <h2>${user.email}</h2>
@@ -29,21 +29,21 @@ class SendEmailFinishedDialog extends StatelessWidget {
         <p>It was originally assigned by:</p>
         <h2>${assignedTbr.assignedBy}</h2> 
         <p> for the company: </p>
-        <h2>${assignedTbr.company.name}</h2> 
+        <h2>${assignedTbr.company!.name}</h2> 
         <p>with a due date of: </p>
-        <h2>${DateFormat.yMMMEd().format(assignedTbr.dueDate)} </h2>
+        <h2>${DateFormat.yMMMEd().format(assignedTbr.dueDate!)} </h2>
         <p>and a client meeting date of:</p>
-        <h2>${DateFormat.yMMMEd().format(assignedTbr.clientMeetingDate)}</h2>''';
-    final FirestoreDatabase database = context.read(databaseProvider);
+        <h2>${DateFormat.yMMMEd().format(assignedTbr.clientMeetingDate!)}</h2>''';
+    final FirestoreDatabase database = context.read(databaseProvider as ProviderBase<Object?, FirestoreDatabase>);
     database.sendEmail(
         toList: [assignedTbr.assignedBy],
-        from: assignedTbr.technician.email,
+        from: assignedTbr.technician!.email,
         body: emailText,
-        subject: 'TBR for ${assignedTbr.company.name} completed:');
+        subject: 'TBR for ${assignedTbr.company!.name} completed:');
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text('from: ${assignedTbr.technician.email}'),
+        Text('from: ${assignedTbr.technician!.email}'),
         Text('to: ${assignedTbr.assignedBy}'),
         const Text('Completion email sent')
       ],

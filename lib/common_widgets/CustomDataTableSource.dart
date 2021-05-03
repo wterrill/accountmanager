@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 // ignore_for_file: file_names
 
-// @dart = 2.8
+
 
 // import
 import 'package:flutter/foundation.dart';

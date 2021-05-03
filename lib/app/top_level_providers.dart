@@ -15,7 +15,7 @@ import 'package:flutter/material.dart';
 // logger provider
 // tbrInProgress provider. This is used to pass values during development.
 
-final completedTbrStreamProvider =
+final StreamProviderFamily<TBRinProgress, String>? completedTbrStreamProvider =
     StreamProvider.family<TBRinProgress, String>((ref, id) {
   final database = ref.watch(databaseProvider);
   final questions = ref.watch(latestQuestionsProvider).state;
@@ -24,21 +24,21 @@ final completedTbrStreamProvider =
       : const Stream.empty();
 });
 
-final inProgressTbrProvider = StateProvider<AssignedTBR>((ref) {
+final inProgressTbrProvider = StateProvider<AssignedTBR?>((ref) {
   return null;
 });
 
-final questionStreamProvider =
+final AutoDisposeStreamProvider<List<Question>>? questionStreamProvider =
     StreamProvider.autoDispose<List<Question>>((ref) {
   final database = ref.watch(databaseProvider);
   return database?.questionStream() ?? const Stream.empty();
 });
 
-final latestQuestionsProvider = StateProvider<List<Question>>((ref) {
+final latestQuestionsProvider = StateProvider<List<Question>?>((ref) {
   return null;
 });
 
-final tbrInProgressProvider = StateProvider<TBRinProgress>((ref) {
+final tbrInProgressProvider = StateProvider<TBRinProgress?>((ref) {
   return TBRinProgress();
 });
 
@@ -50,18 +50,18 @@ final widgetProvider = StateProvider<Widget>((ref) {
   );
 });
 
-final firebaseAuthProvider = Provider<FirebaseAuth>((ref) {
+final firebaseAuthProvider = Provider<FirebaseAuth?>((ref) {
   final FirebaseAuth firebaseAuthInstance = FirebaseAuth.instance;
   return firebaseAuthInstance;
 });
 
-final authStateChangesProvider = StreamProvider<User>((ref) {
-  final Stream<User> userDataStream =
-      ref.watch(firebaseAuthProvider).authStateChanges();
+final authStateChangesProvider = StreamProvider<User?>((ref) {
+  final Stream<User?> userDataStream =
+      ref.watch(firebaseAuthProvider)!.authStateChanges();
   return userDataStream;
 });
 
-final databaseProvider = Provider<FirestoreDatabase>((ref) {
+final databaseProvider = Provider<FirestoreDatabase?>((ref) {
   final auth = ref.watch(authStateChangesProvider);
   if (auth.data?.value?.uid != null) {
     return FirestoreDatabase(uid: auth.data?.value?.uid);
@@ -79,7 +79,7 @@ final loggerProvider = Provider<Logger>((ref) {
 });
 
 class RegisteredClass {
-  Map<String, String> currentValue;
+  Map<String, String>? currentValue;
   RegisteredClass() {
     currentValue = {'null': 'null'};
   }
@@ -88,7 +88,7 @@ class RegisteredClass {
     currentValue = {'null': 'null'};
   }
 
-  Map<String, String> get getValue => currentValue;
+  Map<String, String>? get getValue => currentValue;
 
 // ignore: use_setters_to_change_properties
   void set(Map<String, String> newValue) {

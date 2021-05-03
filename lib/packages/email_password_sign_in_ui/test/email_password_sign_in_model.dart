@@ -34,8 +34,8 @@ class EmailAndPasswordValidators {
 
 class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
   EmailPasswordSignInModel({
-    @required this.firebaseAuth,
-    @required this.context,
+    required this.firebaseAuth,
+    required this.context,
     this.email = '',
     this.password = '',
     this.firstName = '',
@@ -44,8 +44,8 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
     this.isLoading = false,
     this.submitted = false,
   });
-  final FirebaseAuth firebaseAuth;
-  final BuildContext context;
+  final FirebaseAuth? firebaseAuth;
+  final BuildContext? context;
 
   String email;
   String password;
@@ -64,26 +64,26 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
       updateWith(isLoading: true);
       switch (formType) {
         case EmailPasswordSignInFormType.signIn:
-          if (firebaseAuth.currentUser != null) {
-            await firebaseAuth.signOut();
+          if (firebaseAuth!.currentUser != null) {
+            await firebaseAuth!.signOut();
           }
-          await firebaseAuth.signInWithCredential(
+          await firebaseAuth!.signInWithCredential(
               EmailAuthProvider.credential(email: email, password: password));
           break;
         case EmailPasswordSignInFormType.register:
-          final UserCredential userCredential = await firebaseAuth
+          final UserCredential userCredential = await firebaseAuth!
               .createUserWithEmailAndPassword(email: email, password: password);
 
-          context.read(registeredProvider).set({
+          context!.read(registeredProvider).set({
             'firstName': firstName,
             'lastName': lastName,
             'email': email,
-            'uid': userCredential.user.uid
+            'uid': userCredential.user!.uid
           });
 
           break;
         case EmailPasswordSignInFormType.forgotPassword:
-          await firebaseAuth.sendPasswordResetEmail(email: email);
+          await firebaseAuth!.sendPasswordResetEmail(email: email);
           updateWith(isLoading: false);
           break;
       }
@@ -102,7 +102,7 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
 
   void updatePassword(String password) => updateWith(password: password);
 
-  void updateFormType(EmailPasswordSignInFormType formType) {
+  void updateFormType(EmailPasswordSignInFormType? formType) {
     updateWith(
       email: '',
       password: '',
@@ -115,13 +115,13 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
   }
 
   void updateWith({
-    String email,
-    String password,
-    String firstName,
-    String lastName,
-    EmailPasswordSignInFormType formType,
-    bool isLoading,
-    bool submitted,
+    String? email,
+    String? password,
+    String? firstName,
+    String? lastName,
+    EmailPasswordSignInFormType? formType,
+    bool? isLoading,
+    bool? submitted,
   }) {
     this.email = email ?? this.email;
     this.password = password ?? this.password;
@@ -155,7 +155,7 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
   }
 
   // Getters
-  String get primaryButtonText {
+  String? get primaryButtonText {
     return <EmailPasswordSignInFormType, String>{
       EmailPasswordSignInFormType.register:
           EmailPasswordSignInStrings.createAnAccount,
@@ -165,7 +165,7 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
     }[formType];
   }
 
-  String get secondaryButtonText {
+  String? get secondaryButtonText {
     return <EmailPasswordSignInFormType, String>{
       EmailPasswordSignInFormType.register:
           EmailPasswordSignInStrings.haveAnAccount,
@@ -176,7 +176,7 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
     }[formType];
   }
 
-  EmailPasswordSignInFormType get secondaryActionFormType {
+  EmailPasswordSignInFormType? get secondaryActionFormType {
     return <EmailPasswordSignInFormType, EmailPasswordSignInFormType>{
       EmailPasswordSignInFormType.register: EmailPasswordSignInFormType.signIn,
       EmailPasswordSignInFormType.signIn: EmailPasswordSignInFormType.register,
@@ -185,7 +185,7 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
     }[formType];
   }
 
-  String get errorAlertTitle {
+  String? get errorAlertTitle {
     return <EmailPasswordSignInFormType, String>{
       EmailPasswordSignInFormType.register:
           EmailPasswordSignInStrings.registrationFailed,
@@ -196,7 +196,7 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
     }[formType];
   }
 
-  String get title {
+  String? get title {
     return <EmailPasswordSignInFormType, String>{
       EmailPasswordSignInFormType.register: EmailPasswordSignInStrings.register,
       EmailPasswordSignInFormType.signIn: EmailPasswordSignInStrings.signIn,
@@ -243,7 +243,7 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
     return canSubmitFields && !isLoading;
   }
 
-  String get emailErrorText {
+  String? get emailErrorText {
     final bool showErrorText = submitted && !canSubmitEmail;
     final String errorText = email.isEmpty
         ? EmailPasswordSignInStrings.invalidEmailEmpty
@@ -251,7 +251,7 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
     return showErrorText ? errorText : null;
   }
 
-  String get passwordErrorText {
+  String? get passwordErrorText {
     final bool showErrorText = submitted && !canSubmitPassword;
     final String errorText = password.isEmpty
         ? EmailPasswordSignInStrings.invalidPasswordEmpty
@@ -259,7 +259,7 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
     return showErrorText ? errorText : null;
   }
 
-  String get firstNameErrorText {
+  String? get firstNameErrorText {
     final bool showErrorText = submitted && !canSubmitFirstName;
     final String errorText = firstName.isEmpty
         ? EmailPasswordSignInStrings.invalidFirstNameEmpty
@@ -267,7 +267,7 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
     return showErrorText ? errorText : null;
   }
 
-  String get lastNameErrorText {
+  String? get lastNameErrorText {
     final bool showErrorText = submitted && !canSubmitLastName;
     final String errorText = lastName.isEmpty
         ? EmailPasswordSignInStrings.invalidLastNameEmpty

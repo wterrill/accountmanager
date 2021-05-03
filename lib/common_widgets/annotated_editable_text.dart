@@ -2,9 +2,9 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 
 class Annotation extends Comparable<Annotation> {
-  Annotation({@required this.range, this.style});
+  Annotation({required this.range, this.style});
   final TextRange range;
-  final TextStyle style;
+  final TextStyle? style;
 
   @override
   int compareTo(Annotation other) {
@@ -19,15 +19,15 @@ class Annotation extends Comparable<Annotation> {
 
 class AnnotatedEditableText extends EditableText {
   AnnotatedEditableText({
-    Key key,
-    FocusNode focusNode,
-    TextEditingController controller,
-    TextStyle style,
-    ValueChanged<String> onChanged,
-    ValueChanged<String> onSubmitted,
-    Color cursorColor,
-    Color selectionColor,
-    TextSelectionControls selectionControls,
+    Key? key,
+    required FocusNode focusNode,
+    required TextEditingController controller,
+    required TextStyle style,
+    ValueChanged<String>? onChanged,
+    ValueChanged<String>? onSubmitted,
+    required Color cursorColor,
+    Color? selectionColor,
+    TextSelectionControls? selectionControls,
     this.annotations,
   }) : super(
           backgroundCursorColor: Colors.blue,
@@ -45,7 +45,7 @@ class AnnotatedEditableText extends EditableText {
           onSubmitted: onSubmitted,
         );
 
-  final List<Annotation> annotations;
+  final List<Annotation>? annotations;
 
   @override
   AnnotatedEditableTextState createState() => AnnotatedEditableTextState();
@@ -57,10 +57,10 @@ class AnnotatedEditableTextState extends EditableTextState {
   // EditableText get widget => super.widget;
 
   List<Annotation> getRanges() {
-    final List<Annotation> source = widget.annotations;
+    final List<Annotation> source = widget.annotations!;
     source.sort();
     final List<Annotation> result = <Annotation>[];
-    Annotation prev;
+    Annotation? prev;
     for (final Annotation item in source) {
       if (prev == null) {
         // First item, check if we need one before it.

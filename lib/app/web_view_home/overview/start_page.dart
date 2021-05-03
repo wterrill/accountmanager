@@ -11,17 +11,17 @@ StateProvider<bool> showAllSwitchProvider =
 class OverviewWebPage extends StatefulWidget {
   final bool mobile;
 
-  const OverviewWebPage({Key key, @required this.mobile}) : super(key: key);
+  const OverviewWebPage({Key? key, required this.mobile}) : super(key: key);
 
   @override
   _OverviewWebPageState createState() => _OverviewWebPageState();
 }
 
 class _OverviewWebPageState extends State<OverviewWebPage> {
-  Technician selectedTechnician;
-  Company selectedCompany;
-  QuestionnaireType selectedQuestionnaireType;
-  DateTime startdateTBR;
+  Technician? selectedTechnician;
+  Company? selectedCompany;
+  QuestionnaireType? selectedQuestionnaireType;
+  DateTime? startdateTBR;
 
   @override
   void initState() {

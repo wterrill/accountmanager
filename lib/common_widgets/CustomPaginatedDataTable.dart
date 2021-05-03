@@ -62,10 +62,10 @@ class CustomPaginatedDataTable extends StatefulWidget {
   /// The [rowsPerPage] and [availableRowsPerPage] must not be null (they
   /// both have defaults, though, so don't have to be specified).
   CustomPaginatedDataTable({
-    Key key,
+    Key? key,
     this.header,
     this.actions,
-    @required this.columns,
+    required this.columns,
     this.sortColumnIndex,
     this.sortAscending = true,
     this.onSelectAll,
@@ -100,7 +100,7 @@ class CustomPaginatedDataTable extends StatefulWidget {
     ],
     this.onRowsPerPageChanged,
     this.dragStartBehavior = DragStartBehavior.start,
-    @required this.source,
+    required this.source,
   })  : assert(columns != null),
         assert(dragStartBehavior != null),
         assert(columns.isNotEmpty),
@@ -131,7 +131,7 @@ class CustomPaginatedDataTable extends StatefulWidget {
   ///
   /// If items in the table are selectable, then, when the selection is not
   /// empty, the header is replaced by a count of the selected items.
-  final Widget header;
+  final Widget? header;
 
   /// Icon buttons to show at the top right of the table.
   ///
@@ -139,7 +139,7 @@ class CustomPaginatedDataTable extends StatefulWidget {
   /// whether any rows are selected or not.
   ///
   /// These should be size 24.0 with default padding (8.0).
-  final List<Widget> actions;
+  final List<Widget>? actions;
 
   /// The configuration and labels for the columns in the table.
   final List<CustomDataColumn> columns;
@@ -147,7 +147,7 @@ class CustomPaginatedDataTable extends StatefulWidget {
   /// The current primary sort key's column.
   ///
   /// See [DataTable.sortColumnIndex].
-  final int sortColumnIndex;
+  final int? sortColumnIndex;
 
   /// Whether the column mentioned in [sortColumnIndex], if any, is sorted
   /// in ascending order.
@@ -159,7 +159,7 @@ class CustomPaginatedDataTable extends StatefulWidget {
   /// checkbox in the heading row.
   ///
   /// See [DataTable.onSelectAll].
-  final ValueSetter<bool> onSelectAll;
+  final ValueSetter<bool>? onSelectAll;
 
   /// The height of each row (excluding the row that contains column headings).
   ///
@@ -172,7 +172,7 @@ class CustomPaginatedDataTable extends StatefulWidget {
   /// This value is optional and defaults to 56.0 if not specified.
   final double headingRowHeight;
 
-  final Color headingRowColor;
+  final Color? headingRowColor;
   final TextStyle dropdownTextStyle;
   final TextStyle pageRowInfoTextStyle;
   final Color cardBackgroundColor;
@@ -203,7 +203,7 @@ class CustomPaginatedDataTable extends StatefulWidget {
   /// Invoked when the user switches to another page.
   ///
   /// The value is the index of the first row on the currently displayed page.
-  final ValueChanged<int> onPageChanged;
+  final ValueChanged<int?>? onPageChanged;
 
   /// The number of rows to show on each page.
   ///
@@ -230,7 +230,7 @@ class CustomPaginatedDataTable extends StatefulWidget {
   ///
   /// If this is null, then the value given by [rowsPerPage] will be used
   /// and no affordance will be provided to change the value.
-  final ValueChanged<int> onRowsPerPageChanged;
+  final ValueChanged<int?>? onRowsPerPageChanged;
 
   /// The data source which provides data to show in each row. Must be non-null.
   ///
@@ -251,22 +251,22 @@ class CustomPaginatedDataTable extends StatefulWidget {
 ///
 /// The table can be programmatically paged using the [pageTo] method.
 class CustomPaginatedDataTableState extends State<CustomPaginatedDataTable> {
-  int _firstRowIndex;
-  int _rowCount;
-  bool _rowCountApproximate;
-  TextStyle _dropdownTextStyle;
-  TextStyle _pageRowInfoTextStyle;
-  Color _cardBackgroundColor;
-  Color _mainBackgroundColor;
-  Color _footerBackgroundColor;
-  double _cardElevation;
+  int? _firstRowIndex;
+  late int _rowCount;
+  late bool _rowCountApproximate;
+  TextStyle? _dropdownTextStyle;
+  TextStyle? _pageRowInfoTextStyle;
+  Color? _cardBackgroundColor;
+  Color? _mainBackgroundColor;
+  Color? _footerBackgroundColor;
+  double? _cardElevation;
   // int _selectedRowCount;
   final Map<int, CustomDataRow> _rows = <int, CustomDataRow>{};
 
   @override
   void initState() {
     super.initState();
-    _firstRowIndex = PageStorage.of(context)?.readState(context) as int ??
+    _firstRowIndex = PageStorage.of(context)?.readState(context) as int? ??
         widget.initialFirstRowIndex ??
         0;
     widget.source.addListener(_handleDataSourceChanged);
@@ -305,13 +305,13 @@ class CustomPaginatedDataTableState extends State<CustomPaginatedDataTable> {
 
   /// Ensures that the given row is visible.
   void pageTo(int rowIndex) {
-    final int oldFirstRowIndex = _firstRowIndex;
+    final int? oldFirstRowIndex = _firstRowIndex;
     setState(() {
       final int rowsPerPage = widget.rowsPerPage;
       _firstRowIndex = (rowIndex ~/ rowsPerPage) * rowsPerPage;
     });
     if ((widget.onPageChanged != null) && (oldFirstRowIndex != _firstRowIndex))
-      widget.onPageChanged(_firstRowIndex);
+      widget.onPageChanged!(_firstRowIndex);
   }
 
   CustomDataRow _getBlankRowFor(int index) {
@@ -352,7 +352,7 @@ class CustomPaginatedDataTableState extends State<CustomPaginatedDataTable> {
       if (index < _rowCount) {
         // <---
         // This stops "overflow" rows from appearing on the last page.
-        CustomDataRow row;
+        CustomDataRow? row;
         if (index < _rowCount || _rowCountApproximate) {
           row = _rows.putIfAbsent(index, () => widget.source.getRow(index));
           if (row == null && !haveProgressIndicator) {
@@ -368,11 +368,11 @@ class CustomPaginatedDataTableState extends State<CustomPaginatedDataTable> {
   }
 
   void _handlePrevious() {
-    pageTo(math.max(_firstRowIndex - widget.rowsPerPage, 0));
+    pageTo(math.max(_firstRowIndex! - widget.rowsPerPage, 0));
   }
 
   void _handleNext() {
-    pageTo(_firstRowIndex + widget.rowsPerPage);
+    pageTo(_firstRowIndex! + widget.rowsPerPage);
   }
 
   final GlobalKey _tableKey = GlobalKey();
@@ -387,7 +387,7 @@ class CustomPaginatedDataTableState extends State<CustomPaginatedDataTable> {
     // HEADER
     final List<Widget> headerWidgets = <Widget>[];
     if (widget.actions != null) {
-      headerWidgets.addAll(widget.actions.map<Widget>((Widget action) {
+      headerWidgets.addAll(widget.actions!.map<Widget>((Widget action) {
         return Padding(
           // 8.0 is the default padding of an icon button
           padding: const EdgeInsetsDirectional.only(start: 24.0 - 8.0 * 2.0),
@@ -397,7 +397,7 @@ class CustomPaginatedDataTableState extends State<CustomPaginatedDataTable> {
     }
 
     // FOOTER
-    final TextStyle footerTextStyle = themeData.textTheme.caption;
+    final TextStyle? footerTextStyle = themeData.textTheme.caption;
     final List<Widget> footerWidgets = <Widget>[];
     if (widget.onRowsPerPageChanged != null) {
       final List<Widget> availableRowsPerPage = widget.availableRowsPerPage
@@ -436,9 +436,9 @@ class CustomPaginatedDataTableState extends State<CustomPaginatedDataTable> {
       Container(width: 32.0),
       Text(
           localizations.pageRowsInfoTitle(
-            _firstRowIndex + 1,
-            (_firstRowIndex + widget.rowsPerPage <= _rowCount)
-                ? _firstRowIndex + widget.rowsPerPage
+            _firstRowIndex! + 1,
+            (_firstRowIndex! + widget.rowsPerPage <= _rowCount)
+                ? _firstRowIndex! + widget.rowsPerPage
                 : _rowCount,
             _rowCount,
             _rowCountApproximate,
@@ -449,7 +449,7 @@ class CustomPaginatedDataTableState extends State<CustomPaginatedDataTable> {
         icon: const Icon(Icons.chevron_left),
         padding: EdgeInsets.zero,
         tooltip: localizations.previousPageTooltip,
-        onPressed: _firstRowIndex <= 0 ? null : _handlePrevious,
+        onPressed: _firstRowIndex! <= 0 ? null : _handlePrevious,
       ),
       Container(width: 24.0),
       IconButton(
@@ -457,7 +457,7 @@ class CustomPaginatedDataTableState extends State<CustomPaginatedDataTable> {
         padding: EdgeInsets.zero,
         tooltip: localizations.nextPageTooltip,
         onPressed: (!_rowCountApproximate &&
-                (_firstRowIndex + widget.rowsPerPage >= _rowCount))
+                (_firstRowIndex! + widget.rowsPerPage >= _rowCount))
             ? null
             : _handleNext,
       ),
@@ -493,13 +493,13 @@ class CustomPaginatedDataTableState extends State<CustomPaginatedDataTable> {
                       headingRowColor: widget.headingRowColor,
                       horizontalMargin: widget.horizontalMargin,
                       columnSpacing: widget.columnSpacing,
-                      rows: _getRows(_firstRowIndex, widget.rowsPerPage),
+                      rows: _getRows(_firstRowIndex!, widget.rowsPerPage),
                     ),
                   ),
                 ),
               ),
               DefaultTextStyle(
-                style: footerTextStyle,
+                style: footerTextStyle!,
                 child: IconTheme.merge(
                   data: const IconThemeData(opacity: 0.54),
                   child: Container(

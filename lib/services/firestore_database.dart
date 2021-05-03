@@ -16,8 +16,8 @@ String documentIdFromCurrentDate() => DateTime.now().toIso8601String();
 class FirestoreDatabase {
   FirestoreDatabase({this.uid, this.id});
   // : assert(uid != null, 'Cannot create FirestoreDatabase with null uid');
-  final String uid;
-  final String id;
+  final String? uid;
+  final String? id;
 
   final _service = FirestoreService.instance;
 
@@ -26,7 +26,7 @@ class FirestoreDatabase {
   //       data: entry.toMap(),
   //     );
 
-  Future<void> saveUserInfo(String uid, Map<String, String> data) {
+  Future<void> saveUserInfo(String? uid, Map<String, String> data) {
     print('inside saveUserInfo');
     return _service.setData(
       path: FirestorePath.user(uid),
@@ -45,10 +45,10 @@ class FirestoreDatabase {
   Future<void> sendEmail(
       // this method uses the email extension in firestore.  Therefore, the email
       // just needs to be posted in the 'mail' collection in the database.
-      {@required List<String> toList,
-      @required String from,
-      @required String body,
-      @required String subject}) {
+      {required List<String?> toList,
+      required String? from,
+      required String body,
+      required String subject}) {
     final Map<String, dynamic> data = <String, dynamic>{
       'message': <String, dynamic>{'html': body, 'subject': subject},
       'to': toList
@@ -118,7 +118,7 @@ class FirestoreDatabase {
     print('inside setTBR');
     return _service.setData(
       path: FirestorePath.assignedtbr(assignedTbr.id),
-      data: assignedTbr.toMap(),
+      data: assignedTbr.toMap()!,
     );
   }
 
@@ -148,7 +148,7 @@ class FirestoreDatabase {
       );
 
   Stream<TBRinProgress> completedTbrStream(
-      {String completedTbrId, List<Question> questions}) {
+      {String? completedTbrId, List<Question>? questions}) {
     print('inside completedTbrStream');
     return _service.documentStream(
       path: FirestorePath.completedTBR(completedTbrId),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 Widget statusBox(String status) {
-  Color boxColor = Colors.yellow;
+  Color? boxColor = Colors.yellow;
   if (status == 'Completed') {
     boxColor = Colors.green[300];
   }

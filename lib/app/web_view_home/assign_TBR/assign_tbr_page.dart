@@ -13,10 +13,10 @@ class AssignTBRWebPage extends StatefulWidget {
 }
 
 class _AssignTBRWebPageState extends State<AssignTBRWebPage> {
-  Technician selectedTechnician;
-  Company selectedCompany;
-  QuestionnaireType selectedQuestionnaireType;
-  DateTime startdateTBR;
+  Technician? selectedTechnician;
+  Company? selectedCompany;
+  QuestionnaireType? selectedQuestionnaireType;
+  DateTime? startdateTBR;
 
   @override
   void initState() {

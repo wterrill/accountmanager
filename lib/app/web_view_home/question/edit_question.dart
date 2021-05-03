@@ -5,42 +5,42 @@ import 'package:flutter/material.dart';
 
 class EditQuestion extends StatefulWidget {
   const EditQuestion({
-    Key key,
+    Key? key,
     this.data,
   }) : super(key: key);
-  final Question data;
+  final Question? data;
 
   @override
   _EditQuestionState createState() => _EditQuestionState();
 }
 
 class _EditQuestionState extends State<EditQuestion> {
-  String benefitsBusinessValue;
-  String category;
-  String customerApprovedProject;
-  String estimatedLaborPrice;
-  String estimatedMRRIncrease;
-  String estimatedProductPrice;
-  String howTo;
-  String projectType;
-  String questionName;
-  String questionPriority;
-  String questionText;
-  String roadMap; //mm/yyyy
-  String section;
-  String sysAdminNotes;
-  bool sysAdminReviewAligned;
-  String goodBadAnswer;
-  String tamRecommendations;
-  String tamReview;
-  String totalProjectEstimate;
-  String type;
-  String whyAreWeAsking;
-  String id;
+  String? benefitsBusinessValue;
+  String? category;
+  String? customerApprovedProject;
+  String? estimatedLaborPrice;
+  String? estimatedMRRIncrease;
+  String? estimatedProductPrice;
+  String? howTo;
+  String? projectType;
+  String? questionName;
+  String? questionPriority;
+  String? questionText;
+  String? roadMap; //mm/yyyy
+  String? section;
+  String? sysAdminNotes;
+  bool? sysAdminReviewAligned;
+  String? goodBadAnswer;
+  String? tamRecommendations;
+  String? tamReview;
+  String? totalProjectEstimate;
+  String? type;
+  String? whyAreWeAsking;
+  String? id;
   bool editQuestion = false;
-  Map<String, dynamic> originalMap;
+  Map<String, dynamic>? originalMap;
 
-  FocusNode myFocusNode;
+  FocusNode? myFocusNode;
 
   final TextEditingController _benefitsBusinessValueC = TextEditingController();
   final TextEditingController _categoryC = TextEditingController();
@@ -69,77 +69,77 @@ class _EditQuestionState extends State<EditQuestion> {
   void initState() {
     super.initState();
     myFocusNode = FocusNode();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       FocusScope.of(context).requestFocus(myFocusNode);
     });
     if (widget.data != null) {
-      benefitsBusinessValue = widget.data.benefitsBusinessValue;
+      benefitsBusinessValue = widget.data!.benefitsBusinessValue;
 
-      category = widget.data.category;
+      category = widget.data!.category;
 
-      customerApprovedProject = widget.data.customerApprovedProject;
+      customerApprovedProject = widget.data!.customerApprovedProject;
 
-      estimatedLaborPrice = widget.data.estimatedLaborPrice;
+      estimatedLaborPrice = widget.data!.estimatedLaborPrice;
 
-      estimatedMRRIncrease = widget.data.estimatedMRRIncrease;
+      estimatedMRRIncrease = widget.data!.estimatedMRRIncrease;
 
-      estimatedProductPrice = widget.data.estimatedProductPrice;
+      estimatedProductPrice = widget.data!.estimatedProductPrice;
 
-      howTo = widget.data.howTo;
+      howTo = widget.data!.howTo;
 
-      projectType = widget.data.projectType;
+      projectType = widget.data!.projectType;
 
-      questionName = widget.data.questionName;
+      questionName = widget.data!.questionName;
 
-      questionPriority = widget.data.questionPriority;
+      questionPriority = widget.data!.questionPriority;
 
-      questionText = widget.data.questionText;
+      questionText = widget.data!.questionText;
 
-      roadMap = widget.data.roadMap; //mm/yyyy
+      roadMap = widget.data!.roadMap; //mm/yyyy
 
-      section = widget.data.section;
+      section = widget.data!.section;
 
-      sysAdminNotes = widget.data.sysAdminNotes;
+      sysAdminNotes = widget.data!.sysAdminNotes;
 
-      sysAdminReviewAligned = widget.data.sysAdminReviewAligned;
+      sysAdminReviewAligned = widget.data!.sysAdminReviewAligned;
 
-      goodBadAnswer = widget.data.goodBadAnswer;
+      goodBadAnswer = widget.data!.goodBadAnswer;
 
-      tamRecommendations = widget.data.tamRecommendations;
+      tamRecommendations = widget.data!.tamRecommendations;
 
-      tamReview = widget.data.tamReview;
+      tamReview = widget.data!.tamReview;
 
-      totalProjectEstimate = widget.data.totalProjectEstimate;
+      totalProjectEstimate = widget.data!.totalProjectEstimate;
 
-      type = widget.data.type;
+      type = widget.data!.type;
 
-      whyAreWeAsking = widget.data.whyAreWeAsking;
+      whyAreWeAsking = widget.data!.whyAreWeAsking;
 
-      id = widget.data.id;
+      id = widget.data!.id;
       editQuestion = true;
       originalMap = createCurrentQuestion().toMap();
 
-      _benefitsBusinessValueC.text = benefitsBusinessValue;
-      _categoryC.text = category;
-      _customerApprovedProjectC.text = customerApprovedProject;
-      _estimatedLaborPriceC.text = estimatedLaborPrice;
-      _estimatedMRRIncreaseC.text = estimatedMRRIncrease;
-      _estimatedProductPriceC.text = estimatedProductPrice;
-      _howToC.text = howTo;
-      _projectTypeC.text = projectType;
-      _questionNameC.text = questionName;
-      _questionPriorityC.text = questionPriority;
-      _questionTextC.text = questionText;
-      _roadMapC.text = roadMap;
-      _sectionC.text = section;
-      _sysAdminNotesC.text = sysAdminNotes;
+      _benefitsBusinessValueC.text = benefitsBusinessValue!;
+      _categoryC.text = category!;
+      _customerApprovedProjectC.text = customerApprovedProject!;
+      _estimatedLaborPriceC.text = estimatedLaborPrice!;
+      _estimatedMRRIncreaseC.text = estimatedMRRIncrease!;
+      _estimatedProductPriceC.text = estimatedProductPrice!;
+      _howToC.text = howTo!;
+      _projectTypeC.text = projectType!;
+      _questionNameC.text = questionName!;
+      _questionPriorityC.text = questionPriority!;
+      _questionTextC.text = questionText!;
+      _roadMapC.text = roadMap!;
+      _sectionC.text = section!;
+      _sysAdminNotesC.text = sysAdminNotes!;
       _sysAdminReviewAlignedC.text = sysAdminReviewAligned.toString();
-      _goodBadAnswerC.text = goodBadAnswer;
-      _tamRecommendationsC.text = tamRecommendations;
-      _tamReviewC.text = tamReview;
-      _totalProjectEstimateC.text = totalProjectEstimate;
-      _typeC.text = type;
-      _whyAreWeAskingC.text = whyAreWeAsking;
+      _goodBadAnswerC.text = goodBadAnswer!;
+      _tamRecommendationsC.text = tamRecommendations!;
+      _tamReviewC.text = tamReview!;
+      _totalProjectEstimateC.text = totalProjectEstimate!;
+      _typeC.text = type!;
+      _whyAreWeAskingC.text = whyAreWeAsking!;
     } else {
       _benefitsBusinessValueC.text = 'in progress';
       _categoryC.text = 'in progress';
@@ -168,7 +168,7 @@ class _EditQuestionState extends State<EditQuestion> {
   @override
   void dispose() {
     // Clean up the focus node when the Form is disposed.
-    myFocusNode.dispose();
+    myFocusNode!.dispose();
 
     super.dispose();
   }
@@ -220,7 +220,7 @@ class _EditQuestionState extends State<EditQuestion> {
             // DropdownScreen(),
             AnnotatedEditableText(
               // Key key,
-              focusNode: myFocusNode,
+              focusNode: myFocusNode!,
               controller: _questionTextC,
               style:
                   const TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
@@ -422,7 +422,7 @@ class _EditQuestionState extends State<EditQuestion> {
   }
 
   Widget generateTextInput(TextEditingController controller, String label,
-      [int maxLength]) {
+      [int? maxLength]) {
     maxLength ??= 50;
     return TextField(
       autocorrect: true,

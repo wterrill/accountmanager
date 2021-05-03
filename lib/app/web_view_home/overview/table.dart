@@ -12,8 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class OverviewPaginatedTable extends StatefulWidget {
-  const OverviewPaginatedTable({Key key, this.id}) : super(key: key);
-  final String id;
+  const OverviewPaginatedTable({Key? key, this.id}) : super(key: key);
+  final String? id;
 
   @override
   _OverviewPaginatedTableState createState() => _OverviewPaginatedTableState();
@@ -39,11 +39,11 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
     // final database = context.watch(databaseProvider);
 
     return Consumer(builder: (context, watch, child) {
-      final String id = widget.id;
+      final String? id = widget.id;
       print(id);
       print('before completedTbrAsyncValueProvider');
       final AsyncValue<TBRinProgress> completedTbrAsyncValue =
-          watch(completedTbrStreamProvider(id));
+          watch(completedTbrStreamProvider!(id!));
       //* This is the code that fails when deploy on the web. it will need to be modified.
 //! **********************************************************************
       //* final AsyncValue<TBRinProgress> completedTbrAsyncValue =
@@ -59,7 +59,7 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
         loading: () => Container(color: Colors.cyanAccent),
         error: (_, __) => Container(color: Colors.red),
       );
-    });
+    } as Widget Function(BuildContext, T Function<T>(ProviderBase<Object?, T>), Widget?));
   }
 
   Widget _datatable(DTS dtsSource) {
@@ -177,7 +177,7 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
 
 class DTS extends CustomDataTableSource {
   final TBRinProgress data;
-  List<Question> questions;
+  List<Question>? questions;
 
   DTS(this.data) {
     questions = data.allQuestions;
@@ -187,28 +187,28 @@ class DTS extends CustomDataTableSource {
 
   @override
   CustomDataRow getRow(int index) {
-    final String id = data.allQuestions[index].id;
+    final String? id = data.allQuestions![index].id;
     print(data);
     // print(data[index]);
     print(index);
-    if (index < data.allQuestions.length) {
+    if (index < data.allQuestions!.length) {
       return CustomDataRow(cells: [
         CustomDataCell(Container(
-            width: 200, child: Text(data.allQuestions[index].category))),
+            width: 200, child: Text(data.allQuestions![index].category!))),
         CustomDataCell(Container(
-            width: 200, child: Text(data.allQuestions[index].questionName))),
+            width: 200, child: Text(data.allQuestions![index].questionName!))),
         CustomDataCell(Container(
-            width: 50, child: Text(data.allQuestions[index].questionPriority))),
+            width: 50, child: Text(data.allQuestions![index].questionPriority!))),
         CustomDataCell(Container(
-            width: 400, child: Text(data.allQuestions[index].questionText))),
+            width: 400, child: Text(data.allQuestions![index].questionText!))),
         CustomDataCell(getAlignment(
-            data.answers[id], data.allQuestions[index].goodBadAnswer)),
+            data.answers![id]!, data.allQuestions![index].goodBadAnswer)),
         CustomDataCell(Container(
             width: 100,
-            child: Text(data.adminComment[data.allQuestions[index].id] ?? ''))),
+            child: Text(data.adminComment![data.allQuestions![index].id] ?? ''))),
         CustomDataCell(Container(
             width: 100,
-            child: Text(data.tamNotes[data.allQuestions[index].id] ?? ''))),
+            child: Text(data.tamNotes![data.allQuestions![index].id] ?? ''))),
       ]);
     } else {
       return const CustomDataRow(cells: [
@@ -223,15 +223,15 @@ class DTS extends CustomDataTableSource {
     }
   }
 
-  void sort<T>({Comparable<T> Function(Question d) getField, bool ascending}) {
-    questions.sort((a, b) {
-      if (!ascending) {
+  void sort<T>({Comparable<T>? Function(Question d)? getField, bool? ascending}) {
+    questions!.sort((a, b) {
+      if (!ascending!) {
         final Question c = a;
         a = b;
         b = c;
       }
-      final Comparable<T> aValue = getField(a);
-      final Comparable<T> bValue = getField(b);
+      final Comparable<T> aValue = getField!(a)!;
+      final Comparable<T> bValue = getField(b)!;
       return Comparable.compare(aValue, bValue);
     });
     // notifyListeners();
@@ -241,13 +241,13 @@ class DTS extends CustomDataTableSource {
   bool get isRowCountApproximate => false;
 
   @override
-  int get rowCount => data.allQuestions.length;
+  int get rowCount => data.allQuestions!.length;
 
   @override
   int get selectedRowCount => 0;
 }
 
-Widget getAlignment(List<bool> answerArray, String expected) {
+Widget getAlignment(List<bool> answerArray, String? expected) {
   print(answerArray);
   print(expected);
   if (!answerArray.contains(true)) {

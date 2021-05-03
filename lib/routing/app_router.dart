@@ -25,8 +25,8 @@ class AppRoutes {
 }
 
 class AppRouter {
-  static Route<dynamic> onGenerateRoute(
-      RouteSettings settings, FirebaseAuth firebaseAuth, BuildContext context) {
+  static Route<dynamic>? onGenerateRoute(
+      RouteSettings settings, FirebaseAuth? firebaseAuth, BuildContext context) {
     final args = settings.arguments;
     print('args=$args');
     switch (settings.name) {
@@ -35,7 +35,7 @@ class AppRouter {
           builder: (_) => EmailPasswordSignInPage.withFirebaseAuth(
               firebaseAuth, context,
               onSignedIn: args
-                  as Function()), // this came up as The argument type 'Object'can't be assigned to the parameter type 'void Fuction()'
+                  as Function()?), // this came up as The argument type 'Object'can't be assigned to the parameter type 'void Fuction()'
           settings: settings,
           fullscreenDialog: true,
         );
@@ -48,7 +48,7 @@ class AppRouter {
         );
       case AppRoutes.tbrPage:
         final mapArgs = args as Map<String, dynamic>;
-        final data = mapArgs['data'] as AssignedTBR;
+        final data = mapArgs['data'] as AssignedTBR?;
         return MaterialPageRoute<dynamic>(
           builder: (_) => Text('deleted on shift to web code'),
 

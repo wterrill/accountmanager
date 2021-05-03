@@ -8,11 +8,11 @@ class MockAuthService extends Mock implements FirebaseAuth {}
 
 void main() {
   MockAuthService mockAuthService;
-  EmailPasswordSignInModel model;
+  late EmailPasswordSignInModel model;
 
   setUp(() {
     mockAuthService = MockAuthService();
-    BuildContext context;
+    BuildContext? context;
     model = EmailPasswordSignInModel(
         context: context, firebaseAuth: mockAuthService);
   });

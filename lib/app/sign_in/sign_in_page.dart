@@ -43,11 +43,11 @@ class SignInPage extends ConsumerWidget {
 
 class SignInPageContents extends StatelessWidget {
   const SignInPageContents(
-      {Key key,
+      {Key? key,
       this.viewModel,
       this.title = 'MXOtech Account Manager Application'})
       : super(key: key);
-  final SignInViewModel viewModel;
+  final SignInViewModel? viewModel;
   final String title;
 
   static const Key emailPasswordButtonKey = Key(Keys.emailPassword);
@@ -80,7 +80,7 @@ class SignInPageContents extends StatelessWidget {
   }
 
   Widget _buildHeader() {
-    if (viewModel.isLoading) {
+    if (viewModel!.isLoading) {
       return const Center(
         child: CircularProgressIndicator(),
       );
@@ -111,7 +111,7 @@ class SignInPageContents extends StatelessWidget {
               SignInButton(
                 key: emailPasswordButtonKey,
                 text: Strings.signInWithEmailPassword,
-                onPressed: viewModel.isLoading
+                onPressed: viewModel!.isLoading
                     ? null
                     : () => _showEmailPasswordSignInPage(
                         context, FirebaseAuth.instance),

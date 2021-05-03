@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class IpaginatedTable extends StatefulWidget {
-  const IpaginatedTable({Key key}) : super(key: key);
+  const IpaginatedTable({Key? key}) : super(key: key);
 
   @override
   _IpaginatedTableState createState() => _IpaginatedTableState();
@@ -14,7 +14,7 @@ class IpaginatedTable extends StatefulWidget {
 
 class _IpaginatedTableState extends State<IpaginatedTable> {
   // final dts = DTS();
-  int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
+  int? _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
   int _sortColumnIndex = 0;
   bool _sortAscending = false;
 
@@ -26,7 +26,7 @@ class _IpaginatedTableState extends State<IpaginatedTable> {
 
   @override
   Widget build(BuildContext context) {
-    final FirestoreDatabase database = context.read(databaseProvider);
+    final FirestoreDatabase database = context.read(databaseProvider as ProviderBase<Object?, FirestoreDatabase>);
     return FutureBuilder(
         future: database.assignedTbrStream().first,
         builder: (context, snapshot) {
@@ -38,7 +38,7 @@ class _IpaginatedTableState extends State<IpaginatedTable> {
             if (snapshot.hasError) {
               return const Text(Strings.error);
             } else {
-              return _datatable(DTS(snapshot.data as List<AssignedTBR>));
+              return _datatable(DTS(snapshot.data as List<AssignedTBR>?));
             }
           } else {
             return const Center(child: CircularProgressIndicator());
@@ -54,7 +54,7 @@ class _IpaginatedTableState extends State<IpaginatedTable> {
             PaginatedDataTable(
               header: Text(Strings.tbrStrings.assignTbr),
               source: dtsSource,
-              rowsPerPage: _rowsPerPage,
+              rowsPerPage: _rowsPerPage!,
               sortColumnIndex: _sortColumnIndex,
               sortAscending: _sortAscending,
               onRowsPerPageChanged: (rows) {
@@ -67,7 +67,7 @@ class _IpaginatedTableState extends State<IpaginatedTable> {
                   label: Text(Strings.companyStrings.company),
                   onSort: (columnIndex, ascending) {
                     dtsSource.sort<String>(
-                        getField: (d) => d.company.name,
+                        getField: (d) => d.company!.name,
                         ascending: _sortAscending);
                     setState(() {
                       _sortColumnIndex = columnIndex;
@@ -79,7 +79,7 @@ class _IpaginatedTableState extends State<IpaginatedTable> {
                   label: Text(Strings.technicianStrings.technician),
                   onSort: (columnIndex, ascending) {
                     dtsSource.sort<String>(
-                        getField: (d) => d.technician.firstName,
+                        getField: (d) => d.technician!.firstName,
                         ascending: _sortAscending);
                     setState(() {
                       _sortColumnIndex = columnIndex;
@@ -123,7 +123,7 @@ class _IpaginatedTableState extends State<IpaginatedTable> {
 }
 
 class DTS extends DataTableSource {
-  final List<AssignedTBR> data;
+  final List<AssignedTBR>? data;
 
   DTS(this.data);
 
@@ -132,12 +132,12 @@ class DTS extends DataTableSource {
     print(data);
     // print(data[index]);
     print(index);
-    if (index < data.length) {
+    if (index < data!.length) {
       return DataRow(cells: [
-        DataCell(Text('${data[index].company}')),
-        DataCell(Text('${data[index].technician}')),
-        DataCell(Text('${data[index].dueDate}')),
-        DataCell(Text('${data[index].clientMeetingDate}')),
+        DataCell(Text('${data![index].company}')),
+        DataCell(Text('${data![index].technician}')),
+        DataCell(Text('${data![index].dueDate}')),
+        DataCell(Text('${data![index].clientMeetingDate}')),
       ]);
     } else {
       return const DataRow(cells: [
@@ -150,15 +150,15 @@ class DTS extends DataTableSource {
   }
 
   void sort<T>(
-      {Comparable<T> Function(AssignedTBR d) getField, bool ascending}) {
-    data.sort((a, b) {
-      if (!ascending) {
+      {Comparable<T>? Function(AssignedTBR d)? getField, bool? ascending}) {
+    data!.sort((a, b) {
+      if (!ascending!) {
         final AssignedTBR c = a;
         a = b;
         b = c;
       }
-      final Comparable<T> aValue = getField(a);
-      final Comparable<T> bValue = getField(b);
+      final Comparable<T> aValue = getField!(a)!;
+      final Comparable<T> bValue = getField(b)!;
       return Comparable.compare(aValue, bValue);
     });
     // notifyListeners();
@@ -168,7 +168,7 @@ class DTS extends DataTableSource {
   bool get isRowCountApproximate => false;
 
   @override
-  int get rowCount => data.length;
+  int get rowCount => data!.length;
 
   @override
   int get selectedRowCount => 0;

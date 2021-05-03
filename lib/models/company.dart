@@ -4,21 +4,21 @@ import 'package:meta/meta.dart';
 
 @immutable
 class Company extends Equatable implements DropdownModel {
-  const Company({@required this.id, @required this.name});
+  const Company({required this.id, required this.name});
   final String id;
-  final String name;
+  final String? name;
 
   @override
-  List<Object> get props => [id, name];
+  List<Object?> get props => [id, name];
 
   @override
   bool get stringify => true;
 
-  factory Company.fromMap(Map<String, dynamic> data, String documentId) {
+  factory Company.fromMap(Map<String, dynamic>? data, String documentId) {
     if (data == null) {
       return null;
     }
-    final name = data['company_name'] as String;
+    final name = data['company_name'] as String?;
     if (name == null) {
       return null;
     }
@@ -26,14 +26,14 @@ class Company extends Equatable implements DropdownModel {
   }
 
   Map<String, dynamic> toMap() {
-    return <String, String>{'company_name': name, 'company_id': id};
+    return <String, String?>{'company_name': name, 'company_id': id};
   }
 
   @override
-  String toString() => name;
+  String toString() => name!;
 
   String toDeluxeString() => toMap().toString();
 
   @override
-  String toDropDownString() => name;
+  String? toDropDownString() => name;
 }

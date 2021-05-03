@@ -6,7 +6,7 @@ import 'package:accountmanager/app/web_view_home/home/sidebar/custom_background2
 import 'package:flutter/material.dart';
 
 class DeveloperPage extends StatelessWidget {
-  const DeveloperPage({Key key}) : super(key: key);
+  const DeveloperPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

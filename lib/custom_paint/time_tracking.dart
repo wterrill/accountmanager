@@ -14,7 +14,7 @@
 import 'package:flutter/material.dart';
 
 class TimeTracking extends StatelessWidget {
-  const TimeTracking({Key key}) : super(key: key);
+  const TimeTracking({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

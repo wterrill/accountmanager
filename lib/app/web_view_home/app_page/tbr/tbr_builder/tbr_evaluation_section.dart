@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class TbrEvaluationSection extends ConsumerWidget {
-  TbrEvaluationSection({Key key}) : super(key: key);
+  TbrEvaluationSection({Key? key}) : super(key: key);
 
   final ScrollController _scrollController = ScrollController();
 
@@ -16,7 +16,7 @@ class TbrEvaluationSection extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     final TBRfillPageData tbrFillPageData =
         watch(tbrFillPageDataProvider).state;
-    final TBRinProgress tbrInProgress = watch(tbrInProgressProvider).state;
+    final TBRinProgress? tbrInProgress = watch(tbrInProgressProvider).state;
     return Scrollbar(
       controller: _scrollController,
       isAlwaysShown: true,
@@ -30,8 +30,8 @@ class TbrEvaluationSection extends ConsumerWidget {
         itemBuilder: (context, index) {
           final Question question = tbrFillPageData.filteredQuestions[index];
           // print('tbrInProgress.colorScheme: ${tbrInProgress.colorScheme}');
-          final Map<String, List<Color>> colorScheme =
-              tbrInProgress.colorScheme[question.id];
+          final Map<String, List<Color?>> colorScheme =
+              tbrInProgress!.colorScheme[question.id]!;
 
           // print('colorScheme: $colorScheme');
           // print('index: $index');
@@ -71,9 +71,9 @@ class TbrEvaluationSection extends ConsumerWidget {
                   const Text('System Administrator Notes'),
                   TextField(
                     controller: TextEditingController(
-                        text: tbrInProgress.adminComment[question.id]),
+                        text: tbrInProgress.adminComment![question.id]),
                     onChanged: (value) {
-                      tbrInProgress.adminComment[question.id] = value;
+                      tbrInProgress.adminComment![question.id] = value;
                     },
                     minLines: 2,
                     maxLines: 5,
@@ -89,9 +89,9 @@ class TbrEvaluationSection extends ConsumerWidget {
                   const Text('TAM Notes'),
                   TextField(
                     controller: TextEditingController(
-                        text: tbrInProgress.tamNotes[question.id]),
+                        text: tbrInProgress.tamNotes![question.id]),
                     onChanged: (value) {
-                      tbrInProgress.tamNotes[question.id] = value;
+                      tbrInProgress.tamNotes![question.id] = value;
                     },
                     minLines: 2,
                     maxLines: 5,
@@ -122,15 +122,15 @@ class TbrEvaluationSection extends ConsumerWidget {
                   child: Icon(
                     Icons.brightness_1,
                     color: buttonColor(tbrFillPageData
-                        .filteredQuestions[index].questionPriority
+                        .filteredQuestions[index].questionPriority!
                         .toLowerCase()),
                     size: 25,
                   ),
                 )
               ]),
             ),
-            title: Text(question.questionText),
-            subtitle: Text(question.questionName),
+            title: Text(question.questionText!),
+            subtitle: Text(question.questionName!),
             trailing: Container(
               width: 200,
               child: Row(
@@ -138,15 +138,15 @@ class TbrEvaluationSection extends ConsumerWidget {
                   const Icon(Icons.edit),
                   CustomToggleButtons(
                     children: const [Text('Yes'), Text('No'), Text('N/A')],
-                    isSelected: tbrInProgress.answers[question.id],
+                    isSelected: tbrInProgress.answers![question.id]!,
                     onPressed: (index) {
                       print(index);
                       final List<bool> presentValue =
-                          tbrInProgress.answers[question.id];
+                          tbrInProgress.answers![question.id]!;
                       final List<bool> tempValue = [false, false, false];
                       // setState(() {
                       tempValue[index] = !presentValue[index];
-                      tbrInProgress.answers[question.id] = tempValue;
+                      tbrInProgress.answers![question.id] = tempValue;
                       tbrInProgress.updatePercentages();
                       context.read(tbrInProgressProvider).state = tbrInProgress;
                       // });

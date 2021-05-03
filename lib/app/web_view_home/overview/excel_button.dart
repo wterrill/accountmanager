@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ExcelButton extends ConsumerWidget {
-  const ExcelButton({Key key, @required this.tbrInProgress}) : super(key: key);
+  const ExcelButton({Key? key, required this.tbrInProgress}) : super(key: key);
   final TBRinProgress tbrInProgress;
 
   @override
@@ -44,24 +44,24 @@ class ExcelButton extends ConsumerWidget {
           CellStyle(backgroundColorHex: '#AAAAAA', underline: Underline.Double);
     }
 
-    for (var row = 0; row < completedTBR.allQuestions.length; row++) {
-      final List<String> temp = [];
-      final String id = tbrInProgress.allQuestions[row].id;
+    for (var row = 0; row < completedTBR.allQuestions!.length; row++) {
+      final List<String?> temp = [];
+      final String? id = tbrInProgress.allQuestions![row].id;
       // Write one single row
-      temp.add(completedTBR.allQuestions[row].category);
-      temp.add(completedTBR.allQuestions[row].questionName);
-      temp.add(completedTBR.allQuestions[row].questionPriority);
-      temp.add(completedTBR.allQuestions[row].questionText);
-      temp.add(getAlignment(completedTBR.answers[id],
-          completedTBR.allQuestions[row].goodBadAnswer));
-      temp.add(completedTBR.adminComment[id]);
-      temp.add(completedTBR.tamNotes[id]);
+      temp.add(completedTBR.allQuestions![row].category);
+      temp.add(completedTBR.allQuestions![row].questionName);
+      temp.add(completedTBR.allQuestions![row].questionPriority);
+      temp.add(completedTBR.allQuestions![row].questionText);
+      temp.add(getAlignment(completedTBR.answers![id]!,
+          completedTBR.allQuestions![row].goodBadAnswer));
+      temp.add(completedTBR.adminComment![id]);
+      temp.add(completedTBR.tamNotes![id]);
 
       sheetObject.insertRowIterables(temp, row + 1);
       final Data cell = sheetObject
           .cell(CellIndex.indexByColumnRow(columnIndex: 4, rowIndex: row));
       CellStyle cellStyle = CellStyle(backgroundColorHex: '#FFFFFF');
-      switch (cell.value as String) {
+      switch (cell.value as String?) {
         case 'N':
           {
             cellStyle = CellStyle(backgroundColorHex: '#FF0000');
@@ -88,17 +88,17 @@ class ExcelButton extends ConsumerWidget {
     int yes = 0;
     int no = 0;
     int na = 0;
-    for (var i = 0; i < completedTBR.allQuestions.length; i++) {
-      final String id = completedTBR.allQuestions[i].id;
-      if (completedTBR.answers[id].toString() ==
+    for (var i = 0; i < completedTBR.allQuestions!.length; i++) {
+      final String? id = completedTBR.allQuestions![i].id;
+      if (completedTBR.answers![id].toString() ==
           [true, false, false].toString()) {
         yes++;
       }
-      if (completedTBR.answers[id].toString() ==
+      if (completedTBR.answers![id].toString() ==
           [false, true, false].toString()) {
         no++;
       }
-      if (completedTBR.answers[id].toString() ==
+      if (completedTBR.answers![id].toString() ==
           [false, false, true].toString()) {
         na++;
       }
@@ -140,10 +140,10 @@ class ExcelButton extends ConsumerWidget {
     //     'WHERE IN THE WORLD IS CARMEN SAN DIEGO??'; // dynamic values support provided;
     // cell.cellStyle = cellStyle;
 
-    final List<int> onValue = excel.encode(); //.then((onValue) {
+    final List<int>? onValue = excel.encode(); //.then((onValue) {
     print(onValue);
     js.context.callMethod('webSaveAs', <dynamic>[
-      html.Blob(<List<int>>[onValue]),
+      html.Blob(<List<int>?>[onValue]),
       'test.xlsx'
     ]);
     // File(outputFile)
@@ -241,7 +241,7 @@ class ExcelButton extends ConsumerWidget {
   }
 }
 
-String getAlignment(List<bool> answerArray, String expected) {
+String getAlignment(List<bool> answerArray, String? expected) {
   print(answerArray);
   print(expected);
   if (!answerArray.contains(true)) {

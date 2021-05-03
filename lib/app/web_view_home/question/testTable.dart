@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 class Testing extends StatefulWidget {
-  const Testing({Key key}) : super(key: key);
+  const Testing({Key? key}) : super(key: key);
 
   @override
   _MyDataTableState createState() => _MyDataTableState();

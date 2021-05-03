@@ -4,7 +4,7 @@ import 'package:meta/meta.dart';
 
 @immutable
 class QuestionnaireType extends Equatable implements DropdownModel {
-  const QuestionnaireType({@required this.name, @required this.id});
+  const QuestionnaireType({required this.name, required this.id});
   final String name;
   final String id;
 
@@ -14,17 +14,17 @@ class QuestionnaireType extends Equatable implements DropdownModel {
   @override
   bool get stringify => true;
 
-  factory QuestionnaireType.fromMap(Map<String, dynamic> data) {
+  factory QuestionnaireType.fromMap(Map<String, dynamic>? data) {
     if (data == null) {
       return null;
     }
 
-    final optionName = data['questionnaireType_name'] as String;
+    final optionName = data['questionnaireType_name'] as String?;
     if (optionName == null) {
       return null;
     }
 
-    final optionid = data['questionnaireType_id'] as String;
+    final optionid = data['questionnaireType_id'] as String?;
     if (optionid == null) {
       return null;
     }

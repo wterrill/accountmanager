@@ -42,8 +42,8 @@ class AccountWebPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final firebaseAuth = context.read(firebaseAuthProvider);
-    final user = firebaseAuth.currentUser;
+    final firebaseAuth = context.read(firebaseAuthProvider as ProviderBase<Object?, FirebaseAuth>);
+    final user = firebaseAuth.currentUser!;
     return AppBar(
       title: const Text(Strings.accountPage),
       actions: <Widget>[
@@ -89,7 +89,7 @@ class AccountWebPage extends StatelessWidget {
         const SizedBox(height: 8),
         if (user.displayName != null)
           Text(
-            user.displayName,
+            user.displayName!,
             style: const TextStyle(color: Colors.white),
           ),
         const SizedBox(height: 8),
@@ -100,7 +100,7 @@ class AccountWebPage extends StatelessWidget {
 
 Future<void> _showVersion(BuildContext context) async {
   try {
-    final Map<String, dynamic> result = await showWidgetDialog(
+    final Map<String, dynamic>? result = await showWidgetDialog(
       context: context,
       title: 'Version',
       widget: FractionallySizedBox(

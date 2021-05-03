@@ -6,11 +6,11 @@ import 'package:accountmanager/app/web_view_home/app_page/tbr/tbr_builder/tbr_bu
 import 'package:accountmanager/common_widgets/empty_content.dart';
 
 class TBRappPage extends ConsumerWidget {
-  const TBRappPage({Key key}) : super(key: key);
+  const TBRappPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final questionAsyncValue = watch(questionStreamProvider);
+    final questionAsyncValue = watch(questionStreamProvider!);
     return questionAsyncValue.when(
       data: (items) => items.isNotEmpty
           ? TBRbuilder(questionList: items)

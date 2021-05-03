@@ -17,14 +17,14 @@ class MyFlutterApp {
   MyFlutterApp._();
 
   static const _kFontFam = 'MyFlutterApp';
-  static const String _kFontPkg = null;
+  static const String? _kFontPkg = null;
 
   static const IconData user =
       IconData(0xf007, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }
 
 class Sidebar extends ConsumerWidget {
-  const Sidebar({Key key}) : super(key: key);
+  const Sidebar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
@@ -57,7 +57,7 @@ class Sidebar extends ConsumerWidget {
 
     // const TextStyle buttonStyle = TextStyle(color: Colors.white, fontSize: 16);
     // Widget widget = watch(widgetProvider).state;
-    final String lastText = watch(sideBarButtonStateProvider).state;
+    final String? lastText = watch(sideBarButtonStateProvider).state;
     final sidebar = Container(
       width: 250,
       // color: const Color(0xFF1B2E44),

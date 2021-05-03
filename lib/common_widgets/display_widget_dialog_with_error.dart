@@ -5,7 +5,7 @@ import 'package:pedantic/pedantic.dart';
 Future<void> displayWidgetDialogWithError(
     BuildContext context, String title, Widget widget) async {
   try {
-    final Map<String, dynamic> result = await showWidgetDialog(
+    final Map<String, dynamic>? result = await showWidgetDialog(
       context: context,
       title: title,
       widget: widget,

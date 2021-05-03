@@ -8,8 +8,8 @@ import 'package:mockito/mockito.dart';
 import 'mocks.dart';
 
 void main() {
-  MockFirebaseAuth mockFirebaseAuth;
-  SignInViewModel viewModel;
+  MockFirebaseAuth? mockFirebaseAuth;
+  SignInViewModel? viewModel;
 
   setUp(() {
     mockFirebaseAuth = MockFirebaseAuth();
@@ -22,12 +22,12 @@ void main() {
   });
 
   void stubSignInAnonymouslyReturnsUser() {
-    when(mockFirebaseAuth.signInAnonymously())
+    when(mockFirebaseAuth!.signInAnonymously())
         .thenAnswer((_) => Future.value(MockUserCredential()));
   }
 
   void stubSignInAnonymouslyThrows(Exception exception) {
-    when(mockFirebaseAuth.signInAnonymously()).thenThrow(exception);
+    when(mockFirebaseAuth!.signInAnonymously()).thenThrow(exception);
   }
 
   test(
@@ -36,9 +36,9 @@ void main() {
       'THEN isLoading is false', () async {
     stubSignInAnonymouslyReturnsUser();
 
-    await viewModel.signInAnonymously();
+    await viewModel!.signInAnonymously();
 
-    expect(viewModel.isLoading, false);
+    expect(viewModel!.isLoading, false);
   });
 
   test(
@@ -49,8 +49,8 @@ void main() {
     final exception = PlatformException(code: 'ERROR_MISSING_PERMISSIONS');
     stubSignInAnonymouslyThrows(exception);
 
-    expect(() => viewModel.signInAnonymously(), throwsA(exception));
+    expect(() => viewModel!.signInAnonymously(), throwsA(exception));
 
-    expect(viewModel.isLoading, false);
+    expect(viewModel!.isLoading, false);
   });
 }

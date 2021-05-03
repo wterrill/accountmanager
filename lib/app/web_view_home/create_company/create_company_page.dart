@@ -10,7 +10,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:pedantic/pedantic.dart';
 
-final companyStreamProvider = StreamProvider.autoDispose<List<Company>>((ref) {
+final AutoDisposeStreamProvider<List<Company>>? companyStreamProvider = StreamProvider.autoDispose<List<Company>>((ref) {
   final database = ref.watch(databaseProvider);
   return database?.companyStream() ?? const Stream.empty();
 });
@@ -19,7 +19,7 @@ final companyStreamProvider = StreamProvider.autoDispose<List<Company>>((ref) {
 class CreateCompanyWebPage extends ConsumerWidget {
   Future<void> _deleteCompany(BuildContext context, Company company) async {
     try {
-      final database = context.read(databaseProvider);
+      final database = context.read(databaseProvider as ProviderBase<Object?, FirestoreDatabase>);
       await database.deleteCompany(company);
     } catch (e) {
       unawaited(showExceptionAlertDialog(
@@ -37,7 +37,7 @@ class CreateCompanyWebPage extends ConsumerWidget {
   }
 
   Widget _buildContents(BuildContext context, ScopedReader watch) {
-    final companyAsyncValue = watch(companyStreamProvider);
+    final companyAsyncValue = watch(companyStreamProvider!);
     return Padding(
       padding: const EdgeInsets.all(40.0),
       child: Column(

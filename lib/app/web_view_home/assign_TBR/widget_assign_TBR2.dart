@@ -18,44 +18,44 @@ import 'package:accountmanager/services/firestore_database.dart';
 
 class AssignTBR extends StatefulWidget {
   const AssignTBR({
-    Key key,
+    Key? key,
     this.data,
   }) : super(key: key);
-  final AssignedTBR data;
+  final AssignedTBR? data;
 
   @override
   _AssignTBRState createState() => _AssignTBRState();
 }
 
 class _AssignTBRState extends State<AssignTBR> {
-  Technician selectedTechnician;
-  Company selectedCompany;
-  QuestionnaireType selectedQuestionnaireType;
-  DateTime evaluationDueDate;
-  DateTime clientMeetingDate;
-  String id;
-  String assignedBy;
+  Technician? selectedTechnician;
+  Company? selectedCompany;
+  QuestionnaireType? selectedQuestionnaireType;
+  DateTime? evaluationDueDate;
+  DateTime? clientMeetingDate;
+  String? id;
+  String? assignedBy;
   bool editAssignTBR = false;
-  Status status;
-  Map<String, dynamic> originalMap;
+  Status? status;
+  Map<String, dynamic>? originalMap;
   @override
   void initState() {
     super.initState();
     if (widget.data != null) {
-      selectedTechnician = widget.data.technician;
-      selectedCompany = widget.data.company;
-      selectedQuestionnaireType = widget.data.questionnaireType;
-      evaluationDueDate = widget.data.dueDate;
-      clientMeetingDate = widget.data.clientMeetingDate;
-      id = widget.data.id;
-      status = widget.data.status;
-      assignedBy = widget.data.assignedBy;
+      selectedTechnician = widget.data!.technician;
+      selectedCompany = widget.data!.company;
+      selectedQuestionnaireType = widget.data!.questionnaireType;
+      evaluationDueDate = widget.data!.dueDate;
+      clientMeetingDate = widget.data!.clientMeetingDate;
+      id = widget.data!.id;
+      status = widget.data!.status;
+      assignedBy = widget.data!.assignedBy;
       editAssignTBR = true;
       originalMap = createCurrentTBR(assignedBy).toMap();
     }
   }
 
-  AssignedTBR createCurrentTBR(String assignedBy) {
+  AssignedTBR createCurrentTBR(String? assignedBy) {
     return AssignedTBR(
         technician: selectedTechnician,
         company: selectedCompany,
@@ -67,14 +67,14 @@ class _AssignTBRState extends State<AssignTBR> {
         id: id ??= documentIdFromCurrentDate());
   }
 
-  bool answer;
+  bool? answer;
 
   @override
   Widget build(BuildContext context) {
-    final firebaseAuth = context.read(firebaseAuthProvider);
-    final user = firebaseAuth.currentUser;
+    final firebaseAuth = context.read(firebaseAuthProvider as ProviderBase<Object?, FirebaseAuth>);
+    final user = firebaseAuth.currentUser!;
     assignedBy ??= user.email;
-    final FirestoreDatabase database = context.read(databaseProvider);
+    final FirestoreDatabase database = context.read(databaseProvider as ProviderBase<Object?, FirestoreDatabase>);
     return SizedBox(
       height: 320,
       width: 300,
@@ -142,7 +142,7 @@ class _AssignTBRState extends State<AssignTBR> {
             onSaved: (val) {
               print(val);
               setState(() {
-                evaluationDueDate = DateTime.parse(val);
+                evaluationDueDate = DateTime.parse(val!);
               });
             },
           ),
@@ -165,7 +165,7 @@ class _AssignTBRState extends State<AssignTBR> {
             onSaved: (val) {
               print(val);
               setState(() {
-                clientMeetingDate = DateTime.parse(val);
+                clientMeetingDate = DateTime.parse(val!);
               });
             },
           ),
@@ -184,9 +184,9 @@ class _AssignTBRState extends State<AssignTBR> {
                   ),
                   onPressedx: () async {
                     bool valid = true;
-                    AssignedTBR assignedTbrForEmail;
+                    AssignedTBR? assignedTbrForEmail;
                     while (valid) {
-                      bool validated;
+                      bool? validated;
                       validated = await _validateAndSaveForm(
                           createCurrentTBR(assignedBy));
                       if (validated == false) {
@@ -194,7 +194,7 @@ class _AssignTBRState extends State<AssignTBR> {
                         break;
                       }
 
-                      if (validated && widget.data == null) {
+                      if (validated! && widget.data == null) {
                         answer = true;
                       } else if (answer == null) {
                         answer = await showAlertDialog(
@@ -207,7 +207,7 @@ class _AssignTBRState extends State<AssignTBR> {
                         );
                         print(answer);
 
-                        if (!answer) {
+                        if (!answer!) {
                           valid = false;
                         }
                       }
@@ -220,7 +220,7 @@ class _AssignTBRState extends State<AssignTBR> {
                                   (assignedTbr != null) &&
                                   !mapEquals<String, dynamic>(
                                       originalMap, assignedTbr.toMap()));
-                      if (answer //) {
+                      if (answer! //) {
                           &&
                           notNullnotEditedOREditedAndChanged) {
                         unawaited(_sendAssignedTbr(assignedTbr: assignedTbr));
@@ -258,9 +258,9 @@ class _AssignTBRState extends State<AssignTBR> {
     );
   }
 
-  Future<void> _sendAssignedTbr({@required AssignedTBR assignedTbr}) async {
+  Future<void> _sendAssignedTbr({required AssignedTBR assignedTbr}) async {
     try {
-      final database = context.read(databaseProvider);
+      final database = context.read(databaseProvider as ProviderBase<Object?, FirestoreDatabase>);
       await database.setTBR(assignedTbr);
     } catch (e) {
       unawaited(showExceptionAlertDialog(
@@ -271,13 +271,13 @@ class _AssignTBRState extends State<AssignTBR> {
     }
   }
 
-  Future<bool> _validateAndSaveForm(AssignedTBR assignedTbr) async {
+  Future<bool?> _validateAndSaveForm(AssignedTBR assignedTbr) async {
     if (assignedTbr.toMap() == null) {
       return false;
     }
-    bool validated = true;
+    bool? validated = true;
     while (validated == true) {
-      if (assignedTbr.dueDate.isBefore(DateTime.now())) {
+      if (assignedTbr.dueDate!.isBefore(DateTime.now())) {
         validated = await showAlertDialog(
             context: context,
             title: 'Are you sure?',
@@ -288,7 +288,7 @@ class _AssignTBRState extends State<AssignTBR> {
         if (validated == false) break;
       }
 
-      if (assignedTbr.clientMeetingDate.isBefore(DateTime.now())) {
+      if (assignedTbr.clientMeetingDate!.isBefore(DateTime.now())) {
         validated = await showAlertDialog(
             context: context,
             title: 'Are you sure?',
@@ -300,7 +300,7 @@ class _AssignTBRState extends State<AssignTBR> {
         //Condition should not unconditionally evalute to 'true' or to 'false'. verify:
       }
 
-      if (assignedTbr.dueDate.isAfter(assignedTbr.clientMeetingDate)) {
+      if (assignedTbr.dueDate!.isAfter(assignedTbr.clientMeetingDate!)) {
         validated = await showAlertDialog(
             context: context,
             title: 'Are you sure?',

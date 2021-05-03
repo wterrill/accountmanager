@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:rive/rive.dart';
 
 class RiveAnimation extends StatefulWidget {
-  const RiveAnimation({Key key}) : super(key: key);
+  const RiveAnimation({Key? key}) : super(key: key);
 
   @override
   _RiveAnimationState createState() => _RiveAnimationState();
@@ -18,8 +18,8 @@ class _RiveAnimationState extends State<RiveAnimation>
   /// Tracks if the animation is playing by whether controller is running.
   bool get isPlaying => _controller?.isActive ?? false;
 
-  Artboard _riveArtboard;
-  RiveAnimationController _controller;
+  Artboard? _riveArtboard;
+  RiveAnimationController? _controller;
   @override
   void initState() {
     super.initState();
@@ -52,7 +52,7 @@ class _RiveAnimationState extends State<RiveAnimation>
         Center(
       child: _riveArtboard == null
           ? const SizedBox()
-          : Rive(artboard: _riveArtboard),
+          : Rive(artboard: _riveArtboard!),
       // ),
       // floatingActionButton: FloatingActionButton(
       //   onPressed: _togglePlay,

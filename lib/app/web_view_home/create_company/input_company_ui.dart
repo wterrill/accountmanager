@@ -12,7 +12,7 @@ import 'package:accountmanager/services/firestore_database.dart';
 
 class InputCompany extends StatefulWidget {
   const InputCompany({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -20,7 +20,7 @@ class InputCompany extends StatefulWidget {
 }
 
 class _InputCompanyState extends State<InputCompany> {
-  String name;
+  String? name;
   TextEditingController textController = TextEditingController();
   @override
   void initState() {
@@ -103,10 +103,10 @@ class _InputCompanyState extends State<InputCompany> {
   }
 }
 
-void _submit(BuildContext context, String name) {
+void _submit(BuildContext context, String? name) {
   if (_validateAndSaveForm(name)) {
     try {
-      final database = context.read(databaseProvider);
+      final database = context.read(databaseProvider as ProviderBase<Object?, FirestoreDatabase>);
       final id = documentIdFromCurrentDate();
       final company = Company(id: id, name: name);
       database.setCompany(company);
@@ -120,7 +120,7 @@ void _submit(BuildContext context, String name) {
   }
 }
 
-bool _validateAndSaveForm(String name) {
+bool _validateAndSaveForm(String? name) {
   if (name != '') {
     return true;
   } else {

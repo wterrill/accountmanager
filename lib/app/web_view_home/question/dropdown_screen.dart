@@ -12,7 +12,7 @@ class DropdownScreen extends StatefulWidget {
 }
 
 class DropdownScreenState extends State<DropdownScreen> {
-  Item selectedUser;
+  Item? selectedUser;
   List<Item> users = <Item>[
     const Item(
         'Android',

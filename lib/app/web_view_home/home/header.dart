@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class Header extends StatefulWidget {
-  const Header({Key key}) : super(key: key);
+  const Header({Key? key}) : super(key: key);
 
   @override
   _HeaderState createState() => _HeaderState();
@@ -13,8 +13,8 @@ class Header extends StatefulWidget {
 class _HeaderState extends State<Header> {
   @override
   Widget build(BuildContext context) {
-    final FirebaseAuth firebaseAuth = context.read(firebaseAuthProvider);
-    final user = firebaseAuth.currentUser;
+    final FirebaseAuth firebaseAuth = context.read(firebaseAuthProvider as ProviderBase<Object?, FirebaseAuth>);
+    final user = firebaseAuth.currentUser!;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -44,7 +44,7 @@ class _HeaderState extends State<Header> {
                   height: 80,
                   child: Center(
                     child: Text(
-                      user.email[0].toUpperCase(),
+                      user.email![0].toUpperCase(),
                       style: const TextStyle(
                           color: Colors.blue,
                           fontSize: 48,
@@ -56,7 +56,7 @@ class _HeaderState extends State<Header> {
               const SizedBox(width: 15),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(user.email,
+                child: Text(user.email!,
                     style: const TextStyle(color: Colors.white, fontSize: 16)),
               )
             ],

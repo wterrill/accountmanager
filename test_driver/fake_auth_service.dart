@@ -28,20 +28,20 @@ class FakeAuthService implements FirebaseAuth {
 
   final Map<String, _UserData> _usersStore = <String, _UserData>{};
 
-  User _currentUser;
+  User? _currentUser;
 
-  final StreamController<User> _onAuthStateChangedController =
-      StreamController<User>();
+  final StreamController<User?> _onAuthStateChangedController =
+      StreamController<User?>();
   @override
-  Stream<User> authStateChanges() => _onAuthStateChangedController.stream;
+  Stream<User?> authStateChanges() => _onAuthStateChangedController.stream;
 
   @override
-  User get currentUser => _currentUser;
+  User? get currentUser => _currentUser;
 
   UserCredential _mockUserCredential(
-      {String uid, String email, String password}) {
+      {String? uid, String? email, String? password}) {
     final user = MockUser();
-    when(user.uid).thenReturn(uid);
+    when(user.uid).thenReturn(uid!);
     when(user.email).thenReturn(email);
     final userCredential = MockUserCredential();
     when(userCredential.user).thenReturn(user);
@@ -50,7 +50,7 @@ class FakeAuthService implements FirebaseAuth {
 
   @override
   Future<UserCredential> createUserWithEmailAndPassword(
-      {@required String email, @required String password}) async {
+      {required String email, required String password}) async {
     await Future<void>.delayed(responseTime);
     if (_usersStore.keys.contains(email)) {
       throw PlatformException(
@@ -81,7 +81,7 @@ class FakeAuthService implements FirebaseAuth {
 
   @override
   Future<UserCredential> signInWithEmailAndPassword(
-      {String email, String password}) async {
+      {String? email, String? password}) async {
     // TODO: implement signInWithEmailAndPassword
     await Future<void>.delayed(responseTime);
     if (!_usersStore.keys.contains(email)) {
@@ -90,7 +90,7 @@ class FakeAuthService implements FirebaseAuth {
         message: 'The email address is not registered. Need an account?',
       );
     }
-    final _UserData _userData = _usersStore[email];
+    final _UserData _userData = _usersStore[email!]!;
     if (_userData.password != password) {
       throw PlatformException(
         code: 'ERROR_WRONG_PASSWORD',
@@ -99,7 +99,7 @@ class FakeAuthService implements FirebaseAuth {
     }
     _add(_userData.user);
     final userCredential = _mockUserCredential(
-      uid: _userData.user.uid,
+      uid: _userData.user!.uid,
       email: email,
       password: password,
     );
@@ -111,7 +111,7 @@ class FakeAuthService implements FirebaseAuth {
     _add(null);
   }
 
-  void _add(User user) {
+  void _add(User? user) {
     _currentUser = user;
     _onAuthStateChangedController.add(user);
   }
@@ -133,7 +133,7 @@ class FakeAuthService implements FirebaseAuth {
   }
 
   @override
-  FirebaseApp app;
+  late FirebaseApp app;
 
   @override
   Future<void> useEmulator(String code) {
@@ -154,7 +154,7 @@ class FakeAuthService implements FirebaseAuth {
   }
 
   @override
-  Future<void> confirmPasswordReset({String code, String newPassword}) {
+  Future<void> confirmPasswordReset({String? code, String? newPassword}) {
     // TODO: implement confirmPasswordReset
     throw UnimplementedError();
   }
@@ -197,7 +197,7 @@ class FakeAuthService implements FirebaseAuth {
 
   @override
   Future<void> sendSignInLinkToEmail(
-      {String email, ActionCodeSettings actionCodeSettings}) {
+      {String? email, ActionCodeSettings? actionCodeSettings}) {
     // TODO: implement sendSignInLinkToEmail
     throw UnimplementedError();
   }
@@ -216,7 +216,7 @@ class FakeAuthService implements FirebaseAuth {
 
   @override
   Future<void> setSettings(
-      {bool appVerificationDisabledForTesting, String userAccessGroup}) {
+      {bool? appVerificationDisabledForTesting, String? userAccessGroup}) {
     // TODO: implement setSettings
     throw UnimplementedError();
   }
@@ -228,14 +228,14 @@ class FakeAuthService implements FirebaseAuth {
   }
 
   @override
-  Future<UserCredential> signInWithEmailLink({String email, String emailLink}) {
+  Future<UserCredential> signInWithEmailLink({String? email, String? emailLink}) {
     // TODO: implement signInWithEmailLink
     throw UnimplementedError();
   }
 
   @override
   Future<ConfirmationResult> signInWithPhoneNumber(String phoneNumber,
-      [RecaptchaVerifier verifier]) {
+      [RecaptchaVerifier? verifier]) {
     // TODO: implement signInWithPhoneNumber
     throw UnimplementedError();
   }
@@ -266,28 +266,28 @@ class FakeAuthService implements FirebaseAuth {
 
   @override
   Future<void> verifyPhoneNumber(
-      {String phoneNumber,
+      {String? phoneNumber,
       verificationCompleted,
       verificationFailed,
       codeSent,
       codeAutoRetrievalTimeout,
-      String autoRetrievedSmsCodeForTesting,
+      String? autoRetrievedSmsCodeForTesting,
       Duration timeout = const Duration(seconds: 30),
-      int forceResendingToken}) {
+      int? forceResendingToken}) {
     // TODO: implement verifyPhoneNumber
     throw UnimplementedError();
   }
 
   @override
   Future<void> sendPasswordResetEmail(
-      {String email, ActionCodeSettings actionCodeSettings}) {
+      {String? email, ActionCodeSettings? actionCodeSettings}) {
     // TODO: implement sendPasswordResetEmail
     throw UnimplementedError();
   }
 }
 
 class _UserData {
-  _UserData({@required this.password, @required this.user});
+  _UserData({required this.password, required this.user});
   final String password;
-  final User user;
+  final User? user;
 }

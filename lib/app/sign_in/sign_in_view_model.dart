@@ -7,8 +7,8 @@ import 'package:meta/meta.dart';
 String filename = 'sign_in_view_model.dart: ';
 
 class SignInViewModel with ChangeNotifier {
-  SignInViewModel({@required this.auth});
-  final FirebaseAuth auth;
+  SignInViewModel({required this.auth});
+  final FirebaseAuth? auth;
   bool isLoading = false;
   dynamic error;
 
@@ -28,6 +28,6 @@ class SignInViewModel with ChangeNotifier {
   }
 
   Future<void> signInAnonymously() async {
-    await _signIn(auth.signInAnonymously);
+    await _signIn(auth!.signInAnonymously);
   }
 }

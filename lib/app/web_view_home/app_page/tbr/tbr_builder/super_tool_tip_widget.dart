@@ -3,33 +3,33 @@ import 'package:super_tooltip/super_tooltip.dart';
 
 class SuperToolTipWidget extends StatefulWidget {
   const SuperToolTipWidget({
-    Key key,
-    @required this.howString,
-    @required this.whyString,
+    Key? key,
+    required this.howString,
+    required this.whyString,
   }) : super(key: key);
-  final String howString;
-  final String whyString;
+  final String? howString;
+  final String? whyString;
 
   @override
   _SuperToolTipWidgetState createState() => _SuperToolTipWidgetState();
 }
 
 class _SuperToolTipWidgetState extends State<SuperToolTipWidget> {
-  SuperTooltip tooltip;
+  SuperTooltip? tooltip;
 
   Future<bool> _willPopCallback() async {
     // If the tooltip is open we don't pop the page on a backbutton press
     // but close the ToolTip
-    if (tooltip.isOpen) {
-      tooltip.close();
+    if (tooltip!.isOpen) {
+      tooltip!.close();
       return false;
     }
     return true;
   }
 
   void onTap() {
-    if (tooltip != null && tooltip.isOpen) {
-      tooltip.close();
+    if (tooltip != null && tooltip!.isOpen) {
+      tooltip!.close();
       return;
     }
 
@@ -54,13 +54,13 @@ class _SuperToolTipWidgetState extends State<SuperToolTipWidget> {
               children: [
                 const Text('Why:', style: TextStyle(color: Colors.blue)),
                 Text(
-                  widget.whyString,
+                  widget.whyString!,
                   softWrap: true,
                 ),
                 const Text(''),
                 const Text('How:', style: TextStyle(color: Colors.blue)),
                 Text(
-                  widget.howString,
+                  widget.howString!,
                   softWrap: true,
                 ),
               ]),
@@ -68,7 +68,7 @@ class _SuperToolTipWidgetState extends State<SuperToolTipWidget> {
       ),
     );
 
-    tooltip.show(context);
+    tooltip!.show(context);
   }
 
   @override

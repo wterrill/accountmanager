@@ -15,11 +15,11 @@ class _AnimationWrapperState extends State<AnimationWrapper>
     with TickerProviderStateMixin {
   var _sides = 3.0;
 
-  Animation<double> animation;
-  AnimationController controller;
+  late Animation<double> animation;
+  late AnimationController controller;
 
-  Animation<double> animation2;
-  AnimationController controller2;
+  late Animation<double> animation2;
+  late AnimationController controller2;
 
   @override
   void initState() {

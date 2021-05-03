@@ -5,10 +5,10 @@ import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-TBRinProgress tbrInProgress;
+TBRinProgress? tbrInProgress;
 
 class TestButtonRow extends ConsumerWidget {
-  const TestButtonRow({Key key}) : super(key: key);
+  const TestButtonRow({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
@@ -43,13 +43,13 @@ class TestButtonRow extends ConsumerWidget {
               text: 'fill out all Random',
               color: Colors.yellow,
               onPressedNew: () {
-                for (final String key in tbrInProgress.answers.keys) {
+                for (final String? key in tbrInProgress!.answers!.keys) {
                   final int randomNumber = Random().nextInt(3);
                   final List<bool> temp = [false, false, false];
                   temp[randomNumber] = true;
-                  tbrInProgress.answers[key] = temp;
+                  tbrInProgress!.answers![key] = temp;
                 }
-                tbrInProgress.updatePercentages();
+                tbrInProgress!.updatePercentages();
                 context.read(tbrInProgressProvider).state = tbrInProgress;
               }),
         if (testingBool)
@@ -58,13 +58,13 @@ class TestButtonRow extends ConsumerWidget {
               text: 'fill out all comments',
               color: Colors.yellow,
               onPressedNew: () {
-                for (final String key in tbrInProgress.answers.keys) {
-                  tbrInProgress.adminComment[key] =
-                      'admin: ${tbrInProgress.getQuestionFromId(key).questionText}';
-                  tbrInProgress.tamNotes[key] =
-                      'Tam: ${tbrInProgress.getQuestionFromId(key).questionName}';
+                for (final String? key in tbrInProgress!.answers!.keys) {
+                  tbrInProgress!.adminComment![key] =
+                      'admin: ${tbrInProgress!.getQuestionFromId(key)!.questionText}';
+                  tbrInProgress!.tamNotes![key] =
+                      'Tam: ${tbrInProgress!.getQuestionFromId(key)!.questionName}';
                 }
-                tbrInProgress.updatePercentages();
+                tbrInProgress!.updatePercentages();
                 context.read(tbrInProgressProvider).state = tbrInProgress;
               }),
       ],
@@ -72,24 +72,24 @@ class TestButtonRow extends ConsumerWidget {
   }
 
   TextButton buildTestButton(
-      {BuildContext context,
-      String text,
-      List<bool> boolList,
-      Function onPressedNew,
-      Color color}) {
+      {BuildContext? context,
+      String? text,
+      List<bool>? boolList,
+      Function? onPressedNew,
+      Color? color}) {
     Function onPressed = () {
-      for (final String key in tbrInProgress.answers.keys) {
-        tbrInProgress.answers[key] = boolList;
+      for (final String? key in tbrInProgress!.answers!.keys) {
+        tbrInProgress!.answers![key] = boolList;
       }
-      tbrInProgress.updatePercentages();
-      context.read(tbrInProgressProvider).state = tbrInProgress;
+      tbrInProgress!.updatePercentages();
+      context!.read(tbrInProgressProvider).state = tbrInProgress;
     };
     if (onPressedNew != null) {
       onPressed = onPressedNew;
     }
     return TextButton(
         style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(color)),
+            backgroundColor: MaterialStateProperty.all<Color?>(color)),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(text ?? ''),

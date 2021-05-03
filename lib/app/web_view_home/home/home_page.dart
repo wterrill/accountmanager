@@ -9,13 +9,13 @@ import 'header.dart';
 class WebViewHomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final FirestoreDatabase firestoreDatabase = context.read(databaseProvider);
-    final Map<String, String> registeredData =
+    final FirestoreDatabase? firestoreDatabase = context.read(databaseProvider);
+    final Map<String, String>? registeredData =
         context.read(registeredProvider).getValue;
     if (registeredData.toString() != '{\'null\': \'null\'}') {
       print('firestoreDatabase reads: $firestoreDatabase');
       print('just before saveUserInfo');
-      firestoreDatabase.saveUserInfo(registeredData['uid'], registeredData);
+      firestoreDatabase!.saveUserInfo(registeredData!['uid'], registeredData);
     }
     context.read(registeredProvider).reset();
     final Widget incomingWidget = watch(widgetProvider).state;

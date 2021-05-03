@@ -15,7 +15,7 @@ import 'package:accountmanager/constants/strings.dart';
 import 'package:accountmanager/app/web_view_home/app_page/tbr/tbr_app_page.dart';
 import 'package:accountmanager/app/web_view_home/home/sidebar/sidebar.dart';
 
-final assignedTbrStreamProvider =
+final AutoDisposeStreamProvider<List<AssignedTBR>>? assignedTbrStreamProvider =
     StreamProvider.autoDispose<List<AssignedTBR>>((ref) {
   final database = ref.watch(databaseProvider);
   return database?.assignedTbrStream() ?? const Stream.empty();
@@ -27,38 +27,38 @@ class TableVars {
     sortAscending = true;
   }
   int rowsPerPage;
-  int sortColumnIndex;
-  bool sortAscending;
+  int? sortColumnIndex;
+  bool? sortAscending;
 }
 
 final tableVarsProvider = StateProvider<TableVars>(
     (ref) => TableVars(PaginatedDataTable.defaultRowsPerPage));
 
 class CreateAppSelectDataTableWidget extends ConsumerWidget {
-  final bool mobile;
+  final bool? mobile;
 
   const CreateAppSelectDataTableWidget({
     this.mobile,
   });
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final assignedTbrAsyncValue = watch(assignedTbrStreamProvider);
+    final assignedTbrAsyncValue = watch(assignedTbrStreamProvider!);
     return DataTableBuilder(dataAsync: assignedTbrAsyncValue, mobile: mobile);
   }
 }
 
 class DataTableBuilder extends ConsumerWidget {
   const DataTableBuilder({
-    Key key,
+    Key? key,
     this.dataAsync,
-    @required this.mobile,
+    required this.mobile,
   }) : super(key: key);
-  final AsyncValue<List<AssignedTBR>> dataAsync;
-  final bool mobile;
+  final AsyncValue<List<AssignedTBR>>? dataAsync;
+  final bool? mobile;
 
   @override // 8
   Widget build(BuildContext context, ScopedReader watch) {
-    return dataAsync.when(
+    return dataAsync!.when(
       data: (items) {
         final bool showAll = watch(showAllSwitchProvider).state;
         final List<AssignedTBR> filteredItems = items.where((element) {
@@ -83,9 +83,9 @@ class DataTableBuilder extends ConsumerWidget {
 }
 
 class ShowDataTable extends ConsumerWidget {
-  const ShowDataTable({Key key, this.items, this.mobile}) : super(key: key);
-  final List<AssignedTBR> items;
-  final bool mobile;
+  const ShowDataTable({Key? key, this.items, this.mobile}) : super(key: key);
+  final List<AssignedTBR>? items;
+  final bool? mobile;
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
@@ -106,7 +106,7 @@ class ShowDataTable extends ConsumerWidget {
                 source: dtsSource,
                 rowsPerPage: tableVars.rowsPerPage,
                 sortColumnIndex: tableVars.sortColumnIndex,
-                sortAscending: tableVars.sortAscending,
+                sortAscending: tableVars.sortAscending!,
                 onRowsPerPageChanged: (rows) {
                   // setState(() {
                   context.read(tableVarsProvider).state.rowsPerPage = rows;
@@ -132,12 +132,12 @@ class ShowDataTable extends ConsumerWidget {
                   CustomDataColumn(
                     label: Text(Strings.companyStrings.company),
                     onSort: (columnIndex, ascending) {
-                      print(dtsSource.data[0].company);
+                      print(dtsSource.data![0].company);
                       dtsSource.sort<String>(
                           // 1
-                          getField: (d) => d.company.name,
+                          getField: (d) => d.company!.name,
                           ascending: tableVars.sortAscending);
-                      print(dtsSource.data[0].company);
+                      print(dtsSource.data![0].company);
                       // setState(() {
                       final TableVars tableVarsTemp = TableVars(
                           context.read(tableVarsProvider).state.rowsPerPage);
@@ -156,7 +156,7 @@ class ShowDataTable extends ConsumerWidget {
                     onSort: (columnIndex, ascending) {
                       print(dtsSource);
                       dtsSource.sort<String>(
-                          getField: (d) => d.technician.firstName,
+                          getField: (d) => d.technician!.firstName,
                           ascending: tableVars.sortAscending);
                       print(dtsSource);
                       // setState(() {
@@ -205,7 +205,7 @@ class ShowDataTable extends ConsumerWidget {
                     label: Text(Strings.tbrStrings.type),
                     onSort: (columnIndex, ascending) {
                       dtsSource.sort<String>(
-                          getField: (d) => d.questionnaireType.name,
+                          getField: (d) => d.questionnaireType!.name,
                           ascending: tableVars.sortAscending);
                       // setState(() {
                       final TableVars tempTableVars = TableVars(
@@ -245,12 +245,12 @@ class ShowDataTable extends ConsumerWidget {
 }
 
 class DTS extends CustomDataTableSource {
-  final List<AssignedTBR> incomingData;
-  List<AssignedTBR> data;
+  final List<AssignedTBR>? incomingData;
+  List<AssignedTBR>? data;
   final BuildContext context;
-  final bool mobile;
+  final bool? mobile;
 
-  DTS({this.incomingData, @required this.context, this.mobile}) {
+  DTS({this.incomingData, required this.context, this.mobile}) {
     filterValues(context);
   }
 
@@ -260,38 +260,38 @@ class DTS extends CustomDataTableSource {
 
   @override
   CustomDataRow getRow(int index) {
-    if (index < data.length) {
+    if (index < data!.length) {
       return CustomDataRow(
           onSelectChanged: (_) {
-            if (data[index].status.getStatusName() != 'Completed') {
+            if (data![index].status.getStatusName() != 'Completed') {
               _displayNewTBREvalPage(
-                  context: context, assignedTBR: data[index], mobile: false);
+                  context: context, assignedTBR: data![index], mobile: false);
             } else {
               final AsyncValue<TBRinProgress> completedTbrAsyncValue =
-                  context.read(completedTbrStreamProvider(data[index].id));
+                  context.read(completedTbrStreamProvider!(data![index].id));
               completedTbrAsyncValue.whenData((completedTBR) {
                 _displayCompletedTBREvalPage(
                     context: context,
-                    assignedTBR: data[index],
+                    assignedTBR: data![index],
                     completedTBR: completedTBR,
                     mobile: false);
               });
             }
           },
           cells: [
-            CustomDataCell(statusBox(data[index].status.getStatusName())),
+            CustomDataCell(statusBox(data![index].status.getStatusName())),
             // ignore: unnecessary_string_interpolations
-            CustomDataCell(Text('${data[index].company.toDropDownString()}')),
+            CustomDataCell(Text('${data![index].company!.toDropDownString()}')),
             CustomDataCell(
                 // ignore: unnecessary_string_interpolations
-                Text('${data[index].technician.toDropDownString()}')),
+                Text('${data![index].technician!.toDropDownString()}')),
             CustomDataCell(
-                Text(DateFormat.yMMMEd().format(data[index].dueDate))),
+                Text(DateFormat.yMMMEd().format(data![index].dueDate!))),
             CustomDataCell(Text(
-                DateFormat.yMMMEd().format(data[index].clientMeetingDate))),
+                DateFormat.yMMMEd().format(data![index].clientMeetingDate!))),
 
-            CustomDataCell(Text(data[index].questionnaireType.name)),
-            CustomDataCell(Text(data[index].assignedBy))
+            CustomDataCell(Text(data![index].questionnaireType!.name)),
+            CustomDataCell(Text(data![index].assignedBy!))
           ]);
     } else {
       return const CustomDataRow(cells: [
@@ -307,15 +307,15 @@ class DTS extends CustomDataTableSource {
   }
 
   void sort<T>(
-      {Comparable<T> Function(AssignedTBR d) getField, bool ascending}) {
-    data.sort((a, b) {
-      if (!ascending) {
+      {Comparable<T>? Function(AssignedTBR d)? getField, bool? ascending}) {
+    data!.sort((a, b) {
+      if (!ascending!) {
         final AssignedTBR c = a;
         a = b;
         b = c;
       }
-      final Comparable<T> aValue = getField(a); // 2 - 7
-      final Comparable<T> bValue = getField(b);
+      final Comparable<T> aValue = getField!(a)!; // 2 - 7
+      final Comparable<T> bValue = getField(b)!;
       return Comparable.compare(aValue, bValue);
     });
     // notifyListeners();
@@ -325,16 +325,16 @@ class DTS extends CustomDataTableSource {
   bool get isRowCountApproximate => false;
 
   @override
-  int get rowCount => data.length;
+  int get rowCount => data!.length;
 
   @override
   int get selectedRowCount => 0;
 } // End of DTS()
 
 Future<void> _displayNewTBREvalPage(
-    {@required BuildContext context,
-    @required AssignedTBR assignedTBR,
-    @required bool mobile}) async {
+    {required BuildContext context,
+    required AssignedTBR assignedTBR,
+    required bool mobile}) async {
   //
   context.read(inProgressTbrProvider).state = assignedTBR;
   Widget frame = Container(color: Colors.white, child: const TBRappPage());
@@ -350,10 +350,10 @@ Future<void> _displayNewTBREvalPage(
 }
 
 Future<void> _displayCompletedTBREvalPage(
-    {@required BuildContext context,
-    @required AssignedTBR assignedTBR,
-    @required TBRinProgress completedTBR,
-    @required bool mobile}) async {
+    {required BuildContext context,
+    required AssignedTBR assignedTBR,
+    required TBRinProgress completedTBR,
+    required bool mobile}) async {
   context.read(inProgressTbrProvider).state = assignedTBR;
 
   Widget frame = Container(color: Colors.white, child: const TBRappPage());

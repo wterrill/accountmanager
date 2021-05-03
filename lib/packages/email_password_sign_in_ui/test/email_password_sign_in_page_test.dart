@@ -12,14 +12,14 @@ class MockAuthService extends Mock implements FirebaseAuth {}
 class MockUserCredential extends Mock implements UserCredential {}
 
 void main() {
-  MockAuthService mockAuth;
+  MockAuthService? mockAuth;
 
   setUp(() {
     mockAuth = MockAuthService();
   });
 
   Future<void> pumpEmailSignInForm(WidgetTester tester,
-      {VoidCallback onSignedIn}) async {
+      {VoidCallback? onSignedIn}) async {
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
@@ -36,29 +36,29 @@ void main() {
   }
 
   void stubSignInWithEmailAndPasswordSucceeds() {
-    when(mockAuth.signInWithCredential(any))
+    when(mockAuth!.signInWithCredential(any!))
         .thenAnswer((_) => Future<UserCredential>.value(MockUserCredential()));
   }
 
   void stubSignInWithEmailAndPasswordThrows() {
-    when(mockAuth.signInWithCredential(any))
+    when(mockAuth!.signInWithCredential(any!))
         .thenThrow(PlatformException(code: 'ERROR_WRONG_PASSWORD'));
   }
 
   void stubCreateUserWithEmailAndPasswordSucceeds() {
-    when(mockAuth.createUserWithEmailAndPassword(
-            email: anyNamed('email'), password: anyNamed('password')))
+    when(mockAuth!.createUserWithEmailAndPassword(
+            email: anyNamed('email')!, password: anyNamed('password')!))
         .thenAnswer((_) => Future<UserCredential>.value(MockUserCredential()));
   }
 
   void stubCreateUserWithEmailAndPasswordThrows() {
-    when(mockAuth.createUserWithEmailAndPassword(
-            email: anyNamed('email'), password: anyNamed('password')))
+    when(mockAuth!.createUserWithEmailAndPassword(
+            email: anyNamed('email')!, password: anyNamed('password')!))
         .thenThrow(PlatformException(code: 'ERROR_EMAIL_ALREADY_IN_USE'));
   }
 
   void stubSendPasswordResetEmailSucceeds() {
-    when(mockAuth.sendPasswordResetEmail(email: anyNamed('email')))
+    when(mockAuth!.sendPasswordResetEmail(email: anyNamed('email')!))
         .thenAnswer((_) => Future<void>.value());
   }
 
@@ -74,7 +74,7 @@ void main() {
       expect(primaryButton, findsOneWidget);
       await tester.tap(primaryButton);
 
-      verifyNever(mockAuth.signInWithCredential(any));
+      verifyNever(mockAuth!.signInWithCredential(any!));
       expect(signedIn, false);
     });
 
@@ -106,7 +106,7 @@ void main() {
       expect(primaryButton, findsOneWidget);
       await tester.tap(primaryButton);
 
-      verify(mockAuth.signInWithCredential(any)).called(1);
+      verify(mockAuth!.signInWithCredential(any!)).called(1);
       expect(signedIn, true);
     });
 
@@ -138,7 +138,7 @@ void main() {
       expect(primaryButton, findsOneWidget);
       await tester.tap(primaryButton);
 
-      verify(mockAuth.signInWithCredential(any)).called(1);
+      verify(mockAuth!.signInWithCredential(any!)).called(1);
       expect(signedIn, false);
     });
   });
@@ -159,8 +159,8 @@ void main() {
           find.text(EmailPasswordSignInStrings.createAnAccount);
       expect(signInButton, findsOneWidget);
 
-      verifyNever(mockAuth.createUserWithEmailAndPassword(
-          email: anyNamed('email'), password: anyNamed('password')));
+      verifyNever(mockAuth!.createUserWithEmailAndPassword(
+          email: anyNamed('email')!, password: anyNamed('password')!));
       expect(signedIn, false);
     });
 
@@ -197,7 +197,7 @@ void main() {
       expect(createAccountButton, findsOneWidget);
       await tester.tap(createAccountButton);
 
-      verify(mockAuth.createUserWithEmailAndPassword(
+      verify(mockAuth!.createUserWithEmailAndPassword(
               email: email, password: password))
           .called(1);
       expect(signedIn, true);
@@ -236,7 +236,7 @@ void main() {
       expect(createAccountButton, findsOneWidget);
       await tester.tap(createAccountButton);
 
-      verify(mockAuth.createUserWithEmailAndPassword(
+      verify(mockAuth!.createUserWithEmailAndPassword(
               email: email, password: password))
           .called(1);
       expect(signedIn, false);
@@ -259,7 +259,7 @@ void main() {
           find.text(EmailPasswordSignInStrings.sendResetLink);
       expect(sendResetPasswordButton, findsOneWidget);
 
-      verifyNever(mockAuth.sendPasswordResetEmail(email: anyNamed('email')));
+      verifyNever(mockAuth!.sendPasswordResetEmail(email: anyNamed('email')!));
       expect(signedIn, false);
     });
   });
@@ -292,7 +292,7 @@ void main() {
     expect(sendResetLinkButton, findsOneWidget);
     await tester.tap(sendResetLinkButton);
 
-    verify(mockAuth.sendPasswordResetEmail(email: email)).called(1);
+    verify(mockAuth!.sendPasswordResetEmail(email: email)).called(1);
     expect(signedIn, false);
   });
 

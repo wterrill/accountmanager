@@ -9,10 +9,10 @@ import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
 
 class ShowDialogButton extends StatelessWidget {
   const ShowDialogButton({
-    Key key,
+    Key? key,
     this.name,
   }) : super(key: key);
-  final String name;
+  final String? name;
 
   @override
   Widget build(BuildContext context) {

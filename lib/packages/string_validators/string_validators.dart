@@ -8,13 +8,13 @@ abstract class StringValidator {
 
 class RegexValidator implements StringValidator {
   RegexValidator({this.regexSource});
-  final String regexSource;
+  final String? regexSource;
 
   @override
   bool isValid(String value) {
     try {
       // https://regex101.com/
-      final RegExp regex = RegExp(regexSource);
+      final RegExp regex = RegExp(regexSource!);
       final Iterable<Match> matches = regex.allMatches(value);
       for (final match in matches) {
         if (match.start == 0 && match.end == value.length) {
@@ -32,13 +32,13 @@ class RegexValidator implements StringValidator {
 
 class ValidatorInputFormatter implements TextInputFormatter {
   ValidatorInputFormatter({this.editingValidator});
-  final StringValidator editingValidator;
+  final StringValidator? editingValidator;
 
   @override
   TextEditingValue formatEditUpdate(
       TextEditingValue oldValue, TextEditingValue newValue) {
-    final bool oldValueValid = editingValidator.isValid(oldValue.text);
-    final bool newValueValid = editingValidator.isValid(newValue.text);
+    final bool oldValueValid = editingValidator!.isValid(oldValue.text);
+    final bool newValueValid = editingValidator!.isValid(newValue.text);
     if (oldValueValid && !newValueValid) {
       return oldValue;
     }

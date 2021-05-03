@@ -5,10 +5,10 @@ import 'package:meta/meta.dart';
 @immutable
 class Technician extends Equatable implements DropdownModel {
   const Technician(
-      {@required this.id,
-      @required this.firstName,
-      @required this.lastName,
-      @required this.email});
+      {required this.id,
+      required this.firstName,
+      required this.lastName,
+      required this.email});
   final String id;
   final String firstName;
   final String lastName;
@@ -20,20 +20,20 @@ class Technician extends Equatable implements DropdownModel {
   @override
   bool get stringify => true;
 
-  factory Technician.fromMap(Map<String, dynamic> data, String documentId) {
+  factory Technician.fromMap(Map<String, dynamic>? data, String documentId) {
     if (data == null) {
       return null;
     }
-    final firstName = data['firstName'] as String;
+    final firstName = data['firstName'] as String?;
     if (firstName == null) {
       return null;
     }
-    final lastName = data['lastName'] as String;
+    final lastName = data['lastName'] as String?;
     if (lastName == null) {
       return null;
     }
 
-    final email = data['email'] as String;
+    final email = data['email'] as String?;
     if (email == null) {
       return null;
     }

@@ -5,28 +5,28 @@ import 'package:meta/meta.dart';
 
 @immutable
 class Question extends Equatable {
-  final String benefitsBusinessValue;
-  final String category;
-  final String customerApprovedProject;
-  final String estimatedLaborPrice;
-  final String estimatedMRRIncrease;
-  final String estimatedProductPrice;
-  final String howTo;
-  final String projectType;
-  final String questionName;
-  final String questionPriority;
-  final String questionText;
-  final String roadMap; //mm/yyyy
-  final String section;
-  final String sysAdminNotes;
-  final bool sysAdminReviewAligned;
-  final String goodBadAnswer;
-  final String tamRecommendations;
-  final String tamReview;
-  final String totalProjectEstimate;
-  final String type;
-  final String whyAreWeAsking;
-  final String id;
+  final String? benefitsBusinessValue;
+  final String? category;
+  final String? customerApprovedProject;
+  final String? estimatedLaborPrice;
+  final String? estimatedMRRIncrease;
+  final String? estimatedProductPrice;
+  final String? howTo;
+  final String? projectType;
+  final String? questionName;
+  final String? questionPriority;
+  final String? questionText;
+  final String? roadMap; //mm/yyyy
+  final String? section;
+  final String? sysAdminNotes;
+  final bool? sysAdminReviewAligned;
+  final String? goodBadAnswer;
+  final String? tamRecommendations;
+  final String? tamReview;
+  final String? totalProjectEstimate;
+  final String? type;
+  final String? whyAreWeAsking;
+  final String? id;
 
   const Question({
     this.benefitsBusinessValue,
@@ -54,28 +54,28 @@ class Question extends Equatable {
   });
 
   Question copyWith({
-    String benefitsBusinessValue,
-    String category,
-    String customerApprovedProject,
-    String estimatedLaborPrice,
-    String estimatedMRRIncrease,
-    String estimatedProductPrice,
-    String howTo,
-    String projectType,
-    String questionName,
-    String questionPriority,
-    String questionText,
-    String roadMap,
-    String section,
-    String sysAdminNotes,
-    bool sysAdminReviewAligned,
-    String goodBadAnswer,
-    String tamRecommendations,
-    String tamReview,
-    String totalProjectEstimate,
-    String type,
-    String whyAreWeAsking,
-    String id,
+    String? benefitsBusinessValue,
+    String? category,
+    String? customerApprovedProject,
+    String? estimatedLaborPrice,
+    String? estimatedMRRIncrease,
+    String? estimatedProductPrice,
+    String? howTo,
+    String? projectType,
+    String? questionName,
+    String? questionPriority,
+    String? questionText,
+    String? roadMap,
+    String? section,
+    String? sysAdminNotes,
+    bool? sysAdminReviewAligned,
+    String? goodBadAnswer,
+    String? tamRecommendations,
+    String? tamReview,
+    String? totalProjectEstimate,
+    String? type,
+    String? whyAreWeAsking,
+    String? id,
   }) {
     return Question(
       benefitsBusinessValue:
@@ -108,7 +108,7 @@ class Question extends Equatable {
   }
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         id,
         benefitsBusinessValue,
         category,
@@ -160,7 +160,7 @@ class Question extends Equatable {
     };
   }
 
-  factory Question.fromMap(Map<String, dynamic> map, String id) {
+  factory Question.fromMap(Map<String, dynamic>? map, String? id) {
     if (map == null || id == null) return null;
 
     if (map['Question Text'] == null) {
@@ -169,35 +169,35 @@ class Question extends Equatable {
 
     return Question(
       benefitsBusinessValue:
-          map['Benefits / Business Value added Dec 2020'] as String,
-      category: map['Category'] as String,
-      customerApprovedProject: map['Customer Approved Project'] as String,
-      estimatedLaborPrice: map['Estimated Labor Price'] as String,
-      estimatedMRRIncrease: map['Estimated MRR Increase'] as String,
-      estimatedProductPrice: map['Estimated Product Price'] as String,
-      howTo: map['How to?'] as String,
-      projectType: map['Project Type'] as String,
-      questionName: map['Question Name'] as String,
-      questionPriority: map['Question Priority'] as String,
-      questionText: map['Question Text'] as String,
-      roadMap: map['ROAD MAP = Month / Year [mm/yyyy]'] as String,
-      section: map['Section'] as String,
-      sysAdminNotes: map['Sys Admin Notes'] as String,
-      sysAdminReviewAligned: map['Sys Admin Review Aligned (Y/N)'] as bool,
-      goodBadAnswer: map['Good / Bad Answer'] as String,
-      tamRecommendations: map['TAM Recommendations'] as String,
-      tamReview: map['TAM Review'] as String,
-      totalProjectEstimate: map['Total Project Estimate'] as String,
-      type: map['Type'] as String,
-      whyAreWeAsking: map['Why Are We Asking?'] as String,
-      id: (id == null) ? map['id'] as String : id,
+          map['Benefits / Business Value added Dec 2020'] as String?,
+      category: map['Category'] as String?,
+      customerApprovedProject: map['Customer Approved Project'] as String?,
+      estimatedLaborPrice: map['Estimated Labor Price'] as String?,
+      estimatedMRRIncrease: map['Estimated MRR Increase'] as String?,
+      estimatedProductPrice: map['Estimated Product Price'] as String?,
+      howTo: map['How to?'] as String?,
+      projectType: map['Project Type'] as String?,
+      questionName: map['Question Name'] as String?,
+      questionPriority: map['Question Priority'] as String?,
+      questionText: map['Question Text'] as String?,
+      roadMap: map['ROAD MAP = Month / Year [mm/yyyy]'] as String?,
+      section: map['Section'] as String?,
+      sysAdminNotes: map['Sys Admin Notes'] as String?,
+      sysAdminReviewAligned: map['Sys Admin Review Aligned (Y/N)'] as bool?,
+      goodBadAnswer: map['Good / Bad Answer'] as String?,
+      tamRecommendations: map['TAM Recommendations'] as String?,
+      tamReview: map['TAM Review'] as String?,
+      totalProjectEstimate: map['Total Project Estimate'] as String?,
+      type: map['Type'] as String?,
+      whyAreWeAsking: map['Why Are We Asking?'] as String?,
+      id: (id == null) ? map['id'] as String? : id,
     );
   }
 
   String toJson() => json.encode(toMap());
 
   factory Question.fromJson(String source) =>
-      Question.fromMap(json.decode(source) as Map<String, dynamic>, null);
+      Question.fromMap(json.decode(source) as Map<String, dynamic>?, null);
 
   @override
   String toString() {

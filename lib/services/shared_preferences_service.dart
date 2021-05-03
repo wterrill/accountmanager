@@ -23,7 +23,7 @@ class SharedPreferencesService {
       sharedPreferences.getBool(onboardingCompleteKey) ?? false;
 
   DateTime getLastDateTime() {
-    final String dateTimeString = sharedPreferences.getString(lastDateTimeKey);
+    final String? dateTimeString = sharedPreferences.getString(lastDateTimeKey);
     if (dateTimeString != null) {
       final DateTime parsed = DateTime.parse(dateTimeString);
       return parsed;
