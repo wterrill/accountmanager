@@ -8,8 +8,6 @@ import 'package:accountmanager/models/tbr.dart';
 import 'package:accountmanager/models/technician.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
-import 'package:accountmanager/models/entry.dart';
-import 'package:accountmanager/models/job.dart';
 import 'package:accountmanager/packages/firestore_service/firestore_service.dart';
 import 'package:accountmanager/services/firestore_path.dart';
 
@@ -23,10 +21,10 @@ class FirestoreDatabase {
 
   final _service = FirestoreService.instance;
 
-  Future<void> setEntry(Entry entry) => _service.setData(
-        path: FirestorePath.entry(uid, entry.id),
-        data: entry.toMap(),
-      );
+  // Future<void> setEntry(Entry entry) => _service.setData(
+  //       path: FirestorePath.entry(uid, entry.id),
+  //       data: entry.toMap(),
+  //     );
 
   Future<void> saveUserInfo(String uid, Map<String, String> data) {
     print('inside saveUserInfo');
@@ -36,8 +34,8 @@ class FirestoreDatabase {
     );
   }
 
-  Future<void> deleteEntry(Entry entry) =>
-      _service.deleteData(path: FirestorePath.entry(uid, entry.id));
+  // Future<void> deleteEntry(Entry entry) =>
+  //     _service.deleteData(path: FirestorePath.entry(uid, entry.id));
 
   // Future<void> setJob(Job job) => _service.setData(
   //       path: FirestorePath.job(uid, job.id),
@@ -51,8 +49,8 @@ class FirestoreDatabase {
       @required String from,
       @required String body,
       @required String subject}) {
-    final Map<String, dynamic> data = {
-      'message': {'html': body, 'subject': subject},
+    final Map<String, dynamic> data = <String, dynamic>{
+      'message': <String, dynamic>{'html': body, 'subject': subject},
       'to': toList
     };
     return _service.setData(
@@ -83,15 +81,15 @@ class FirestoreDatabase {
   //       builder: (data, documentId) => Job.fromMap(data, documentId),
   //     );
 
-  Stream<List<Entry>> entriesStream({Job job}) =>
-      _service.collectionStream<Entry>(
-        path: FirestorePath.entries(uid),
-        queryBuilder: job != null
-            ? (query) => query.where('CompanyId', isEqualTo: job.id)
-            : null,
-        builder: (data, documentID) => Entry.fromMap(data, documentID),
-        sort: (lhs, rhs) => rhs.start.compareTo(lhs.start),
-      );
+  // Stream<List<Entry>> entriesStream({Job job}) =>
+  //     _service.collectionStream<Entry>(
+  //       path: FirestorePath.entries(uid),
+  //       queryBuilder: job != null
+  //           ? (query) => query.where('CompanyId', isEqualTo: job.id)
+  //           : null,
+  //       builder: (data, documentID) => Entry.fromMap(data, documentID),
+  //       sort: (lhs, rhs) => rhs.start.compareTo(lhs.start),
+  //     );
 
   // Future<void> setTechnician(Technician technician) => _service.setData(
   //       path: FirestorePath.technician(technician.id),

@@ -78,28 +78,38 @@ final loggerProvider = Provider<Logger>((ref) {
   );
 });
 
-class RegisteredClass extends StateNotifier<Map<String, String>> {
+class RegisteredClass {
   Map<String, String> currentValue;
-  RegisteredClass() : super({'null': 'null'});
-
-  void reset() {
-    state = {'null': 'null'};
+  RegisteredClass() {
+    currentValue = {'null': 'null'};
   }
 
-  Map<String, String> get getValue => state;
+  void reset() {
+    currentValue = {'null': 'null'};
+  }
+
+  Map<String, String> get getValue => currentValue;
 
 // ignore: use_setters_to_change_properties
   void set(Map<String, String> newValue) {
-    state = newValue;
+    currentValue = newValue;
   }
 }
 
-final registeredProvider = StateNotifierProvider((ref) => RegisteredClass());
+class RegisteredClassNotifier extends StateNotifier<RegisteredClass> {
+  RegisteredClassNotifier() : super(RegisteredClass());
+}
 
-// class Counter extends StateNotifier<int> {
-//   Counter(): super(0);
+final registeredProvider =
+    StateNotifierProvider<RegisteredClassNotifier, RegisteredClass>(
+        (ref) => RegisteredClassNotifier());
 
-//   void increment() => state = state + 1;
+// class MyModel {}
+
+// class MyStateNotifier extends StateNotifier<MyModel> {
+//   MyStateNotifier() : super(MyModel());
 // }
 
-// final counterProvider = StateNotifierProvider((ref) => Counter());
+// final provider = StateNotifierProvider<MyStateNotifier, MyModel>((ref) {
+//   return MyStateNotifier();
+// });

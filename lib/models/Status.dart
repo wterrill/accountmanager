@@ -28,7 +28,7 @@ class Status extends Equatable {
   }
 
   Map<String, dynamic> toMap() {
-    return {
+    return <String, int>{
       'statusIndex': statusIndex,
     };
   }
@@ -39,13 +39,14 @@ class Status extends Equatable {
     if (map['statusIndex'] == null) return null;
 
     return Status(
-      statusIndex: map['statusIndex'],
+      statusIndex: map['statusIndex'] as int,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory Status.fromJson(String source) => Status.fromMap(json.decode(source));
+  factory Status.fromJson(String source) =>
+      Status.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() => 'Status(statusIndex: $statusIndex)';

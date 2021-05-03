@@ -43,7 +43,7 @@ class Technician extends Equatable implements DropdownModel {
   }
 
   Map<String, dynamic> toMap() {
-    return {'technician_name': firstName, 'technician_id': id};
+    return <String, dynamic>{'technician_name': firstName, 'technician_id': id};
   }
 
   @override

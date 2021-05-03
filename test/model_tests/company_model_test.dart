@@ -10,7 +10,7 @@ void main() {
       expect(company1, null);
     });
     test('with all properties', () {
-      final company1 = Company.fromMap(const {
+      final company1 = Company.fromMap(const <String, String>{
         'company_name': 'a company',
       }, 'abc');
       const company2 = Company(id: 'abc', name: 'a company');
@@ -21,7 +21,7 @@ void main() {
     });
 
     test('missing name', () {
-      final company1 = Company.fromMap(const {}, 'abc');
+      final company1 = Company.fromMap(const <String, dynamic>{}, 'abc');
       expect(company1, null);
     });
   });

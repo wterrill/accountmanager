@@ -12,25 +12,24 @@
 // ignore_for_file: prefer_final_locals
 // ignore_for_file: unused_local_variable
 
-import 'package:flutter/cupertino.dart';
-import 'package:accountmanager/models/job.dart';
+// import 'package:flutter/cupertino.dart';
 
-class CupertinoTabViewRoutes {
-  static const jobEntriesPage = '/job-entries-page';
-}
+// class CupertinoTabViewRoutes {
+//   static const jobEntriesPage = '/job-entries-page';
+// }
 
-class CupertinoTabViewRouter {
-  static Route generateRoute(RouteSettings settings) {
-    switch (settings.name) {
-      case CupertinoTabViewRoutes.jobEntriesPage:
-        final job = settings.arguments as Job;
-        return CupertinoPageRoute(
-          builder: (_) =>
-              Text('deleted on shift to web code'), //JobEntriesPage(job: job),
-          settings: settings,
-          fullscreenDialog: false,
-        );
-    }
-    return null;
-  }
-}
+// class CupertinoTabViewRouter {
+//   static Route generateRoute(RouteSettings settings) {
+//     switch (settings.name) {
+//       case CupertinoTabViewRoutes.jobEntriesPage:
+//         final job = settings.arguments as Job;
+//         return CupertinoPageRoute(
+//           builder: (_) =>
+//               Text('deleted on shift to web code'), //JobEntriesPage(job: job),
+//           settings: settings,
+//           fullscreenDialog: false,
+//         );
+//     }
+//     return null;
+//   }
+// }

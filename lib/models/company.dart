@@ -26,7 +26,7 @@ class Company extends Equatable implements DropdownModel {
   }
 
   Map<String, dynamic> toMap() {
-    return {'company_name': name, 'company_id': id};
+    return <String, String>{'company_name': name, 'company_id': id};
   }
 
   @override

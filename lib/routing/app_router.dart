@@ -15,8 +15,6 @@
 import 'package:accountmanager/models/assigned_tbr.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:accountmanager/models/entry.dart';
-import 'package:accountmanager/models/job.dart';
 import 'package:accountmanager/packages/email_password_sign_in_ui/test/email_password_sign_in_page.dart';
 
 class AppRoutes {
@@ -36,7 +34,8 @@ class AppRouter {
         return MaterialPageRoute<dynamic>(
           builder: (_) => EmailPasswordSignInPage.withFirebaseAuth(
               firebaseAuth, context,
-              onSignedIn: args),
+              onSignedIn: args
+                  as Function()), // this came up as The argument type 'Object'can't be assigned to the parameter type 'void Fuction()'
           settings: settings,
           fullscreenDialog: true,
         );
@@ -47,20 +46,9 @@ class AppRouter {
           settings: settings,
           fullscreenDialog: true,
         );
-      case AppRoutes.entryPage:
-        final mapArgs = args as Map<String, dynamic>;
-        final job = mapArgs['job'] as Job;
-        final entry = mapArgs['entry'] as Entry;
-        return MaterialPageRoute<dynamic>(
-          builder: (_) => Text(
-              'deleted on shift to web code'), //EntryPage(job: job, entry: entry),
-          settings: settings,
-          fullscreenDialog: true,
-        );
       case AppRoutes.tbrPage:
         final mapArgs = args as Map<String, dynamic>;
         final data = mapArgs['data'] as AssignedTBR;
-        final entry = mapArgs['entry'] as Entry;
         return MaterialPageRoute<dynamic>(
           builder: (_) => Text('deleted on shift to web code'),
 

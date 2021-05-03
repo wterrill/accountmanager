@@ -10,7 +10,7 @@ void main() {
       expect(question, null);
     });
     test('question with all properties', () {
-      final question1 = Question.fromMap(const {
+      final question1 = Question.fromMap(const <String, dynamic>{
         'Benefits / Business Value added Dec 2020': 'placeholder1',
         'Category': 'placeholder2',
         'Customer Approved Project': 'placeholder3',
@@ -62,7 +62,7 @@ void main() {
     });
 
     test('missing question text', () {
-      final question = Question.fromMap(const {}, 'abc');
+      final question = Question.fromMap(const <String, dynamic>{}, 'abc');
       expect(question, null);
     });
   });

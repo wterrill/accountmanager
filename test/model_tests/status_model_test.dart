@@ -22,7 +22,7 @@ void main() {
     });
 
     test('missing property', () {
-      final status1 = Status.fromMap(const {});
+      final status1 = Status.fromMap(const <String, String>{});
       expect(status1, null);
     });
   });

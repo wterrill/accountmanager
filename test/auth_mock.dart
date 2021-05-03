@@ -23,16 +23,16 @@ void setupFirebaseAuthMocks([Callback /*?*/ customHandlers]) {
             'appId': '1:430578183229:web:f810293696b95c42544e54',
             'measurementId': 'G-GQD0ZLD62J'
           },
-          'pluginConstants': {},
+          'pluginConstants': <String, dynamic>{},
         }
       ];
     }
 
     if (call.method == 'Firebase#initializeApp') {
-      return {
+      return <String, dynamic>{
         'name': call.arguments['appName'],
         'options': call.arguments['options'],
-        'pluginConstants': {},
+        'pluginConstants': <String, dynamic>{},
       };
     }
 

@@ -134,7 +134,7 @@ class Question extends Equatable {
       ];
 
   Map<String, dynamic> toMap() {
-    return {
+    return <String, dynamic>{
       'Benefits / Business Value added Dec 2020': benefitsBusinessValue,
       'Category': category,
       'Customer Approved Project': customerApprovedProject,
@@ -168,35 +168,36 @@ class Question extends Equatable {
     }
 
     return Question(
-      benefitsBusinessValue: map['Benefits / Business Value added Dec 2020'],
-      category: map['Category'],
-      customerApprovedProject: map['Customer Approved Project'],
-      estimatedLaborPrice: map['Estimated Labor Price'],
-      estimatedMRRIncrease: map['Estimated MRR Increase'],
-      estimatedProductPrice: map['Estimated Product Price'],
-      howTo: map['How to?'],
-      projectType: map['Project Type'],
-      questionName: map['Question Name'],
-      questionPriority: map['Question Priority'],
-      questionText: map['Question Text'],
-      roadMap: map['ROAD MAP = Month / Year [mm/yyyy]'],
-      section: map['Section'],
-      sysAdminNotes: map['Sys Admin Notes'],
-      sysAdminReviewAligned: map['Sys Admin Review Aligned (Y/N)'],
-      goodBadAnswer: map['Good / Bad Answer'],
-      tamRecommendations: map['TAM Recommendations'],
-      tamReview: map['TAM Review'],
-      totalProjectEstimate: map['Total Project Estimate'],
-      type: map['Type'],
-      whyAreWeAsking: map['Why Are We Asking?'],
-      id: (id == null) ? map['id'] : id,
+      benefitsBusinessValue:
+          map['Benefits / Business Value added Dec 2020'] as String,
+      category: map['Category'] as String,
+      customerApprovedProject: map['Customer Approved Project'] as String,
+      estimatedLaborPrice: map['Estimated Labor Price'] as String,
+      estimatedMRRIncrease: map['Estimated MRR Increase'] as String,
+      estimatedProductPrice: map['Estimated Product Price'] as String,
+      howTo: map['How to?'] as String,
+      projectType: map['Project Type'] as String,
+      questionName: map['Question Name'] as String,
+      questionPriority: map['Question Priority'] as String,
+      questionText: map['Question Text'] as String,
+      roadMap: map['ROAD MAP = Month / Year [mm/yyyy]'] as String,
+      section: map['Section'] as String,
+      sysAdminNotes: map['Sys Admin Notes'] as String,
+      sysAdminReviewAligned: map['Sys Admin Review Aligned (Y/N)'] as bool,
+      goodBadAnswer: map['Good / Bad Answer'] as String,
+      tamRecommendations: map['TAM Recommendations'] as String,
+      tamReview: map['TAM Review'] as String,
+      totalProjectEstimate: map['Total Project Estimate'] as String,
+      type: map['Type'] as String,
+      whyAreWeAsking: map['Why Are We Asking?'] as String,
+      id: (id == null) ? map['id'] as String : id,
     );
   }
 
   String toJson() => json.encode(toMap());
 
   factory Question.fromJson(String source) =>
-      Question.fromMap(json.decode(source), null);
+      Question.fromMap(json.decode(source) as Map<String, dynamic>, null);
 
   @override
   String toString() {

@@ -38,7 +38,7 @@ class _IpaginatedTableState extends State<IpaginatedTable> {
             if (snapshot.hasError) {
               return const Text(Strings.error);
             } else {
-              return _datatable(DTS(snapshot.data));
+              return _datatable(DTS(snapshot.data as List<AssignedTBR>));
             }
           } else {
             return const Center(child: CircularProgressIndicator());

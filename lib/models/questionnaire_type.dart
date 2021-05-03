@@ -32,7 +32,7 @@ class QuestionnaireType extends Equatable implements DropdownModel {
   }
 
   Map<String, dynamic> toMap() {
-    return {
+    return <String, dynamic>{
       'questionnaireType_id': id,
       'questionnaireType_name': name,
     };

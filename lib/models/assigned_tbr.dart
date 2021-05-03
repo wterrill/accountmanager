@@ -116,7 +116,7 @@ class AssignedTBR extends Equatable {
         assignedBy == null) {
       return null;
     } else {
-      return {
+      return <String, dynamic>{
         'company_name': company.name,
         'company_id': company.id,
         'technician_id': technician.id,

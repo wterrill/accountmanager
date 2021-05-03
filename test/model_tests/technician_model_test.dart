@@ -10,9 +10,10 @@ void main() {
       expect(technician, null);
     });
     test('technician with all properties', () {
-      final technician = Technician.fromMap(
-          const {'technician_name': 'This Is A Name', 'technician_id': 'abc'},
-          'abc');
+      final technician = Technician.fromMap(const <String, String>{
+        'technician_name': 'This Is A Name',
+        'technician_id': 'abc'
+      }, 'abc');
       expect(
           technician,
           const Technician(
@@ -24,7 +25,7 @@ void main() {
     });
 
     test('missing name', () {
-      final technician = Technician.fromMap(const {}, 'abc');
+      final technician = Technician.fromMap(const <String, dynamic>{}, 'abc');
       expect(technician, null);
     });
   });

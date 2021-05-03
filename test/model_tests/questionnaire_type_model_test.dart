@@ -23,7 +23,8 @@ void main() {
     });
 
     test('missing property', () {
-      final questionnaireType1 = QuestionnaireType.fromMap(const {});
+      final questionnaireType1 =
+          QuestionnaireType.fromMap(const <String, String>{});
       expect(questionnaireType1, null);
     });
   });

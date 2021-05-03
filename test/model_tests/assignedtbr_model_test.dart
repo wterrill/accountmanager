@@ -15,7 +15,7 @@ void main() {
       expect(assignedtbr, null);
     });
     test('AssignedTBR with all properties from Map and direct', () {
-      final Map<String, dynamic> fromFirebase = {
+      final Map<String, dynamic> fromFirebase = <String, dynamic>{
         'company_name': 'a company',
         'company_id': 'an id',
         'technician_id': 'a techs id',
@@ -48,7 +48,7 @@ void main() {
     });
 
     test('missing technician should be null', () {
-      final Map<String, dynamic> fromFirebase = {
+      final Map<String, dynamic> fromFirebase = <String, dynamic>{
         'company_name': 'a company',
         'company_id': 'an id',
         // 'technician_id': 'a techs id',

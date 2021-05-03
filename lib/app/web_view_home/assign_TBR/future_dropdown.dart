@@ -42,7 +42,7 @@ class _FutureDropdownState<T extends DropdownModel>
     // Type type = typeOf<T>();
     print('********************************** T type()= ${typeOf<T>()}');
     return DropdownButtonHideUnderline(
-      child: FutureBuilder<List<T>>(
+      child: FutureBuilder<List<DropdownModel>>(
         future: widget.future,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
@@ -50,7 +50,7 @@ class _FutureDropdownState<T extends DropdownModel>
           } else if (snapshot.hasData) {
             // print(snapshot.data);
             final List<DropdownMenuItem<T>> list = [];
-            final Map<int, dynamic> dropDownItemsMap = {};
+            final Map<int, dynamic> dropDownItemsMap = <int, dynamic>{};
 
             for (final T singleData in snapshot.data) {
               //listItemNames.add(branchItem.itemName);
