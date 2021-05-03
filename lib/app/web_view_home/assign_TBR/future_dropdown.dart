@@ -42,7 +42,7 @@ class _FutureDropdownState<T extends DropdownModel>
     // Type type = typeOf<T>();
     print('********************************** T type()= ${typeOf<T>()}');
     return DropdownButtonHideUnderline(
-      child: FutureBuilder<List<DropdownModel>>(
+      child: FutureBuilder<List<T>>(
         future: widget.future,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
