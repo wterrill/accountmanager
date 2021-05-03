@@ -8,7 +8,8 @@ import 'package:accountmanager/packages/custom_buttons/custom_buttons.dart';
 
 class OnboardingPage extends StatelessWidget {
   Future<void> onGetStarted(BuildContext context) async {
-    final onboardingViewModel = context.read(onboardingViewModelProvider);
+    final onboardingViewModel =
+        context.read(onboardingViewModelProvider.notifier);
     await onboardingViewModel.completeOnboarding();
   }
 

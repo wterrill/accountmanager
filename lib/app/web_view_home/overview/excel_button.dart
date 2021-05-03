@@ -21,6 +21,7 @@ class ExcelButton extends ConsumerWidget {
   void createExcel(TBRinProgress completedTBR) {
     //Sheet1
     final Excel excel = Excel.createExcel();
+
     Sheet sheetObject = excel['Sheet1'];
     // Make Header Row
     List<String> headerList = [
@@ -139,18 +140,19 @@ class ExcelButton extends ConsumerWidget {
     //     'WHERE IN THE WORLD IS CARMEN SAN DIEGO??'; // dynamic values support provided;
     // cell.cellStyle = cellStyle;
 
-    excel.encode().then((onValue) {
-      print(onValue);
-      js.context.callMethod('webSaveAs', <dynamic>[
-        html.Blob(<List<int>>[onValue]),
-        'test.xlsx'
-      ]);
-      // File(outputFile)
-      //   // File(join(outputFile))
-      //   // ..createSync(recursive: true)
-      //   ..writeAsBytesSync(onValue);
-      // print('yup');
-    });
+    final List<int> onValue = excel.encode(); //.then((onValue) {
+    print(onValue);
+    js.context.callMethod('webSaveAs', <dynamic>[
+      html.Blob(<List<int>>[onValue]),
+      'test.xlsx'
+    ]);
+    // File(outputFile)
+    //   // File(join(outputFile))
+    //   // ..createSync(recursive: true)
+    //   ..writeAsBytesSync(onValue);
+    // print('yup');
+    //  }
+    // );
 
     // const String file = '/Users/kawal/Desktop/form.xlsx';
     // Uint8List bytes = File(file).readAsBytesSync();

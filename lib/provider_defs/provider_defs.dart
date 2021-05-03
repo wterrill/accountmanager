@@ -3,7 +3,7 @@ import 'package:accountmanager/services/shared_preferences_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final onboardingViewModelProvider =
-    StateNotifierProvider<OnboardingViewModel>((ref) {
+    StateNotifierProvider<OnboardingViewModel, bool>((ref) {
   final sharedPreferencesService = ref.watch(sharedPreferencesServiceProvider);
   final OnboardingViewModel view =
       OnboardingViewModel(sharedPreferencesService);

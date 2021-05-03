@@ -28,18 +28,18 @@ class _RiveAnimationState extends State<RiveAnimation>
     // download this. The RiveFile just expects a list of bytes.
     rootBundle.load('assets/rive/MXOtech-stop-hug2.riv').then(
       (data) async {
-        final file = RiveFile();
+        final file = RiveFile.import(data);
 
         // Load the RiveFile from the binary data.
-        if (file.import(data)) {
-          // The artboard is the root of the animation and gets drawn in the
-          // Rive widget.
-          final artboard = file.mainArtboard;
-          // Add a controller to play back a known animation on the main/default
-          // artboard.We store a reference to it so we can toggle playback.
-          artboard.addController(_controller = SimpleAnimation('Animation 1'));
-          setState(() => _riveArtboard = artboard);
-        }
+        // if (file.import(data)) {
+        // The artboard is the root of the animation and gets drawn in the
+        // Rive widget.
+        final artboard = file.mainArtboard;
+        // Add a controller to play back a known animation on the main/default
+        // artboard.We store a reference to it so we can toggle playback.
+        artboard.addController(_controller = SimpleAnimation('Animation 1'));
+        setState(() => _riveArtboard = artboard);
+        // }
       },
     );
   }

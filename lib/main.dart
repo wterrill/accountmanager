@@ -57,8 +57,7 @@ class MyApp extends StatelessWidget {
               final sharedPreferencesService =
                   watch(sharedPreferencesServiceProvider);
               lastBuild = sharedPreferencesService.getLastDateTime();
-              final didCompleteOnboarding =
-                  watch(onboardingViewModelProvider.state);
+              final didCompleteOnboarding = watch(onboardingViewModelProvider);
               print('didCompleteOnboarding1: $didCompleteOnboarding');
 
               print(DateTime.now());
@@ -88,6 +87,7 @@ class MyApp extends StatelessWidget {
 }
 
 Future<void> deleteOnboarding(BuildContext context) async {
-  final onboardingViewModel = context.read(onboardingViewModelProvider);
+  final onboardingViewModel =
+      context.read(onboardingViewModelProvider.notifier);
   await onboardingViewModel.deleteOnboarding();
 }

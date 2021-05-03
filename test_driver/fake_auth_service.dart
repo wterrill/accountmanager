@@ -136,6 +136,12 @@ class FakeAuthService implements FirebaseAuth {
   FirebaseApp app;
 
   @override
+  Future<void> useEmulator(String code) {
+    // TODO: implement applyActionCode
+    throw UnimplementedError();
+  }
+
+  @override
   Future<void> applyActionCode(String code) {
     // TODO: implement applyActionCode
     throw UnimplementedError();
@@ -181,7 +187,7 @@ class FakeAuthService implements FirebaseAuth {
   // TODO: implement languageCode
   String get languageCode => throw UnimplementedError();
 
-  @override
+  // @override
   // TODO: implement onAuthStateChanged
   Stream<User> get onAuthStateChanged => throw UnimplementedError();
 

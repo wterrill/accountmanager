@@ -74,7 +74,7 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
           final UserCredential userCredential = await firebaseAuth
               .createUserWithEmailAndPassword(email: email, password: password);
 
-          context.read(registeredProvider).set({
+          context.read(registeredProvider.notifier).set({
             'firstName': firstName,
             'lastName': lastName,
             'email': email,

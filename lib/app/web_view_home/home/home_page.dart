@@ -11,14 +11,15 @@ class WebViewHomePage extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     final FirestoreDatabase firestoreDatabase = context.read(databaseProvider);
 
-    final Map<String, String> registeredData =
-        context.read(registeredProvider).getValue;
+    final Map<String, String> registeredData = context
+        .read(registeredProvider.notifier)
+        .getValue as Map<String, String>;
     if (registeredData.toString() != '{\'null\': \'null\'}') {
       print('firestoreDatabase reads: $firestoreDatabase');
       print('just before saveUserInfo');
       firestoreDatabase.saveUserInfo(registeredData['uid'], registeredData);
     }
-    context.read(registeredProvider).reset();
+    context.read(registeredProvider.notifier).reset();
     final Widget incomingWidget = watch(widgetProvider).state;
     print('home page build');
     return Scaffold(
