@@ -1,6 +1,6 @@
 import 'package:accountmanager/app/onboarding/onboarding_view_model.dart';
 import 'package:accountmanager/services/shared_preferences_service.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final onboardingViewModelProvider =
     StateNotifierProvider<OnboardingViewModel, bool>((ref) {
@@ -11,4 +11,4 @@ final onboardingViewModelProvider =
 });
 
 final sharedPreferencesServiceProvider =
-    Provider<SharedPreferencesService>(((ref) => throw UnimplementedError()) as SharedPreferencesService Function(ProviderReference));
+    Provider<SharedPreferencesService>((ref) => throw UnimplementedError());

@@ -15,12 +15,13 @@ class Company extends Equatable implements DropdownModel {
   bool get stringify => true;
 
   factory Company.fromMap(Map<String, dynamic>? data, String documentId) {
+    Company errorCompany = Company(id: DateTime.now(), name: 'Error');
     if (data == null) {
-      return null;
+      return errorCompany;
     }
     final name = data['company_name'] as String?;
     if (name == null) {
-      return null;
+      return errorCompany;
     }
     return Company(id: documentId, name: name);
   }

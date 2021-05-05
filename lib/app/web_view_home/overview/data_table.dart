@@ -22,7 +22,7 @@ class TableVars {
     sortColumnIndex = 0;
     sortAscending = true;
   }
-  int rowsPerPage;
+  int? rowsPerPage;
   int? sortColumnIndex;
   bool? sortAscending;
 }

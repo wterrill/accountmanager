@@ -21,21 +21,26 @@ class Technician extends Equatable implements DropdownModel {
   bool get stringify => true;
 
   factory Technician.fromMap(Map<String, dynamic>? data, String documentId) {
+    final Technician errorTechnician = Technician(
+        id: DateTime.now(),
+        firstName: 'Error',
+        lastName: 'Error',
+        email: 'Error');
     if (data == null) {
-      return null;
+      return errorTechnician;
     }
     final firstName = data['firstName'] as String?;
     if (firstName == null) {
-      return null;
+      return errorTechnician;
     }
     final lastName = data['lastName'] as String?;
     if (lastName == null) {
-      return null;
+      return errorTechnician;
     }
 
     final email = data['email'] as String?;
     if (email == null) {
-      return null;
+      return errorTechnician;
     }
     // final ratePerHour = data['ratePerHour'] as int;
     return Technician(

@@ -5,6 +5,7 @@ import 'package:accountmanager/models/tbr.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/common_widgets/display_widget_dialog_with_error.dart';
 import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
+import 'package:accountmanager/services/firestore_database.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pedantic/pedantic.dart';
@@ -16,8 +17,8 @@ class SubmitButtonRow extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     Future<void> _sendAssignedTbr({required AssignedTBR assignedTbr}) async {
       try {
-        final database = context.read(databaseProvider as ProviderBase<Object?, FirestoreDatabase>);
-        await database.setTBR(assignedTbr);
+        final database = context.read(databaseProvider);
+        await database?.setTBR(assignedTbr);
       } catch (e) {
         unawaited(showExceptionAlertDialog(
           context: context,
@@ -27,9 +28,11 @@ class SubmitButtonRow extends ConsumerWidget {
       }
     }
 
-    Future<void> sendCompletedEvaluation({required TBRinProgress tbrInProgress}) async {
+    Future<void> sendCompletedEvaluation(
+        {required TBRinProgress tbrInProgress}) async {
       try {
-        final database = context.read(databaseProvider as ProviderBase<Object?, FirestoreDatabase>);
+        final database = context
+            .read(databaseProvider as ProviderBase<Object?, FirestoreDatabase>);
         final String id = context.read(inProgressTbrProvider).state!.id;
         await database.setEvaluation(tbrInProgress, id);
       } catch (e) {

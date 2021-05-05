@@ -46,8 +46,21 @@ class AssignedTBR extends Equatable {
   bool get stringify => true;
 
   factory AssignedTBR.fromMap(Map<String, dynamic>? data, String documentId) {
+    AssignedTBR errorAssignedTBR = AssignedTBR(
+        id: DateTime.now(),
+        technician: Technician(
+            id: DateTime.now(),
+            firstName: 'Error',
+            lastName: 'Error',
+            email: 'Error'),
+        company: Company(id: DateTime.now(), name: 'Error'),
+        questionnaireType: QuestionnaireType(id: 'Error', name: 'Error'),
+        dueDate: DateTime.now(),
+        clientMeetingDate: DateTime.now(),
+        status: Status(statusIndex: 1),
+        assignedBy: 'Error');
     if (data == null) {
-      return null;
+      return errorAssignedTBR;
     }
 
     final String? companyName = data['company_name'] as String?;
@@ -60,7 +73,8 @@ class AssignedTBR extends Equatable {
     final String? questionnaireTypeName =
         data['questionnaireType_name'] as String?;
     final Timestamp? dueDate = data['dueDate'] as Timestamp?;
-    final Timestamp? clientMeetingDate = data['clientMeetingDate'] as Timestamp?;
+    final Timestamp? clientMeetingDate =
+        data['clientMeetingDate'] as Timestamp?;
     final int? status = data['status'] as int?;
     final String? assignedBy = data['assignedBy'] as String?;
 
@@ -76,7 +90,7 @@ class AssignedTBR extends Equatable {
         clientMeetingDate == null ||
         status == null ||
         assignedBy == null) {
-      return null;
+      return errorAssignedTBR;
     }
     final Technician tech = Technician(
       id: technicianId,

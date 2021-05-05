@@ -1,5 +1,6 @@
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/services/firestore_database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -15,11 +16,12 @@ class SendEmailFinishedDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final firebaseAuth = context.read(firebaseAuthProvider as ProviderBase<Object?, FirebaseAuth>);
-    final user = firebaseAuth.currentUser!;
+    final firebaseAuth = context
+        .read(firebaseAuthProvider as ProviderBase<Object?, FirebaseAuth>);
+    final User? user = firebaseAuth.currentUser!;
     final String emailText = '''
         <p>The user:</p> 
-        <h2>${user.email}</h2>
+        <h2>${user?.email}</h2>
         <p>on the date: </p>
         <h2>${DateFormat.yMMMEd().format(DateTime.now())} </h2>
         <p>has completed and uploaded a </p>
@@ -34,7 +36,8 @@ class SendEmailFinishedDialog extends StatelessWidget {
         <h2>${DateFormat.yMMMEd().format(assignedTbr.dueDate!)} </h2>
         <p>and a client meeting date of:</p>
         <h2>${DateFormat.yMMMEd().format(assignedTbr.clientMeetingDate!)}</h2>''';
-    final FirestoreDatabase database = context.read(databaseProvider as ProviderBase<Object?, FirestoreDatabase>);
+    final FirestoreDatabase database = context
+        .read(databaseProvider as ProviderBase<Object?, FirestoreDatabase>);
     database.sendEmail(
         toList: [assignedTbr.assignedBy],
         from: assignedTbr.technician!.email,

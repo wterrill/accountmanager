@@ -15,18 +15,20 @@ class QuestionnaireType extends Equatable implements DropdownModel {
   bool get stringify => true;
 
   factory QuestionnaireType.fromMap(Map<String, dynamic>? data) {
+    QuestionnaireType errorQuestionaireType =
+        QuestionnaireType(id: DateTime.now(), name: 'Error');
     if (data == null) {
-      return null;
+      return errorQuestionaireType;
     }
 
     final optionName = data['questionnaireType_name'] as String?;
     if (optionName == null) {
-      return null;
+      return errorQuestionaireType;
     }
 
     final optionid = data['questionnaireType_id'] as String?;
     if (optionid == null) {
-      return null;
+      return errorQuestionaireType;
     }
     return QuestionnaireType(name: optionName, id: optionid);
   }

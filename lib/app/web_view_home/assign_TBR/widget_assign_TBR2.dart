@@ -3,6 +3,7 @@ import 'package:accountmanager/app/web_view_home/assign_TBR/send_email_dialog.da
 import 'package:accountmanager/common_utilities/buttonConverter.dart';
 import 'package:accountmanager/app/web_view_home/assign_TBR/future_dropdown.dart';
 import 'package:date_time_picker/date_time_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -71,10 +72,12 @@ class _AssignTBRState extends State<AssignTBR> {
 
   @override
   Widget build(BuildContext context) {
-    final firebaseAuth = context.read(firebaseAuthProvider as ProviderBase<Object?, FirebaseAuth>);
-    final user = firebaseAuth.currentUser!;
-    assignedBy ??= user.email;
-    final FirestoreDatabase database = context.read(databaseProvider as ProviderBase<Object?, FirestoreDatabase>);
+    final firebaseAuth = context
+        .read(firebaseAuthProvider as ProviderBase<Object?, FirebaseAuth>);
+    final User? user = firebaseAuth.currentUser!;
+    assignedBy ??= user?.email;
+    final FirestoreDatabase database = context
+        .read(databaseProvider as ProviderBase<Object?, FirestoreDatabase>);
     return SizedBox(
       height: 320,
       width: 300,
@@ -260,7 +263,8 @@ class _AssignTBRState extends State<AssignTBR> {
 
   Future<void> _sendAssignedTbr({required AssignedTBR assignedTbr}) async {
     try {
-      final database = context.read(databaseProvider as ProviderBase<Object?, FirestoreDatabase>);
+      final database = context
+          .read(databaseProvider as ProviderBase<Object?, FirestoreDatabase>);
       await database.setTBR(assignedTbr);
     } catch (e) {
       unawaited(showExceptionAlertDialog(

@@ -34,9 +34,10 @@ class Status extends Equatable {
   }
 
   factory Status.fromMap(Map<String, dynamic>? map) {
-    if (map == null) return null;
+    Status errorStatus = Status(statusIndex: -1);
+    if (map == null) return errorStatus;
 
-    if (map['statusIndex'] == null) return null;
+    if (map['statusIndex'] == null) return errorStatus;
 
     return Status(
       statusIndex: map['statusIndex'] as int?,

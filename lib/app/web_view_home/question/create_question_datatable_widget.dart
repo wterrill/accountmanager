@@ -29,7 +29,7 @@ class DataTableBuilder extends StatefulWidget {
 }
 
 class _DataTableBuilderState extends State<DataTableBuilder> {
-  int _rowsPerPage = CustomPaginatedDataTable.defaultRowsPerPage;
+  int? _rowsPerPage = CustomPaginatedDataTable.defaultRowsPerPage;
   // bool sort = true;
 
   // // int _rowsPerPage = CustomPaginatedDataTable.defaultRowsPerPage;
@@ -193,12 +193,12 @@ class DTS extends CustomDataTableSource {
             _displayDialog(context, data[index]);
           },
           cells: [
-            CustomDataCell(Text(data[index]?.category ?? '')),
+            CustomDataCell(Text(data[index].category ?? '')),
             // CustomDataCell(Text(data[index]?.benefitsBusinessValue ?? '')),
-            CustomDataCell(Text(data[index]?.questionText ?? '')),
-            CustomDataCell(Text(data[index]?.questionPriority ?? '')),
+            CustomDataCell(Text(data[index].questionText ?? '')),
+            CustomDataCell(Text(data[index].questionPriority ?? '')),
             // CustomDataCell(Text(data[index]?.type ?? '')),
-            CustomDataCell(Text(data[index]?.whyAreWeAsking ?? ''))
+            CustomDataCell(Text(data[index].whyAreWeAsking ?? ''))
           ]);
     } else {
       return const CustomDataRow(cells: [
@@ -212,7 +212,8 @@ class DTS extends CustomDataTableSource {
     }
   }
 
-  void sort<T>({Comparable<T>? Function(Question d)? getField, bool? ascending}) {
+  void sort<T>(
+      {Comparable<T>? Function(Question d)? getField, bool? ascending}) {
     data.sort((a, b) {
       if (!ascending!) {
         final Question c = a;

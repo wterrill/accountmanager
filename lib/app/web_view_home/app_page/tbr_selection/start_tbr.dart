@@ -37,8 +37,10 @@ class _SelectTBRPageState extends State<SelectTBRPage> {
             padding: EdgeInsets.all(8.0),
             child: Text('Show Completed'),
           ),
-          Consumer(builder: (context, watch, child) {
-            final bool switchState = watch(showAllSwitchProvider).state;
+          Consumer(
+              builder:
+                  (BuildContext context, ScopedReader watch, Widget child) {
+            final bool switchState = watch(showAllSwitchProvider) as bool;
             print(switchState);
 
             return Switch(
@@ -49,7 +51,8 @@ class _SelectTBRPageState extends State<SelectTBRPage> {
               activeTrackColor: Colors.lightGreenAccent,
               activeColor: Colors.green,
             );
-          } as Widget Function(BuildContext, T Function<T>(ProviderBase<Object?, T>), Widget?)),
+          } as Widget Function(BuildContext,
+                      T Function<T>(ProviderBase<Object?, T>), Widget?)),
         ],
       ),
       CreateAppSelectDataTableWidget(mobile: widget.mobile),

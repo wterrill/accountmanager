@@ -4,13 +4,15 @@ import 'package:accountmanager/common_widgets/list_items_builder.dart';
 import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
 import 'package:accountmanager/app/web_view_home/create_company/company_list_tile.dart';
 import 'package:accountmanager/app/web_view_home/create_company/input_company_ui.dart';
+import 'package:accountmanager/services/firestore_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:pedantic/pedantic.dart';
 
-final AutoDisposeStreamProvider<List<Company>>? companyStreamProvider = StreamProvider.autoDispose<List<Company>>((ref) {
+final AutoDisposeStreamProvider<List<Company>>? companyStreamProvider =
+    StreamProvider.autoDispose<List<Company>>((ref) {
   final database = ref.watch(databaseProvider);
   return database?.companyStream() ?? const Stream.empty();
 });
@@ -19,7 +21,8 @@ final AutoDisposeStreamProvider<List<Company>>? companyStreamProvider = StreamPr
 class CreateCompanyWebPage extends ConsumerWidget {
   Future<void> _deleteCompany(BuildContext context, Company company) async {
     try {
-      final database = context.read(databaseProvider as ProviderBase<Object?, FirestoreDatabase>);
+      final database = context
+          .read(databaseProvider as ProviderBase<Object?, FirestoreDatabase>);
       await database.deleteCompany(company);
     } catch (e) {
       unawaited(showExceptionAlertDialog(

@@ -13,7 +13,7 @@ class AppUser {
     this.email,
     this.photoURL,
     this.displayName,
-  }) : assert(uid != null, 'User can only be created with a non-null uid');
+  });
 
   final String uid;
   final String? email;
@@ -22,7 +22,12 @@ class AppUser {
 
   factory AppUser.fromFirebaseUser(User? user) {
     if (user == null) {
-      return null;
+      return AppUser(
+        uid: DateTime.now(),
+        email: 'Error',
+        displayName: 'Error',
+        photoURL: 'Error',
+      );
     }
     return AppUser(
       uid: user.uid,

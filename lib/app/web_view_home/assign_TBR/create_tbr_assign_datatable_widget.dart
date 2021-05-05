@@ -54,7 +54,7 @@ class DataTableBuilder extends StatefulWidget {
 // }
 
 class _DataTableBuilderState extends State<DataTableBuilder> {
-  int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
+  int? _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
   int _sortColumnIndex = 0;
   bool _sortAscending = false;
 

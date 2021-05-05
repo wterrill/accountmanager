@@ -53,7 +53,8 @@ class _TBRbuilderState extends State<TBRbuilder> {
   @override
   Widget build(BuildContext context) {
     // List<TextEditingController>.generate(3, (TextEditingController index) => index * index);
-    return Consumer(builder: (context, watch, child) {
+    return Consumer(
+        builder: (BuildContext context, ScopedReader watch, Widget child) {
       // List<String> beer = watch(tbrInProgressProvider).state.sections;
       // ignore: unused_local_variable
       final TBRinProgress? thisIsJustToUpdateTheScreen =
@@ -69,6 +70,7 @@ class _TBRbuilderState extends State<TBRbuilder> {
           const BottomArrows(),
         ]),
       );
-    } as Widget Function(BuildContext, T Function<T>(ProviderBase<Object?, T>), Widget?));
+    } as Widget Function(
+            BuildContext, T Function<T>(ProviderBase<Object?, T>), Widget?));
   }
 }

@@ -21,7 +21,7 @@ class OverviewPaginatedTable extends StatefulWidget {
 
 class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
   // final dts = DTS();
-  int _rowsPerPage = CustomPaginatedDataTable.defaultRowsPerPage;
+  int? _rowsPerPage = CustomPaginatedDataTable.defaultRowsPerPage;
   int _sortColumnIndex = 0;
   bool _sortAscending = false;
   // TBRinProgress tbrInProgress;
@@ -38,7 +38,8 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
     print('in build for overviewPaginatedTableState');
     // final database = context.watch(databaseProvider);
 
-    return Consumer(builder: (context, watch, child) {
+    return Consumer(
+        builder: (BuildContext context, ScopedReader watch, Widget child) {
       final String? id = widget.id;
       print(id);
       print('before completedTbrAsyncValueProvider');
@@ -59,7 +60,8 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
         loading: () => Container(color: Colors.cyanAccent),
         error: (_, __) => Container(color: Colors.red),
       );
-    } as Widget Function(BuildContext, T Function<T>(ProviderBase<Object?, T>), Widget?));
+    } as Widget Function(
+            BuildContext, T Function<T>(ProviderBase<Object?, T>), Widget?));
   }
 
   Widget _datatable(DTS dtsSource) {
@@ -198,14 +200,16 @@ class DTS extends CustomDataTableSource {
         CustomDataCell(Container(
             width: 200, child: Text(data.allQuestions![index].questionName!))),
         CustomDataCell(Container(
-            width: 50, child: Text(data.allQuestions![index].questionPriority!))),
+            width: 50,
+            child: Text(data.allQuestions![index].questionPriority!))),
         CustomDataCell(Container(
             width: 400, child: Text(data.allQuestions![index].questionText!))),
         CustomDataCell(getAlignment(
             data.answers![id]!, data.allQuestions![index].goodBadAnswer)),
         CustomDataCell(Container(
             width: 100,
-            child: Text(data.adminComment![data.allQuestions![index].id] ?? ''))),
+            child:
+                Text(data.adminComment![data.allQuestions![index].id] ?? ''))),
         CustomDataCell(Container(
             width: 100,
             child: Text(data.tamNotes![data.allQuestions![index].id] ?? ''))),
@@ -223,7 +227,8 @@ class DTS extends CustomDataTableSource {
     }
   }
 
-  void sort<T>({Comparable<T>? Function(Question d)? getField, bool? ascending}) {
+  void sort<T>(
+      {Comparable<T>? Function(Question d)? getField, bool? ascending}) {
     questions!.sort((a, b) {
       if (!ascending!) {
         final Question c = a;

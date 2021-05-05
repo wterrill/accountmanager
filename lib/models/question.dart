@@ -161,10 +161,35 @@ class Question extends Equatable {
   }
 
   factory Question.fromMap(Map<String, dynamic>? map, String? id) {
-    if (map == null || id == null) return null;
+    final Question errorQuestion = Question(
+      benefitsBusinessValue: 'Error',
+      category: 'Error',
+      customerApprovedProject: 'Error',
+      estimatedLaborPrice: 'Error',
+      estimatedMRRIncrease: 'Error',
+      estimatedProductPrice: 'Error',
+      howTo: 'Error',
+      projectType: 'Error',
+      questionName: 'Error',
+      questionPriority: 'Error',
+      questionText: 'Error',
+      roadMap: 'Error',
+      section: 'Error',
+      sysAdminNotes: 'Error',
+      sysAdminReviewAligned: 'Error',
+      goodBadAnswer: 'Error',
+      tamRecommendations: 'Error',
+      tamReview: 'Error',
+      totalProjectEstimate: 'Error',
+      type: 'Error',
+      whyAreWeAsking: 'Error',
+      id: DateTime.now(),
+    );
+
+    if (map == null || id == null) return errorQuestion;
 
     if (map['Question Text'] == null) {
-      return null;
+      return errorQuestion;
     }
 
     return Question(

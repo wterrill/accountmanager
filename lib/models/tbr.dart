@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 class TBRinProgress {
   List<Question>? allQuestions; // 0, question1
   late List<String?> sections;
-  late Map<String, List<String?>> categories; // "section name", List<"category name">
+  late Map<String, List<String?>>
+      categories; // "section name", List<"category name">
   late Map<String, Map<String, double>>
       percentages; // "section name", "category name",
   Map<String?, List<bool>?>? answers; // question ID: 0,0,0    yes, no, n/a
@@ -18,52 +19,70 @@ class TBRinProgress {
   TBRinProgress();
 
   factory TBRinProgress.fromMap(
-      Map<String, dynamic>? map, String id, List<Question>? questions) {
+      // TBRinProgress errorTBRinProgress = TBRinProgress(
+      //   allQuestions = allQuestionsIn;
+      // sections = createSectionList(allQuestions!);
+      // categories = createCategoryMap(sections, allQuestions);
+      // answers = createAnswerMap(allQuestions!);
+      // percentages = createPercentagesMap(categories);
+      // colorScheme = generateColors(allQuestions!);
+      // adminComment = initializeComments(allQuestions!);
+      // tamNotes = initializeComments(allQuestions!);
+      // id = DateTime.now().toUtc().microsecondsSinceEpoch.toString();
+
+      // )
+      Map<String, dynamic>? map,
+      String id,
+      List<Question>? questions) {
     print('inside TBRinProgress fromMap');
-    if (map == null || id == null) return null;
+    // if (map == null || id == null) return null;
 
     final TBRinProgress tbrInProgress = TBRinProgress();
     // ignore: prefer_initializing_formals
     tbrInProgress.id = id;
     tbrInProgress.initialize(questions);
 
-    final Map<String, dynamic> temp = map['answers'] as Map<String, List<bool>>;
-    final Map<String?, List<bool>?> temp2 = {};
-    final List<String> keys = temp.keys.toList();
-    for (var i = 0; i < keys.length; i++) {
-      print(keys[i]);
-      final List<bool> tempArray = [true, true, true];
+    if (map != null) {
+      final Map<String, dynamic> temp =
+          map['answers'] as Map<String, List<bool>>;
+      final Map<String?, List<bool>?> temp2 = {};
+      final List<String> keys = temp.keys.toList();
       for (var i = 0; i < keys.length; i++) {
-        if (keys[i].toString() == 'true') {
-          tempArray[i] = true;
-        } else {
-          tempArray[i] = false;
+        print(keys[i]);
+        final List<bool> tempArray = [true, true, true];
+        for (var i = 0; i < keys.length; i++) {
+          if (keys[i].toString() == 'true') {
+            tempArray[i] = true;
+          } else {
+            tempArray[i] = false;
+          }
         }
+        temp2[keys[i]] = tempArray;
       }
-      temp2[keys[i]] = tempArray;
+      // temp.forEach((key, value) {
+      //   print(key);
+      //   final List<bool> tempArray = [true, true, true];
+      //   for (var i = 0; i < value.length; i++) {
+      //     if (value[i].toString() == 'true') {
+      //       tempArray[i] = true;
+      //     } else {
+      //       tempArray[i] = false;
+      //     }
+      //   }
+      //   temp2[key] = tempArray;
+      // });
+
+      tbrInProgress.answers = temp2;
+
+      Map<String, dynamic> tempMap =
+          map['adminComment'] as Map<String, dynamic>;
+
+      tbrInProgress.adminComment =
+          tempMap.map((key, dynamic value) => MapEntry(key, value?.toString()));
+      tempMap = map['tamNotes'] as Map<String, dynamic>;
+      tbrInProgress.tamNotes =
+          tempMap.map((key, dynamic value) => MapEntry(key, value?.toString()));
     }
-    // temp.forEach((key, value) {
-    //   print(key);
-    //   final List<bool> tempArray = [true, true, true];
-    //   for (var i = 0; i < value.length; i++) {
-    //     if (value[i].toString() == 'true') {
-    //       tempArray[i] = true;
-    //     } else {
-    //       tempArray[i] = false;
-    //     }
-    //   }
-    //   temp2[key] = tempArray;
-    // });
-
-    tbrInProgress.answers = temp2;
-
-    Map<String, dynamic> tempMap = map['adminComment'] as Map<String, dynamic>;
-
-    tbrInProgress.adminComment =
-        tempMap.map((key, dynamic value) => MapEntry(key, value?.toString()));
-    tempMap = map['tamNotes'] as Map<String, dynamic>;
-    tbrInProgress.tamNotes =
-        tempMap.map((key, dynamic value) => MapEntry(key, value?.toString()));
 
     return tbrInProgress;
   }
@@ -150,7 +169,8 @@ class TBRinProgress {
     return returnedAnswers;
   }
 
-  Map<String, String?> advancePage({required String section, String? category}) {
+  Map<String, String?> advancePage(
+      {required String section, String? category}) {
     final Map<String, String?> newSectionCategory = {};
     final List<String?> currentCategories = categories[section.toLowerCase()]!;
     // case, end of categories
@@ -171,8 +191,8 @@ class TBRinProgress {
     // keep section, advance category
     else {
       newSectionCategory['section'] = section;
-      newSectionCategory['category'] = categories[section.toLowerCase()]!
-          [categories[section.toLowerCase()]!.indexOf(category) + 1];
+      newSectionCategory['category'] = categories[section.toLowerCase()]![
+          categories[section.toLowerCase()]!.indexOf(category) + 1];
     }
     return newSectionCategory;
   }
@@ -191,15 +211,15 @@ class TBRinProgress {
       else {
         final String newSection = sections[sections.indexOf(section) - 1]!;
         newSectionCategory['section'] = newSection;
-        newSectionCategory['category'] = categories[newSection.toLowerCase()]!
-            [categories[newSection.toLowerCase()]!.length - 1];
+        newSectionCategory['category'] = categories[newSection.toLowerCase()]![
+            categories[newSection.toLowerCase()]!.length - 1];
       }
     }
     // keep section, and recede a category
     else {
       newSectionCategory['section'] = section;
-      newSectionCategory['category'] = categories[section.toLowerCase()]!
-          [categories[section.toLowerCase()]!.indexOf(category) - 1];
+      newSectionCategory['category'] = categories[section.toLowerCase()]![
+          categories[section.toLowerCase()]!.indexOf(category) - 1];
     }
     return newSectionCategory;
   }

@@ -12,7 +12,6 @@
 // ignore_for_file: prefer_const_constructors
 // ignore_for_file: deprecated_member_use
 
-
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
@@ -107,7 +106,7 @@ class CustomDataRow {
     this.onSelectChanged,
     this.color,
     required this.cells,
-  })  : assert(cells != null),
+  })   : assert(cells != null),
         key = ValueKey<int?>(index);
 
   /// A [Key] that uniquely identifies this row. This is used to
@@ -416,7 +415,7 @@ class CustomDataTable extends StatelessWidget {
     this.showCheckboxColumn = true,
     this.dividerThickness = 1.0,
     required this.rows,
-  })  : assert(columns != null),
+  })   : assert(columns != null),
         assert(columns.isNotEmpty),
         assert(sortColumnIndex == null ||
             (sortColumnIndex >= 0 && sortColumnIndex < columns.length)),
@@ -622,10 +621,10 @@ class CustomDataTable extends StatelessWidget {
 
     label = Row(
       textDirection: numeric ? TextDirection.rtl : null,
-      (children: <Widget?>[
+      children: <Widget?>[
         label,
         ...arrowWithPadding(),
-      ]) as List<Widget>,
+      ],
     );
     label = Container(
       padding: padding,
@@ -760,8 +759,14 @@ class CustomDataTable extends StatelessWidget {
         !rows.any((CustomDataRow row) =>
             row.onSelectChanged != null && !row.selected);
 
-    final List<TableColumnWidth?> tableColumns = List<TableColumnWidth?>(
-        columns.length + (displayCheckboxColumn ? 1 : 0));
+    List<int> growableList = []..length = 500;
+
+    final List<TableColumnWidth?> tableColumns = [];
+    tableColumns.length = columns.length + (displayCheckboxColumn ? 1 : 0);
+
+    // final List<TableColumnWidth?> tableColumns = List<TableColumnWidth?>(
+    //     columns.length + (displayCheckboxColumn ? 1 : 0));
+
     final List<TableRow> tableRows = List<TableRow>.generate(
       rows.length + 1, // the +1 is for the header row
       (int index) {
@@ -775,17 +780,20 @@ class CustomDataTable extends StatelessWidget {
         };
         final Color? rowColor =
             index > 0 ? rows[index - 1].color?.resolve(states) : null;
+        List<Widget?> columnList = [];
+        columnList.length = tableColumns.length;
         return TableRow(
-          key: index == 0 ? _headingRowKey : rows[index - 1].key,
-          decoration: BoxDecoration(
-            border: Border(
-              bottom:
-                  Divider.createBorderSide(context, width: dividerThickness),
+            key: index == 0 ? _headingRowKey : rows[index - 1].key,
+            decoration: BoxDecoration(
+              border: Border(
+                bottom:
+                    Divider.createBorderSide(context, width: dividerThickness),
+              ),
+              color: rowColor ?? defaultRowColor.resolve(states),
             ),
-            color: rowColor ?? defaultRowColor.resolve(states),
-          ),
-          children: List<Widget?>(tableColumns.length) as List<Widget>?,
-        );
+            children:
+                columnList //List<Widget?>(tableColumns.length) as List<Widget>?,
+            );
       },
     );
 

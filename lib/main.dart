@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
       home: AuthWidget(
         nonSignedInBuilder: (_) {
           return Consumer(
-            builder: (context, watch, _) {
+            builder: (BuildContext context, ScopedReader watch, Widget _) {
               final sharedPreferencesService =
                   watch(sharedPreferencesServiceProvider);
               lastBuild = sharedPreferencesService.getLastDateTime();
@@ -72,7 +72,8 @@ class MyApp extends StatelessWidget {
               }
               print('didCompleteOnboarding1: $didCompleteOnboarding');
               return didCompleteOnboarding ? SignInPage() : OnboardingPage();
-            } as Widget Function(BuildContext, T Function<T>(ProviderBase<Object?, T>), Widget?),
+            } as Widget Function(
+                BuildContext, T Function<T>(ProviderBase<Object?, T>), Widget?),
           );
         },
         signedInBuilder: (_) {

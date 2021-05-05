@@ -228,7 +228,8 @@ class FakeAuthService implements FirebaseAuth {
   }
 
   @override
-  Future<UserCredential> signInWithEmailLink({String? email, String? emailLink}) {
+  Future<UserCredential> signInWithEmailLink(
+      {String? email, String? emailLink}) {
     // TODO: implement signInWithEmailLink
     throw UnimplementedError();
   }
@@ -267,10 +268,10 @@ class FakeAuthService implements FirebaseAuth {
   @override
   Future<void> verifyPhoneNumber(
       {String? phoneNumber,
-      verificationCompleted,
-      verificationFailed,
-      codeSent,
-      codeAutoRetrievalTimeout,
+      PhoneVerificationCompleted? verificationCompleted,
+      PhoneVerificationFailed? verificationFailed,
+      PhoneCodeSent? codeSent,
+      PhoneCodeAutoRetrievalTimeout? codeAutoRetrievalTimeout,
       String? autoRetrievedSmsCodeForTesting,
       Duration timeout = const Duration(seconds: 30),
       int? forceResendingToken}) {

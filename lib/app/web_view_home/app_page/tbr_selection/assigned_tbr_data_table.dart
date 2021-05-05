@@ -17,7 +17,7 @@ class IpaginatedTable extends StatefulWidget {
 
 class _IpaginatedTableState extends State<IpaginatedTable> {
   // final dts = DTS();
-  int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
+  int? _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
   int _sortColumnIndex = 0;
   bool _sortAscending = false;
 
@@ -29,7 +29,8 @@ class _IpaginatedTableState extends State<IpaginatedTable> {
 
   @override
   Widget build(BuildContext context) {
-    final FirestoreDatabase database = context.read(databaseProvider as ProviderBase<Object?, FirestoreDatabase>);
+    final FirestoreDatabase database = context
+        .read(databaseProvider as ProviderBase<Object?, FirestoreDatabase>);
     return FutureBuilder(
         future: database.assignedTbrStream().first,
         builder: (context, snapshot) {
