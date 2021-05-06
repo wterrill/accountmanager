@@ -47,13 +47,13 @@ class AssignedTBR extends Equatable {
 
   factory AssignedTBR.fromMap(Map<String, dynamic>? data, String documentId) {
     AssignedTBR errorAssignedTBR = AssignedTBR(
-        id: DateTime.now(),
+        id: DateTime.now().toString(),
         technician: Technician(
-            id: DateTime.now(),
+            id: DateTime.now().toString(),
             firstName: 'Error',
             lastName: 'Error',
             email: 'Error'),
-        company: Company(id: DateTime.now(), name: 'Error'),
+        company: Company(id: DateTime.now().toString(), name: 'Error'),
         questionnaireType: QuestionnaireType(id: 'Error', name: 'Error'),
         dueDate: DateTime.now(),
         clientMeetingDate: DateTime.now(),

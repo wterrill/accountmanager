@@ -74,14 +74,14 @@ class TBRinProgress {
 
       tbrInProgress.answers = temp2;
 
-      Map<String, dynamic> tempMap =
+      Map<String?, dynamic> tempMap =
           map['adminComment'] as Map<String, dynamic>;
 
       tbrInProgress.adminComment =
-          tempMap.map((key, dynamic value) => MapEntry(key, value?.toString()));
+          tempMap.map((key, dynamic value) => MapEntry(key, value.toString()));
       tempMap = map['tamNotes'] as Map<String, dynamic>;
       tbrInProgress.tamNotes =
-          tempMap.map((key, dynamic value) => MapEntry(key, value?.toString()));
+          tempMap.map((key, dynamic value) => MapEntry(key, value.toString()));
     }
 
     return tbrInProgress;

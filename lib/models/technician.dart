@@ -22,7 +22,7 @@ class Technician extends Equatable implements DropdownModel {
 
   factory Technician.fromMap(Map<String, dynamic>? data, String documentId) {
     final Technician errorTechnician = Technician(
-        id: DateTime.now(),
+        id: DateTime.now().toString(),
         firstName: 'Error',
         lastName: 'Error',
         email: 'Error');

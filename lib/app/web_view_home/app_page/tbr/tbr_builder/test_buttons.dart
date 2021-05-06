@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 TBRinProgress? tbrInProgress;
+typedef VoidCallback = void Function();
 
 class TestButtonRow extends ConsumerWidget {
   const TestButtonRow({Key? key}) : super(key: key);
@@ -18,17 +19,18 @@ class TestButtonRow extends ConsumerWidget {
       children: [
         if (testingBool)
           buildTestButton(
-            context: context,
-            text: 'Fill out all YES',
-            boolList: [true, false, false],
-            color: Colors.green,
-          ),
+              context: context,
+              text: 'Fill out all YES',
+              boolList: [true, false, false],
+              color: Colors.green,
+              onPressedNew: () {}),
         if (testingBool)
           buildTestButton(
             context: context,
             text: 'Fill out all No',
             boolList: [false, true, false],
             color: Colors.red,
+            onPressedNew: () {},
           ),
         if (testingBool)
           buildTestButton(
@@ -36,6 +38,7 @@ class TestButtonRow extends ConsumerWidget {
             text: 'Fill out all N/A',
             boolList: [false, false, true],
             color: Colors.grey,
+            onPressedNew: () {},
           ),
         if (testingBool)
           buildTestButton(
@@ -75,16 +78,16 @@ class TestButtonRow extends ConsumerWidget {
       {BuildContext? context,
       String? text,
       List<bool>? boolList,
-      Function? onPressedNew,
+      required VoidCallback? onPressedNew,
       Color? color}) {
-    Function onPressed = () {
+    VoidCallback? onPressed = () {
       for (final String? key in tbrInProgress!.answers!.keys) {
         tbrInProgress!.answers![key] = boolList;
       }
       tbrInProgress!.updatePercentages();
       context!.read(tbrInProgressProvider).state = tbrInProgress;
     };
-    if (onPressedNew != null) {
+    if (onPressedNew != () {}) {
       onPressed = onPressedNew;
     }
     return TextButton(

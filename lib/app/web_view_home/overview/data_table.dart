@@ -22,7 +22,7 @@ class TableVars {
     sortColumnIndex = 0;
     sortAscending = true;
   }
-  int? rowsPerPage;
+  int rowsPerPage;
   int? sortColumnIndex;
   bool? sortAscending;
 }
@@ -104,7 +104,7 @@ class ShowDataTable extends ConsumerWidget {
                 sortAscending: tableVars.sortAscending!,
                 onRowsPerPageChanged: (rows) {
                   // setState(() {
-                  context.read(tableVarsProvider).state.rowsPerPage = rows;
+                  context.read(tableVarsProvider).state.rowsPerPage = rows!;
                   // });
                 },
                 columns: [

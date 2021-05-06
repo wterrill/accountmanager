@@ -21,7 +21,7 @@ class OverviewPaginatedTable extends StatefulWidget {
 
 class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
   // final dts = DTS();
-  int? _rowsPerPage = CustomPaginatedDataTable.defaultRowsPerPage;
+  int _rowsPerPage = CustomPaginatedDataTable.defaultRowsPerPage;
   int _sortColumnIndex = 0;
   bool _sortAscending = false;
   // TBRinProgress tbrInProgress;
@@ -81,7 +81,7 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
             sortAscending: _sortAscending,
             onRowsPerPageChanged: (rows) {
               setState(() {
-                _rowsPerPage = rows;
+                _rowsPerPage = rows!;
               });
             },
             columns: [

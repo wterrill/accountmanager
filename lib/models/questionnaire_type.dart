@@ -16,7 +16,7 @@ class QuestionnaireType extends Equatable implements DropdownModel {
 
   factory QuestionnaireType.fromMap(Map<String, dynamic>? data) {
     QuestionnaireType errorQuestionaireType =
-        QuestionnaireType(id: DateTime.now(), name: 'Error');
+        QuestionnaireType(id: DateTime.now().toString(), name: 'Error');
     if (data == null) {
       return errorQuestionaireType;
     }

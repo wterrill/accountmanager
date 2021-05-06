@@ -23,7 +23,7 @@ class AppUser {
   factory AppUser.fromFirebaseUser(User? user) {
     if (user == null) {
       return AppUser(
-        uid: DateTime.now(),
+        uid: DateTime.now().toString(),
         email: 'Error',
         displayName: 'Error',
         photoURL: 'Error',

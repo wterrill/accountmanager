@@ -176,14 +176,14 @@ class Question extends Equatable {
       roadMap: 'Error',
       section: 'Error',
       sysAdminNotes: 'Error',
-      sysAdminReviewAligned: 'Error',
+      sysAdminReviewAligned: false,
       goodBadAnswer: 'Error',
       tamRecommendations: 'Error',
       tamReview: 'Error',
       totalProjectEstimate: 'Error',
       type: 'Error',
       whyAreWeAsking: 'Error',
-      id: DateTime.now(),
+      id: DateTime.now().toString(),
     );
 
     if (map == null || id == null) return errorQuestion;
