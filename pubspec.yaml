@@ -35,7 +35,7 @@ dependencies:
   js: ^0.6.3
   logger: ^1.0.0
   provider: ^5.0.0
-  rive: ^0.7.5
+  rive: ^0.7.7
   rxdart: ^0.26.0
   shared_preferences: ^2.0.5
   simple_animations: ^3.1.1

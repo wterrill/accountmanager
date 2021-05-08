@@ -34,10 +34,9 @@ void main() {
       });
     }
 
-    Future<void> pumpAuthWidget(
-        WidgetTester tester,
-        {required
-            Widget Function(BuildContext, AsyncSnapshot<User>) builder}) async {
+    Future<void> pumpAuthWidget(WidgetTester tester,
+        {required Widget Function(BuildContext, AsyncSnapshot<User>)
+            builder}) async {
       await tester.pumpWidget(
         Provider<FirebaseAuth?>(
           create: (_) => mockAuthService,

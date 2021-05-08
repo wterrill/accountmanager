@@ -50,14 +50,14 @@ final widgetProvider = StateProvider<Widget>((ref) {
   );
 });
 
-final firebaseAuthProvider = Provider<FirebaseAuth?>((ref) {
+final firebaseAuthProvider = Provider<FirebaseAuth>((ref) {
   final FirebaseAuth firebaseAuthInstance = FirebaseAuth.instance;
   return firebaseAuthInstance;
 });
 
 final authStateChangesProvider = StreamProvider<User?>((ref) {
   final Stream<User?> userDataStream =
-      ref.watch(firebaseAuthProvider)!.authStateChanges();
+      ref.watch(firebaseAuthProvider).authStateChanges();
   return userDataStream;
 });
 

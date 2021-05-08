@@ -52,29 +52,29 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: AuthWidget(
         nonSignedInBuilder: (_) {
-          return Consumer(
-            builder: (BuildContext context, ScopedReader watch, Widget _) {
-              final sharedPreferencesService =
-                  watch(sharedPreferencesServiceProvider);
-              lastBuild = sharedPreferencesService.getLastDateTime();
-              final didCompleteOnboarding = watch(onboardingViewModelProvider);
-              print('didCompleteOnboarding1: $didCompleteOnboarding');
+          return Consumer(builder: (context, watch, _) {
+            final sharedPreferencesService =
+                watch(sharedPreferencesServiceProvider);
+            lastBuild = sharedPreferencesService.getLastDateTime();
+            final didCompleteOnboarding = watch(onboardingViewModelProvider);
+            print('didCompleteOnboarding1: $didCompleteOnboarding');
 
-              print(DateTime.now());
-              print(lastBuild);
-              print(lastBuild?.add(const Duration(seconds: 10)));
-              final DateTime now = DateTime.now();
-              // final DateTime last = lastBuild;
-              final DateTime limit = lastBuild.add(const Duration(seconds: 60));
-              if (now.isAfter(limit) ?? false) {
-                deleteOnboarding(context);
-                sharedPreferencesService.setLastDateTime(DateTime.now());
-              }
-              print('didCompleteOnboarding1: $didCompleteOnboarding');
-              return didCompleteOnboarding ? SignInPage() : OnboardingPage();
-            } as Widget Function(
-                BuildContext, T Function<T>(ProviderBase<Object?, T>), Widget?),
-          );
+            print(DateTime.now());
+            print(lastBuild);
+            print(lastBuild.add(const Duration(seconds: 10)));
+            final DateTime now = DateTime.now();
+            // final DateTime last = lastBuild;
+            final DateTime limit = lastBuild.add(const Duration(seconds: 60));
+            if (now.isAfter(limit)) {
+              deleteOnboarding(context);
+              sharedPreferencesService.setLastDateTime(DateTime.now());
+            }
+            print('didCompleteOnboarding1: $didCompleteOnboarding');
+            return didCompleteOnboarding ? SignInPage() : OnboardingPage();
+          }
+              //  as Widget Function(
+              //     BuildContext, T Function<T>(ProviderBase<Object?, T>), Widget?),
+              );
         },
         signedInBuilder: (_) {
           return WebViewHomePage();

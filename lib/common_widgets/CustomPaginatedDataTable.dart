@@ -266,9 +266,10 @@ class CustomPaginatedDataTableState extends State<CustomPaginatedDataTable> {
   @override
   void initState() {
     super.initState();
-    _firstRowIndex = PageStorage.of(context)?.readState(context) as int? ??
-        widget.initialFirstRowIndex ??
-        0;
+    _firstRowIndex = PageStorage.of(context)?.readState(context) as int?;
+    //  as int? ??
+    //     widget.initialFirstRowIndex ??  //! THIS MIGHT BE A PROGLEM  TODO
+    //     0;
     widget.source.addListener(_handleDataSourceChanged);
     _handleDataSourceChanged();
     _dropdownTextStyle = widget.dropdownTextStyle;
@@ -355,8 +356,9 @@ class CustomPaginatedDataTableState extends State<CustomPaginatedDataTable> {
         CustomDataRow? row;
         if (index < _rowCount || _rowCountApproximate) {
           row = _rows.putIfAbsent(index, () => widget.source.getRow(index));
-          if (row == null && !haveProgressIndicator) {
-            row ??= _getProgressIndicatorRowFor(index);
+          if (!haveProgressIndicator) {
+            //! row == null &&      TODO this was in the conditional expression
+            row = _getProgressIndicatorRowFor(index); //! this was ??=
             haveProgressIndicator = true;
           }
         }
