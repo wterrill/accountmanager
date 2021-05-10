@@ -12,7 +12,7 @@ class WebViewHomePage extends ConsumerWidget {
     final FirestoreDatabase? firestoreDatabase = context.read(databaseProvider);
     final Map<String, String>? registeredData =
         context.read(registeredProvider).getValue;
-    if (registeredData.toString() != '{\'null\': \'null\'}') {
+    if (registeredData.toString() != '{null: null}') {
       print('firestoreDatabase reads: $firestoreDatabase');
       print('just before saveUserInfo');
       firestoreDatabase!.saveUserInfo(registeredData!['uid'], registeredData);

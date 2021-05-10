@@ -12,8 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class OverviewPaginatedTable extends StatefulWidget {
-  const OverviewPaginatedTable({Key? key, this.id}) : super(key: key);
-  final String? id;
+  const OverviewPaginatedTable({Key? key, required this.id}) : super(key: key);
+  final String id;
 
   @override
   _OverviewPaginatedTableState createState() => _OverviewPaginatedTableState();
@@ -39,12 +39,12 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
     // final database = context.watch(databaseProvider);
 
     return Consumer(
-        builder: (BuildContext context, ScopedReader watch, Widget child) {
-      final String? id = widget.id;
+        builder: (BuildContext context, ScopedReader watch, Widget? child) {
+      final String id = widget.id;
       print(id);
       print('before completedTbrAsyncValueProvider');
       final AsyncValue<TBRinProgress> completedTbrAsyncValue =
-          watch(completedTbrStreamProvider!(id!));
+          watch(completedTbrStreamProvider!(id));
       //* This is the code that fails when deploy on the web. it will need to be modified.
 //! **********************************************************************
       //* final AsyncValue<TBRinProgress> completedTbrAsyncValue =
@@ -52,6 +52,8 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
 //! **********************************************************************
 
       print('after completedTbrAsyncValueProvider');
+      print(completedTbrAsyncValue);
+      print('------------ ----------- ---------');
       return completedTbrAsyncValue.when(
         data: (tbrInProgress) {
           print('got there');
@@ -60,8 +62,10 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
         loading: () => Container(color: Colors.cyanAccent),
         error: (_, __) => Container(color: Colors.red),
       );
-    } as Widget Function(
-            BuildContext, T Function<T>(ProviderBase<Object?, T>), Widget?));
+    }
+        // as Widget Function(
+        //     BuildContext, T Function<T>(ProviderBase<Object?, T>), Widget?),
+        );
   }
 
   Widget _datatable(DTS dtsSource) {

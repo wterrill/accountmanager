@@ -44,17 +44,19 @@ class TBRinProgress {
 
     if (map != null) {
       final Map<String, dynamic> temp =
-          map['answers'] as Map<String, List<bool>>;
+          Map<String, List<dynamic>>.from(map['answers']);
+      // final Map<String, List<bool>> temp =
+      //     map['answers'] as Map<String, List<bool>>;
       final Map<String?, List<bool>?> temp2 = {};
       final List<String> keys = temp.keys.toList();
       for (var i = 0; i < keys.length; i++) {
         print(keys[i]);
         final List<bool> tempArray = [true, true, true];
-        for (var i = 0; i < keys.length; i++) {
-          if (keys[i].toString() == 'true') {
-            tempArray[i] = true;
+        for (var j = 0; j < 3; j++) {
+          if (temp[keys[i]][j].toString() == 'true') {
+            tempArray[j] = true;
           } else {
-            tempArray[i] = false;
+            tempArray[j] = false;
           }
         }
         temp2[keys[i]] = tempArray;

@@ -6,8 +6,6 @@ import 'package:accountmanager/models/question.dart';
 import 'package:accountmanager/models/questionnaire_type.dart';
 import 'package:accountmanager/models/tbr.dart';
 import 'package:accountmanager/models/technician.dart';
-import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 import 'package:accountmanager/packages/firestore_service/firestore_service.dart';
 import 'package:accountmanager/services/firestore_path.dart';
 

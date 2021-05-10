@@ -19,7 +19,7 @@ final StreamProviderFamily<TBRinProgress, String>? completedTbrStreamProvider =
     StreamProvider.family<TBRinProgress, String>((ref, id) {
   final database = ref.watch(databaseProvider);
   final questions = ref.watch(latestQuestionsProvider).state;
-  return database != null && id != null
+  return database != null //&& id != null
       ? database.completedTbrStream(completedTbrId: id, questions: questions)
       : const Stream.empty();
 });
