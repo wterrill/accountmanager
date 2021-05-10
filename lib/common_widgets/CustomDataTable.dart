@@ -106,7 +106,7 @@ class CustomDataRow {
     this.onSelectChanged,
     this.color,
     required this.cells,
-  })  : assert(cells != null),
+  })   : assert(cells != null),
         key = ValueKey<int?>(index);
 
   /// A [Key] that uniquely identifies this row. This is used to
@@ -415,7 +415,7 @@ class CustomDataTable extends StatelessWidget {
     this.showCheckboxColumn = true,
     this.dividerThickness = 1.0,
     required this.rows,
-  })  : assert(columns != null),
+  })   : assert(columns != null),
         assert(columns.isNotEmpty),
         assert(sortColumnIndex == null ||
             (sortColumnIndex >= 0 && sortColumnIndex < columns.length)),
@@ -607,7 +607,8 @@ class CustomDataTable extends StatelessWidget {
     bool? ascending,
   }) {
     List<Widget> arrowWithPadding() {
-      return onSort == null
+      // return onSort == null
+      return onSort.toString() == 'Closure: () => void'
           ? const <Widget>[]
           : <Widget>[
               _SortArrow(
@@ -759,10 +760,11 @@ class CustomDataTable extends StatelessWidget {
         !rows.any((CustomDataRow row) =>
             row.onSelectChanged != null && !row.selected);
 
-    List<int> growableList = []..length = 500;
+    final List<int> growableList =
+        []; //..length = 500; //! this could be a problem TODO
 
-    final List<TableColumnWidth?> tableColumns = [];
-    tableColumns.length = columns.length + (displayCheckboxColumn ? 1 : 0);
+    final List<TableColumnWidth> tableColumns = [];
+    // tableColumns.length = columns.length + (displayCheckboxColumn ? 1 : 0);
 
     // final List<TableColumnWidth?> tableColumns = List<TableColumnWidth?>(
     //     columns.length + (displayCheckboxColumn ? 1 : 0));
@@ -780,8 +782,8 @@ class CustomDataTable extends StatelessWidget {
         };
         final Color? rowColor =
             index > 0 ? rows[index - 1].color?.resolve(states) : null;
-        List<Widget> columnList = [];
-        columnList.length = tableColumns.length;
+        final List<Widget> columnList = [];
+        // columnList.length = tableColumns.length;
         return TableRow(
             key: index == 0 ? _headingRowKey : rows[index - 1].key,
             decoration: BoxDecoration(
@@ -853,9 +855,11 @@ class CustomDataTable extends StatelessWidget {
         tableColumns[displayColumnIndex] =
             const IntrinsicColumnWidth(flex: 1.0);
       } else {
+        tableColumns.add(const IntrinsicColumnWidth());
         tableColumns[displayColumnIndex] = const IntrinsicColumnWidth();
       }
-      tableRows[0].children![displayColumnIndex] = _buildHeadingCell(
+      // tableRows[0].children![displayColumnIndex] =
+      Widget beer = _buildHeadingCell(
         context: context,
         padding: padding,
         label: column.label,
@@ -868,10 +872,16 @@ class CustomDataTable extends StatelessWidget {
         sorted: dataColumnIndex == sortColumnIndex,
         ascending: sortAscending,
       );
+      if (tableRows[0].children!.length != displayColumnIndex + 1) {
+        // List<Widget> beer = List<Widget>.generate(
+        //     displayColumnIndedx, (index) => Text('beered'));
+        tableRows[0].children?.add(Text('beered'));
+      }
+      tableRows[0].children![displayColumnIndex] = beer;
       rowIndex = 1;
       for (final CustomDataRow row in rows) {
         final CustomDataCell cell = row.cells[dataColumnIndex];
-        tableRows[rowIndex].children![displayColumnIndex] = _buildDataCell(
+        Widget? beer2 = _buildDataCell(
           context: context,
           padding: padding,
           label: cell.child,
@@ -884,13 +894,21 @@ class CustomDataTable extends StatelessWidget {
               : null,
           overlayColor: row.color,
         )!;
+
+        if (tableRows[rowIndex].children! != displayColumnIndex + 1) {
+          // List<Widget> beer = List<Widget>.generate(
+          //     displayColumnIndedx, (index) => Text('beered'));
+          tableRows[rowIndex].children?.add(Text('beered'));
+        }
+
+        tableRows[rowIndex].children![displayColumnIndex] = beer2;
         rowIndex += 1;
       }
       displayColumnIndex += 1;
     }
 
     return Table(
-      columnWidths: tableColumns.asMap() as Map<int, TableColumnWidth>?,
+      columnWidths: tableColumns.asMap(),
       children: tableRows,
     );
   }

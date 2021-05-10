@@ -101,7 +101,7 @@ class CustomPaginatedDataTable extends StatefulWidget {
     this.onRowsPerPageChanged,
     this.dragStartBehavior = DragStartBehavior.start,
     required this.source,
-  })  : assert(columns != null),
+  })   : assert(columns != null),
         assert(dragStartBehavior != null),
         assert(columns.isNotEmpty),
         assert(sortColumnIndex == null ||
@@ -267,6 +267,8 @@ class CustomPaginatedDataTableState extends State<CustomPaginatedDataTable> {
   void initState() {
     super.initState();
     _firstRowIndex = PageStorage.of(context)?.readState(context) as int?;
+    _firstRowIndex = widget.initialFirstRowIndex;
+    print(widget.initialFirstRowIndex);
     //  as int? ??
     //     widget.initialFirstRowIndex ??  //! THIS MIGHT BE A PROGLEM  TODO
     //     0;
@@ -356,7 +358,7 @@ class CustomPaginatedDataTableState extends State<CustomPaginatedDataTable> {
         CustomDataRow? row;
         if (index < _rowCount || _rowCountApproximate) {
           row = _rows.putIfAbsent(index, () => widget.source.getRow(index));
-          if (!haveProgressIndicator) {
+          if (row == null && !haveProgressIndicator) {
             //! row == null &&      TODO this was in the conditional expression
             row = _getProgressIndicatorRowFor(index); //! this was ??=
             haveProgressIndicator = true;

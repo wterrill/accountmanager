@@ -13,8 +13,7 @@ class Header extends StatefulWidget {
 class _HeaderState extends State<Header> {
   @override
   Widget build(BuildContext context) {
-    final FirebaseAuth firebaseAuth = context
-        .read(firebaseAuthProvider as ProviderBase<Object?, FirebaseAuth>);
+    final FirebaseAuth firebaseAuth = context.read(firebaseAuthProvider);
     final user = firebaseAuth.currentUser!;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
