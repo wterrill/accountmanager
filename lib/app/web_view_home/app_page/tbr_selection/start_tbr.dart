@@ -38,21 +38,22 @@ class _SelectTBRPageState extends State<SelectTBRPage> {
             child: Text('Show Completed'),
           ),
           Consumer(
-              builder:
-                  (BuildContext context, ScopedReader watch, Widget child) {
-            final bool switchState = watch(showAllSwitchProvider) as bool;
-            print(switchState);
+            builder: (BuildContext context, ScopedReader watch, Widget? child) {
+              final bool switchState = watch(showAllSwitchProvider).state;
+              print(switchState);
 
-            return Switch(
-              onChanged: (boo) {
-                context.read(showAllSwitchProvider).state = boo;
-              },
-              value: context.read(showAllSwitchProvider).state,
-              activeTrackColor: Colors.lightGreenAccent,
-              activeColor: Colors.green,
-            );
-          } as Widget Function(BuildContext,
-                      T Function<T>(ProviderBase<Object?, T>), Widget?)),
+              return //Text('beer');
+                  Switch(
+                onChanged: (boo) {
+                  context.read(showAllSwitchProvider).state = boo;
+                },
+                value: context.read(showAllSwitchProvider).state,
+                activeTrackColor: Colors.lightGreenAccent,
+                activeColor: Colors.green,
+              );
+            } as Widget Function(
+                BuildContext, T Function<T>(ProviderBase<Object?, T>), Widget?),
+          ),
         ],
       ),
       CreateAppSelectDataTableWidget(mobile: widget.mobile),

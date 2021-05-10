@@ -82,10 +82,11 @@ class Sidebar extends ConsumerWidget {
             // faIcon: FontAwesomeIcons.web,
             imageIcon: const Icon(Icons.web, color: Colors.white),
             onPressedx: () {
-              context.read(widgetProvider).state = Expanded(
+              final Widget beer = Expanded(
                   child: Container(
                       color: Colors.white,
                       child: const SelectTBRPage(mobile: false)));
+              context.read(widgetProvider).state = beer;
             },
           ),
           SidebarButton(
