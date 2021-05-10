@@ -16,8 +16,7 @@ class SendEmailFinishedDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final firebaseAuth = context
-        .read(firebaseAuthProvider as ProviderBase<Object?, FirebaseAuth>);
+    final firebaseAuth = context.read(firebaseAuthProvider);
     final User? user = firebaseAuth.currentUser!;
     final String emailText = '''
         <p>The user:</p> 
@@ -36,9 +35,8 @@ class SendEmailFinishedDialog extends StatelessWidget {
         <h2>${DateFormat.yMMMEd().format(assignedTbr.dueDate!)} </h2>
         <p>and a client meeting date of:</p>
         <h2>${DateFormat.yMMMEd().format(assignedTbr.clientMeetingDate!)}</h2>''';
-    final FirestoreDatabase database = context
-        .read(databaseProvider as ProviderBase<Object?, FirestoreDatabase>);
-    database.sendEmail(
+    final FirestoreDatabase? database = context.read(databaseProvider);
+    database!.sendEmail(
         toList: [assignedTbr.assignedBy],
         from: assignedTbr.technician!.email,
         body: emailText,

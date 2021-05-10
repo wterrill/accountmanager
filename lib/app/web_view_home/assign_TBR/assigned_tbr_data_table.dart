@@ -26,7 +26,7 @@ class _IpaginatedTableState extends State<IpaginatedTable> {
 
   @override
   Widget build(BuildContext context) {
-    final FirestoreDatabase database = context.read(databaseProvider as ProviderBase<Object?, FirestoreDatabase>);
+    final FirestoreDatabase database = context.read(databaseProvider);
     return FutureBuilder(
         future: database.assignedTbrStream().first,
         builder: (context, snapshot) {

@@ -21,9 +21,8 @@ final AutoDisposeStreamProvider<List<Company>>? companyStreamProvider =
 class CreateCompanyWebPage extends ConsumerWidget {
   Future<void> _deleteCompany(BuildContext context, Company company) async {
     try {
-      final database = context
-          .read(databaseProvider as ProviderBase<Object?, FirestoreDatabase>);
-      await database.deleteCompany(company);
+      final database = context.read(databaseProvider);
+      await database!.deleteCompany(company);
     } catch (e) {
       unawaited(showExceptionAlertDialog(
         context: context,

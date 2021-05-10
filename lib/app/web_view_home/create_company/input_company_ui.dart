@@ -106,10 +106,10 @@ class _InputCompanyState extends State<InputCompany> {
 void _submit(BuildContext context, String? name) {
   if (_validateAndSaveForm(name)) {
     try {
-      final database = context.read(databaseProvider as ProviderBase<Object?, FirestoreDatabase>);
+      final database = context.read(databaseProvider);
       final id = documentIdFromCurrentDate();
       final company = Company(id: id, name: name);
-      database.setCompany(company);
+      database!.setCompany(company);
     } catch (e) {
       unawaited(showExceptionAlertDialog(
         context: context,

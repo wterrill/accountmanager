@@ -261,9 +261,8 @@ class _AssignTBRState extends State<AssignTBR> {
 
   Future<void> _sendAssignedTbr({required AssignedTBR assignedTbr}) async {
     try {
-      final database = context
-          .read(databaseProvider as ProviderBase<Object?, FirestoreDatabase>);
-      await database.setTBR(assignedTbr);
+      final database = context.read(databaseProvider);
+      await database!.setTBR(assignedTbr);
     } catch (e) {
       unawaited(showExceptionAlertDialog(
         context: context,
