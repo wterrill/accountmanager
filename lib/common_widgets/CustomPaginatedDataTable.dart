@@ -347,11 +347,11 @@ class CustomPaginatedDataTableState extends State<CustomPaginatedDataTable> {
         CustomDataRow? row;
         if (index < _rowCount || _rowCountApproximate) {
           row = _rows.putIfAbsent(index, () => widget.source.getRow(index));
-          if (!haveProgressIndicator) {
-            //! row == null &&      TODO this was in the conditional expression
-            row = _getProgressIndicatorRowFor(index); //! this was ??=
-            haveProgressIndicator = true;
-          }
+          // if (!haveProgressIndicator) {
+          //   //! row == null &&      TODO this was in the conditional expression
+          //   row = _getProgressIndicatorRowFor(index); //! this was ??=
+          //   haveProgressIndicator = true;
+          // }
         }
         row ??= _getBlankRowFor(index);
         result.add(row);
