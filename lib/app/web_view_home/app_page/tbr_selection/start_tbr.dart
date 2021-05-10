@@ -38,6 +38,7 @@ class _SelectTBRPageState extends State<SelectTBRPage> {
             child: Text('Show Completed'),
           ),
           Consumer(
+            //ignore: avoid_types_on_closure_parameters, unnecessary_cast
             builder: (BuildContext context, ScopedReader watch, Widget? child) {
               final bool switchState = watch(showAllSwitchProvider).state;
               print(switchState);

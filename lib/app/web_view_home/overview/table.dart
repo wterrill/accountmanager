@@ -39,6 +39,7 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
     // final database = context.watch(databaseProvider);
 
     return Consumer(
+        // ignore: avoid_types_on_closure_parameters
         builder: (BuildContext context, ScopedReader watch, Widget? child) {
       final String id = widget.id;
       print(id);

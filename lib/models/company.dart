@@ -15,7 +15,7 @@ class Company extends Equatable implements DropdownModel {
   bool get stringify => true;
 
   factory Company.fromMap(Map<String, dynamic>? data, String documentId) {
-    Company errorCompany =
+    final Company errorCompany =
         Company(id: DateTime.now().toString(), name: 'Error');
     if (data == null) {
       return errorCompany;

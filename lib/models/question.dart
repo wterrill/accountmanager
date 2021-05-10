@@ -215,7 +215,7 @@ class Question extends Equatable {
       totalProjectEstimate: map['Total Project Estimate'] as String?,
       type: map['Type'] as String?,
       whyAreWeAsking: map['Why Are We Asking?'] as String?,
-      id: (id == null) ? map['id'] as String? : id,
+      id: map['id'] as String?,
     );
   }
 

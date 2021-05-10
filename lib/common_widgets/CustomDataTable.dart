@@ -37,7 +37,7 @@ class CustomDataColumn {
     this.tooltip,
     this.numeric = false,
     this.onSort,
-  }) : assert(label != null);
+  });
 
   /// The column heading.
   ///
@@ -94,7 +94,7 @@ class CustomDataRow {
     this.onSelectChanged,
     this.color,
     required this.cells,
-  }) : assert(cells != null);
+  });
 
   /// Creates the configuration for a row of a [CustomDataTable], deriving
   /// the key from a row index.
@@ -106,8 +106,7 @@ class CustomDataRow {
     this.onSelectChanged,
     this.color,
     required this.cells,
-  })   : assert(cells != null),
-        key = ValueKey<int?>(index);
+  }) : key = ValueKey<int?>(index);
 
   /// A [Key] that uniquely identifies this row. This is used to
   /// ensure that if a row is added or removed, any stateful widgets
@@ -202,7 +201,7 @@ class CustomDataCell {
     this.placeholder = false,
     this.showEditIcon = false,
     this.onTap,
-  }) : assert(child != null);
+  });
 
   /// A cell that has no content and has zero width and height.
   static const CustomDataCell empty =
@@ -415,20 +414,12 @@ class CustomDataTable extends StatelessWidget {
     this.showCheckboxColumn = true,
     this.dividerThickness = 1.0,
     required this.rows,
-  })   : assert(columns != null),
-        assert(columns.isNotEmpty),
+  })   : assert(columns.isNotEmpty),
         assert(sortColumnIndex == null ||
             (sortColumnIndex >= 0 && sortColumnIndex < columns.length)),
-        assert(sortAscending != null),
-        assert(dataRowHeight != null),
-        assert(headingRowHeight != null),
-        assert(horizontalMargin != null),
-        assert(columnSpacing != null),
-        assert(showCheckboxColumn != null),
-        assert(rows != null),
         assert(!rows
             .any((CustomDataRow row) => row.cells.length != columns.length)),
-        assert(dividerThickness != null && dividerThickness >= 0),
+        assert(dividerThickness >= 0),
         _onlyTextColumn = _initOnlyTextColumn(columns),
         super(key: key);
 
@@ -760,9 +751,6 @@ class CustomDataTable extends StatelessWidget {
         !rows.any((CustomDataRow row) =>
             row.onSelectChanged != null && !row.selected);
 
-    final List<int> growableList =
-        []; //..length = 500; //! this could be a problem TODO
-
     final List<TableColumnWidth> tableColumns = [];
     // tableColumns.length = columns.length + (displayCheckboxColumn ? 1 : 0);
 
@@ -859,7 +847,7 @@ class CustomDataTable extends StatelessWidget {
         tableColumns[displayColumnIndex] = const IntrinsicColumnWidth();
       }
       // tableRows[0].children![displayColumnIndex] =
-      Widget beer = _buildHeadingCell(
+      final Widget beer = _buildHeadingCell(
         context: context,
         padding: padding,
         label: column.label,
@@ -881,7 +869,7 @@ class CustomDataTable extends StatelessWidget {
       rowIndex = 1;
       for (final CustomDataRow row in rows) {
         final CustomDataCell cell = row.cells[dataColumnIndex];
-        Widget? beer2 = _buildDataCell(
+        final Widget beer2 = _buildDataCell(
           context: context,
           padding: padding,
           label: cell.child,
@@ -895,7 +883,7 @@ class CustomDataTable extends StatelessWidget {
           overlayColor: row.color,
         )!;
 
-        if (tableRows[rowIndex].children! != displayColumnIndex + 1) {
+        if (tableRows[rowIndex].children!.length != displayColumnIndex + 1) {
           // List<Widget> beer = List<Widget>.generate(
           //     displayColumnIndedx, (index) => Text('beered'));
           tableRows[rowIndex].children?.add(Text('beered'));

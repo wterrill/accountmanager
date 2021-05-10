@@ -218,7 +218,6 @@ class _AssignTBRState extends State<AssignTBR> {
                       final bool notNullnotEditedOREditedAndChanged =
                           (!editAssignTBR && (assignedTbr.toMap() != null)) ||
                               (editAssignTBR &&
-                                  (assignedTbr != null) &&
                                   !mapEquals<String, dynamic>(
                                       originalMap, assignedTbr.toMap()));
                       if (answer! //) {

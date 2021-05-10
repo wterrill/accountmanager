@@ -42,7 +42,7 @@ class AccountWebPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final firebaseAuth = context.read(firebaseAuthProvider as ProviderBase<Object?, FirebaseAuth>);
+    final firebaseAuth = context.read(firebaseAuthProvider);
     final user = firebaseAuth.currentUser!;
     return AppBar(
       title: const Text(Strings.accountPage),

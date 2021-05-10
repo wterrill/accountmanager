@@ -35,32 +35,32 @@ void main() {
     );
   }
 
-  void stubSignInWithEmailAndPasswordSucceeds() {
-    when(mockAuth!.signInWithCredential(any!))
-        .thenAnswer((_) => Future<UserCredential>.value(MockUserCredential()));
-  }
+  // void stubSignInWithEmailAndPasswordSucceeds() {
+  //   when(mockAuth!.signInWithCredential(any!))
+  //       .thenAnswer((_) => Future<UserCredential>.value(MockUserCredential()));
+  // }
 
-  void stubSignInWithEmailAndPasswordThrows() {
-    when(mockAuth!.signInWithCredential(any!))
-        .thenThrow(PlatformException(code: 'ERROR_WRONG_PASSWORD'));
-  }
+  // void stubSignInWithEmailAndPasswordThrows() {
+  //   when(mockAuth!.signInWithCredential(any!))
+  //       .thenThrow(PlatformException(code: 'ERROR_WRONG_PASSWORD'));
+  // }
 
-  void stubCreateUserWithEmailAndPasswordSucceeds() {
-    when(mockAuth!.createUserWithEmailAndPassword(
-            email: anyNamed('email')!, password: anyNamed('password')!))
-        .thenAnswer((_) => Future<UserCredential>.value(MockUserCredential()));
-  }
+  // void stubCreateUserWithEmailAndPasswordSucceeds() {
+  //   when(mockAuth!.createUserWithEmailAndPassword(
+  //           email: anyNamed('email')!, password: anyNamed('password')!))
+  //       .thenAnswer((_) => Future<UserCredential>.value(MockUserCredential()));
+  // }
 
-  void stubCreateUserWithEmailAndPasswordThrows() {
-    when(mockAuth!.createUserWithEmailAndPassword(
-            email: anyNamed('email')!, password: anyNamed('password')!))
-        .thenThrow(PlatformException(code: 'ERROR_EMAIL_ALREADY_IN_USE'));
-  }
+  // void stubCreateUserWithEmailAndPasswordThrows() {
+  //   when(mockAuth!.createUserWithEmailAndPassword(
+  //           email: anyNamed('email')!, password: anyNamed('password')!))
+  //       .thenThrow(PlatformException(code: 'ERROR_EMAIL_ALREADY_IN_USE'));
+  // }
 
-  void stubSendPasswordResetEmailSucceeds() {
-    when(mockAuth!.sendPasswordResetEmail(email: anyNamed('email')!))
-        .thenAnswer((_) => Future<void>.value());
-  }
+  // void stubSendPasswordResetEmailSucceeds() {
+  //   when(mockAuth!.sendPasswordResetEmail(email: anyNamed('email')!))
+  //       .thenAnswer((_) => Future<void>.value());
+  // }
 
   group('sign-in', () {
     testWidgets(
@@ -86,7 +86,7 @@ void main() {
       const email = 'email@email.com';
       const password = 'password';
 
-      stubSignInWithEmailAndPasswordSucceeds();
+      // stubSignInWithEmailAndPasswordSucceeds();
 
       var signedIn = false;
       await pumpEmailSignInForm(tester, onSignedIn: () => signedIn = true);
@@ -118,7 +118,7 @@ void main() {
       const email = 'email@email.com';
       const password = 'password';
 
-      stubSignInWithEmailAndPasswordThrows();
+      // stubSignInWithEmailAndPasswordThrows();
 
       var signedIn = false;
       await pumpEmailSignInForm(tester, onSignedIn: () => signedIn = true);
@@ -173,7 +173,7 @@ void main() {
       const email = 'email@email.com';
       const password = 'password';
 
-      stubCreateUserWithEmailAndPasswordSucceeds();
+      // stubCreateUserWithEmailAndPasswordSucceeds();
 
       var signedIn = false;
       await pumpEmailSignInForm(tester, onSignedIn: () => signedIn = true);
@@ -197,8 +197,8 @@ void main() {
       expect(createAccountButton, findsOneWidget);
       await tester.tap(createAccountButton);
 
-      verify(mockAuth!.createUserWithEmailAndPassword(
-              email: email, password: password))
+      verify(mockAuth!
+              .createUserWithEmailAndPassword(email: email, password: password))
           .called(1);
       expect(signedIn, true);
     });
@@ -212,7 +212,7 @@ void main() {
       const email = 'email@email.com';
       const password = 'password';
 
-      stubCreateUserWithEmailAndPasswordThrows();
+      // stubCreateUserWithEmailAndPasswordThrows();
 
       var signedIn = false;
       await pumpEmailSignInForm(tester, onSignedIn: () => signedIn = true);
@@ -236,8 +236,8 @@ void main() {
       expect(createAccountButton, findsOneWidget);
       await tester.tap(createAccountButton);
 
-      verify(mockAuth!.createUserWithEmailAndPassword(
-              email: email, password: password))
+      verify(mockAuth!
+              .createUserWithEmailAndPassword(email: email, password: password))
           .called(1);
       expect(signedIn, false);
     });
@@ -272,7 +272,7 @@ void main() {
       'AND user is not signed in', (tester) async {
     const email = 'email@email.com';
 
-    stubSendPasswordResetEmailSucceeds();
+    // stubSendPasswordResetEmailSucceeds();
 
     var signedIn = false;
     await pumpEmailSignInForm(tester, onSignedIn: () => signedIn = true);

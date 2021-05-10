@@ -5,7 +5,7 @@ import '../firebase_auth_service.dart';
 void main() {
   group('User', () {
     test('null uid throws exception', () {
-      expect(AppUser(uid: null), throwsAssertionError);
+      expect(const AppUser(uid: null), throwsAssertionError);
     }, skip: true);
   });
 }

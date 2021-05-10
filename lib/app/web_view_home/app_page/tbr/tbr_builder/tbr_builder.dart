@@ -54,6 +54,7 @@ class _TBRbuilderState extends State<TBRbuilder> {
   Widget build(BuildContext context) {
     // List<TextEditingController>.generate(3, (TextEditingController index) => index * index);
     return Consumer(
+        //ignore: avoid_types_on_closure_parameters, unnecessary_cast
         builder: (BuildContext context, ScopedReader watch, Widget? child) {
       // List<String> beer = watch(tbrInProgressProvider).state.sections;
       // ignore: unused_local_variable

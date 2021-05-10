@@ -101,26 +101,15 @@ class CustomPaginatedDataTable extends StatefulWidget {
     this.onRowsPerPageChanged,
     this.dragStartBehavior = DragStartBehavior.start,
     required this.source,
-  })   : assert(columns != null),
-        assert(dragStartBehavior != null),
-        assert(columns.isNotEmpty),
+  })   : assert(columns.isNotEmpty),
         assert(sortColumnIndex == null ||
             (sortColumnIndex >= 0 && sortColumnIndex < columns.length)),
-        assert(sortAscending != null),
-        assert(dataRowHeight != null),
-        assert(headingRowHeight != null),
-        assert(horizontalMargin != null),
-        assert(columnSpacing != null),
-        assert(showCheckboxColumn != null),
-        assert(rowsPerPage != null),
         assert(rowsPerPage > 0),
         assert(() {
           if (onRowsPerPageChanged != null)
-            assert(availableRowsPerPage != null &&
-                availableRowsPerPage.contains(rowsPerPage));
+            assert(availableRowsPerPage.contains(rowsPerPage));
           return true;
         }()),
-        assert(source != null),
         super(key: key);
 
   /// The table card's header.
@@ -358,7 +347,7 @@ class CustomPaginatedDataTableState extends State<CustomPaginatedDataTable> {
         CustomDataRow? row;
         if (index < _rowCount || _rowCountApproximate) {
           row = _rows.putIfAbsent(index, () => widget.source.getRow(index));
-          if (row == null && !haveProgressIndicator) {
+          if (!haveProgressIndicator) {
             //! row == null &&      TODO this was in the conditional expression
             row = _getProgressIndicatorRowFor(index); //! this was ??=
             haveProgressIndicator = true;

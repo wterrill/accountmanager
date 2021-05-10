@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-import 'package:meta/meta.dart';
 
 String filename = 'sign_in_view_model.dart: ';
 

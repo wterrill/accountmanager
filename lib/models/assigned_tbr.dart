@@ -2,7 +2,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:intl/intl.dart';
-import 'package:meta/meta.dart';
 
 import 'package:accountmanager/models/company.dart';
 import 'package:accountmanager/models/questionnaire_type.dart';
@@ -46,7 +45,7 @@ class AssignedTBR extends Equatable {
   bool get stringify => true;
 
   factory AssignedTBR.fromMap(Map<String, dynamic>? data, String documentId) {
-    AssignedTBR errorAssignedTBR = AssignedTBR(
+    final AssignedTBR errorAssignedTBR = AssignedTBR(
         id: DateTime.now().toString(),
         technician: Technician(
             id: DateTime.now().toString(),
@@ -54,7 +53,7 @@ class AssignedTBR extends Equatable {
             lastName: 'Error',
             email: 'Error'),
         company: Company(id: DateTime.now().toString(), name: 'Error'),
-        questionnaireType: QuestionnaireType(id: 'Error', name: 'Error'),
+        questionnaireType: const QuestionnaireType(id: 'Error', name: 'Error'),
         dueDate: DateTime.now(),
         clientMeetingDate: DateTime.now(),
         status: Status(statusIndex: 1),
@@ -126,7 +125,6 @@ class AssignedTBR extends Equatable {
         questionnaireType == null ||
         dueDate == null ||
         clientMeetingDate == null ||
-        status == null ||
         assignedBy == null) {
       return null;
     } else {
