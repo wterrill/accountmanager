@@ -31,10 +31,9 @@ class SubmitButtonRow extends ConsumerWidget {
     Future<void> sendCompletedEvaluation(
         {required TBRinProgress tbrInProgress}) async {
       try {
-        final database = context
-            .read(databaseProvider as ProviderBase<Object?, FirestoreDatabase>);
+        final database = context.read(databaseProvider);
         final String id = context.read(inProgressTbrProvider).state!.id;
-        await database.setEvaluation(tbrInProgress, id);
+        await database!.setEvaluation(tbrInProgress, id);
       } catch (e) {
         unawaited(showExceptionAlertDialog(
           context: context,

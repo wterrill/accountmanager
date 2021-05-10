@@ -72,12 +72,10 @@ class _AssignTBRState extends State<AssignTBR> {
 
   @override
   Widget build(BuildContext context) {
-    final firebaseAuth = context
-        .read(firebaseAuthProvider as ProviderBase<Object?, FirebaseAuth>);
+    final firebaseAuth = context.read(firebaseAuthProvider);
     final User? user = firebaseAuth.currentUser!;
     assignedBy ??= user?.email;
-    final FirestoreDatabase database = context
-        .read(databaseProvider as ProviderBase<Object?, FirestoreDatabase>);
+    final FirestoreDatabase? database = context.read(databaseProvider);
     return SizedBox(
       height: 320,
       width: 300,
@@ -88,7 +86,7 @@ class _AssignTBRState extends State<AssignTBR> {
           FutureDropdown(
             hint: 'Choose a Technician:',
             selectedData: selectedTechnician,
-            future: database.technicianStream().first,
+            future: database!.technicianStream().first,
             onSelected: () {
               print('selected');
             },

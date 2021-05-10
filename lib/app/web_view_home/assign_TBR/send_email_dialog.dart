@@ -24,8 +24,8 @@ class SendEmailAssignDialog extends StatelessWidget {
         <h2>${DateFormat.yMMMEd().format(assignedTbr!.dueDate!)} </h2>
         <p>and a client meeting date of:</p>
         <h2>${DateFormat.yMMMEd().format(assignedTbr!.clientMeetingDate!)}</h2>''';
-    final FirestoreDatabase database = context.read(databaseProvider as ProviderBase<Object?, FirestoreDatabase>);
-    database.sendEmail(
+    final FirestoreDatabase? database = context.read(databaseProvider);
+    database!.sendEmail(
         toList: [assignedTbr!.technician!.email],
         from: assignedTbr!.assignedBy,
         body: emailText,
