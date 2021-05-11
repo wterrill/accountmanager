@@ -26,7 +26,8 @@ class _RiveAnimationState extends State<RiveAnimation>
 
     // Load the animation file from the bundle, note that you could also
     // download this. The RiveFile just expects a list of bytes.
-    rootBundle.load('assets/rive/MXOtech-stop-hug-new.riv').then(
+    rootBundle.load('assets/rive/mxotechNewVersion.riv').then(
+      // rootBundle.load('assets/rive/MXOtech-stop-hug2.riv').then(
       (data) async {
         final file = RiveFile.import(data);
 

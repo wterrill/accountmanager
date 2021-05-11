@@ -4,23 +4,23 @@ const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
   "version.json": "6a0efda2f847da7d4065d1d04d53434b",
-"index.html": "634ba4205a81a9f5e793f1658a5ac230",
-"/": "634ba4205a81a9f5e793f1658a5ac230",
-"main.dart.js": "18b0cd3d7c5112240a537166e0419094",
+"index.html": "63a306f4ec116a9caad5573458dbff31",
+"/": "63a306f4ec116a9caad5573458dbff31",
+"main.dart.js": "5031f562ec9f3e7962afddad2b37f744",
 "favicon.png": "99733c2381f7c6d7ba95874b3cfb63ba",
 "index_development.html": "e7ebf6e0257c32e37bdd57b8e796bc35",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "manifest.json": "1e6b01631d3dfd21795fadc73e4d3d64",
 "index_production.html": "73c674c9c09243c04c3d1076ada8353b",
-"assets/AssetManifest.json": "cad0d6e160c908675ef42fc268310c74",
-"assets/NOTICES": "cba3c179eaa3295770b822a477ecce3c",
+"assets/AssetManifest.json": "d70684361a62f71cfc9df075c5c7cd48",
+"assets/NOTICES": "bc2f1e9e3900933baabdf17724e60610",
 "assets/FontManifest.json": "3070bd9ec33b501da1c65a6b44b35455",
 "assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "6d342eb68f170c97609e9da345464e5e",
-"assets/packages/font_awesome_flutter/lib/fonts/fa-solid-900.ttf": "d80ca32233940ebadc5ae5372ccd67f9",
-"assets/packages/font_awesome_flutter/lib/fonts/fa-regular-400.ttf": "a126c025bab9a1b4d8ac5534af76a208",
-"assets/packages/font_awesome_flutter/lib/fonts/fa-brands-400.ttf": "831eb40a2d76095849ba4aecd4340f19",
-"assets/fonts/MaterialIcons-Regular.otf": "1288c9e28052e028aba623321f7826ac",
+"assets/packages/font_awesome_flutter/lib/fonts/fa-solid-900.ttf": "dffd9504fcb1894620fa41c700172994",
+"assets/packages/font_awesome_flutter/lib/fonts/fa-regular-400.ttf": "4b6a9b7c20913279a3ad3dd9c96e155b",
+"assets/packages/font_awesome_flutter/lib/fonts/fa-brands-400.ttf": "00bb2b684be61e89d1bc7d75dee30b58",
+"assets/fonts/MaterialIcons-Regular.otf": "4e6447691c9509f7acdbf8a931a85ca1",
 "assets/assets/images/time-tracking.svg": "bb613fe94e5e61266a5015fbb725557e",
 "assets/assets/images/sign_in_background.png": "b55754becea244603a95d3e2462bc571",
 "assets/assets/images/sign_in_logo.png": "ff2736ef2206b2ac6ef16d4738127bb6",
@@ -36,6 +36,7 @@ const RESOURCES = {
 "assets/assets/rive/MXOtech-flowy-rapid2.riv": "c9653483b573148148bdd4239bed5bc4",
 "assets/assets/rive/MXOtech-flowy-rapid3.riv": "8e41c57e696c696fdbd22ceb037d55cb",
 "assets/assets/rive/MXOtech-flowy-rapid.riv": "bdf6e5f8e4a22910e15dbbffc069ad72",
+"assets/assets/rive/mxotechNewVersion.riv": "618edd8c9e22a093b8c8d07c720ffae0",
 "assets/assets/icon/icon.png": "3f8bc33a271d5b49d5ae9e552cc979bf",
 "assets/assets/icon/add_user_will.png.svg": "c9620b146a7939f48e0095a88aec8006",
 "assets/assets/icon/add_company.gif": "21aa11e72d2b109e60871ea453f6fa49",
@@ -65,7 +66,7 @@ self.addEventListener("install", (event) => {
   return event.waitUntil(
     caches.open(TEMP).then((cache) => {
       return cache.addAll(
-        CORE.map((value) => new Request(value + '?revision=' + RESOURCES[value], {'cache': 'reload'})));
+        CORE.map((value) => new Request(value, {'cache': 'reload'})));
     })
   );
 });
