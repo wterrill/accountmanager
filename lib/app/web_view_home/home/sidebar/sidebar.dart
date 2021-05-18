@@ -69,36 +69,36 @@ class Sidebar extends ConsumerWidget {
           const Text(''),
           SidebarButton(
             lastText: lastText,
-            text: 'View Evaluations',
+            text: 'Home',
             faIcon: FontAwesomeIcons.home,
             onPressedx: () {
               context.read(widgetProvider).state =
                   const Expanded(child: OverviewWebPage(mobile: false));
             },
           ),
-          SidebarButton(
-            lastText: lastText,
-            text: 'Start Evaluation',
-            // faIcon: FontAwesomeIcons.web,
-            imageIcon: const Icon(Icons.web, color: Colors.white),
-            onPressedx: () {
-              final Widget beer = Expanded(
-                  child: Container(
-                      color: Colors.white,
-                      child: const SelectTBRPage(mobile: false)));
-              context.read(widgetProvider).state = beer;
-            },
-          ),
-          SidebarButton(
-            lastText: lastText,
-            text: 'Assign Evaluation',
-            faIcon: FontAwesomeIcons.plusSquare,
-            onPressedx: () {
-              context.read(widgetProvider).state = Expanded(
-                  child: Container(
-                      color: Colors.grey[100], child: AssignTBRWebPage()));
-            },
-          ),
+          // SidebarButton(
+          //   lastText: lastText,
+          //   text: 'Start Evaluation',
+          //   // faIcon: FontAwesomeIcons.web,
+          //   imageIcon: const Icon(Icons.web, color: Colors.white),
+          //   onPressedx: () {
+          //     final Widget beer = Expanded(
+          //         child: Container(
+          //             color: Colors.white,
+          //             child: const SelectTBRPage(mobile: false)));
+          //     context.read(widgetProvider).state = beer;
+          //   },
+          // ),
+          // SidebarButton(
+          //   lastText: lastText,
+          //   text: 'Assign Evaluation',
+          //   faIcon: FontAwesomeIcons.plusSquare,
+          //   onPressedx: () {
+          //     context.read(widgetProvider).state = Expanded(
+          //         child: Container(
+          //             color: Colors.grey[100], child: AssignTBRWebPage()));
+          //   },
+          // ),
           SidebarButton(
             lastText: lastText,
             text: 'Add Company',
@@ -144,16 +144,16 @@ class Sidebar extends ConsumerWidget {
           //             color: Colors.brown[50], child: QuestionWebPage()));
           //   },
           // ),
-          SidebarButton(
-            lastText: lastText,
-            text: 'Account Info',
-            faIcon: FontAwesomeIcons.user,
-            onPressedx: () {
-              context.read(widgetProvider).state = Expanded(
-                  child: Container(
-                      color: Colors.brown[150], child: AccountWebPage()));
-            },
-          ),
+          // SidebarButton(
+          //   lastText: lastText,
+          //   text: 'Account Info',
+          //   faIcon: FontAwesomeIcons.user,
+          //   onPressedx: () {
+          //     context.read(widgetProvider).state = Expanded(
+          //         child: Container(
+          //             color: Colors.brown[150], child: AccountWebPage()));
+          //   },
+          // ),
 
           // SidebarButton(
           //   lastText: lastText,

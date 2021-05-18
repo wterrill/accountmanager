@@ -30,8 +30,8 @@ const settings = {
 };
 
 
-var all = ['assignedTbr', 'businessReasons', 'companies', 'completedTBRs', 'mail', 'questionnaire', 'questionnarieTypes', ]; //'userInfo'
-// assignedTbr, businessReasons, companies, completedTBRs, mail, questionnaire, questionnarieTypes, userInfo
+var all = ['questionnaireTypes']; //'userInfo', 'assignedTbr', 'businessReasons', 'companies', 'completedTBRs', 'mail', 'questionnaire', 
+// assignedTbr, businessReasons, companies, completedTBRs, mail, questionnaire, questionnarieTypes, userInfo   
 
 // this cycles through all of the names of the base collections
 all.forEach(collectionName => {

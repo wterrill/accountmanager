@@ -5,4 +5,6 @@ class TextStyles {
   static const TextStyle heading1 =
       TextStyle(fontSize: 38, color: Colors.black);
   static TextStyle heading2 = TextStyle(fontSize: 28, color: Colors.blue[800]);
+  static const TextStyle button1White =
+      TextStyle(fontSize: 18, color: Colors.white);
 }

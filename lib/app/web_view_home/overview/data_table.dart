@@ -1,5 +1,7 @@
 import 'package:accountmanager/app/top_level_providers.dart';
+// import 'package:accountmanager/app/web_view_home/home/sidebar/sidebar.dart';
 import 'package:accountmanager/app/web_view_home/overview/table.dart';
+import 'package:accountmanager/app/web_view_home/overview/tbr_app_page.dart';
 import 'package:accountmanager/common_widgets/CustomDataTable.dart';
 import 'package:accountmanager/common_widgets/CustomDataTableSource.dart';
 import 'package:accountmanager/common_widgets/CustomPaginatedDataTable.dart';
@@ -60,12 +62,12 @@ class DataTableBuilder extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     return dataAsync!.when(
       data: (items) {
-        final List<AssignedTBR> filteredItems = items
-            .where((element) => element.status.getStatusName() == 'Completed')
-            .toList();
+        // final List<AssignedTBR> filteredItems = items
+        //     .where((element) => element.status.getStatusName() == 'Completed')
+        //     .toList();
 
         return items.isNotEmpty
-            ? ShowDataTable(items: filteredItems, mobile: mobile)
+            ? ShowDataTable(items: items, mobile: mobile)
             : const EmptyContent();
       },
       loading: () => const Center(child: CircularProgressIndicator()),
@@ -94,141 +96,145 @@ class ShowDataTable extends ConsumerWidget {
           children: [
             DefaultTextStyle(
               style: const TextStyle(fontSize: 10, color: Colors.blue),
-              child: CustomPaginatedDataTable(
-                showCheckboxColumn: false,
-                headingRowColor: Colors.grey[300],
-                header: const Text('Select TBR to be completed'),
-                source: dtsSource,
-                rowsPerPage: tableVars.rowsPerPage,
-                sortColumnIndex: tableVars.sortColumnIndex,
-                sortAscending: tableVars.sortAscending!,
-                onRowsPerPageChanged: (rows) {
-                  // setState(() {
-                  context.read(tableVarsProvider).state.rowsPerPage = rows!;
-                  // });
-                },
-                columns: [
-                  CustomDataColumn(
-                    label: Text(Strings.tbrStrings.status),
-                    onSort: (columnIndex, ascending) {
-                      dtsSource.sort<String>(
-                          getField: (d) => d.status.statusIndex.toString(),
-                          ascending: tableVars.sortAscending);
-                      // setState(() {
-                      final TableVars tempTableVars = TableVars(
-                          context.read(tableVarsProvider).state.rowsPerPage);
-                      tempTableVars.sortColumnIndex = columnIndex;
-                      tempTableVars.sortAscending = ascending;
+              child: Container(
+                decoration:
+                    BoxDecoration(border: Border.all(color: Colors.red)),
+                child: CustomPaginatedDataTable(
+                  showCheckboxColumn: false,
+                  headingRowColor: Colors.grey[300],
+                  header: const Text('Select TBR to be completed'),
+                  source: dtsSource,
+                  rowsPerPage: tableVars.rowsPerPage,
+                  sortColumnIndex: tableVars.sortColumnIndex,
+                  sortAscending: tableVars.sortAscending!,
+                  onRowsPerPageChanged: (rows) {
+                    // setState(() {
+                    context.read(tableVarsProvider).state.rowsPerPage = rows!;
+                    // });
+                  },
+                  columns: [
+                    CustomDataColumn(
+                      label: Text(Strings.tbrStrings.status),
+                      onSort: (columnIndex, ascending) {
+                        dtsSource.sort<String>(
+                            getField: (d) => d.status.statusIndex.toString(),
+                            ascending: tableVars.sortAscending);
+                        // setState(() {
+                        final TableVars tempTableVars = TableVars(
+                            context.read(tableVarsProvider).state.rowsPerPage);
+                        tempTableVars.sortColumnIndex = columnIndex;
+                        tempTableVars.sortAscending = ascending;
 
-                      context.read(tableVarsProvider).state = tempTableVars;
-                      // });
-                    },
-                  ),
-                  CustomDataColumn(
-                    label: Text(Strings.companyStrings.company),
-                    onSort: (columnIndex, ascending) {
-                      print(dtsSource.data![0].company);
-                      dtsSource.sort<String>(
-                          // 1
-                          getField: (d) => d.company!.name,
-                          ascending: tableVars.sortAscending);
-                      print(dtsSource.data![0].company);
-                      // setState(() {
-                      final TableVars tableVarsTemp = TableVars(
-                          context.read(tableVarsProvider).state.rowsPerPage);
-                      tableVarsTemp.sortColumnIndex = columnIndex;
-                      tableVarsTemp.sortAscending = ascending;
-                      final TableVars beer =
-                          context.read(tableVarsProvider).state;
-                      print(beer.sortAscending);
+                        context.read(tableVarsProvider).state = tempTableVars;
+                        // });
+                      },
+                    ),
+                    CustomDataColumn(
+                      label: Text(Strings.companyStrings.company),
+                      onSort: (columnIndex, ascending) {
+                        print(dtsSource.data![0].company);
+                        dtsSource.sort<String>(
+                            // 1
+                            getField: (d) => d.company!.name,
+                            ascending: tableVars.sortAscending);
+                        print(dtsSource.data![0].company);
+                        // setState(() {
+                        final TableVars tableVarsTemp = TableVars(
+                            context.read(tableVarsProvider).state.rowsPerPage);
+                        tableVarsTemp.sortColumnIndex = columnIndex;
+                        tableVarsTemp.sortAscending = ascending;
+                        final TableVars beer =
+                            context.read(tableVarsProvider).state;
+                        print(beer.sortAscending);
 
-                      context.read(tableVarsProvider).state = tableVarsTemp;
-                      // });
-                    },
-                  ),
-                  CustomDataColumn(
-                    label: Text(Strings.technicianStrings.technician),
-                    onSort: (columnIndex, ascending) {
-                      print(dtsSource);
-                      dtsSource.sort<String>(
-                          getField: (d) => d.technician!.firstName,
-                          ascending: tableVars.sortAscending);
-                      print(dtsSource);
-                      // setState(() {
-                      final TableVars tempTableVars = TableVars(
-                          context.read(tableVarsProvider).state.rowsPerPage);
-                      tempTableVars.sortColumnIndex = columnIndex;
-                      tempTableVars.sortAscending = ascending;
+                        context.read(tableVarsProvider).state = tableVarsTemp;
+                        // });
+                      },
+                    ),
+                    CustomDataColumn(
+                      label: Text(Strings.technicianStrings.technician),
+                      onSort: (columnIndex, ascending) {
+                        print(dtsSource);
+                        dtsSource.sort<String>(
+                            getField: (d) => d.technician!.firstName,
+                            ascending: tableVars.sortAscending);
+                        print(dtsSource);
+                        // setState(() {
+                        final TableVars tempTableVars = TableVars(
+                            context.read(tableVarsProvider).state.rowsPerPage);
+                        tempTableVars.sortColumnIndex = columnIndex;
+                        tempTableVars.sortAscending = ascending;
 
-                      context.read(tableVarsProvider).state = tempTableVars;
-                      // });
-                    },
-                  ),
-                  CustomDataColumn(
-                    label: Text(Strings.tbrStrings.dueDate),
-                    onSort: (columnIndex, ascending) {
-                      dtsSource.sort<String>(
-                          getField: (d) => d.dueDate.toString(),
-                          ascending: tableVars.sortAscending);
-                      // setState(() {
-                      final TableVars tempTableVars = TableVars(
-                          context.read(tableVarsProvider).state.rowsPerPage);
-                      tempTableVars.sortColumnIndex = columnIndex;
-                      tempTableVars.sortAscending = ascending;
+                        context.read(tableVarsProvider).state = tempTableVars;
+                        // });
+                      },
+                    ),
+                    CustomDataColumn(
+                      label: Text(Strings.tbrStrings.dueDate),
+                      onSort: (columnIndex, ascending) {
+                        dtsSource.sort<String>(
+                            getField: (d) => d.dueDate.toString(),
+                            ascending: tableVars.sortAscending);
+                        // setState(() {
+                        final TableVars tempTableVars = TableVars(
+                            context.read(tableVarsProvider).state.rowsPerPage);
+                        tempTableVars.sortColumnIndex = columnIndex;
+                        tempTableVars.sortAscending = ascending;
 
-                      context.read(tableVarsProvider).state = tempTableVars;
-                      // });
-                    },
-                  ),
-                  CustomDataColumn(
-                    label: Text(Strings.tbrStrings.meetingDate),
-                    onSort: (columnIndex, ascending) {
-                      dtsSource.sort<String>(
-                          getField: (d) => d.clientMeetingDate.toString(),
-                          ascending: tableVars.sortAscending);
-                      // setState(() {
-                      final TableVars tempTableVars = TableVars(
-                          context.read(tableVarsProvider).state.rowsPerPage);
-                      tempTableVars.sortColumnIndex = columnIndex;
-                      tempTableVars.sortAscending = ascending;
+                        context.read(tableVarsProvider).state = tempTableVars;
+                        // });
+                      },
+                    ),
+                    CustomDataColumn(
+                      label: Text(Strings.tbrStrings.meetingDate),
+                      onSort: (columnIndex, ascending) {
+                        dtsSource.sort<String>(
+                            getField: (d) => d.clientMeetingDate.toString(),
+                            ascending: tableVars.sortAscending);
+                        // setState(() {
+                        final TableVars tempTableVars = TableVars(
+                            context.read(tableVarsProvider).state.rowsPerPage);
+                        tempTableVars.sortColumnIndex = columnIndex;
+                        tempTableVars.sortAscending = ascending;
 
-                      context.read(tableVarsProvider).state = tempTableVars;
-                      // });
-                    },
-                  ),
-                  CustomDataColumn(
-                    label: Text(Strings.tbrStrings.type),
-                    onSort: (columnIndex, ascending) {
-                      dtsSource.sort<String>(
-                          getField: (d) => d.questionnaireType!.name,
-                          ascending: tableVars.sortAscending);
-                      // setState(() {
-                      final TableVars tempTableVars = TableVars(
-                          context.read(tableVarsProvider).state.rowsPerPage);
-                      tempTableVars.sortColumnIndex = columnIndex;
-                      tempTableVars.sortAscending = ascending;
+                        context.read(tableVarsProvider).state = tempTableVars;
+                        // });
+                      },
+                    ),
+                    CustomDataColumn(
+                      label: Text(Strings.tbrStrings.type),
+                      onSort: (columnIndex, ascending) {
+                        dtsSource.sort<String>(
+                            getField: (d) => d.questionnaireType!.name,
+                            ascending: tableVars.sortAscending);
+                        // setState(() {
+                        final TableVars tempTableVars = TableVars(
+                            context.read(tableVarsProvider).state.rowsPerPage);
+                        tempTableVars.sortColumnIndex = columnIndex;
+                        tempTableVars.sortAscending = ascending;
 
-                      context.read(tableVarsProvider).state = tempTableVars;
-                      // });
-                    },
-                  ),
-                  CustomDataColumn(
-                    label: const Text('Assigned By'),
-                    onSort: (columnIndex, ascending) {
-                      dtsSource.sort<String>(
-                          getField: (d) => d.assignedBy,
-                          ascending: tableVars.sortAscending);
-                      // setState(() {
-                      final TableVars tempTableVars = TableVars(
-                          context.read(tableVarsProvider).state.rowsPerPage);
-                      tempTableVars.sortColumnIndex = columnIndex;
-                      tempTableVars.sortAscending = ascending;
+                        context.read(tableVarsProvider).state = tempTableVars;
+                        // });
+                      },
+                    ),
+                    CustomDataColumn(
+                      label: const Text('Assigned By'),
+                      onSort: (columnIndex, ascending) {
+                        dtsSource.sort<String>(
+                            getField: (d) => d.assignedBy,
+                            ascending: tableVars.sortAscending);
+                        // setState(() {
+                        final TableVars tempTableVars = TableVars(
+                            context.read(tableVarsProvider).state.rowsPerPage);
+                        tempTableVars.sortColumnIndex = columnIndex;
+                        tempTableVars.sortAscending = ascending;
 
-                      context.read(tableVarsProvider).state = tempTableVars;
-                      // });
-                    },
-                  )
-                ],
+                        context.read(tableVarsProvider).state = tempTableVars;
+                        // });
+                      },
+                    )
+                  ],
+                ),
               ),
             ),
             Container(height: 150),
@@ -258,8 +264,14 @@ class DTS extends CustomDataTableSource {
     if (index < data!.length) {
       return CustomDataRow(
           onSelectChanged: (_) {
-            _displayNextPage(
-                context: context!, assignedTBR: data![index], mobile: mobile);
+            if (data![index].status.getStatusName() == 'Completed') {
+              _displayNextPage(
+                  context: context!, assignedTBR: data![index], mobile: mobile);
+            }
+            if (data![index].status.getStatusName() != 'Completed') {
+              _displayNewTBREvalPage(
+                  context: context, assignedTBR: data![index], mobile: false);
+            }
           },
           cells: [
             CustomDataCell(statusBox(data![index].status.getStatusName())),
@@ -313,6 +325,24 @@ class DTS extends CustomDataTableSource {
   @override
   int get selectedRowCount => 0;
 } // End of DTS()
+
+Future<void> _displayNewTBREvalPage(
+    {required BuildContext? context,
+    required AssignedTBR assignedTBR,
+    required bool mobile}) async {
+  //
+  context!.read(inProgressTbrProvider).state = assignedTBR;
+  Widget frame = Container(color: Colors.white, child: const TBRappPage());
+  if (mobile) {
+    // frame = Expanded(
+    //   child: Center(child: addMobileFrame(frame)),
+    // );
+  } else {
+    frame = Expanded(child: Center(child: frame));
+  }
+  print('_displayDialog => $assignedTBR');
+  context.read(widgetProvider).state = frame;
+}
 
 Future<void> _displayNextPage(
     {required BuildContext context,
