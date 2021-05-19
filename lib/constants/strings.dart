@@ -5,10 +5,10 @@ class Strings {
   static const String cancel = 'Cancel';
 
   // Logout
-  static const String logout = 'Logout';
+  static const String logout = 'Sign Out';
   static const String logoutAreYouSure =
-      'Are you sure that you want to logout?';
-  static const String logoutFailed = 'Logout failed';
+      'Are you sure that you want to Sign Out?';
+  static const String logoutFailed = 'Sign Out failed';
 
   // Sign In Page
   static const String signIn = 'Sign in';

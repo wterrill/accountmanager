@@ -82,15 +82,18 @@ class _HeaderState extends State<Header> {
                     icon: const Visibility(
                         visible: false, child: Icon(Icons.arrow_downward)),
                     // icon: Icon(Icons.favorite),
-                    items: <String>['Logout', 'My Settings', 'Version']
-                        .map((value) {
+                    items: <String>[
+                      'My Settings',
+                      'About Account Manager',
+                      'Sign Out',
+                    ].map((value) {
                       return DropdownMenuItem<String>(
                         value: value,
                         child: Text(value),
                       );
                     }).toList(),
                     onChanged: (value) {
-                      if (value == 'Logout') {
+                      if (value == 'Sign Out') {
                         _confirmSignOut(context, firebaseAuth);
                       }
                       if (value == 'My Settings') {
