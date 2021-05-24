@@ -1,4 +1,5 @@
 import 'package:accountmanager/app/top_level_providers.dart';
+import 'package:accountmanager/constants/text_styles.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -73,17 +74,10 @@ class _InputCompanyState extends State<InputCompany> {
           flex: 1,
           child: TextButton(
             style: ButtonStyle(
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25.0),
-                    // side: BorderSide(
-                    //   color: Colors.red.withOpacity(0.8),
-                    //   width: 1,
-                    // ),
-                  ),
-                ),
+                shape:
+                    MaterialStateProperty.all(ShapeStyle.noColorRoundedBorder),
                 backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.green)),
+                    MaterialStateProperty.all<Color>(ColorDefs.green)),
             child: const Padding(
               padding: EdgeInsets.all(8.0),
               child: Text('Add'),

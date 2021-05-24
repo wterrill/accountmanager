@@ -45,7 +45,7 @@ class AccountWebPage extends StatelessWidget {
     final firebaseAuth = context.read(firebaseAuthProvider);
     final user = firebaseAuth.currentUser!;
     return AppBar(
-      title: const Text(Strings.accountPage),
+      title: const Text('Account Page'),
       actions: <Widget>[
         TextButton(
           key: const Key(Keys.logout),

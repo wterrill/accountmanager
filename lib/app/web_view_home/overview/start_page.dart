@@ -53,8 +53,7 @@ class _OverviewWebPageState extends State<OverviewWebPage> {
                   child: InkWell(
                     child: FlatButtonX(
                         colorx: const Color(0xFF002244),
-                        shapex: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50)),
+                        shapex: ShapeStyle.noColorRoundedBorder,
                         onPressedx: () {
                           displayWidgetDialogWithError(context,
                               Strings.tbrStrings.assignTbr, const AssignTBR());

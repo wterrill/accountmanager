@@ -60,7 +60,6 @@ class Sidebar extends ConsumerWidget {
     final String? lastText = watch(sideBarButtonStateProvider).state;
     final sidebar = Container(
       width: 250,
-      // color: const Color(0xFF1B2E44),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.max,

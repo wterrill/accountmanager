@@ -1,5 +1,6 @@
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/app/web_view_home/account/account_page.dart';
+import 'package:accountmanager/app/web_view_home/account/account_page_2.dart';
 import 'package:accountmanager/constants/strings.dart';
 import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -97,10 +98,7 @@ class _HeaderState extends State<Header> {
                         _confirmSignOut(context, firebaseAuth);
                       }
                       if (value == 'My Settings') {
-                        context.read(widgetProvider).state = Expanded(
-                            child: Container(
-                                color: Colors.brown[150],
-                                child: AccountWebPage()));
+                        context.read(widgetProvider).state = AccountWebPage2();
                       }
                       if (value == 'Version') {
                         _showVersion(context);

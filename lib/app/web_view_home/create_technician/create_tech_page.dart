@@ -44,16 +44,10 @@ class CreateTechWebPage extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('MXO Technicians', style: TextStyles.heading1),
+          Text('MXO Technicians', style: TextStyles.heading1),
           const SizedBox(height: 30),
           Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(9.0),
-              side: BorderSide(
-                color: Colors.red.withOpacity(0.8),
-                width: 1,
-              ),
-            ),
+            shape: ShapeStyle.redRoundedBorder,
             elevation: 5,
             child: Padding(
               padding: const EdgeInsets.all(20.0),

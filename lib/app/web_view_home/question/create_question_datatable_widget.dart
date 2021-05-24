@@ -1,3 +1,4 @@
+import 'package:accountmanager/constants/text_styles.dart';
 import 'package:accountmanager/models/question.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/common_widgets/CustomDataTable.dart';
@@ -95,7 +96,7 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
       footerBackgroundColor: Colors.transparent,
       cardElevation: 0,
       dropdownTextStyle: const TextStyle(color: Colors.blue, fontSize: 15.0),
-      pageRowInfoTextStyle: ColorDefs.textBodyBronze20,
+      pageRowInfoTextStyle: TextStyles.textBodyBronze20,
       onRowsPerPageChanged: (rows) {
         setState(() {
           _rowsPerPage = rows;
