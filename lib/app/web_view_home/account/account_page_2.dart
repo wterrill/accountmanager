@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/app/web_view_home/create_technician/create_tech_page.dart';
 import 'package:accountmanager/common_utilities/buttonConverter.dart';
@@ -8,13 +9,13 @@ import 'package:accountmanager/models/technician.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'dart:math';
 
 import 'package:intl/intl.dart';
 
+int numberOfAvatars = 135;
+
 class AccountWebPage2 extends ConsumerWidget {
-  AccountWebPage2({Key? key}) : super(key: key);
+  const AccountWebPage2({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
@@ -24,7 +25,7 @@ class AccountWebPage2 extends ConsumerWidget {
     final technicianAsyncValue = watch(technicianStreamProvider!);
     return technicianAsyncValue.when(
       data: (technicians) {
-        Technician currentUser =
+        final Technician currentUser =
             technicians.where((element) => element.id == user.uid).toList()[0];
         return ShowAccountWithName(technician: currentUser);
       },
@@ -43,21 +44,21 @@ class AccountWebPage2 extends ConsumerWidget {
 class ShowAccountWithName extends ConsumerWidget {
   ShowAccountWithName({Key? key, required this.technician}) : super(key: key);
   final Technician technician;
-  final textController_FirstName = TextEditingController();
-  final textController_LastName = TextEditingController();
-  final textController_Email = TextEditingController();
+  final textControllerFirstName = TextEditingController();
+  final textControllerLastName = TextEditingController();
+  final textControllerEmail = TextEditingController();
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    var rng = new Random();
+    final Random rng = Random();
 
-    int rnd_val = (rng.nextInt(50)) + 1;
-    NumberFormat f = NumberFormat("00");
-    final String suffix = f.format(rnd_val);
+    final int rndVal = (rng.nextInt(numberOfAvatars)) + 1;
+    final NumberFormat f = NumberFormat('000');
+    final String suffix = f.format(rndVal);
     print(suffix);
-    textController_FirstName.text = technician.firstName;
-    textController_LastName.text = technician.lastName;
-    textController_Email.text = technician.email;
+    textControllerFirstName.text = technician.firstName;
+    textControllerLastName.text = technician.lastName;
+    textControllerEmail.text = technician.email;
 
     return Expanded(
       child: Container(
@@ -66,7 +67,7 @@ class ShowAccountWithName extends ConsumerWidget {
           padding: const EdgeInsets.fromLTRB(40.0, 64.0, 8.0, 0.0),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(
+            const Text(
               'Account Settings',
               style: TextStyles.heading1,
             ),
@@ -80,14 +81,13 @@ class ShowAccountWithName extends ConsumerWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                          child: Column(
+                      Column(
                         children: [
                           Padding(
                             padding:
                                 const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 8.0),
                             child: SvgPicture.asset(
-                                'assets/avatars/avatar_${suffix}.svg',
+                                'assets/avatars/avatar_$suffix.svg',
                                 height: 100,
                                 width: 100,
                                 fit: BoxFit.cover,
@@ -95,13 +95,13 @@ class ShowAccountWithName extends ConsumerWidget {
                           ),
                           GestureDetector(
                               onTap: () {
-                                displayWidgetDialogWithError(
-                                    context, 'title', AvatarGrid());
+                                displayWidgetDialogWithError(context,
+                                    'Choose your Avatar:', const AvatarGrid());
                               },
                               child: const Text('Edit')),
                           const SizedBox(height: 40),
                         ],
-                      )),
+                      ),
                       Row(
                         children: [
                           Row(children: [
@@ -114,7 +114,7 @@ class ShowAccountWithName extends ConsumerWidget {
                             Container(
                                 width: 100,
                                 child: TextField(
-                                    controller: textController_FirstName))
+                                    controller: textControllerFirstName))
                           ]),
                           Row(children: [
                             Padding(
@@ -126,7 +126,7 @@ class ShowAccountWithName extends ConsumerWidget {
                             Container(
                                 width: 100,
                                 child: TextField(
-                                    controller: textController_LastName))
+                                    controller: textControllerLastName))
                           ]),
                           Row(children: [
                             Padding(
@@ -137,7 +137,7 @@ class ShowAccountWithName extends ConsumerWidget {
                             Container(
                                 width: 200,
                                 child:
-                                    TextField(controller: textController_Email))
+                                    TextField(controller: textControllerEmail))
                           ]),
 
                           // TextField(
@@ -163,9 +163,9 @@ class ShowAccountWithName extends ConsumerWidget {
                           colorx: ColorDefs.disabled,
                           shapex: ShapeStyle.redRoundedBorder,
                           onPressedx: () {},
-                          childx: Padding(
+                          childx: const Padding(
                             padding: PaddingStyles.primaryButtonPadding,
-                            child: const Text(
+                            child: Text(
                               'Save',
                               style: TextStyles.button1White,
                             ),
@@ -183,7 +183,7 @@ class ShowAccountWithName extends ConsumerWidget {
 }
 
 void _onAvatarClicked(int index, BuildContext context) {
-  debugPrint('You tapped on item ${NumberFormat("00").format(index)}');
+  debugPrint('You tapped on item ${NumberFormat('000').format(index)}');
   Navigator.of(context).pop();
   // return $index;
 }
@@ -194,8 +194,8 @@ class AvatarGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Widget> avatarPics = [];
-    final NumberFormat f = NumberFormat('00');
-    for (int i = 1; i < 51; i++) {
+    final NumberFormat f = NumberFormat('000');
+    for (int i = 1; i < numberOfAvatars + 1; i++) {
       final String avatarName = 'avatar_${f.format(i)}.svg';
       final Widget widget = GestureDetector(
           onTap: () => _onAvatarClicked(i, context),
@@ -210,13 +210,18 @@ class AvatarGrid extends StatelessWidget {
     }
 
     return Container(
-        width: 600,
-        height: 600,
+      width: 600,
+      height: 600,
+      child: Scrollbar(
+        isAlwaysShown: true,
+        thickness: 20.0,
         child: GridView.count(
             crossAxisSpacing: 10.0,
             mainAxisSpacing: 10.0,
             crossAxisCount: 5,
-            children: avatarPics));
+            children: avatarPics),
+      ),
+    );
 
     // return Container(
     //     width: 400,

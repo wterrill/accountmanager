@@ -12,6 +12,11 @@ Future<Map<String, dynamic>?> showWidgetDialog({
     return showDialog(
       context: context,
       builder: (context) => AlertDialog(
+        titlePadding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
+        contentPadding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
+        actionsPadding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
+        buttonPadding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
+        insetPadding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
         title: Text(title),
         content: widget,
         actions: <Widget>[
