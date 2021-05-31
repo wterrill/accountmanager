@@ -1,4 +1,4 @@
-import 'package:accountmanager/app/web_view_home/assign_TBR/widget_assign_TBR2.dart';
+import 'package:accountmanager/app/web_view_home/assign_TBR/widget_assign_TBR_dialog.dart';
 import 'package:accountmanager/app/web_view_home/overview/data_table.dart';
 import 'package:accountmanager/common_utilities/buttonConverter.dart';
 import 'package:accountmanager/common_widgets/display_widget_dialog_with_error.dart';
@@ -47,19 +47,19 @@ class _OverviewWebPageState extends State<OverviewWebPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('TBR Evaluations', style: TextStyles.heading1),
+                const Text('TBR Evaluations', style: StyleDefs.heading1),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0.0, 8.0, 18.0, 0.0),
                   child: InkWell(
                     child: FlatButtonX(
                         colorx: const Color(0xFF002244),
-                        shapex: ShapeStyle.noColorRoundedBorder,
+                        shapex: ShapeDefs.noColorRoundedBorder,
                         onPressedx: () {
-                          displayWidgetDialogWithError(context,
-                              Strings.tbrStrings.assignTbr, const AssignTBR());
+                          displayWidgetDialogWithError(
+                              context, '', const AssignTBR());
                         },
                         childx: const Text('Create Evaluation',
-                            style: TextStyles.button1White)),
+                            style: StyleDefs.button1White)),
                   ),
                 )
               ],

@@ -75,7 +75,7 @@ class _InputCompanyState extends State<InputCompany> {
           child: TextButton(
             style: ButtonStyle(
                 shape:
-                    MaterialStateProperty.all(ShapeStyle.noColorRoundedBorder),
+                    MaterialStateProperty.all(ShapeDefs.noColorRoundedBorder),
                 backgroundColor:
                     MaterialStateProperty.all<Color>(ColorDefs.green)),
             child: const Padding(

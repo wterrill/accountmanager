@@ -37,9 +37,9 @@ class ShowDialogButton extends StatelessWidget {
       try {
         await showWidgetDialog(
           context: context,
-          title: Strings.tbrStrings.assignTbr,
+          title: '',
           widget: const Text('hello'),
-          defaultActionText: 'Assign',
+          defaultActionText: 'Create',
           cancelActionText: 'Cancel',
         );
       } catch (e) {

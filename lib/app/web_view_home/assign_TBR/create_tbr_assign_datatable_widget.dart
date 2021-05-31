@@ -4,7 +4,7 @@ import 'package:accountmanager/common_widgets/CustomDataTableSource.dart';
 import 'package:accountmanager/common_widgets/CustomPaginatedDataTable.dart';
 import 'package:accountmanager/common_widgets/status_box.dart';
 import 'package:accountmanager/constants/strings.dart';
-import 'package:accountmanager/app/web_view_home/assign_TBR/widget_assign_TBR2.dart';
+import 'package:accountmanager/app/web_view_home/assign_TBR/widget_assign_TBR_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -270,10 +270,10 @@ Future<void> _displayDialog(BuildContext context, AssignedTBR data) async {
   try {
     final Map<String, dynamic>? result = await showWidgetDialog(
       context: context,
-      title: 'Assign TBR',
+      title: '',
       widget: AssignTBR(data: data),
-      // defaultActionText: '',
-      // cancelActionText: '',
+      defaultActionText: '',
+      cancelActionText: '',
     );
 
     if (result != null && (result['result']) == 'true') {

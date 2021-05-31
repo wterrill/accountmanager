@@ -8,14 +8,22 @@ class Technician extends Equatable implements DropdownModel {
       {required this.id,
       required this.firstName,
       required this.lastName,
-      required this.email});
+      required this.email,
+      this.filename});
   final String id;
   final String firstName;
   final String lastName;
   final String email;
+  final String? filename;
 
   @override
-  List<Object> get props => [id, firstName, lastName, email];
+  List<Object> get props => [
+        id,
+        firstName,
+        lastName,
+        email,
+        [filename]
+      ];
 
   @override
   bool get stringify => true;
@@ -25,7 +33,8 @@ class Technician extends Equatable implements DropdownModel {
         id: DateTime.now().toString(),
         firstName: 'Error',
         lastName: 'Error',
-        email: 'Error');
+        email: 'Error',
+        filename: 'Error');
     if (data == null) {
       return errorTechnician;
     }
@@ -42,9 +51,17 @@ class Technician extends Equatable implements DropdownModel {
     if (email == null) {
       return errorTechnician;
     }
+    final filename = data['filename'] as String?;
+    if (filename == null) {
+      filename == 'avatar_000.svg';
+    }
     // final ratePerHour = data['ratePerHour'] as int;
     return Technician(
-        id: documentId, firstName: firstName, lastName: lastName, email: email);
+        id: documentId,
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        filename: filename);
   }
 
   Map<String, dynamic> toMap() {

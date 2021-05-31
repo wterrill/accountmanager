@@ -7,13 +7,14 @@ class ColorDefs {
   static const Color black = Colors.black;
   static const Color white = Colors.white;
   static const Color green = Colors.green;
-  static const Color disabled = Color(0xFFB0B7BC);
+  static const Color disabledButton = Color(0xFFB0B7BC);
+  static const Color enabledButton = Color(0xFF012445);
 
   // for shapes
   static Color redOpacity80 = Colors.red.withOpacity(0.8);
 }
 
-class TextStyles {
+class StyleDefs {
   static const TextStyle heading1 =
       TextStyle(fontSize: 38, color: ColorDefs.black);
   static TextStyle heading2 = TextStyle(fontSize: 28, color: Colors.blue[800]);
@@ -26,7 +27,7 @@ class TextStyles {
       TextStyle(color: ColorDefs.colorBigDrawerBronze, fontSize: 20.0);
 }
 
-class ShapeStyle {
+class ShapeDefs {
   static RoundedRectangleBorder redRoundedBorder = RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(9.0),
     side: BorderSide(
@@ -40,7 +41,7 @@ class ShapeStyle {
   );
 }
 
-class PaddingStyles {
+class PaddingDefs {
   static const EdgeInsets primaryButtonPadding =
       EdgeInsets.fromLTRB(16.8, 8.0, 16.0, 8.0);
 }

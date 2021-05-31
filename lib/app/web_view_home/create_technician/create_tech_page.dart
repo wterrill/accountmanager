@@ -44,10 +44,10 @@ class CreateTechWebPage extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('MXO Technicians', style: TextStyles.heading1),
+          Text('MXO Technicians', style: StyleDefs.heading1),
           const SizedBox(height: 30),
           Card(
-            shape: ShapeStyle.redRoundedBorder,
+            shape: ShapeDefs.redRoundedBorder,
             elevation: 5,
             child: Padding(
               padding: const EdgeInsets.all(20.0),
@@ -64,7 +64,7 @@ class CreateTechWebPage extends ConsumerWidget {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child:
-                        Text('Active Technicians', style: TextStyles.heading2),
+                        Text('Active Technicians', style: StyleDefs.heading2),
                   ),
                   Container(
                     height: 600,
@@ -79,6 +79,8 @@ class CreateTechWebPage extends ConsumerWidget {
                               technician: technician,
                               onTap: () {
                                 showWidgetDialog(
+                                    defaultActionText: '',
+                                    cancelActionText: '',
                                     context: context,
                                     title: 'Technician information',
                                     widget: TechnicianDialog(

@@ -96,7 +96,7 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
       footerBackgroundColor: Colors.transparent,
       cardElevation: 0,
       dropdownTextStyle: const TextStyle(color: Colors.blue, fontSize: 15.0),
-      pageRowInfoTextStyle: TextStyles.textBodyBronze20,
+      pageRowInfoTextStyle: StyleDefs.textBodyBronze20,
       onRowsPerPageChanged: (rows) {
         setState(() {
           _rowsPerPage = rows;
@@ -241,6 +241,8 @@ Future<void> _displayDialog(BuildContext context, Question data) async {
   print('_displayDialog => $data');
   try {
     final Map<String, dynamic>? result = await showWidgetDialog(
+        defaultActionText: '',
+        cancelActionText: '',
         context: context,
         title: 'TBR Questions',
         widget:

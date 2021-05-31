@@ -95,11 +95,11 @@ class FirestoreDatabase {
   //     );
 
   Future<void> deleteTechnician(Technician technician) async {
-    await _service.deleteData(path: FirestorePath.technician(technician.id));
+    await _service.deleteData(path: FirestorePath.user(technician.id));
   }
 
   Stream<List<Technician>> technicianStream() => _service.collectionStream(
-        path: FirestorePath.technicians(),
+        path: FirestorePath.users(),
         builder: (data, id) => Technician.fromMap(data, id),
       );
 

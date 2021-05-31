@@ -44,17 +44,17 @@ class CreateCompanyWebPage extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('MXO Companies', style: TextStyles.heading1),
+          Text('MXO Companies', style: StyleDefs.heading1),
           const SizedBox(height: 30),
           Card(
-            shape: ShapeStyle.redRoundedBorder,
+            shape: ShapeDefs.redRoundedBorder,
             elevation: 5,
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Add Company', style: TextStyles.heading2),
+                  Text('Add Company', style: StyleDefs.heading2),
                   Container(
                       height: 200,
                       child: const Padding(
@@ -63,7 +63,7 @@ class CreateCompanyWebPage extends ConsumerWidget {
                       )),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text('Active Companies', style: TextStyles.heading2),
+                    child: Text('Active Companies', style: StyleDefs.heading2),
                   ),
                   Container(
                     height: 300,

@@ -1,6 +1,5 @@
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/app/web_view_home/account/account_page.dart';
-import 'package:accountmanager/app/web_view_home/account/account_page_2.dart';
 import 'package:accountmanager/constants/strings.dart';
 import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -119,6 +118,8 @@ class _HeaderState extends State<Header> {
 Future<void> _showVersion(BuildContext context) async {
   try {
     final Map<String, dynamic>? result = await showWidgetDialog(
+      defaultActionText: '',
+      cancelActionText: '',
       context: context,
       title: 'Version',
       widget: FractionallySizedBox(

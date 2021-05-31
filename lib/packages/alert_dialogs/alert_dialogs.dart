@@ -3,6 +3,7 @@ library alert_dialogs;
 import 'dart:io';
 
 import 'package:accountmanager/common_utilities/buttonConverter.dart';
+import 'package:accountmanager/constants/text_styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

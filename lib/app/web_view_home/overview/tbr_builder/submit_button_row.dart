@@ -98,6 +98,8 @@ class SubmitButtonRow extends ConsumerWidget {
                                   tbrInProgress: tbrInProgress);
 
                               await showWidgetDialog(
+                                  defaultActionText: '',
+                                  cancelActionText: '',
                                   context: context,
                                   title: 'Sent Email',
                                   widget: SendEmailFinishedDialog(

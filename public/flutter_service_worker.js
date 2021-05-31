@@ -4,23 +4,23 @@ const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
   "version.json": "6a0efda2f847da7d4065d1d04d53434b",
-"index.html": "54fd0ee5106a438c67a317c7c5f5026b",
-"/": "54fd0ee5106a438c67a317c7c5f5026b",
-"main.dart.js": "bea88e238b7a4cdc82f9a1200fb21b27",
+"index.html": "b7fc2845d8bee151c08745e34d4f56b3",
+"/": "b7fc2845d8bee151c08745e34d4f56b3",
+"main.dart.js": "8d8bb44a97a74796d185d4e71a3cfb66",
 "favicon.png": "99733c2381f7c6d7ba95874b3cfb63ba",
 "index_development.html": "e7ebf6e0257c32e37bdd57b8e796bc35",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "manifest.json": "1e6b01631d3dfd21795fadc73e4d3d64",
 "index_production.html": "73c674c9c09243c04c3d1076ada8353b",
-"assets/AssetManifest.json": "b24ca012294a439a424b87715128a8a6",
-"assets/NOTICES": "2979733d66cc931bef258a575ca4c262",
+"assets/AssetManifest.json": "fc2ad51f59aed4d3f615a07b9dbc2f51",
+"assets/NOTICES": "0b2deb30ea64773db260ce6b3c380f10",
 "assets/FontManifest.json": "3070bd9ec33b501da1c65a6b44b35455",
 "assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "6d342eb68f170c97609e9da345464e5e",
 "assets/packages/font_awesome_flutter/lib/fonts/fa-solid-900.ttf": "dffd9504fcb1894620fa41c700172994",
 "assets/packages/font_awesome_flutter/lib/fonts/fa-regular-400.ttf": "4b6a9b7c20913279a3ad3dd9c96e155b",
 "assets/packages/font_awesome_flutter/lib/fonts/fa-brands-400.ttf": "00bb2b684be61e89d1bc7d75dee30b58",
-"assets/fonts/MaterialIcons-Regular.otf": "1288c9e28052e028aba623321f7826ac",
+"assets/fonts/MaterialIcons-Regular.otf": "4e6447691c9509f7acdbf8a931a85ca1",
 "assets/assets/svg/avatars_all_2.svg": "a36d3758ebbd92e2b885a9057f92d973",
 "assets/assets/svg/avatar_test2.svg": "16aaa0d5fff5afc4e099bba011e6b6b6",
 "assets/assets/svg/avatar_test4.svg": "302265fb21869ed8f19606232facfef6",
@@ -169,6 +169,7 @@ const RESOURCES = {
 "assets/assets/avatars/avatar_107.svg": "7c50eff7d191ef684e8dcc408457231f",
 "assets/assets/avatars/avatar_113.svg": "4fb9bb94b56eb1a2a43390dce86a5e6e",
 "assets/assets/avatars/avatar_028.svg": "5cddf2bddde77b29082fa6777f0ba042",
+"assets/assets/avatars/avatar_000.svg": "f2681752e6ade71fb4bd33d5d3cf7680",
 "assets/assets/avatars/avatar_014.svg": "843474c240ad0e136d957d93f8609e10",
 "assets/assets/avatars/avatar_015.svg": "0e5163984e0ef7e782b94a4b71fc9403",
 "assets/assets/avatars/avatar_001.svg": "2f492f73268fe0821d538371c9ee3af6",
@@ -208,7 +209,7 @@ self.addEventListener("install", (event) => {
   return event.waitUntil(
     caches.open(TEMP).then((cache) => {
       return cache.addAll(
-        CORE.map((value) => new Request(value + '?revision=' + RESOURCES[value], {'cache': 'reload'})));
+        CORE.map((value) => new Request(value, {'cache': 'reload'})));
     })
   );
 });

@@ -4,8 +4,8 @@ Future<Map<String, dynamic>?> showWidgetDialog({
   required BuildContext context,
   required String title,
   required Widget widget,
-  String? cancelActionText,
-  String? defaultActionText,
+  required String cancelActionText,
+  required String defaultActionText,
 }) async {
   print(widget);
   if (kIsWeb || !Platform.isIOS) {
@@ -20,14 +20,21 @@ Future<Map<String, dynamic>?> showWidgetDialog({
         title: Text(title),
         content: widget,
         actions: <Widget>[
-          if (cancelActionText != null)
+          if (cancelActionText != '')
             FlatButtonX(
-              childx: Text(cancelActionText),
+              colorx: ColorDefs.enabledButton,
+              shapex: ShapeDefs.redRoundedBorder,
+              childx: Text(
+                cancelActionText,
+                style: StyleDefs.button1White,
+              ),
               onPressedx: () => Navigator.of(context).pop({'result': 'true'}),
             ),
-          if (cancelActionText != null)
+          if (defaultActionText != '')
             FlatButtonX(
-              childx: Text(defaultActionText!),
+              colorx: ColorDefs.enabledButton,
+              shapex: ShapeDefs.redRoundedBorder,
+              childx: Text(defaultActionText, style: StyleDefs.button1White),
               onPressedx: () => Navigator.of(context).pop({'result': 'false'}),
             ),
         ],
@@ -40,13 +47,13 @@ Future<Map<String, dynamic>?> showWidgetDialog({
       title: Text(title),
       content: widget,
       actions: <Widget>[
-        if (cancelActionText != null)
+        if (cancelActionText != '')
           CupertinoDialogAction(
             child: Text(cancelActionText),
             onPressed: () => Navigator.of(context).pop(false),
           ),
         CupertinoDialogAction(
-          child: Text(defaultActionText!),
+          child: Text(defaultActionText),
           onPressed: () => Navigator.of(context).pop(true),
         ),
       ],
