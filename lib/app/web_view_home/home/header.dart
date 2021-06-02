@@ -99,7 +99,7 @@ class _HeaderState extends State<Header> {
                       if (value == 'My Settings') {
                         context.read(widgetProvider).state = AccountWebPage2();
                       }
-                      if (value == 'Version') {
+                      if (value == 'About Account Manager') {
                         _showVersion(context);
                       }
                     },
