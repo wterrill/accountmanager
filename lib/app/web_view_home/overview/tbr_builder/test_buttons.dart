@@ -19,18 +19,19 @@ class TestButtonRow extends ConsumerWidget {
       children: [
         if (testingBool)
           buildTestButton(
-              context: context,
-              text: 'Fill out all YES',
-              boolList: [true, false, false],
-              color: Colors.green,
-              onPressedNew: () {}),
+            context: context,
+            text: 'Fill out all YES',
+            boolList: [true, false, false],
+            color: Colors.green,
+            // onPressedNew: () {}
+          ),
         if (testingBool)
           buildTestButton(
             context: context,
             text: 'Fill out all No',
             boolList: [false, true, false],
             color: Colors.red,
-            onPressedNew: () {},
+            // onPressedNew: () {},
           ),
         if (testingBool)
           buildTestButton(
@@ -38,7 +39,7 @@ class TestButtonRow extends ConsumerWidget {
             text: 'Fill out all N/A',
             boolList: [false, false, true],
             color: Colors.grey,
-            onPressedNew: () {},
+            // onPressedNew: () {},
           ),
         if (testingBool)
           buildTestButton(
@@ -70,6 +71,20 @@ class TestButtonRow extends ConsumerWidget {
                 tbrInProgress!.updatePercentages();
                 context.read(tbrInProgressProvider).state = tbrInProgress;
               }),
+        if (testingBool)
+          buildTestButton(
+              context: context,
+              text: 'Remove all answers',
+              color: Colors.blue,
+              onPressedNew: () {
+                for (final String? key in tbrInProgress!.answers!.keys) {
+                  tbrInProgress!.adminComment![key] = '';
+                  tbrInProgress!.tamNotes![key] = '';
+                  tbrInProgress!.answers![key] = [false, false, false];
+                }
+                tbrInProgress!.updatePercentages();
+                context.read(tbrInProgressProvider).state = tbrInProgress;
+              }),
       ],
     );
   }
@@ -78,7 +93,7 @@ class TestButtonRow extends ConsumerWidget {
       {BuildContext? context,
       String? text,
       List<bool>? boolList,
-      required VoidCallback? onPressedNew,
+      VoidCallback? onPressedNew,
       Color? color}) {
     VoidCallback? onPressed = () {
       for (final String? key in tbrInProgress!.answers!.keys) {
@@ -87,7 +102,8 @@ class TestButtonRow extends ConsumerWidget {
       tbrInProgress!.updatePercentages();
       context!.read(tbrInProgressProvider).state = tbrInProgress;
     };
-    if (onPressedNew != () {}) {
+    print(onPressedNew);
+    if (onPressedNew != null) {
       onPressed = onPressedNew;
     }
     return TextButton(

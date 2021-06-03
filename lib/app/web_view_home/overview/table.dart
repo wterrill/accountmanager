@@ -2,10 +2,12 @@
 
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/app/web_view_home/overview/excel_button.dart';
+import 'package:accountmanager/app/web_view_home/overview/tbr_app_page.dart';
 import 'package:accountmanager/common_widgets/CustomDataTable.dart';
 import 'package:accountmanager/common_widgets/CustomDataTableSource.dart';
 import 'package:accountmanager/common_widgets/CustomPaginatedDataTable.dart';
 import 'package:accountmanager/constants/strings.dart';
+import 'package:accountmanager/models/assigned_tbr.dart';
 import 'package:accountmanager/models/question.dart';
 import 'package:accountmanager/models/tbr.dart';
 import 'package:flutter/material.dart';
@@ -74,8 +76,24 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
       color: Colors.white,
       child: Column(
         children: [
-          ExcelButton(
-            tbrInProgress: dtsSource.getData(),
+          Row(
+            children: [
+              ExcelButton(
+                tbrInProgress: dtsSource.getData(),
+              ),
+              const SizedBox(
+                width: 30,
+              ),
+              TextButton(
+                  onPressed: () {
+                    print(dtsSource.getData());
+                    _displayCompletedTBREvalPage(
+                        context: context,
+                        displayTBR: dtsSource.getData(),
+                        mobile: false);
+                  },
+                  child: const Text('Edit TBR'))
+            ],
           ),
           CustomPaginatedDataTable(
             headingRowColor: Colors.blue,
@@ -279,4 +297,25 @@ Widget getAlignment(List<bool> answerArray, String? expected) {
         color: const Color(0x554caf50),
         child: const Center(child: Text('Y')));
   }
+}
+
+Future<void> _displayCompletedTBREvalPage(
+    {required BuildContext? context,
+    required TBRinProgress displayTBR,
+    required bool mobile}) async {
+  //
+  context!.read(tbrInProgressProvider).state = displayTBR;
+
+  // context!.read()
+  Widget frame =
+      Container(color: Colors.white, child: TBRappPage(displayTBR: displayTBR));
+  if (mobile) {
+    // frame = Expanded(
+    //   child: Center(child: addMobileFrame(frame)),
+    // );
+  } else {
+    frame = Expanded(child: Center(child: frame));
+  }
+  print('_displayDialog => $displayTBR');
+  context.read(widgetProvider).state = frame;
 }

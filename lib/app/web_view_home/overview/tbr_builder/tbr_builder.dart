@@ -3,6 +3,7 @@ import 'package:accountmanager/app/web_view_home/overview/tbr_builder/drop_down_
 import 'package:accountmanager/app/web_view_home/overview/tbr_builder/submit_button_row.dart';
 import 'package:accountmanager/app/web_view_home/overview/tbr_builder/tbr_evaluation_section.dart';
 import 'package:accountmanager/app/web_view_home/overview/tbr_builder/test_buttons.dart';
+import 'package:accountmanager/app/web_view_home/overview/tbr_builder/total_percentage_row.dart';
 import 'package:accountmanager/models/question.dart';
 import 'package:accountmanager/models/tbr.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
@@ -11,8 +12,10 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class TBRbuilder extends StatefulWidget {
-  const TBRbuilder({Key? key, this.questionList}) : super(key: key);
+  const TBRbuilder({Key? key, this.questionList, this.displayTBR})
+      : super(key: key);
   final List<Question>? questionList;
+  final TBRinProgress? displayTBR;
 
   @override
   _TBRbuilderState createState() => _TBRbuilderState();
@@ -37,15 +40,28 @@ class _TBRbuilderState extends State<TBRbuilder> {
 
   @override
   void initState() {
-    tbrFillPageData = context.read(tbrFillPageDataProvider).state;
-    tbrInProgress = context.read(tbrInProgressProvider).state;
-    tbrInProgress!.initialize(widget.questionList);
-    tbrFillPageData.selectedSection = tbrInProgress!.sections[1];
-    tbrFillPageData.selectedCategory = tbrInProgress!
-        .categories[tbrFillPageData.selectedSection!.toLowerCase()]![0];
-    tbrFillPageData.filteredQuestions = tbrInProgress!.getQuestions(
-        sectionIn: tbrFillPageData.selectedSection,
-        categoryIn: tbrFillPageData.selectedCategory);
+    if (widget.displayTBR == null) {
+      tbrFillPageData = context.read(tbrFillPageDataProvider).state;
+      tbrInProgress = context.read(tbrInProgressProvider).state;
+      tbrInProgress!.initialize(widget.questionList);
+      tbrFillPageData.selectedSection = tbrInProgress!.sections[1];
+      tbrFillPageData.selectedCategory = tbrInProgress!
+          .categories[tbrFillPageData.selectedSection!.toLowerCase()]![0];
+      tbrFillPageData.filteredQuestions = tbrInProgress!.getQuestions(
+          sectionIn: tbrFillPageData.selectedSection,
+          categoryIn: tbrFillPageData.selectedCategory);
+    } else {
+      tbrFillPageData = context.read(tbrFillPageDataProvider).state;
+      tbrInProgress = context.read(tbrInProgressProvider).state;
+      // tbrInProgress!.initialize(widget.questionList);
+      tbrFillPageData.selectedSection = tbrInProgress!.sections[1];
+      tbrFillPageData.selectedCategory = tbrInProgress!
+          .categories[tbrFillPageData.selectedSection!.toLowerCase()]![0];
+      tbrFillPageData.filteredQuestions = tbrInProgress!.getQuestions(
+          sectionIn: tbrFillPageData.selectedSection,
+          categoryIn: tbrFillPageData.selectedCategory);
+      tbrInProgress!.updatePercentages();
+    }
 
     super.initState();
   }
@@ -66,6 +82,7 @@ class _TBRbuilderState extends State<TBRbuilder> {
         child: Column(children: [
           const TestButtonRow(),
           const SubmitButtonRow(),
+          const TotalPercentageRow(),
           const DropDownSelectors(),
           Expanded(child: TbrEvaluationSection()),
           const BottomArrows(),

@@ -265,8 +265,11 @@ class DTS extends CustomDataTableSource {
       return CustomDataRow(
           onSelectChanged: (_) {
             if (data![index].status.getStatusName() == 'Completed') {
-              _displayNextPage(
-                  context: context!, assignedTBR: data![index], mobile: mobile);
+              _displayCompletedTBRSummary(
+                context: context!,
+                assignedTBR: data![index],
+                mobile: mobile,
+              );
             }
             if (data![index].status.getStatusName() != 'Completed') {
               _displayNewTBREvalPage(
@@ -331,8 +334,8 @@ Future<void> _displayNewTBREvalPage(
     required AssignedTBR assignedTBR,
     required bool mobile}) async {
   //
-  context!.read(inProgressTbrProvider).state = assignedTBR;
-  Widget frame = Container(color: Colors.white, child: const TBRappPage());
+  context!.read(assignedTbrProvider).state = assignedTBR;
+  Widget frame = Container(color: Colors.white, child: TBRappPage());
   if (mobile) {
     // frame = Expanded(
     //   child: Center(child: addMobileFrame(frame)),
@@ -344,10 +347,11 @@ Future<void> _displayNewTBREvalPage(
   context.read(widgetProvider).state = frame;
 }
 
-Future<void> _displayNextPage(
+Future<void> _displayCompletedTBRSummary(
     {required BuildContext context,
     required AssignedTBR assignedTBR,
     bool? mobile}) async {
+  context.read(assignedTbrProvider).state = assignedTBR;
   final String id = assignedTBR.id; //OverviewPaginatedTable(id: id);
   Widget frame = Container(
     alignment: Alignment.topCenter,

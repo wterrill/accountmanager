@@ -8,6 +8,7 @@ class TBRinProgress {
       categories; // "section name", List<"category name">
   late Map<String, Map<String, double>>
       percentages; // "section name", "category name",
+  double totalPercent = 0;
   Map<String?, List<bool>?>? answers; // question ID: 0,0,0    yes, no, n/a
   late Map<String?, Map<String, List<Color?>>>
       colorScheme; //section: category: List<Colors>
@@ -277,12 +278,16 @@ class TBRinProgress {
   }
 
   void updatePercentages() {
+    int intOverAllTotal = 0;
+    int intOverAllTally = 0;
+
     for (final String? sectionName in sections) {
       int sectTotal = 0;
       int sectTally = 0;
       int catTally = 0;
       // double catPercent;
       for (final String? catName in categories[sectionName!.toLowerCase()]!) {
+        // This questions a list of question in the section and category
         final List<Question> questionsSectCat = allQuestions!.where((element) {
           if (element.section == sectionName && element.category == catName) {
             print(element);
@@ -290,6 +295,7 @@ class TBRinProgress {
           }
           return false;
         }).toList();
+        // This gets a list of answered Question in the secitn and category
         final List<Question> answeredQuestionsSectCat = questionsSectCat
             .where((element) =>
                 answers![element.id].toString() != '[false, false, false]')
@@ -297,13 +303,17 @@ class TBRinProgress {
         catTally = answeredQuestionsSectCat.length;
         sectTally = sectTally + catTally;
         sectTotal = sectTotal + questionsSectCat.length;
+
         final double catPercent = catTally / questionsSectCat.length;
         percentages[sectionName.toLowerCase()]![catName!.toLowerCase()] =
             catPercent;
       }
       final double sectPercent = sectTally / sectTotal;
       percentages[sectionName.toLowerCase()]!['total'] = sectPercent;
+      intOverAllTally += sectTally;
+      intOverAllTotal += sectTotal;
     }
+    totalPercent = intOverAllTally / intOverAllTotal;
     checkIfCanSubmit();
   }
 
