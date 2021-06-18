@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>376764013297-ht599pbiofsri5ps58g9clk03u4d43jn.apps.googleusercontent.com</string>
+	<string>430578183229-0p7oh9tf673ankelgmvmcl122j6gjph8.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.376764013297-ht599pbiofsri5ps58g9clk03u4d43jn</string>
+	<string>com.googleusercontent.apps.430578183229-0p7oh9tf673ankelgmvmcl122j6gjph8</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBZvw57Ku4N7l3VpckiU-tqdU_owX0EzfE</string>
+	<string>AIzaSyD3FVgxedx7BchngbBIHCwp-EQafac9XLY</string>
 	<key>GCM_SENDER_ID</key>
-	<string>376764013297</string>
+	<string>430578183229</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.mxotech.accountmanager</string>
 	<key>PROJECT_ID</key>
-	<string>devmxotechaccountmanager</string>
+	<string>mxotechaccountmanager</string>
 	<key>STORAGE_BUCKET</key>
-	<string>devmxotechaccountmanager.appspot.com</string>
+	<string>mxotechaccountmanager.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:376764013297:ios:d0d8677036fd265eb8e750</string>
+	<string>1:430578183229:ios:bd800776cbcf0b64544e54</string>
 </dict>
 </plist>

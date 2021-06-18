@@ -15,3 +15,11 @@ flutter config --enable-macos-desktop
 firestore database import / export
 https://stackoverflow.com/questions/46617960/export-json-from-firestore
 https://clemfournier.medium.com/how-to-get-my-firebase-service-account-key-file-f0ec97a21620
+
+
+Delete the podfile.lock file from the ios folder.
+Open the terminal, go to the ios folder directory and run pod install. It could take some time to install.
+If pod install gives any error then try this
+pod install --repo-update 
+After everything is done run your project again
+flutter run
