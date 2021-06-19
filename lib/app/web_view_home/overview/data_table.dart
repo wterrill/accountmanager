@@ -3,6 +3,7 @@ import 'package:accountmanager/app/web_view_home/create_technician/create_tech_p
 // import 'package:accountmanager/app/web_view_home/home/sidebar/sidebar.dart';
 import 'package:accountmanager/app/web_view_home/overview/table.dart';
 import 'package:accountmanager/app/web_view_home/overview/tbr_app_page.dart';
+import 'package:accountmanager/common_utilities/get_techs_from_ids.dart';
 import 'package:accountmanager/common_widgets/CustomDataTable.dart';
 import 'package:accountmanager/common_widgets/CustomDataTableSource.dart';
 import 'package:accountmanager/common_widgets/CustomPaginatedDataTable.dart';
@@ -148,7 +149,7 @@ class ShowDataTable extends ConsumerWidget {
                         print(dtsSource.data![0].company);
                         dtsSource.sort<String>(
                             // 1
-                            getField: (d) => d.company!.name,
+                            getField: (d) => d.company.name,
                             ascending: tableVars.sortAscending);
                         print(dtsSource.data![0].company);
                         // setState(() {
@@ -293,11 +294,10 @@ class DTS extends CustomDataTableSource {
           cells: [
             CustomDataCell(statusBox(data![index].status.getStatusName())),
             // ignore: unnecessary_string_interpolations
-            CustomDataCell(Text('${data![index].company!.toDropDownString()}')),
+            CustomDataCell(Text('${data![index].company.toDropDownString()}')),
             CustomDataCell(
                 // ignore: unnecessary_string_interpolations
-                getAvatarRow(data![index].technicianIds,
-                    context)), //TODO ${data![index].technician!.toDropDownString()}')), get info from Technician
+                getAvatarRow(data![index].technicianIds!, context!)),
             CustomDataCell(
                 Text(DateFormat.yMMMEd().format(data![index].dueDate!))),
             CustomDataCell(Text(
@@ -319,19 +319,15 @@ class DTS extends CustomDataTableSource {
     }
   }
 
-  Widget getAvatarRow(List<String>? techIds, BuildContext? context) {
-    List<Technician>? technicians = context!.read(techniciansProvider).state;
-    List<Widget> avatars = [];
-    for (String id in techIds!) {
-      for (Technician tech in technicians!) {
-        if (tech.id == id) {
-          avatars.add(SizedBox(
-              width: 20,
-              child: Tooltip(
-                  message: '${tech.firstName} ${tech.lastName}',
-                  child: SvgPicture.asset('assets/avatars/${tech.filename}'))));
-        }
-      }
+  Widget getAvatarRow(List<String> techIds, BuildContext context) {
+    final List<Widget> avatars = [];
+    final List<Technician> returnedTechs = getTechsFromId(techIds, context);
+    for (final Technician tech in returnedTechs) {
+      avatars.add(SizedBox(
+          width: 20,
+          child: Tooltip(
+              message: '${tech.firstName} ${tech.lastName}',
+              child: SvgPicture.asset('assets/avatars/${tech.filename}'))));
     }
     return SizedBox(
         width: 150,
@@ -369,7 +365,7 @@ Future<void> _displayNewTBREvalPage(
     required bool mobile}) async {
   //
   context!.read(assignedTbrProvider).state = assignedTBR;
-  Widget frame = Container(color: Colors.white, child: TBRappPage());
+  Widget frame = Container(color: Colors.white, child: const TBRappPage());
   if (mobile) {
     // frame = Expanded(
     //   child: Center(child: addMobileFrame(frame)),

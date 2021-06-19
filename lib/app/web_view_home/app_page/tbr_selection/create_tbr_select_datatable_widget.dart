@@ -135,7 +135,7 @@
 //                       print(dtsSource.data![0].company);
 //                       dtsSource.sort<String>(
 //                           // 1
-//                           getField: (d) => d.company!.name,
+//                           getField: (d) => d.company.name,
 //                           ascending: tableVars.sortAscending);
 //                       print(dtsSource.data![0].company);
 //                       // setState(() {
@@ -281,7 +281,7 @@
 //           cells: [
 //             CustomDataCell(statusBox(data![index].status.getStatusName())),
 //             // ignore: unnecessary_string_interpolations
-//             CustomDataCell(Text('${data![index].company!.toDropDownString()}')),
+//             CustomDataCell(Text('${data![index].company.toDropDownString()}')),
 //             CustomDataCell(
 //                 // ignore: unnecessary_string_interpolations
 //                 Text('${data![index].technician!.toDropDownString()}')),

@@ -113,7 +113,7 @@ class _DataTableBuilderState extends State<DataTableBuilder> {
                   label: Text(Strings.companyStrings.company),
                   onSort: (columnIndex, ascending) {
                     dtsSource.sort<String>(
-                        getField: (d) => d.company!.name,
+                        getField: (d) => d.company.name,
                         ascending: _sortAscending);
                     setState(() {
                       _sortColumnIndex = columnIndex;
@@ -219,7 +219,7 @@ class DTS extends CustomDataTableSource {
           },
           cells: [
             CustomDataCell(statusBox(data[index].status.getStatusName())),
-            CustomDataCell(Text(data[index].company!.toDropDownString()!)),
+            CustomDataCell(Text(data[index].company.toDropDownString()!)),
             CustomDataCell(Text(
                 "TODO")), //TODO this was from the dropdownList  Text(data[index].technicianIds!.toDropDownString())),
             CustomDataCell(

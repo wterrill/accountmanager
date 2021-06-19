@@ -67,7 +67,7 @@ class _IpaginatedTableState extends State<IpaginatedTable> {
                   label: Text(Strings.companyStrings.company),
                   onSort: (columnIndex, ascending) {
                     dtsSource.sort<String>(
-                        getField: (d) => d.company!.name,
+                        getField: (d) => d.company.name,
                         ascending: _sortAscending);
                     setState(() {
                       _sortColumnIndex = columnIndex;

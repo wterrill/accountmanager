@@ -43,8 +43,8 @@ class FirestoreDatabase {
   Future<void> sendEmail(
       // this method uses the email extension in firestore.  Therefore, the email
       // just needs to be posted in the 'mail' collection in the database.
-      {required List<String?> toList,
-      required String? from,
+      {required List<String> toList,
+      required String from,
       required String body,
       required String subject}) {
     final Map<String, dynamic> data = <String, dynamic>{

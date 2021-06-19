@@ -1,4 +1,7 @@
 import 'package:accountmanager/app/top_level_providers.dart';
+import 'package:accountmanager/app/web_view_home/app_page/tbr_OLD/tbr_builder/send_email_finished_dialog.dart';
+import 'package:accountmanager/common_utilities/get_techs_from_ids.dart';
+import 'package:accountmanager/models/technician.dart';
 import 'package:accountmanager/services/firestore_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +33,7 @@ class SendEmailFinishedDialog extends StatelessWidget {
         <p>It was originally assigned by:</p>
         <h2>${assignedTbr.assignedBy}</h2> 
         <p> for the company: </p>
-        <h2>${assignedTbr.company!.name}</h2> 
+        <h2>${assignedTbr.company.name}</h2> 
         <p>with a due date of: </p>
         <h2>${DateFormat.yMMMEd().format(assignedTbr.dueDate!)} </h2>
         <p>and a client meeting date of:</p>
@@ -38,13 +41,13 @@ class SendEmailFinishedDialog extends StatelessWidget {
     final FirestoreDatabase? database = context.read(databaseProvider);
     database!.sendEmail(
         toList: [assignedTbr.assignedBy],
-        from: assignedTbr.technicianIds![0], //TODO technician!.email,
+        from: firebaseAuth.currentUser!.email!,
         body: emailText,
-        subject: 'TBR for ${assignedTbr.company!.name} completed:');
+        subject: 'TBR for ${assignedTbr.company.name} completed:');
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text('TODO'), //TODO get email from: ${assignedTbr.technician!.email}'),
+        Text(firebaseAuth.currentUser!.email!),
         Text('to: ${assignedTbr.assignedBy}'),
         const Text('Completion email sent')
       ],

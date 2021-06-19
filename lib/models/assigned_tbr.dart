@@ -21,13 +21,13 @@ class AssignedTBR extends Equatable {
       required this.status,
       required this.assignedBy});
   final String id;
-  final List<String>? technicianIds;
-  final Company? company;
+  final List<String> technicianIds;
+  final Company company;
   final QuestionnaireType? questionnaireType;
-  final DateTime? dueDate;
-  final DateTime? clientMeetingDate;
+  final DateTime dueDate;
+  final DateTime clientMeetingDate;
   final Status status;
-  final String? assignedBy;
+  final String assignedBy;
 
   @override
   List<Object?> get props => [
@@ -124,9 +124,9 @@ class AssignedTBR extends Equatable {
       return null;
     } else {
       return <String, dynamic>{
-        'company_name': company!.name,
-        'company_id': company!.id,
-        'technician_ids': technicianIds!,
+        'company_name': company.name,
+        'company_id': company.id,
+        'technician_ids': technicianIds,
         // 'technician_firstName': technician!.firstName,
         // 'technician_lastName': technician!.lastName,
         // 'technician_email': technician!.email,
@@ -141,10 +141,10 @@ class AssignedTBR extends Equatable {
   }
 
   String getMeetingDateFormatted() {
-    return DateFormat('MM-dd-yyyy').format(clientMeetingDate!).toString();
+    return DateFormat('MM-dd-yyyy').format(clientMeetingDate).toString();
   }
 
   String getDueDateFormatted() {
-    return DateFormat('MM-dd-yyyy').format(dueDate!).toString();
+    return DateFormat('MM-dd-yyyy').format(dueDate).toString();
   }
 }

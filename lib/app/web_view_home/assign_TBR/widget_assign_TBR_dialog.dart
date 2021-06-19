@@ -68,13 +68,13 @@ class _AssignTBRState extends State<AssignTBR> {
 
   AssignedTBR createCurrentTBR(String? assignedBy) {
     return AssignedTBR(
-        technicianIds: selectedTechnicianIds,
-        company: selectedCompany,
-        questionnaireType: selectedQuestionnaireType,
-        clientMeetingDate: clientMeetingDate,
-        dueDate: evaluationDueDate,
+        technicianIds: selectedTechnicianIds!,
+        company: selectedCompany!,
+        questionnaireType: selectedQuestionnaireType!,
+        clientMeetingDate: clientMeetingDate!,
+        dueDate: evaluationDueDate!,
         status: status ??= Status(statusIndex: 0),
-        assignedBy: assignedBy,
+        assignedBy: assignedBy!,
         id: id ??= documentIdFromCurrentDate());
   }
 
@@ -187,20 +187,6 @@ class _AssignTBRState extends State<AssignTBR> {
                         selectedTechnicianIds = value;
                       }),
                   const SizedBox(height: 20),
-
-                  // FutureDropdown(
-                  //   hint: 'Choose a Technician:',
-                  //   selectedData: selectedTechnician,
-                  //   future: database.technicianStream().first,
-                  //   onSelected: () {
-                  //     print('selected');
-                  //   },
-                  //   onSelectedChange: (dynamic tech) {
-                  //     setState(() {
-                  //       selectedTechnician = tech as Technician;
-                  //     });
-                  //   },
-                  // ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
