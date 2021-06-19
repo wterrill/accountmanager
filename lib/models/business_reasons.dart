@@ -4,49 +4,44 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 @immutable
-class BusinessReasons extends Equatable {
-  final Map<String, List<String>>? reasons;
+class Reason extends Equatable {
+  final String name;
+  final List<String> data;
 
-  const BusinessReasons({
-    this.reasons,
-  });
+  const Reason({required this.name, required this.data});
 
-  BusinessReasons copyWith({
+  Reason copyWith({
     Map<String, List<String>>? reasons,
   }) {
-    return BusinessReasons(
-      reasons: reasons ?? this.reasons,
-    );
+    return Reason(name: name, data: data);
   }
 
   @override
-  List<Object?> get props => [reasons];
+  List<Object?> get props => [name, data];
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'reasons': reasons,
-    };
+    return <String, dynamic>{'name': name, 'data': data};
   }
 
-  factory BusinessReasons.fromMap(Map<String, dynamic>? map, String? id) {
-    const BusinessReasons errorQuestion =
-        BusinessReasons(reasons: <String, List<String>>{
-      'error': ['error']
-    });
+  factory Reason.fromMap(Map<String, dynamic>? map) {
+    const Reason errorQuestion = Reason(name: 'Error', data: <String>['error']);
 
-    if (map == null || id == null) return errorQuestion;
+    if (map == null) return errorQuestion;
 
-    if (map['Question Text'] == null) {
+    if (map['name'] == null) {
       return errorQuestion;
     }
 
-    return BusinessReasons(
-      reasons: map['reasons'] as Map<String, List<String>>,
-    );
+    final List<String> data = [];
+    for (int i = 0; i < map.length - 1; i++) {
+      data.add(map[i.toString()]);
+    }
+
+    return Reason(name: map['name'], data: data);
   }
 
   String toJson() => json.encode(toMap());
 
-  factory BusinessReasons.fromJson(String source) => BusinessReasons.fromMap(
-      json.decode(source) as Map<String, dynamic>?, null);
+  factory Reason.fromJson(String source) =>
+      Reason.fromMap(json.decode(source) as Map<String, dynamic>?);
 }

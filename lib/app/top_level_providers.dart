@@ -40,15 +40,14 @@ final latestQuestionsProvider = StateProvider<List<Question>?>((ref) {
   return null;
 });
 
-final AutoDisposeStreamProvider<List<BusinessReasons>>
-    businessReasonsStreamProvider =
-    StreamProvider.autoDispose<List<BusinessReasons>>((ref) {
+final AutoDisposeStreamProvider<List<Reason>> businessReasonsStreamProvider =
+    StreamProvider.autoDispose<List<Reason>>((ref) {
   final database = ref.watch(databaseProvider);
   return database?.businessReasonsStream() ?? const Stream.empty();
 });
 
 final latestBusinessReasonsProvider =
-    StateProvider<List<BusinessReasons>?>((ref) {
+    StateProvider<Map<String, List<String>>?>((ref) {
   return null;
 });
 

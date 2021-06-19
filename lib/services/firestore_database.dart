@@ -163,9 +163,11 @@ class FirestoreDatabase {
         builder: (data, id) => Question.fromMap(data, id),
       );
 
-  Stream<List<BusinessReasons>> businessReasonsStream() =>
-      _service.collectionStream(
+  Stream<List<Reason>> businessReasonsStream() => _service.collectionStream(
         path: FirestorePath.businessReasons(),
-        builder: (data, id) => BusinessReasons.fromMap(data, id),
+        builder: (data, id) {
+          print(data);
+          return Reason.fromMap(data);
+        },
       );
 }

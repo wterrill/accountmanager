@@ -49,8 +49,7 @@ class CreateOverviewSelectDataTableWidget extends ConsumerWidget {
     final techniciansAsync = watch(asyncTechnicianStreamProvider!);
     final assignedTbrAsyncValue = watch(assignedTbrStreamProvider!);
     final questionsAsync = watch(questionStreamProvider!);
-    final AsyncValue<List<BusinessReasons>> businessReasonsAsync =
-        watch(businessReasonsStreamProvider);
+    final businessReasonsAsync = watch(businessReasonsStreamProvider);
 
     techniciansAsync.whenData((technicians) {
       watch(techniciansProvider).state = technicians;
@@ -58,7 +57,11 @@ class CreateOverviewSelectDataTableWidget extends ConsumerWidget {
     questionsAsync.whenData((questions) {
       watch(latestQuestionsProvider).state = questions;
     });
-    businessReasonsAsync.whenData((businessReasons) {
+    businessReasonsAsync.whenData((reasons) {
+      final Map<String, List<String>> businessReasons = {};
+      for (int i = 0; i < reasons.length; i++) {
+        businessReasons[reasons[i].name] = reasons[i].data;
+      }
       watch(latestBusinessReasonsProvider).state = businessReasons;
     });
 

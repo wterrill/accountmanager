@@ -111,6 +111,9 @@ class ExcelButton extends ConsumerWidget {
                 backgroundColorHex: '#FF0000',
                 fontColorHex: '#FFFFFF',
                 horizontalAlign: HorizontalAlign.Center);
+            sheetObject.cell(CellIndex.indexByColumnRow(
+                columnIndex: 7, rowIndex: row + headerRow + 1));
+            cellPointer.value = completedTBR.allQuestions![row].projectType;
             break;
           }
         case 'Y':
