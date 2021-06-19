@@ -286,12 +286,12 @@
 //                 // ignore: unnecessary_string_interpolations
 //                 Text('${data![index].technician!.toDropDownString()}')),
 //             CustomDataCell(
-//                 Text(DateFormat.yMMMEd().format(data![index].dueDate!))),
+//                 Text(DateFormat.yMMMEd().format(data![index].dueDate))),
 //             CustomDataCell(Text(
-//                 DateFormat.yMMMEd().format(data![index].clientMeetingDate!))),
+//                 DateFormat.yMMMEd().format(data![index].clientMeetingDate))),
 
 //             CustomDataCell(Text(data![index].questionnaireType!.name)),
-//             CustomDataCell(Text(data![index].assignedBy!))
+//             CustomDataCell(Text(data![index].assignedBy))
 //           ]);
 //     } else {
 //       return const CustomDataRow(cells: [

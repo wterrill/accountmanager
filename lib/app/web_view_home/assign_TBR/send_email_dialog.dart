@@ -24,13 +24,13 @@ class SendEmailAssignDialog extends StatelessWidget {
         <p> for the company: </p>
         <h2>${assignedTbr!.company.name}</h2> 
         <p>with a due date of: </p>
-        <h2>${DateFormat.yMMMEd().format(assignedTbr!.dueDate!)} </h2>
+        <h2>${DateFormat.yMMMEd().format(assignedTbr!.dueDate)} </h2>
         <p>and a client meeting date of:</p>
-        <h2>${DateFormat.yMMMEd().format(assignedTbr!.clientMeetingDate!)}</h2>''';
+        <h2>${DateFormat.yMMMEd().format(assignedTbr!.clientMeetingDate)}</h2>''';
     final FirestoreDatabase? database = context.read(databaseProvider);
     database!.sendEmail(
         toList: getListEmailsFromIds(assignedTbr!.technicianIds, context),
-        from: assignedTbr!.assignedBy!,
+        from: assignedTbr!.assignedBy,
         body: emailText,
         subject: 'new TBR assigned:');
     return Column(

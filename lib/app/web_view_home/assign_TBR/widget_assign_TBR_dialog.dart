@@ -337,7 +337,7 @@ class _AssignTBRState extends State<AssignTBR> {
     }
     bool? validated = true;
     while (validated == true) {
-      if (assignedTbr.dueDate!.isBefore(DateTime.now())) {
+      if (assignedTbr.dueDate.isBefore(DateTime.now())) {
         validated = await showAlertDialog(
             context: context,
             title: 'Are you sure?',
@@ -348,7 +348,7 @@ class _AssignTBRState extends State<AssignTBR> {
         if (validated == false) break;
       }
 
-      if (assignedTbr.clientMeetingDate!.isBefore(DateTime.now())) {
+      if (assignedTbr.clientMeetingDate.isBefore(DateTime.now())) {
         validated = await showAlertDialog(
             context: context,
             title: 'Are you sure?',
@@ -360,7 +360,7 @@ class _AssignTBRState extends State<AssignTBR> {
         //Condition should not unconditionally evalute to 'true' or to 'false'. verify:
       }
 
-      if (assignedTbr.dueDate!.isAfter(assignedTbr.clientMeetingDate!)) {
+      if (assignedTbr.dueDate.isAfter(assignedTbr.clientMeetingDate)) {
         validated = await showAlertDialog(
             context: context,
             title: 'Are you sure?',

@@ -221,13 +221,13 @@ class DTS extends CustomDataTableSource {
             CustomDataCell(statusBox(data[index].status.getStatusName())),
             CustomDataCell(Text(data[index].company.toDropDownString()!)),
             CustomDataCell(Text(
-                "TODO")), //TODO this was from the dropdownList  Text(data[index].technicianIds!.toDropDownString())),
+                "TODO")), //TODO this was from the dropdownList  Text(data[index].technicianIds.toDropDownString())),
             CustomDataCell(
-                Text(DateFormat.yMMMEd().format(data[index].dueDate!))),
+                Text(DateFormat.yMMMEd().format(data[index].dueDate))),
             CustomDataCell(Text(
-                DateFormat.yMMMEd().format(data[index].clientMeetingDate!))),
+                DateFormat.yMMMEd().format(data[index].clientMeetingDate))),
             CustomDataCell(Text(data[index].questionnaireType!.name)),
-            CustomDataCell(Text(data[index].assignedBy!))
+            CustomDataCell(Text(data[index].assignedBy))
           ]);
     } else {
       return const CustomDataRow(cells: [

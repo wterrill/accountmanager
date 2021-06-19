@@ -171,7 +171,7 @@ class ShowDataTable extends ConsumerWidget {
                         print(dtsSource);
                         dtsSource.sort<String>(
                             getField: (d) =>
-                                "TODO", //d.technicianIds!.firstName, //TODO this is the techs first name
+                                "TODO", //d.technicianIds.firstName, //TODO this is the techs first name
                             ascending: tableVars.sortAscending);
                         print(dtsSource);
                         // setState(() {
@@ -297,14 +297,14 @@ class DTS extends CustomDataTableSource {
             CustomDataCell(Text('${data![index].company.toDropDownString()}')),
             CustomDataCell(
                 // ignore: unnecessary_string_interpolations
-                getAvatarRow(data![index].technicianIds!, context!)),
+                getAvatarRow(data![index].technicianIds, context!)),
             CustomDataCell(
-                Text(DateFormat.yMMMEd().format(data![index].dueDate!))),
+                Text(DateFormat.yMMMEd().format(data![index].dueDate))),
             CustomDataCell(Text(
-                DateFormat.yMMMEd().format(data![index].clientMeetingDate!))),
+                DateFormat.yMMMEd().format(data![index].clientMeetingDate))),
 
             CustomDataCell(Text(data![index].questionnaireType!.name)),
-            CustomDataCell(Text(data![index].assignedBy!))
+            CustomDataCell(Text(data![index].assignedBy))
           ]);
     } else {
       return const CustomDataRow(cells: [

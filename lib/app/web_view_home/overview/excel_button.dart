@@ -22,16 +22,19 @@ class ExcelButton extends ConsumerWidget {
     //Sheet1
     final Excel excel = Excel.createExcel();
 
-    Sheet sheetObject = excel['Sheet1'];
+    Sheet sheetObject = excel['Full TBR'];
     // Make Header Row
     List<String> headerList = [
-      'Category',
-      'Name',
-      'Priority',
-      'Question Text',
-      'Aligned',
-      'Admin Notes',
-      'TAM Notes'
+      'SECTION',
+      'CATEGORY',
+      'NAME',
+      'PRIORITY',
+      'QUESTION',
+      'SUCCESS',
+      'ADMIN NOTES',
+      'TAM NOTES',
+      'RECOMMENDATIONS',
+      'COMPANY BENEFITS'
     ];
     // print headers
     sheetObject.insertRowIterables(headerList, 0);
@@ -41,13 +44,14 @@ class ExcelButton extends ConsumerWidget {
       final Data cell = sheetObject
           .cell(CellIndex.indexByColumnRow(columnIndex: i, rowIndex: 0));
       cell.cellStyle =
-          CellStyle(backgroundColorHex: '#AAAAAA', underline: Underline.Double);
+          CellStyle(backgroundColorHex: '#002244', underline: Underline.Double);
     }
 
     for (var row = 0; row < completedTBR.allQuestions!.length; row++) {
       final List<String?> temp = [];
       final String? id = tbrInProgress.allQuestions![row].id;
       // Write one single row
+      temp.add(completedTBR.allQuestions![row].section);
       temp.add(completedTBR.allQuestions![row].category);
       temp.add(completedTBR.allQuestions![row].questionName);
       temp.add(completedTBR.allQuestions![row].questionPriority);
