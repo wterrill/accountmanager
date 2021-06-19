@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:accountmanager/models/assigned_tbr.dart';
+import 'package:accountmanager/models/business_reasons.dart';
 import 'package:accountmanager/models/company.dart';
 import 'package:accountmanager/models/question.dart';
 import 'package:accountmanager/models/questionnaire_type.dart';
@@ -160,5 +161,10 @@ class FirestoreDatabase {
   Stream<List<Question>> questionStream() => _service.collectionStream(
         path: FirestorePath.questions(),
         builder: (data, id) => Question.fromMap(data, id),
+      );
+
+  Stream<BusinessReasons> businessReasonsStream() => _service.documentStream(
+        path: FirestorePath.businessReasons(),
+        builder: (data, id) => BusinessReasons.fromMap(data, id),
       );
 }

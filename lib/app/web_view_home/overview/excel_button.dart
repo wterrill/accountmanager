@@ -25,6 +25,7 @@ class ExcelButton extends ConsumerWidget {
     Sheet sheetObject = excel['Full TBR'];
     // Make Header Row
     List<String> headerList = [
+      '',
       'SECTION',
       'CATEGORY',
       'NAME',
@@ -36,21 +37,58 @@ class ExcelButton extends ConsumerWidget {
       'RECOMMENDATIONS',
       'COMPANY BENEFITS'
     ];
-    // print headers
-    sheetObject.insertRowIterables(headerList, 0);
+    int headerRow = 2;
+    int columnOffset = 1;
+    Data cellPointer;
 
-    // start printing rows
-    for (var i = 0; i < headerList.length; i++) {
-      final Data cell = sheetObject
-          .cell(CellIndex.indexByColumnRow(columnIndex: i, rowIndex: 0));
-      cell.cellStyle =
-          CellStyle(backgroundColorHex: '#002244', underline: Underline.Double);
+//! TITLE - FULL TBR
+    // print title
+    sheetObject.insertRowIterables(<String>['', '', 'TBR: Full Evaluation'], 1);
+    // styling for header
+    cellPointer = sheetObject.cell(
+        CellIndex.indexByColumnRow(columnIndex: 2, rowIndex: headerRow - 1));
+    cellPointer.cellStyle = CellStyle(
+        // backgroundColorHex: '#002244',
+        underline: Underline.Double,
+        fontColorHex: '#000000',
+        fontSize: 20);
+
+//! HEADERS - FULL TBR
+    // print headers
+    sheetObject.insertRowIterables(headerList, headerRow);
+
+    // header style
+    for (var i = 1; i < headerList.length + 1; i++) {
+      final Data cell = sheetObject.cell(
+          CellIndex.indexByColumnRow(columnIndex: i, rowIndex: headerRow));
+      cell.cellStyle = CellStyle(
+          backgroundColorHex: '#002244',
+          underline: Underline.Double,
+          fontColorHex: '#FFFFFF');
     }
 
+//! DATA - FULL TBR
     for (var row = 0; row < completedTBR.allQuestions!.length; row++) {
+      // const int offset = 3;
+      // final int row = rowIndex + offset;
       final List<String?> temp = [];
       final String? id = tbrInProgress.allQuestions![row].id;
-      // Write one single row
+      // Write one single row, starting with the blank columns
+      for (int i = 0; i < columnOffset; i++) {
+        temp.add('');
+      }
+
+      // grey section column
+
+      cellPointer = sheetObject.cell(CellIndex.indexByColumnRow(
+          columnIndex: columnOffset, rowIndex: row + headerRow + 1));
+      cellPointer.cellStyle = CellStyle(backgroundColorHex: '#D8D8D8');
+// lighter grey category column
+      cellPointer = sheetObject.cell(CellIndex.indexByColumnRow(
+          columnIndex: columnOffset + 1, rowIndex: row + headerRow + 1));
+      cellPointer.cellStyle = CellStyle(backgroundColorHex: '#F2F2F2');
+
+// fill in data
       temp.add(completedTBR.allQuestions![row].section);
       temp.add(completedTBR.allQuestions![row].category);
       temp.add(completedTBR.allQuestions![row].questionName);
@@ -61,34 +99,45 @@ class ExcelButton extends ConsumerWidget {
       temp.add(completedTBR.adminComment![id]);
       temp.add(completedTBR.tamNotes![id]);
 
-      sheetObject.insertRowIterables(temp, row + 1);
-      final Data cell = sheetObject
-          .cell(CellIndex.indexByColumnRow(columnIndex: 4, rowIndex: row));
+      sheetObject.insertRowIterables(temp, row + headerRow + 1);
+      cellPointer = sheetObject.cell(CellIndex.indexByColumnRow(
+          columnIndex: 6, rowIndex: row + headerRow + 1));
+      //! Styling for SUCCESS COL
       CellStyle cellStyle = CellStyle(backgroundColorHex: '#FFFFFF');
-      switch (cell.value as String?) {
+      switch (cellPointer.value as String?) {
         case 'N':
           {
-            cellStyle = CellStyle(backgroundColorHex: '#FF0000');
+            cellStyle = CellStyle(
+                backgroundColorHex: '#FF0000',
+                fontColorHex: '#FFFFFF',
+                horizontalAlign: HorizontalAlign.Center);
             break;
           }
         case 'Y':
           {
-            cellStyle = CellStyle(backgroundColorHex: '#00FF00');
+            cellStyle = CellStyle(
+                backgroundColorHex: '#34A853',
+                fontColorHex: '#FFFFFF',
+                horizontalAlign: HorizontalAlign.Center);
             break;
           }
         case 'N/A':
           {
-            cellStyle = CellStyle(backgroundColorHex: '#555555');
+            cellStyle = CellStyle(
+                backgroundColorHex: '#555555',
+                fontColorHex: '#FFFFFF',
+                horizontalAlign: HorizontalAlign.Center);
             break;
           }
-        case 'Aligned':
+        case 'SUCCESS':
           cellStyle = CellStyle(backgroundColorHex: '#AAAAAA');
       }
-      cell.cellStyle = cellStyle;
+      cellPointer.cellStyle = cellStyle;
     }
 
-// Sheet 2
-    sheetObject = excel['Sheet2'];
+//! SCORECARD
+//! tally data
+    sheetObject = excel['SCORECARD'];
     int yes = 0;
     int no = 0;
     int na = 0;
@@ -108,12 +157,14 @@ class ExcelButton extends ConsumerWidget {
       }
     }
 
+//! Header
     headerList = [
       'Number of Yes',
       'Number of No',
       'Number of N/A',
       'Total answers'
     ];
+
     // print headers
     sheetObject.insertRowIterables(headerList, 0);
     List<String> temp = [];
@@ -128,6 +179,16 @@ class ExcelButton extends ConsumerWidget {
     temp.add('${(no * 100 / total).toStringAsFixed(2)}%');
     temp.add('${(na * 100 / total).toStringAsFixed(2)}%');
     sheetObject.insertRowIterables(temp, 2);
+
+    // get rid of default sheet
+    excel.delete('Sheet1');
+
+    final List<int>? onValue = excel.encode(); //.then((onValue) {
+    print(onValue);
+    js.context.callMethod('webSaveAs', <dynamic>[
+      html.Blob(<List<int>?>[onValue]),
+      'test.xlsx'
+    ]);
 
     //     final Data cell = sheetObject
     //     .cell(CellIndex.indexByColumnRow(columnIndex: col, rowIndex: 0));
@@ -144,12 +205,6 @@ class ExcelButton extends ConsumerWidget {
     //     'WHERE IN THE WORLD IS CARMEN SAN DIEGO??'; // dynamic values support provided;
     // cell.cellStyle = cellStyle;
 
-    final List<int>? onValue = excel.encode(); //.then((onValue) {
-    print(onValue);
-    js.context.callMethod('webSaveAs', <dynamic>[
-      html.Blob(<List<int>?>[onValue]),
-      'test.xlsx'
-    ]);
     // File(outputFile)
     //   // File(join(outputFile))
     //   // ..createSync(recursive: true)

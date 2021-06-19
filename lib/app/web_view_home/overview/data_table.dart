@@ -11,6 +11,7 @@ import 'package:accountmanager/common_widgets/empty_content.dart';
 import 'package:accountmanager/common_widgets/status_box.dart';
 import 'package:accountmanager/constants/strings.dart';
 import 'package:accountmanager/models/assigned_tbr.dart';
+import 'package:accountmanager/models/business_reasons.dart';
 import 'package:accountmanager/models/technician.dart';
 // import 'package:accountmanager/services/firestore_database.dart';
 import 'package:flutter/material.dart';
@@ -48,12 +49,17 @@ class CreateOverviewSelectDataTableWidget extends ConsumerWidget {
     final techniciansAsync = watch(asyncTechnicianStreamProvider!);
     final assignedTbrAsyncValue = watch(assignedTbrStreamProvider!);
     final questionsAsync = watch(questionStreamProvider!);
+    final AsyncValue<BusinessReasons> businessReasonsAsync =
+        watch(businessReasonsStreamProvider);
 
     techniciansAsync.whenData((technicians) {
       watch(techniciansProvider).state = technicians;
     });
     questionsAsync.whenData((questions) {
       watch(latestQuestionsProvider).state = questions;
+    });
+    businessReasonsAsync.whenData((businessReasons) {
+      watch(latestBusinessReasonsProvider).state = businessReasons;
     });
 
     return DataTableBuilder(

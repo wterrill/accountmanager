@@ -1,6 +1,7 @@
 // import 'package:accountmanager/app/web_view_home/overview/overview_page.dart';
 import 'package:accountmanager/app/web_view_home/overview/start_page.dart';
 import 'package:accountmanager/models/assigned_tbr.dart';
+import 'package:accountmanager/models/business_reasons.dart';
 import 'package:accountmanager/models/question.dart';
 import 'package:accountmanager/models/tbr.dart';
 import 'package:accountmanager/models/technician.dart';
@@ -36,6 +37,16 @@ final AutoDisposeStreamProvider<List<Question>>? questionStreamProvider =
 });
 
 final latestQuestionsProvider = StateProvider<List<Question>?>((ref) {
+  return null;
+});
+
+final AutoDisposeStreamProvider<BusinessReasons> businessReasonsStreamProvider =
+    StreamProvider.autoDispose<BusinessReasons>((ref) {
+  final database = ref.watch(databaseProvider);
+  return database?.businessReasonsStream() ?? const Stream.empty();
+});
+
+final latestBusinessReasonsProvider = StateProvider<BusinessReasons?>((ref) {
   return null;
 });
 

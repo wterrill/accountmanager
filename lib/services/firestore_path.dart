@@ -32,4 +32,7 @@ class FirestorePath {
   static String user(String? uid) => 'userInfo/$uid';
   // _________________________
   static String mail() => 'mail/${DateTime.now()}';
+
+  // _________________________
+  static String businessReasons() => 'businessReasons';
 }
