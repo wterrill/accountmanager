@@ -26,7 +26,9 @@ class SendEmailAssignDialog extends StatelessWidget {
         <h2>${DateFormat.yMMMEd().format(assignedTbr!.clientMeetingDate!)}</h2>''';
     final FirestoreDatabase? database = context.read(databaseProvider);
     database!.sendEmail(
-        toList: [assignedTbr!.technician!.email],
+        toList: [
+          "TODO"
+        ], //TODO this needs to be a list of the techs emails[assignedTbr!.technician!.email],  //TODO this is the tech email
         from: assignedTbr!.assignedBy,
         body: emailText,
         subject: 'new TBR assigned:');
@@ -34,7 +36,8 @@ class SendEmailAssignDialog extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Text('from: ${assignedTbr!.assignedBy}'),
-        Text('to: ${assignedTbr!.technician!.email}'),
+        Text(
+            'to: TODO'), //TODO ${assignedTbr!.technician!.email}'), //TODO this is the tech email
         Text('time: ${DateTime.parse(assignedTbr!.id)}'),
         const Text('email sent')
       ],

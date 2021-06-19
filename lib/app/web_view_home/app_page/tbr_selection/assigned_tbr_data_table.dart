@@ -82,7 +82,8 @@ class _IpaginatedTableState extends State<IpaginatedTable> {
                   label: Text(Strings.technicianStrings.technician),
                   onSort: (columnIndex, ascending) {
                     dtsSource.sort<String>(
-                        getField: (d) => d.technician!.firstName,
+                        getField: (d) =>
+                            "TODO", // TODO lookup tech from firstNamed.technician!.firstName,
                         ascending: _sortAscending);
                     setState(() {
                       _sortColumnIndex = columnIndex;
@@ -138,7 +139,8 @@ class DTS extends CustomDataTableSource {
     if (index < data!.length) {
       return CustomDataRow(cells: [
         CustomDataCell(Text('${data![index].company}')),
-        CustomDataCell(Text('${data![index].technician}')),
+        CustomDataCell(Text(
+            '${data![index].technicianIds}')), //TODO this needs to be modified for multiple values
         CustomDataCell(Text('${data![index].dueDate}')),
         CustomDataCell(Text('${data![index].clientMeetingDate}')),
       ]);

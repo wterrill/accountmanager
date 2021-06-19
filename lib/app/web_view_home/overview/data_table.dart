@@ -1,4 +1,5 @@
 import 'package:accountmanager/app/top_level_providers.dart';
+import 'package:accountmanager/app/web_view_home/create_technician/create_tech_page.dart';
 // import 'package:accountmanager/app/web_view_home/home/sidebar/sidebar.dart';
 import 'package:accountmanager/app/web_view_home/overview/table.dart';
 import 'package:accountmanager/app/web_view_home/overview/tbr_app_page.dart';
@@ -9,7 +10,10 @@ import 'package:accountmanager/common_widgets/empty_content.dart';
 import 'package:accountmanager/common_widgets/status_box.dart';
 import 'package:accountmanager/constants/strings.dart';
 import 'package:accountmanager/models/assigned_tbr.dart';
+import 'package:accountmanager/models/technician.dart';
+// import 'package:accountmanager/services/firestore_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 
@@ -40,27 +44,36 @@ class CreateOverviewSelectDataTableWidget extends ConsumerWidget {
   });
   @override
   Widget build(BuildContext context, ScopedReader watch) {
+    final techniciansAsync = watch(asyncTechnicianStreamProvider!);
     final assignedTbrAsyncValue = watch(assignedTbrStreamProvider!);
     final questionsAsync = watch(questionStreamProvider!);
+
+    techniciansAsync.whenData((technicians) {
+      watch(techniciansProvider).state = technicians;
+    });
     questionsAsync.whenData((questions) {
       watch(latestQuestionsProvider).state = questions;
     });
-    return DataTableBuilder(dataAsync: assignedTbrAsyncValue, mobile: mobile);
+
+    return DataTableBuilder(
+        assignedDataAsync: assignedTbrAsyncValue, mobile: mobile);
   }
 }
 
 class DataTableBuilder extends ConsumerWidget {
   const DataTableBuilder({
     Key? key,
-    this.dataAsync,
+    this.assignedDataAsync,
+    this.technicianDataAsync,
     required this.mobile,
   }) : super(key: key);
-  final AsyncValue<List<AssignedTBR>>? dataAsync;
+  final AsyncValue<List<AssignedTBR>>? assignedDataAsync;
+  final AsyncValue<List<Technician>>? technicianDataAsync;
   final bool? mobile;
 
   @override // 8
   Widget build(BuildContext context, ScopedReader watch) {
-    return dataAsync!.when(
+    return assignedDataAsync!.when(
       data: (items) {
         // final List<AssignedTBR> filteredItems = items
         //     .where((element) => element.status.getStatusName() == 'Completed')
@@ -156,7 +169,8 @@ class ShowDataTable extends ConsumerWidget {
                       onSort: (columnIndex, ascending) {
                         print(dtsSource);
                         dtsSource.sort<String>(
-                            getField: (d) => d.technician!.firstName,
+                            getField: (d) =>
+                                "TODO", //d.technicianIds!.firstName, //TODO this is the techs first name
                             ascending: tableVars.sortAscending);
                         print(dtsSource);
                         // setState(() {
@@ -282,7 +296,8 @@ class DTS extends CustomDataTableSource {
             CustomDataCell(Text('${data![index].company!.toDropDownString()}')),
             CustomDataCell(
                 // ignore: unnecessary_string_interpolations
-                Text('${data![index].technician!.toDropDownString()}')),
+                getAvatarRow(data![index].technicianIds,
+                    context)), //TODO ${data![index].technician!.toDropDownString()}')), get info from Technician
             CustomDataCell(
                 Text(DateFormat.yMMMEd().format(data![index].dueDate!))),
             CustomDataCell(Text(
@@ -302,6 +317,25 @@ class DTS extends CustomDataTableSource {
         CustomDataCell(Text(Strings.placeHolder)),
       ]);
     }
+  }
+
+  Widget getAvatarRow(List<String>? techIds, BuildContext? context) {
+    List<Technician>? technicians = context!.read(techniciansProvider).state;
+    List<Widget> avatars = [];
+    for (String id in techIds!) {
+      for (Technician tech in technicians!) {
+        if (tech.id == id) {
+          avatars.add(SizedBox(
+              width: 20,
+              child: Tooltip(
+                  message: '${tech.firstName} ${tech.lastName}',
+                  child: SvgPicture.asset('assets/avatars/${tech.filename}'))));
+        }
+      }
+    }
+    return SizedBox(
+        width: 150,
+        child: Row(mainAxisSize: MainAxisSize.min, children: avatars));
   }
 
   void sort<T>(

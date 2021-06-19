@@ -3,6 +3,7 @@ import 'package:accountmanager/app/web_view_home/overview/start_page.dart';
 import 'package:accountmanager/models/assigned_tbr.dart';
 import 'package:accountmanager/models/question.dart';
 import 'package:accountmanager/models/tbr.dart';
+import 'package:accountmanager/models/technician.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
@@ -35,6 +36,17 @@ final AutoDisposeStreamProvider<List<Question>>? questionStreamProvider =
 });
 
 final latestQuestionsProvider = StateProvider<List<Question>?>((ref) {
+  return null;
+});
+
+final AutoDisposeStreamProvider<List<Technician>>?
+    asyncTechnicianStreamProvider =
+    StreamProvider.autoDispose<List<Technician>>((ref) {
+  final database = ref.watch(databaseProvider);
+  return database?.technicianStream() ?? const Stream.empty();
+});
+
+final techniciansProvider = StateProvider<List<Technician>?>((ref) {
   return null;
 });
 

@@ -2,7 +2,6 @@ import 'package:accountmanager/app/web_view_home/overview/tbr_builder/tbr_builde
 import 'package:accountmanager/models/tbr.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/common_widgets/empty_content.dart';
 
@@ -14,6 +13,12 @@ class TBRappPage extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     if (displayTBR == null) {
       final questionAsyncValue = watch(questionStreamProvider!);
+      
+
+      // techniciansAsync.whenData((technicians) {
+      //   watch(techniciansProvider).state = technicians;
+      // });
+
       return questionAsyncValue.when(
         data: (items) => items.isNotEmpty
             ? TBRbuilder(questionList: items)

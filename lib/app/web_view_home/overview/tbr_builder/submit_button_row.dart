@@ -80,7 +80,8 @@ class SubmitButtonRow extends ConsumerWidget {
                                   context.read(assignedTbrProvider).state!;
                               final AssignedTBR newassignedTbr = AssignedTBR(
                                   id: assignedTbr.id,
-                                  technician: assignedTbr.technician,
+                                  technicianIds: assignedTbr
+                                      .technicianIds, //TODO I might have to revisit this.  it was just '.technician'
                                   company: assignedTbr.company,
                                   questionnaireType:
                                       assignedTbr.questionnaireType,

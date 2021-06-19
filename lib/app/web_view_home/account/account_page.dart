@@ -24,7 +24,7 @@ class AccountWebPage2 extends ConsumerWidget {
     // final textController = useTextEditingController(text: 'initial text');
     final firebaseAuth = watch(firebaseAuthProvider);
     final user = firebaseAuth.currentUser!;
-    final technicianAsyncValue = watch(technicianStreamProvider!);
+    final technicianAsyncValue = watch(asyncTechnicianStreamProvider!);
     return technicianAsyncValue.when(
       data: (technicians) {
         final Technician currentUser =

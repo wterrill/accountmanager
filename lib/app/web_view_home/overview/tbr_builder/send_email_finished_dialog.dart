@@ -38,13 +38,13 @@ class SendEmailFinishedDialog extends StatelessWidget {
     final FirestoreDatabase? database = context.read(databaseProvider);
     database!.sendEmail(
         toList: [assignedTbr.assignedBy],
-        from: assignedTbr.technician!.email,
+        from: assignedTbr.technicianIds![0], //TODO technician!.email,
         body: emailText,
         subject: 'TBR for ${assignedTbr.company!.name} completed:');
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text('from: ${assignedTbr.technician!.email}'),
+        Text('TODO'), //TODO get email from: ${assignedTbr.technician!.email}'),
         Text('to: ${assignedTbr.assignedBy}'),
         const Text('Completion email sent')
       ],

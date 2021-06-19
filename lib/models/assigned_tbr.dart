@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 
 import 'package:accountmanager/models/company.dart';
 import 'package:accountmanager/models/questionnaire_type.dart';
-import 'package:accountmanager/models/technician.dart';
+// import 'package:accountmanager/models/technician.dart';
 
 import 'Status.dart';
 
@@ -13,7 +13,7 @@ import 'Status.dart';
 class AssignedTBR extends Equatable {
   const AssignedTBR(
       {required this.id,
-      required this.technician,
+      required this.technicianIds,
       required this.company,
       required this.questionnaireType,
       required this.dueDate,
@@ -21,7 +21,7 @@ class AssignedTBR extends Equatable {
       required this.status,
       required this.assignedBy});
   final String id;
-  final Technician? technician;
+  final List<String>? technicianIds;
   final Company? company;
   final QuestionnaireType? questionnaireType;
   final DateTime? dueDate;
@@ -32,7 +32,7 @@ class AssignedTBR extends Equatable {
   @override
   List<Object?> get props => [
         id,
-        technician,
+        technicianIds,
         company,
         questionnaireType,
         dueDate,
@@ -47,11 +47,7 @@ class AssignedTBR extends Equatable {
   factory AssignedTBR.fromMap(Map<String, dynamic>? data, String documentId) {
     final AssignedTBR errorAssignedTBR = AssignedTBR(
         id: DateTime.now().toString(),
-        technician: Technician(
-            id: DateTime.now().toString(),
-            firstName: 'Error',
-            lastName: 'Error',
-            email: 'Error'),
+        technicianIds: const <String>['not a real Id'],
         company: Company(id: DateTime.now().toString(), name: 'Error'),
         questionnaireType: const QuestionnaireType(id: 'Error', name: 'Error'),
         dueDate: DateTime.now(),
@@ -64,10 +60,14 @@ class AssignedTBR extends Equatable {
 
     final String? companyName = data['company_name'] as String?;
     final String? companyId = data['company_id'] as String?;
-    final String? technicianId = data['technician_id'] as String?;
-    final String? technicianFirstName = data['technician_firstName'] as String?;
-    final String? technicianLastName = data['technician_lastName'] as String?;
-    final String? technicianEmail = data['technician_email'] as String?;
+
+    final List<String>? technicianIds = [];
+    for (var i = 0; i < data['technician_ids'].length; i++) {
+      technicianIds!.add(data['technician_ids'][i] as String);
+    }
+    // final String? technicianFirstName = data['technician_firstName'] as String?;
+    // final String? technicianLastName = data['technician_lastName'] as String?;
+    // final String? technicianEmail = data['technician_email'] as String?;
     final String? questionnaireTypeId = data['questionnaireType_id'] as String?;
     final String? questionnaireTypeName =
         data['questionnaireType_name'] as String?;
@@ -79,10 +79,10 @@ class AssignedTBR extends Equatable {
 
     if (companyName == null ||
         companyId == null ||
-        technicianId == null ||
-        technicianFirstName == null ||
-        technicianLastName == null ||
-        technicianEmail == null ||
+        technicianIds == null ||
+        // technicianFirstName == null ||
+        // technicianLastName == null ||
+        // technicianEmail == null ||
         questionnaireTypeId == null ||
         questionnaireTypeName == null ||
         dueDate == null ||
@@ -91,12 +91,7 @@ class AssignedTBR extends Equatable {
         assignedBy == null) {
       return errorAssignedTBR;
     }
-    final Technician tech = Technician(
-      id: technicianId,
-      firstName: technicianFirstName,
-      lastName: technicianLastName,
-      email: technicianEmail,
-    );
+    final List<String> techIds = technicianIds;
     final Company comp = Company(id: companyId, name: companyName);
     final QuestionnaireType question =
         QuestionnaireType(id: questionnaireTypeId, name: questionnaireTypeName);
@@ -110,7 +105,7 @@ class AssignedTBR extends Equatable {
 
     return AssignedTBR(
         id: documentId,
-        technician: tech,
+        technicianIds: techIds,
         company: comp,
         questionnaireType: question,
         dueDate: dueDateDatetime,
@@ -121,7 +116,7 @@ class AssignedTBR extends Equatable {
 
   Map<String, dynamic>? toMap() {
     if (company == null ||
-        technician == null ||
+        technicianIds == null ||
         questionnaireType == null ||
         dueDate == null ||
         clientMeetingDate == null ||
@@ -131,10 +126,10 @@ class AssignedTBR extends Equatable {
       return <String, dynamic>{
         'company_name': company!.name,
         'company_id': company!.id,
-        'technician_id': technician!.id,
-        'technician_firstName': technician!.firstName,
-        'technician_lastName': technician!.lastName,
-        'technician_email': technician!.email,
+        'technician_ids': technicianIds!,
+        // 'technician_firstName': technician!.firstName,
+        // 'technician_lastName': technician!.lastName,
+        // 'technician_email': technician!.email,
         'questionnaireType_id': questionnaireType!.id,
         'questionnaireType_name': questionnaireType!.name,
         'dueDate': dueDate,

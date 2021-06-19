@@ -79,7 +79,8 @@ class _IpaginatedTableState extends State<IpaginatedTable> {
                   label: Text(Strings.technicianStrings.technician),
                   onSort: (columnIndex, ascending) {
                     dtsSource.sort<String>(
-                        getField: (d) => d.technician!.firstName,
+                        getField: (d) =>
+                            "TODO", //TODO this needs to be the first name value of the tech.  d.technician!.firstName,
                         ascending: _sortAscending);
                     setState(() {
                       _sortColumnIndex = columnIndex;
@@ -135,7 +136,8 @@ class DTS extends DataTableSource {
     if (index < data!.length) {
       return DataRow(cells: [
         DataCell(Text('${data![index].company}')),
-        DataCell(Text('${data![index].technician}')),
+        DataCell(Text(
+            '${data![index].technicianIds}')), //TODO this needs to be the Technician after it's looked up from the id.
         DataCell(Text('${data![index].dueDate}')),
         DataCell(Text('${data![index].clientMeetingDate}')),
       ]);

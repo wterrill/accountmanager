@@ -21,6 +21,11 @@ import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';
 import 'package:accountmanager/services/firestore_database.dart';
 
+final selectListValueProvider =
+    StateProvider<List<bool>>((ref) => List.filled(100, false));
+
+final allStateProvider = StateProvider<bool>((ref) => false);
+
 class AssignTBR extends StatefulWidget {
   const AssignTBR({
     Key? key,
@@ -33,7 +38,8 @@ class AssignTBR extends StatefulWidget {
 }
 
 class _AssignTBRState extends State<AssignTBR> {
-  Technician? selectedTechnician;
+  // Technician? selectedTechnician;
+  List<String>? selectedTechnicianIds = [];
   Company? selectedCompany;
   QuestionnaireType? selectedQuestionnaireType;
   DateTime? evaluationDueDate;
@@ -47,7 +53,7 @@ class _AssignTBRState extends State<AssignTBR> {
   void initState() {
     super.initState();
     if (widget.data != null) {
-      selectedTechnician = widget.data!.technician;
+      selectedTechnicianIds = widget.data!.technicianIds;
       selectedCompany = widget.data!.company;
       selectedQuestionnaireType = widget.data!.questionnaireType;
       evaluationDueDate = widget.data!.dueDate;
@@ -62,7 +68,7 @@ class _AssignTBRState extends State<AssignTBR> {
 
   AssignedTBR createCurrentTBR(String? assignedBy) {
     return AssignedTBR(
-        technician: selectedTechnician,
+        technicianIds: selectedTechnicianIds,
         company: selectedCompany,
         questionnaireType: selectedQuestionnaireType,
         clientMeetingDate: clientMeetingDate,
@@ -177,7 +183,8 @@ class _AssignTBRState extends State<AssignTBR> {
                   SelectListWithAll(
                       database: database,
                       callback: (value) {
-                        selectedTechnician = value;
+                        print(value);
+                        selectedTechnicianIds = value;
                       }),
                   const SizedBox(height: 20),
 
