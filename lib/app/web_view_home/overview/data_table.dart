@@ -49,7 +49,7 @@ class CreateOverviewSelectDataTableWidget extends ConsumerWidget {
     final techniciansAsync = watch(asyncTechnicianStreamProvider!);
     final assignedTbrAsyncValue = watch(assignedTbrStreamProvider!);
     final questionsAsync = watch(questionStreamProvider!);
-    final AsyncValue<BusinessReasons> businessReasonsAsync =
+    final AsyncValue<List<BusinessReasons>> businessReasonsAsync =
         watch(businessReasonsStreamProvider);
 
     techniciansAsync.whenData((technicians) {
