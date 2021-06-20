@@ -1,3 +1,4 @@
+import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:universal_html/html.dart' as html;
 import 'package:universal_html/js.dart' as js;
 import 'package:accountmanager/models/tbr.dart';
@@ -11,14 +12,18 @@ class ExcelButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
+    final Map<String, List<String>>? businessReasons =
+        watch(latestBusinessReasonsProvider).state;
     return TextButton(
         onPressed: () {
-          createExcel(tbrInProgress);
+          createExcel(tbrInProgress, businessReasons);
         },
         child: const Text('Create Excel'));
   }
 
-  void createExcel(TBRinProgress completedTBR) {
+  void createExcel(
+      TBRinProgress completedTBR, Map<String, List<String>>? businessReasons) {
+    List<String?> nullValues = [];
     //Sheet1
     final Excel excel = Excel.createExcel();
 
@@ -37,8 +42,8 @@ class ExcelButton extends ConsumerWidget {
       'RECOMMENDATIONS',
       'COMPANY BENEFITS'
     ];
-    int headerRow = 2;
-    int columnOffset = 1;
+    const int headerRow = 2;
+    const int columnOffset = 1;
     Data cellPointer;
 
 //! TITLE - FULL TBR
@@ -113,7 +118,21 @@ class ExcelButton extends ConsumerWidget {
                 horizontalAlign: HorizontalAlign.Center);
             sheetObject.cell(CellIndex.indexByColumnRow(
                 columnIndex: 7, rowIndex: row + headerRow + 1));
+            print(completedTBR.allQuestions![row].projectType);
             cellPointer.value = completedTBR.allQuestions![row].projectType;
+            sheetObject.cell(CellIndex.indexByColumnRow(
+                columnIndex: 8, rowIndex: row + headerRow + 1));
+            String updatedName =
+                completedTBR.allQuestions![row].projectType!.toLowerCase();
+            updatedName = updatedName.replaceAll('/', '_');
+            print(updatedName);
+            print(businessReasons![updatedName]);
+            if (businessReasons[updatedName] == null) {
+              nullValues.add(completedTBR.allQuestions![row].projectType);
+              print(completedTBR.allQuestions![row].projectType);
+            }
+            cellPointer.value = businessReasons[updatedName];
+
             break;
           }
         case 'Y':
@@ -137,6 +156,8 @@ class ExcelButton extends ConsumerWidget {
       }
       cellPointer.cellStyle = cellStyle;
     }
+
+    print(nullValues);
 
 //! SCORECARD
 //! tally data
