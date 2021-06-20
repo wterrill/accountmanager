@@ -24,6 +24,7 @@ class ExcelButton extends ConsumerWidget {
   void createExcel(
       TBRinProgress completedTBR, Map<String, List<String>>? businessReasons) {
     List<String?> nullValues = [];
+    List<String> uniqueSections = [];
     //Sheet1
     final Excel excel = Excel.createExcel();
 
@@ -95,6 +96,9 @@ class ExcelButton extends ConsumerWidget {
 
 // fill in data
       temp.add(completedTBR.allQuestions![row].section);
+      if (!uniqueSections.contains(completedTBR.allQuestions![row].section)) {
+        uniqueSections.add(completedTBR.allQuestions![row].section!);
+      }
       temp.add(completedTBR.allQuestions![row].category);
       temp.add(completedTBR.allQuestions![row].questionName);
       temp.add(completedTBR.allQuestions![row].questionPriority);
@@ -112,16 +116,15 @@ class ExcelButton extends ConsumerWidget {
       switch (cellPointer.value as String?) {
         case 'N':
           {
-            cellStyle = CellStyle(
-                backgroundColorHex: '#FF0000',
-                fontColorHex: '#FFFFFF',
-                horizontalAlign: HorizontalAlign.Center);
-            sheetObject.cell(CellIndex.indexByColumnRow(
-                columnIndex: 7, rowIndex: row + headerRow + 1));
-            print(completedTBR.allQuestions![row].projectType);
+// Opportunities
+            cellPointer = sheetObject.cell(CellIndex.indexByColumnRow(
+                columnIndex: 9, rowIndex: row + headerRow + 1));
             cellPointer.value = completedTBR.allQuestions![row].projectType;
-            sheetObject.cell(CellIndex.indexByColumnRow(
-                columnIndex: 8, rowIndex: row + headerRow + 1));
+
+//Recommendations
+            cellPointer = sheetObject.cell(CellIndex.indexByColumnRow(
+                columnIndex: 10, rowIndex: row + headerRow + 1));
+
             String updatedName =
                 completedTBR.allQuestions![row].projectType!.toLowerCase();
             updatedName = updatedName.replaceAll('/', '_');
@@ -131,7 +134,13 @@ class ExcelButton extends ConsumerWidget {
               nullValues.add(completedTBR.allQuestions![row].projectType);
               print(completedTBR.allQuestions![row].projectType);
             }
-            cellPointer.value = businessReasons[updatedName];
+            cellPointer.value = arrayToString(businessReasons[updatedName]);
+
+            // styling for N
+            cellStyle = CellStyle(
+                backgroundColorHex: '#FF0000',
+                fontColorHex: '#FFFFFF',
+                horizontalAlign: HorizontalAlign.Center);
 
             break;
           }
@@ -154,10 +163,168 @@ class ExcelButton extends ConsumerWidget {
         case 'SUCCESS':
           cellStyle = CellStyle(backgroundColorHex: '#AAAAAA');
       }
+      cellPointer = sheetObject.cell(CellIndex.indexByColumnRow(
+          columnIndex: 6, rowIndex: row + headerRow + 1));
       cellPointer.cellStyle = cellStyle;
     }
-
     print(nullValues);
+
+    //! ////////////////////////////////////////////////////////////////
+    //! other tabs
+    for (int i = 0; i < uniqueSections.length; i++) {
+      int row = -1;
+      Sheet sheetObject = excel[uniqueSections[i]];
+      // Make Header Row
+      List<String> headerList = [
+        '',
+        'SECTION',
+        'CATEGORY',
+        'NAME',
+        'PRIORITY',
+        'QUESTION',
+        'SUCCESS',
+        'ADMIN NOTES',
+        'TAM NOTES',
+        'RECOMMENDATIONS',
+        'COMPANY BENEFITS'
+      ];
+      // const int headerRow = 2;
+      // const int columnOffset = 1;
+      // Data cellPointer;
+
+//! TITLE - OTHER TABS
+      // print title
+      sheetObject
+          .insertRowIterables(<String>['', '', 'TBR: ${uniqueSections[i]}'], 1);
+      // styling for header
+      cellPointer = sheetObject.cell(
+          CellIndex.indexByColumnRow(columnIndex: 2, rowIndex: headerRow - 1));
+      cellPointer.cellStyle = CellStyle(
+          // backgroundColorHex: '#002244',
+          underline: Underline.Double,
+          fontColorHex: '#000000',
+          fontSize: 20);
+
+//! HEADERS - OTHER TABS
+      // print headers
+      sheetObject.insertRowIterables(headerList, headerRow);
+
+      // header style
+      for (var i = 1; i < headerList.length + 1; i++) {
+        final Data cell = sheetObject.cell(
+            CellIndex.indexByColumnRow(columnIndex: i, rowIndex: headerRow));
+        cell.cellStyle = CellStyle(
+            backgroundColorHex: '#002244',
+            underline: Underline.Double,
+            fontColorHex: '#FFFFFF');
+      }
+
+//! DATA - OTHER TABS
+      for (var rowOverall = 0;
+          rowOverall < completedTBR.allQuestions!.length;
+          rowOverall++) {
+        if (uniqueSections[i] ==
+            completedTBR.allQuestions![rowOverall].section) {
+          row++;
+          // const int offset = 3;
+          // final int row = rowIndex + offset;
+          final List<String?> temp = [];
+          final String? id = tbrInProgress.allQuestions![rowOverall].id;
+          // Write one single row, starting with the blank columns
+          for (int i = 0; i < columnOffset; i++) {
+            temp.add('');
+          }
+
+          // grey section column
+
+          cellPointer = sheetObject.cell(CellIndex.indexByColumnRow(
+              columnIndex: columnOffset, rowIndex: row + headerRow + 1));
+          cellPointer.cellStyle = CellStyle(backgroundColorHex: '#D8D8D8');
+// lighter grey category column
+          cellPointer = sheetObject.cell(CellIndex.indexByColumnRow(
+              columnIndex: columnOffset + 1, rowIndex: row + headerRow + 1));
+          cellPointer.cellStyle = CellStyle(backgroundColorHex: '#F2F2F2');
+
+// fill in data
+          temp.add(completedTBR.allQuestions![rowOverall].section);
+          // if (!uniqueSections
+          //     .contains(completedTBR.allQuestions![row].section)) {
+          //   uniqueSections.add(completedTBR.allQuestions![row].section);
+          // }
+          temp.add(completedTBR.allQuestions![rowOverall].category);
+          temp.add(completedTBR.allQuestions![rowOverall].questionName);
+          temp.add(completedTBR.allQuestions![rowOverall].questionPriority);
+          temp.add(completedTBR.allQuestions![rowOverall].questionText);
+          temp.add(getAlignment(completedTBR.answers![id]!,
+              completedTBR.allQuestions![rowOverall].goodBadAnswer));
+          temp.add(completedTBR.adminComment![id]);
+          temp.add(completedTBR.tamNotes![id]);
+
+          sheetObject.insertRowIterables(temp, row + headerRow + 1);
+          cellPointer = sheetObject.cell(CellIndex.indexByColumnRow(
+              columnIndex: 6, rowIndex: row + headerRow + 1));
+          //! Styling for SUCCESS COL
+          CellStyle cellStyle = CellStyle(backgroundColorHex: '#FFFFFF');
+          switch (cellPointer.value as String?) {
+            case 'N':
+              {
+// Opportunities
+                cellPointer = sheetObject.cell(CellIndex.indexByColumnRow(
+                    columnIndex: 9, rowIndex: row + headerRow + 1));
+                cellPointer.value =
+                    completedTBR.allQuestions![rowOverall].projectType;
+
+//Recommendations
+                cellPointer = sheetObject.cell(CellIndex.indexByColumnRow(
+                    columnIndex: 10, rowIndex: row + headerRow + 1));
+
+                String updatedName = completedTBR
+                    .allQuestions![rowOverall].projectType!
+                    .toLowerCase();
+                updatedName = updatedName.replaceAll('/', '_');
+                print(updatedName);
+                print(businessReasons![updatedName]);
+                if (businessReasons[updatedName] == null) {
+                  nullValues
+                      .add(completedTBR.allQuestions![rowOverall].projectType);
+                  print(completedTBR.allQuestions![rowOverall].projectType);
+                }
+                cellPointer.value = arrayToString(businessReasons[updatedName]);
+
+                // styling for N
+                cellStyle = CellStyle(
+                    backgroundColorHex: '#FF0000',
+                    fontColorHex: '#FFFFFF',
+                    horizontalAlign: HorizontalAlign.Center);
+
+                break;
+              }
+            case 'Y':
+              {
+                cellStyle = CellStyle(
+                    backgroundColorHex: '#34A853',
+                    fontColorHex: '#FFFFFF',
+                    horizontalAlign: HorizontalAlign.Center);
+                break;
+              }
+            case 'N/A':
+              {
+                cellStyle = CellStyle(
+                    backgroundColorHex: '#555555',
+                    fontColorHex: '#FFFFFF',
+                    horizontalAlign: HorizontalAlign.Center);
+                break;
+              }
+            case 'SUCCESS':
+              cellStyle = CellStyle(backgroundColorHex: '#AAAAAA');
+          }
+          cellPointer = sheetObject.cell(CellIndex.indexByColumnRow(
+              columnIndex: 6, rowIndex: row + headerRow + 1));
+          cellPointer.cellStyle = cellStyle;
+        }
+      }
+      print(nullValues);
+    }
 
 //! SCORECARD
 //! tally data
@@ -337,4 +504,12 @@ String getAlignment(List<bool> answerArray, String? expected) {
   } else {
     return 'Y';
   }
+}
+
+String arrayToString(List<String>? array) {
+  String finalString = '';
+  for (int i = 0; i < array!.length; i++) {
+    finalString = finalString + array[i] + '\n';
+  }
+  return finalString;
 }
