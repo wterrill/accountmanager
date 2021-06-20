@@ -1,4 +1,5 @@
 import 'package:accountmanager/app/top_level_providers.dart';
+import 'package:accountmanager/models/question.dart';
 import 'package:universal_html/html.dart' as html;
 import 'package:universal_html/js.dart' as js;
 import 'package:accountmanager/models/tbr.dart';
@@ -25,6 +26,7 @@ class ExcelButton extends ConsumerWidget {
       TBRinProgress completedTBR, Map<String, List<String>>? businessReasons) {
     List<String?> nullValues = [];
     List<String> uniqueSections = [];
+    List<Question> failedQuestions = [];
     //Sheet1
     final Excel excel = Excel.createExcel();
 
@@ -142,6 +144,8 @@ class ExcelButton extends ConsumerWidget {
                 fontColorHex: '#FFFFFF',
                 horizontalAlign: HorizontalAlign.Center);
 
+// Save the question to use it later on
+            failedQuestions.add(completedTBR.allQuestions![row]);
             break;
           }
         case 'Y':
@@ -325,6 +329,152 @@ class ExcelButton extends ConsumerWidget {
       }
       print(nullValues);
     }
+
+    //! ////////////////////////////////////////////////////////////////
+
+    sheetObject = excel['failed'];
+    // // Make Header Row
+    // List<String> headerList = [
+    //   '',
+    //   'SECTION',
+    //   'CATEGORY',
+    //   'NAME',
+    //   'PRIORITY',
+    //   'QUESTION',
+    //   'SUCCESS',
+    //   'ADMIN NOTES',
+    //   'TAM NOTES',
+    //   'RECOMMENDATIONS',
+    //   'COMPANY BENEFITS'
+    // ];
+    // // const int headerRow = 2;
+    // // const int columnOffset = 1;
+    // // Data cellPointer;
+
+//! TITLE - FAILED TAB
+    // print title
+    sheetObject.insertRowIterables(<String>['', '', 'TBR: Failed'], 1);
+    // styling for header
+    cellPointer = sheetObject.cell(
+        CellIndex.indexByColumnRow(columnIndex: 2, rowIndex: headerRow - 1));
+    cellPointer.cellStyle = CellStyle(
+        // backgroundColorHex: '#002244',
+        underline: Underline.Double,
+        fontColorHex: '#000000',
+        fontSize: 20);
+
+//! HEADERS - FAILED TAB
+    // print headers
+    sheetObject.insertRowIterables(headerList, headerRow);
+
+    // header style
+    for (var i = 1; i < headerList.length + 1; i++) {
+      final Data cell = sheetObject.cell(
+          CellIndex.indexByColumnRow(columnIndex: i, rowIndex: headerRow));
+      cell.cellStyle = CellStyle(
+          backgroundColorHex: '#002244',
+          underline: Underline.Double,
+          fontColorHex: '#FFFFFF');
+    }
+
+//! DATA - FAILED TAB
+    for (int row = 0; row < failedQuestions.length; row++) {
+      // const int offset = 3;
+      // final int row = rowIndex + offset;
+      final List<String?> temp = [];
+      final String? id = failedQuestions[row].id;
+      // Write one single row, starting with the blank columns
+      for (int i = 0; i < columnOffset; i++) {
+        temp.add('');
+      }
+
+      // grey section column
+
+      cellPointer = sheetObject.cell(CellIndex.indexByColumnRow(
+          columnIndex: columnOffset, rowIndex: row + headerRow + 1));
+      cellPointer.cellStyle = CellStyle(backgroundColorHex: '#D8D8D8');
+// lighter grey category column
+      cellPointer = sheetObject.cell(CellIndex.indexByColumnRow(
+          columnIndex: columnOffset + 1, rowIndex: row + headerRow + 1));
+      cellPointer.cellStyle = CellStyle(backgroundColorHex: '#F2F2F2');
+
+// fill in data
+      temp.add(failedQuestions[row].section);
+      // if (!uniqueSections
+      //     .contains(completedTBR.allQuestions![row].section)) {
+      //   uniqueSections.add(completedTBR.allQuestions![row].section);
+      // }
+      temp.add(failedQuestions[row].category);
+      temp.add(failedQuestions[row].questionName);
+      temp.add(failedQuestions[row].questionPriority);
+      temp.add(failedQuestions[row].questionText);
+      temp.add(getAlignment(
+          completedTBR.answers![id]!, failedQuestions[row].goodBadAnswer));
+      temp.add(completedTBR.adminComment![id]);
+      temp.add(completedTBR.tamNotes![id]);
+
+      sheetObject.insertRowIterables(temp, row + headerRow + 1);
+      cellPointer = sheetObject.cell(CellIndex.indexByColumnRow(
+          columnIndex: 6, rowIndex: row + headerRow + 1));
+      //! Styling for SUCCESS COL
+      CellStyle cellStyle = CellStyle(backgroundColorHex: '#FFFFFF');
+      switch (cellPointer.value as String?) {
+        case 'N':
+          {
+// Opportunities
+            cellPointer = sheetObject.cell(CellIndex.indexByColumnRow(
+                columnIndex: 9, rowIndex: row + headerRow + 1));
+            cellPointer.value = failedQuestions[row].projectType;
+
+//Recommendations
+            cellPointer = sheetObject.cell(CellIndex.indexByColumnRow(
+                columnIndex: 10, rowIndex: row + headerRow + 1));
+
+            String updatedName =
+                failedQuestions[row].projectType!.toLowerCase();
+            updatedName = updatedName.replaceAll('/', '_');
+            print(updatedName);
+            print(businessReasons![updatedName]);
+            if (businessReasons[updatedName] == null) {
+              nullValues.add(failedQuestions[row].projectType);
+              print(failedQuestions[row].projectType);
+            }
+            cellPointer.value = arrayToString(businessReasons[updatedName]);
+
+            // styling for N
+            cellStyle = CellStyle(
+                backgroundColorHex: '#FF0000',
+                fontColorHex: '#FFFFFF',
+                horizontalAlign: HorizontalAlign.Center);
+
+            break;
+          }
+        case 'Y':
+          {
+            cellStyle = CellStyle(
+                backgroundColorHex: '#34A853',
+                fontColorHex: '#FFFFFF',
+                horizontalAlign: HorizontalAlign.Center);
+            break;
+          }
+        case 'N/A':
+          {
+            cellStyle = CellStyle(
+                backgroundColorHex: '#555555',
+                fontColorHex: '#FFFFFF',
+                horizontalAlign: HorizontalAlign.Center);
+            break;
+          }
+        case 'SUCCESS':
+          cellStyle = CellStyle(backgroundColorHex: '#AAAAAA');
+      }
+      cellPointer = sheetObject.cell(CellIndex.indexByColumnRow(
+          columnIndex: 6, rowIndex: row + headerRow + 1));
+      cellPointer.cellStyle = cellStyle;
+    }
+    print(nullValues);
+
+//! //////////////////////////////////////////////////////////////////////////
 
 //! SCORECARD
 //! tally data
