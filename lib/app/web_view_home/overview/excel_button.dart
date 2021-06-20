@@ -1,4 +1,5 @@
 import 'package:accountmanager/app/top_level_providers.dart';
+import 'package:accountmanager/models/assigned_tbr.dart';
 import 'package:accountmanager/models/question.dart';
 import 'package:universal_html/html.dart' as html;
 import 'package:universal_html/js.dart' as js;
@@ -8,8 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ExcelButton extends ConsumerWidget {
-  const ExcelButton({Key? key, required this.tbrInProgress}) : super(key: key);
+  const ExcelButton(
+      {Key? key, required this.tbrInProgress, required this.assignedTBR})
+      : super(key: key);
   final TBRinProgress tbrInProgress;
+  final AssignedTBR assignedTBR;
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
@@ -17,13 +21,13 @@ class ExcelButton extends ConsumerWidget {
         watch(latestBusinessReasonsProvider).state;
     return TextButton(
         onPressed: () {
-          createExcel(tbrInProgress, businessReasons);
+          createExcel(tbrInProgress, businessReasons, assignedTBR);
         },
         child: const Text('Create Excel'));
   }
 
-  void createExcel(
-      TBRinProgress completedTBR, Map<String, List<String>>? businessReasons) {
+  void createExcel(TBRinProgress completedTBR,
+      Map<String, List<String>>? businessReasons, AssignedTBR assignedTBR) {
     List<String?> nullValues = [];
     List<String> uniqueSections = [];
     List<Question> failedQuestions = [];
@@ -51,7 +55,11 @@ class ExcelButton extends ConsumerWidget {
 
 //! TITLE - FULL TBR
     // print title
-    sheetObject.insertRowIterables(<String>['', '', 'TBR: Full Evaluation'], 1);
+    sheetObject.insertRowIterables(<String>[
+      '',
+      '',
+      '${assignedTBR.company.name} - ${assignedTBR.questionnaireType!.name}: Full Evaluation'
+    ], 1);
     // styling for header
     cellPointer = sheetObject.cell(
         CellIndex.indexByColumnRow(columnIndex: 2, rowIndex: headerRow - 1));
@@ -59,7 +67,7 @@ class ExcelButton extends ConsumerWidget {
         // backgroundColorHex: '#002244',
         underline: Underline.Double,
         fontColorHex: '#000000',
-        fontSize: 20);
+        fontSize: 16);
 
 //! HEADERS - FULL TBR
     // print headers
@@ -198,8 +206,11 @@ class ExcelButton extends ConsumerWidget {
 
 //! TITLE - OTHER TABS
       // print title
-      sheetObject
-          .insertRowIterables(<String>['', '', 'TBR: ${uniqueSections[i]}'], 1);
+      sheetObject.insertRowIterables(<String>[
+        '',
+        '',
+        '${assignedTBR.company.name} - ${assignedTBR.questionnaireType!.name}: ${uniqueSections[i]}'
+      ], 1);
       // styling for header
       cellPointer = sheetObject.cell(
           CellIndex.indexByColumnRow(columnIndex: 2, rowIndex: headerRow - 1));
@@ -207,7 +218,7 @@ class ExcelButton extends ConsumerWidget {
           // backgroundColorHex: '#002244',
           underline: Underline.Double,
           fontColorHex: '#000000',
-          fontSize: 20);
+          fontSize: 16);
 
 //! HEADERS - OTHER TABS
       // print headers
@@ -331,29 +342,17 @@ class ExcelButton extends ConsumerWidget {
     }
 
     //! ////////////////////////////////////////////////////////////////
+    //! Failed Tab
 
-    sheetObject = excel['failed'];
-    // // Make Header Row
-    // List<String> headerList = [
-    //   '',
-    //   'SECTION',
-    //   'CATEGORY',
-    //   'NAME',
-    //   'PRIORITY',
-    //   'QUESTION',
-    //   'SUCCESS',
-    //   'ADMIN NOTES',
-    //   'TAM NOTES',
-    //   'RECOMMENDATIONS',
-    //   'COMPANY BENEFITS'
-    // ];
-    // // const int headerRow = 2;
-    // // const int columnOffset = 1;
-    // // Data cellPointer;
+    sheetObject = excel['Failed'];
 
 //! TITLE - FAILED TAB
     // print title
-    sheetObject.insertRowIterables(<String>['', '', 'TBR: Failed'], 1);
+    sheetObject.insertRowIterables(<String>[
+      '',
+      '',
+      '${assignedTBR.company.name} - ${assignedTBR.questionnaireType!.name}: Failed'
+    ], 1);
     // styling for header
     cellPointer = sheetObject.cell(
         CellIndex.indexByColumnRow(columnIndex: 2, rowIndex: headerRow - 1));
@@ -361,7 +360,7 @@ class ExcelButton extends ConsumerWidget {
         // backgroundColorHex: '#002244',
         underline: Underline.Double,
         fontColorHex: '#000000',
-        fontSize: 20);
+        fontSize: 16);
 
 //! HEADERS - FAILED TAB
     // print headers
@@ -441,7 +440,7 @@ class ExcelButton extends ConsumerWidget {
             }
             cellPointer.value = arrayToString(businessReasons[updatedName]);
 
-            // styling for N
+            // styling for NO
             cellStyle = CellStyle(
                 backgroundColorHex: '#FF0000',
                 fontColorHex: '#FFFFFF',
@@ -498,28 +497,79 @@ class ExcelButton extends ConsumerWidget {
       }
     }
 
-//! Header
-    headerList = [
-      'Number of Yes',
-      'Number of No',
-      'Number of N/A',
-      'Total answers'
-    ];
+    //! TITLE - SCORECARD
+    // print title
+    sheetObject.insertRowIterables(<String>[
+      '',
+      '',
+      '${assignedTBR.company.name} - ${assignedTBR.questionnaireType!.name}: Scorecard'
+    ], headerRow - 1);
+    // styling for header
+    cellPointer = sheetObject.cell(
+        CellIndex.indexByColumnRow(columnIndex: 2, rowIndex: headerRow - 1));
+    cellPointer.cellStyle = CellStyle(
+        // backgroundColorHex: '#002244',
+        underline: Underline.Double,
+        fontColorHex: '#000000',
+        fontSize: 16);
 
+//! HEADERS - SCORECARD
+    headerList = [
+      '',
+      '',
+      'PASSED',
+      'FAILED',
+      'NON-APPLICABLE',
+      'TOTAL ANSWERS'
+    ];
     // print headers
-    sheetObject.insertRowIterables(headerList, 0);
+    sheetObject.insertRowIterables(headerList, headerRow);
+
+    // header style
+
+    for (var i = 1; i < headerList.length + 1; i++) {
+      cellPointer = sheetObject.cell(CellIndex.indexByColumnRow(
+          columnIndex: i + columnOffset, rowIndex: headerRow));
+      cellPointer.cellStyle = CellStyle(
+          backgroundColorHex: '#002244',
+          underline: Underline.Double,
+          fontColorHex: '#FFFFFF');
+    }
+
+//! Header
+
     List<String> temp = [];
+    temp.add("");
+    temp.add('Total');
     temp.add(yes.toString());
     temp.add(no.toString());
     temp.add(na.toString());
     temp.add((yes + no + na).toString());
-    sheetObject.insertRowIterables(temp, 1);
+    sheetObject.insertRowIterables(temp, headerRow + 1);
     temp = [];
     final int total = yes + no + na;
+    temp.add('');
+    temp.add('Percentage');
     temp.add('${(yes * 100 / total).toStringAsFixed(2)}%');
     temp.add('${(no * 100 / total).toStringAsFixed(2)}%');
     temp.add('${(na * 100 / total).toStringAsFixed(2)}%');
-    sheetObject.insertRowIterables(temp, 2);
+    temp.add('100%');
+    sheetObject.insertRowIterables(temp, headerRow + 2);
+
+// Color 'Total' grey
+    cellPointer = sheetObject.cell(CellIndex.indexByColumnRow(
+        columnIndex: 0 + columnOffset, rowIndex: headerRow + 1));
+    cellPointer.cellStyle = CellStyle(
+        backgroundColorHex: '#D8D8D8',
+        underline: Underline.Double,
+        fontColorHex: '#000000');
+// Color 'Percentage' grey
+    cellPointer = sheetObject.cell(CellIndex.indexByColumnRow(
+        columnIndex: 0 + columnOffset, rowIndex: headerRow + 2));
+    cellPointer.cellStyle = CellStyle(
+        backgroundColorHex: '#D8D8D8',
+        underline: Underline.Double,
+        fontColorHex: '#000000');
 
     // get rid of default sheet
     excel.delete('Sheet1');
@@ -528,10 +578,38 @@ class ExcelButton extends ConsumerWidget {
     print(onValue);
     js.context.callMethod('webSaveAs', <dynamic>[
       html.Blob(<List<int>?>[onValue]),
-      'test.xlsx'
+      '${assignedTBR.company.name} - ${assignedTBR.questionnaireType!.name} ${DateTime.now()}.xlsx'
     ]);
+  }
+}
 
-    //     final Data cell = sheetObject
+String getAlignment(List<bool> answerArray, String? expected) {
+  print(answerArray);
+  print(expected);
+  if (!answerArray.contains(true)) {
+    return '';
+  }
+  if (answerArray[1] == true && expected == 'N = Bad') {
+    return 'N';
+  } else if (answerArray[2] == true) {
+    return 'N/A';
+  } else {
+    return 'Y';
+  }
+}
+
+String arrayToString(List<String>? array) {
+  String finalString = '';
+  for (int i = 0; i < array!.length; i++) {
+    finalString = finalString + array[i] + '\n';
+  }
+  return finalString;
+}
+
+
+
+
+//     final Data cell = sheetObject
     //     .cell(CellIndex.indexByColumnRow(columnIndex: col, rowIndex: 0));
     // cell.value = 'beer';
 
@@ -638,28 +716,3 @@ class ExcelButton extends ConsumerWidget {
     //     ..createSync(recursive: true)
     //     ..writeAsBytesSync(onValue);
     // });
-  }
-}
-
-String getAlignment(List<bool> answerArray, String? expected) {
-  print(answerArray);
-  print(expected);
-  if (!answerArray.contains(true)) {
-    return '';
-  }
-  if (answerArray[1] == true && expected == 'N = Bad') {
-    return 'N';
-  } else if (answerArray[2] == true) {
-    return 'N/A';
-  } else {
-    return 'Y';
-  }
-}
-
-String arrayToString(List<String>? array) {
-  String finalString = '';
-  for (int i = 0; i < array!.length; i++) {
-    finalString = finalString + array[i] + '\n';
-  }
-  return finalString;
-}

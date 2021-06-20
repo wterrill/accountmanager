@@ -80,6 +80,7 @@ class _OverviewPaginatedTableState extends State<OverviewPaginatedTable> {
             children: [
               ExcelButton(
                 tbrInProgress: dtsSource.getData(),
+                assignedTBR: context.read(assignedTbrProvider).state!,
               ),
               const SizedBox(
                 width: 30,
