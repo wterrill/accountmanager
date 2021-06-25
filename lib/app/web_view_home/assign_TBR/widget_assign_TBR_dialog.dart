@@ -42,8 +42,8 @@ class _AssignTBRState extends State<AssignTBR> {
   List<String>? selectedTechnicianIds = [];
   Company? selectedCompany;
   QuestionnaireType? selectedQuestionnaireType;
-  DateTime? evaluationDueDate;
-  DateTime? clientMeetingDate;
+  DateTime? selectedDueDate;
+  DateTime? selectedClientMeetingDate;
   String? id;
   String? assignedBy;
   bool editAssignTBR = false;
@@ -56,8 +56,8 @@ class _AssignTBRState extends State<AssignTBR> {
       selectedTechnicianIds = widget.data!.technicianIds;
       selectedCompany = widget.data!.company;
       selectedQuestionnaireType = widget.data!.questionnaireType;
-      evaluationDueDate = widget.data!.dueDate;
-      clientMeetingDate = widget.data!.clientMeetingDate;
+      selectedDueDate = widget.data!.dueDate;
+      selectedClientMeetingDate = widget.data!.clientMeetingDate;
       id = widget.data!.id;
       status = widget.data!.status;
       assignedBy = widget.data!.assignedBy;
@@ -71,8 +71,8 @@ class _AssignTBRState extends State<AssignTBR> {
         technicianIds: selectedTechnicianIds!,
         company: selectedCompany!,
         questionnaireType: selectedQuestionnaireType!,
-        clientMeetingDate: clientMeetingDate!,
-        dueDate: evaluationDueDate!,
+        clientMeetingDate: selectedClientMeetingDate!,
+        dueDate: selectedDueDate!,
         status: status ??= Status(statusIndex: 0),
         assignedBy: assignedBy!,
         id: id ??= documentIdFromCurrentDate());
@@ -125,14 +125,14 @@ class _AssignTBRState extends State<AssignTBR> {
                         width: 150,
                         height: 50,
                         child: DateTimePicker(
-                          initialValue: evaluationDueDate.toString(),
+                          initialValue: selectedDueDate.toString(),
                           firstDate: DateTime(2000),
                           lastDate: DateTime(2100),
                           dateLabelText: 'Select a Date',
                           onChanged: (val) {
                             print(val);
                             setState(() {
-                              evaluationDueDate = DateTime.parse(val);
+                              selectedDueDate = DateTime.parse(val);
                             });
                           },
                           validator: (val) {
@@ -142,7 +142,7 @@ class _AssignTBRState extends State<AssignTBR> {
                           onSaved: (val) {
                             print(val);
                             setState(() {
-                              evaluationDueDate = DateTime.parse(val!);
+                              selectedDueDate = DateTime.parse(val!);
                             });
                           },
                         ),
@@ -154,14 +154,14 @@ class _AssignTBRState extends State<AssignTBR> {
                         width: 150,
                         height: 50,
                         child: DateTimePicker(
-                          initialValue: clientMeetingDate.toString(),
+                          initialValue: selectedClientMeetingDate.toString(),
                           firstDate: DateTime(2000),
                           lastDate: DateTime(2100),
                           dateLabelText: 'Select a Date',
                           onChanged: (val) {
                             print(val);
                             setState(() {
-                              clientMeetingDate = DateTime.parse(val);
+                              selectedClientMeetingDate = DateTime.parse(val);
                             });
                           },
                           validator: (val) {
@@ -171,7 +171,7 @@ class _AssignTBRState extends State<AssignTBR> {
                           onSaved: (val) {
                             print(val);
                             setState(() {
-                              clientMeetingDate = DateTime.parse(val!);
+                              selectedClientMeetingDate = DateTime.parse(val!);
                             });
                           },
                         ),
@@ -237,7 +237,14 @@ class _AssignTBRState extends State<AssignTBR> {
                             while (valid) {
                               bool? validated;
                               validated = await _validateAndSaveForm(
-                                  createCurrentTBR(assignedBy));
+                                selectedTechnicianIds: selectedTechnicianIds,
+                                selectedCompany: selectedCompany,
+                                selectedQuestionnaireType:
+                                    selectedQuestionnaireType,
+                                selectedDueDate: selectedDueDate,
+                                selectedClientMeetingDate:
+                                    selectedClientMeetingDate,
+                              );
                               if (validated == false) {
                                 valid = false;
                                 break;
@@ -246,6 +253,7 @@ class _AssignTBRState extends State<AssignTBR> {
                               if (validated! && widget.data == null) {
                                 answer = true;
                               } else if (answer == null) {
+                                createCurrentTBR(assignedBy);
                                 answer = await showAlertDialog(
                                   context: context,
                                   title: 'Warning...',
@@ -276,20 +284,31 @@ class _AssignTBRState extends State<AssignTBR> {
                                 unawaited(
                                     _sendAssignedTbr(assignedTbr: assignedTbr));
                                 valid = false;
+                                Navigator.of(context).pop();
+                                assignedTbrForEmail = assignedTbr;
+                                final Widget sendEmailAssignDialogVar =
+                                    SendEmailAssignDialog(
+                                        assignedTbr: assignedTbrForEmail);
+                                await showWidgetDialog(
+                                    context: context,
+                                    cancelActionText: '',
+                                    defaultActionText: '',
+                                    title: 'Sent Email',
+                                    widget: sendEmailAssignDialogVar);
                               }
-                              assignedTbrForEmail = assignedTbr;
                             }
                             print('valid = $valid');
 
-                            Navigator.of(context).pop();
-
-                            await showWidgetDialog(
-                                context: context,
-                                cancelActionText: '',
-                                defaultActionText: '',
-                                title: 'Sent Email',
-                                widget: SendEmailAssignDialog(
-                                    assignedTbr: assignedTbrForEmail));
+                            if (valid) {
+                              Navigator.of(context).pop();
+                              await showWidgetDialog(
+                                  context: context,
+                                  cancelActionText: '',
+                                  defaultActionText: '',
+                                  title: 'Sent Email',
+                                  widget: SendEmailAssignDialog(
+                                      assignedTbr: assignedTbrForEmail));
+                            }
                           },
                         ),
                         const SizedBox(
@@ -331,45 +350,105 @@ class _AssignTBRState extends State<AssignTBR> {
     }
   }
 
-  Future<bool?> _validateAndSaveForm(AssignedTBR assignedTbr) async {
-    if (assignedTbr.toMap() == null) {
-      return false;
-    }
+  Future<bool?> _validateAndSaveForm({
+    List<String>? selectedTechnicianIds,
+    Company? selectedCompany,
+    QuestionnaireType? selectedQuestionnaireType,
+    DateTime? selectedClientMeetingDate,
+    DateTime? selectedDueDate,
+  }) async {
+    // if (assignedTbr.toMap() == null) {
+    //   return false;
+    // }
     bool? validated = true;
     while (validated == true) {
-      if (assignedTbr.dueDate.isBefore(DateTime.now())) {
+      //! Dates (due date and meeting date)
+      // Check if due date is in the past
+      if (selectedDueDate != null && selectedClientMeetingDate != null) {
+        if (selectedDueDate.isBefore(DateTime.now())) {
+          validated = await showAlertDialog(
+              context: context,
+              title: 'Are you sure?',
+              content:
+                  'The due date is in the past, are you sure you want to proceed?',
+              defaultActionText: 'Yes',
+              cancelActionText: 'No');
+          if (validated == false) break;
+        }
+
+        // Check if meeting date is in the past
+        if (selectedClientMeetingDate.isBefore(DateTime.now())) {
+          validated = await showAlertDialog(
+              context: context,
+              title: 'Are you sure?',
+              content:
+                  'The client meeting date is in the past, are you sure you want to proceed?',
+              defaultActionText: 'Yes',
+              cancelActionText: 'No');
+          if (validated == false) break;
+        }
+
+        // Verify that meeting date is after the due date.
+        if (selectedDueDate.isAfter(selectedClientMeetingDate)) {
+          validated = await showAlertDialog(
+              context: context,
+              title: 'Are you sure?',
+              content:
+                  'The due date is before the client meeting date, are you sure you want to proceed?',
+              defaultActionText: 'Yes',
+              cancelActionText: 'No');
+          if (validated == false) break;
+        }
+      } else {
         validated = await showAlertDialog(
-            context: context,
-            title: 'Are you sure?',
-            content:
-                'The due date is in the past, are you sure you want to proceed?',
-            defaultActionText: 'Yes',
-            cancelActionText: 'No');
+          context: context,
+          title: 'Missing Date Error',
+          content:
+              'Please ensure that both the due date and the client meeting date are selected for the evaluation',
+          defaultActionText: 'OK',
+          // cancelActionText: 'Cancel'
+        );
         if (validated == false) break;
       }
 
-      if (assignedTbr.clientMeetingDate.isBefore(DateTime.now())) {
+      // Verify company is chosen
+      if (selectedCompany == null) {
         validated = await showAlertDialog(
-            context: context,
-            title: 'Are you sure?',
-            content:
-                'The client meeting date is in the past, are you sure you want to proceed?',
-            defaultActionText: 'Yes',
-            cancelActionText: 'No');
+          context: context,
+          title: 'Error: Missing Company',
+          content:
+              'Please ensure that a company has been assigned for this evaluation',
+          defaultActionText: 'OK',
+          // cancelActionText: 'Cancel'
+        );
         if (validated == false) break;
-        //Condition should not unconditionally evalute to 'true' or to 'false'. verify:
       }
 
-      if (assignedTbr.dueDate.isAfter(assignedTbr.clientMeetingDate)) {
+      if (selectedTechnicianIds!.isEmpty) {
         validated = await showAlertDialog(
-            context: context,
-            title: 'Are you sure?',
-            content:
-                'The due date is before the client meeting date, are you sure you want to proceed?',
-            defaultActionText: 'Yes',
-            cancelActionText: 'No');
+          context: context,
+          title: 'Error: Missing Technicians',
+          content:
+              'Please ensure that at least one technician has been assigned for this evaluations',
+          defaultActionText: 'OK',
+          // cancelActionText: 'Cancel'
+        );
         if (validated == false) break;
       }
+
+      // Verify that the evaluation type has been selected
+      if (selectedQuestionnaireType == null) {
+        validated = await showAlertDialog(
+          context: context,
+          title: 'Error: Missing Evaluation-Type Error',
+          content:
+              'Please ensure either TBR or Pre-Sale has been selected for this evaluations',
+          defaultActionText: 'OK',
+          // cancelActionText: 'Cancel'
+        );
+        if (validated == false) break;
+      }
+
       if (validated == true) break;
     }
     return validated;

@@ -25,8 +25,12 @@ Future<bool?> showAlertDialog({
           FlatButtonX(
             childx: Text(defaultActionText),
             onPressedx: () {
+              bool result = true;
+              if (defaultActionText == 'OK') {
+                result = false;
+              }
               print('here_and_there');
-              Navigator.of(context).pop(true);
+              Navigator.of(context).pop(result);
             },
           ),
         ],
