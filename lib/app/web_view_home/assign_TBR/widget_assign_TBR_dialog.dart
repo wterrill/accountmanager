@@ -402,7 +402,7 @@ class _AssignTBRState extends State<AssignTBR> {
       } else {
         validated = await showAlertDialog(
           context: context,
-          title: 'Missing Date Error',
+          title: 'Cannot create Evaluation: Missing Date',
           content:
               'Please ensure that both the due date and the client meeting date are selected for the evaluation',
           defaultActionText: 'OK',
@@ -415,7 +415,7 @@ class _AssignTBRState extends State<AssignTBR> {
       if (selectedCompany == null) {
         validated = await showAlertDialog(
           context: context,
-          title: 'Error: Missing Company',
+          title: 'Cannot create Evaluation: Missing Company',
           content:
               'Please ensure that a company has been assigned for this evaluation',
           defaultActionText: 'OK',
@@ -427,7 +427,7 @@ class _AssignTBRState extends State<AssignTBR> {
       if (selectedTechnicianIds!.isEmpty) {
         validated = await showAlertDialog(
           context: context,
-          title: 'Error: Missing Technicians',
+          title: 'Cannot create Evaluation: Missing Technicians',
           content:
               'Please ensure that at least one technician has been assigned for this evaluations',
           defaultActionText: 'OK',
@@ -440,7 +440,7 @@ class _AssignTBRState extends State<AssignTBR> {
       if (selectedQuestionnaireType == null) {
         validated = await showAlertDialog(
           context: context,
-          title: 'Error: Missing Evaluation-Type Error',
+          title: 'Cannot create Evaluation: Missing Evaluation-Type',
           content:
               'Please ensure either TBR or Pre-Sale has been selected for this evaluations',
           defaultActionText: 'OK',
