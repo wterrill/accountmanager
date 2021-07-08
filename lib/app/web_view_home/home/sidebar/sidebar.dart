@@ -72,7 +72,7 @@ class Sidebar extends ConsumerWidget {
             faIcon: FontAwesomeIcons.home,
             onPressedx: () {
               context.read(widgetProvider).state =
-                  const Expanded(child: OverviewWebPage(mobile: false));
+                  Expanded(child: OverviewWebPage(mobile: false));
             },
           ),
           // SidebarButton(

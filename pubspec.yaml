@@ -28,13 +28,17 @@ dependencies:
   firebase_core: ^1.1.0
   flutter:
     sdk: flutter
+  flutter_hooks: ^0.17.0
   flutter_svg: ^0.22.0
   font_awesome_flutter: ^9.0.0
   google_sign_in: ^5.0.2
+  hive: ^2.0.4
+  hive_flutter: ^1.1.0
   hooks_riverpod: ^0.14.0+4
   intl: ^0.17.0
   js: ^0.6.3
   logger: ^1.0.0
+  path_provider: ^2.0.2
   provider: ^5.0.0
   rive: ^0.7.9
   rxdart: ^0.26.0
@@ -48,6 +52,8 @@ dependencies:
   # universal_html: 1.2.4
 
 dev_dependencies:
+  hive_generator: ^1.1.0
+  build_runner: ^2.0.5
   # flutter_driver:
   #   sdk: flutter
   flutter_test:

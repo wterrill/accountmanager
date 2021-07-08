@@ -5,7 +5,7 @@ import 'package:accountmanager/models/business_reasons.dart';
 import 'package:accountmanager/models/company.dart';
 import 'package:accountmanager/models/question.dart';
 import 'package:accountmanager/models/questionnaire_type.dart';
-import 'package:accountmanager/models/tbr.dart';
+import 'package:accountmanager/models/tbr_in_progress.dart';
 import 'package:accountmanager/models/technician.dart';
 import 'package:accountmanager/packages/firestore_service/firestore_service.dart';
 import 'package:accountmanager/services/firestore_path.dart';

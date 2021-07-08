@@ -1,7 +1,7 @@
 import 'package:accountmanager/app/web_view_home/overview/tbr_builder/send_email_finished_dialog.dart';
 import 'package:accountmanager/models/Status.dart';
 import 'package:accountmanager/models/assigned_tbr.dart';
-import 'package:accountmanager/models/tbr.dart';
+import 'package:accountmanager/models/tbr_in_progress.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/common_widgets/display_widget_dialog_with_error.dart';
 import 'package:accountmanager/packages/alert_dialogs/alert_dialogs.dart';

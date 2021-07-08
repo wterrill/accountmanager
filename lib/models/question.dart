@@ -2,30 +2,55 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
+import 'package:hive/hive.dart';
+part 'question.g.dart';
 
-@immutable
+// @immutable
+@HiveType(typeId: 2)
 class Question extends Equatable {
+  @HiveField(0)
   final String? benefitsBusinessValue;
+  @HiveField(1)
   final String? category;
+  @HiveField(2)
   final String? customerApprovedProject;
+  @HiveField(3)
   final String? estimatedLaborPrice;
+  @HiveField(4)
   final String? estimatedMRRIncrease;
+  @HiveField(5)
   final String? estimatedProductPrice;
+  @HiveField(6)
   final String? howTo;
+  @HiveField(7)
   final String? projectType;
+  @HiveField(8)
   final String? questionName;
+  @HiveField(9)
   final String? questionPriority;
+  @HiveField(10)
   final String? questionText;
+  @HiveField(11)
   final String? roadMap; //mm/yyyy
+  @HiveField(12)
   final String? section;
+  @HiveField(13)
   final String? sysAdminNotes;
+  @HiveField(14)
   final bool? sysAdminReviewAligned;
+  @HiveField(15)
   final String? goodBadAnswer;
+  @HiveField(16)
   final String? tamRecommendations;
+  @HiveField(17)
   final String? tamReview;
+  @HiveField(18)
   final String? totalProjectEstimate;
+  @HiveField(19)
   final String? type;
+  @HiveField(20)
   final String? whyAreWeAsking;
+  @HiveField(21)
   final String? id;
 
   const Question({

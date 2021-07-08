@@ -23,3 +23,6 @@ If pod install gives any error then try this
 pod install --repo-update 
 After everything is done run your project again
 flutter run
+
+
+flutter packages pub run build_runner build

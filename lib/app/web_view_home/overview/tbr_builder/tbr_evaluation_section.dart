@@ -1,11 +1,12 @@
 import 'package:accountmanager/app/web_view_home/overview/tbr_builder/super_tool_tip_widget.dart';
 import 'package:accountmanager/app/web_view_home/overview/tbr_builder/tbr_builder.dart';
 import 'package:accountmanager/models/question.dart';
-import 'package:accountmanager/models/tbr.dart';
+import 'package:accountmanager/models/tbr_in_progress.dart';
 import 'package:accountmanager/app/top_level_providers.dart';
 import 'package:accountmanager/common_widgets/custom_toggle_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:hive/hive.dart';
 
 class TbrEvaluationSection extends ConsumerWidget {
   TbrEvaluationSection({Key? key}) : super(key: key);
@@ -30,7 +31,7 @@ class TbrEvaluationSection extends ConsumerWidget {
         itemBuilder: (context, index) {
           final Question question = tbrFillPageData.filteredQuestions[index];
           // print('tbrInProgress.colorScheme: ${tbrInProgress.colorScheme}');
-          final Map<String, List<Color?>> colorScheme =
+          final Map<String, List<int?>> colorScheme =
               tbrInProgress!.colorScheme[question.id]!;
 
           // print('colorScheme: $colorScheme');
@@ -153,17 +154,25 @@ class TbrEvaluationSection extends ConsumerWidget {
                     },
                     borderRadius: BorderRadius.circular(30),
                     borderWidth: 2,
-                    borderColorList: colorScheme['borderColorList'],
+                    borderColorList: colorScheme['borderColorList']!
+                        .map((element) => Color(element!))
+                        .toList(),
                     selectedBorderColor: Colors.blue,
                     splashColor: Colors.blue,
                     // highlightColor: Colors.,
                     color: Colors.red,
-                    selectedColorList: colorScheme['selectedColorList'],
-                    fillColorList: colorScheme['fillColorList'],
+                    selectedColorList: colorScheme['selectedColorList']!
+                        .map((element) => Color(element!))
+                        .toList(),
+                    fillColorList: colorScheme['fillColorList']!
+                        .map((element) => Color(element!))
+                        .toList(),
                     renderBorder: true,
                     disabledColor: Colors.grey,
                     disabledBorderColor: Colors.grey,
-                    hoverColorList: colorScheme['hoverColorList'],
+                    hoverColorList: colorScheme['hoverColorList']!
+                        .map((element) => Color(element!))
+                        .toList(),
                   )
                 ],
               ),

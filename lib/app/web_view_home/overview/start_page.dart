@@ -1,10 +1,12 @@
 import 'package:accountmanager/app/web_view_home/assign_TBR/widget_assign_TBR_dialog.dart';
-import 'package:accountmanager/app/web_view_home/overview/data_table.dart';
+import 'package:accountmanager/app/web_view_home/overview/create_overview_select_data_table.dart';
+import 'package:accountmanager/app/web_view_home/overview/filter_row.dart';
 import 'package:accountmanager/common_utilities/buttonConverter.dart';
 import 'package:accountmanager/common_widgets/display_widget_dialog_with_error.dart';
 import 'package:accountmanager/constants/color_defs.dart';
 import 'package:accountmanager/constants/strings.dart';
 import 'package:accountmanager/constants/text_styles.dart';
+import 'package:accountmanager/models/Status.dart';
 import 'package:accountmanager/models/company.dart';
 import 'package:accountmanager/models/questionnaire_type.dart';
 import 'package:accountmanager/models/technician.dart';
@@ -15,29 +17,29 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 StateProvider<bool> showAllSwitchProvider =
     StateProvider<bool>((dynamic ref) => false);
 
-class OverviewWebPage extends StatefulWidget {
+StateProvider<String> companyFilterProvider =
+    StateProvider<String>((dynamic ref) => '');
+
+StateProvider<Status?> statusFilterProvider =
+    StateProvider<Status?>((dynamic ref) => null);
+
+StateProvider<String> technicianIDFilterProvider =
+    StateProvider<String>((dynamic ref) => '');
+
+class OverviewWebPage extends ConsumerWidget {
+  OverviewWebPage({Key? key, this.mobile = false}) : super(key: key);
   final bool mobile;
-
-  const OverviewWebPage({Key? key, required this.mobile}) : super(key: key);
-
-  @override
-  _OverviewWebPageState createState() => _OverviewWebPageState();
-}
-
-class _OverviewWebPageState extends State<OverviewWebPage> {
-  Technician? selectedTechnician;
-  Company? selectedCompany;
-  QuestionnaireType? selectedQuestionnaireType;
-  DateTime? startdateTBR;
+  late final Technician? selectedTechnician;
+  late final Company? selectedCompany;
+  late final Status? selectedStatus;
+  late final QuestionnaireType? selectedQuestionnaireType;
+  late final DateTime? startdateTBR;
 
   @override
-  void initState() {
-    super.initState();
-    
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ScopedReader watch) {
+    final String companyFilter = watch(companyFilterProvider).state;
+    final String technicianIDFilter = watch(technicianIDFilterProvider).state;
+    final Status? statusFilter = watch(statusFilterProvider).state;
     return Container(
       color: Colors.white,
       child: Padding(
@@ -66,7 +68,12 @@ class _OverviewWebPageState extends State<OverviewWebPage> {
               ],
             ),
           ),
-          const CreateOverviewSelectDataTableWidget(mobile: false),
+          FilterRow(),
+          CreateOverviewSelectDataTableWidget(
+              mobile: false,
+              filterCompanyText: companyFilter,
+              technicianIDFilter: technicianIDFilter,
+              statusFilter: statusFilter),
         ]),
       ),
     );
